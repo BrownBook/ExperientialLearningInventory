@@ -20,4 +20,5 @@ $settings = array('registrarEmail'              => null,
                   'generateContractEnabled'     => true,
                   'helpEmailAddress'            => null,
                   'studentEmailDomain'          => null
-            );
+                  'uncaughtExceptionEmail'      => null
+          );
