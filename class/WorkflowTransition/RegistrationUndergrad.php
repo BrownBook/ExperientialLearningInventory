@@ -5,8 +5,8 @@ use Intern\WorkflowTransition;
 use Intern\Internship;
 use Intern\Exception\MissingDataException;
 
-class UndergradRegistration extends WorkflowTransition {
-    const sourceState = 'DeanApprovedState';
+class RegistrationUndergrad extends WorkflowTransition {
+    const sourceState = 'CollegeApprovedState';
     const destState   = 'RegisteredState';
     const actionName  = 'Mark as Registered / Enrollment Complete';
 
@@ -14,6 +14,7 @@ class UndergradRegistration extends WorkflowTransition {
         return array('register');
     }
 
+    /*
     public function isApplicable(Internship $i)
     {
         if($i->isUndergraduate()){
@@ -22,7 +23,9 @@ class UndergradRegistration extends WorkflowTransition {
             return false;
         }
     }
+    */
 
+    /*
     public function allowed(Internship $i)
     {
         if($i->isDistanceEd()){
@@ -38,6 +41,7 @@ class UndergradRegistration extends WorkflowTransition {
         }
 
     }
+    */
 
     public function doNotification(Internship $i, $note = null)
     {

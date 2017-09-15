@@ -4,8 +4,8 @@ namespace Intern\WorkflowTransition;
 use Intern\WorkflowTransition;
 use Intern\Internship;
 
-class RegistrationIssueUgrad extends WorkflowTransition {
-    const sourceState = 'DeanApprovedState';
+class RegistrationIssue extends WorkflowTransition {
+    const sourceState = 'CollegeApprovedState';
     const destState   = 'RegistrationIssueState';
     const actionName  = 'Mark as Registration Issue';
 
@@ -15,6 +15,7 @@ class RegistrationIssueUgrad extends WorkflowTransition {
         return array('register');
     }
 
+/*
     public function allowed(Internship $i)
     {
         if($i->isDistanceEd()){
@@ -29,7 +30,9 @@ class RegistrationIssueUgrad extends WorkflowTransition {
 
         return false;
     }
+*/
 
+/*
     public function isApplicable(Internship $i)
     {
         if($i->isUndergraduate()){
@@ -38,6 +41,7 @@ class RegistrationIssueUgrad extends WorkflowTransition {
             return false;
         }
     }
+*/
 
     public function doNotification(Internship $i, $note = null)
     {
