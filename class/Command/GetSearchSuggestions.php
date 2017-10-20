@@ -4,6 +4,7 @@ namespace Intern\Command;
 
 use Intern\DataProvider\Student\StudentDataProviderFactory;
 use Intern\Term;
+use Intern\InternSettings;
 
 use Intern\Exception\StudentNotFoundException;
 use Intern\Exception\BannerPermissionException;
@@ -35,6 +36,8 @@ class GetSearchSuggestions {
             echo json_encode(array());
             exit;
         }
+
+        $this->settings = InternSettings::getInstance();
 
         // If search string is exactly 9 digits, it must be a student id
         // Do an exact lookup and see if we can find the requested student
@@ -207,7 +210,7 @@ class GetSearchSuggestions {
 
             $studentArray[] = array(
                                    'name' => $student->getLegalName(),
-                                   'email' => $student->getUsername() . '@appstate.edu',
+                                   'email' => $student->getUsername() . $this->settings->getEmailDomain(),
                                    'major' => $major,
                                    'studentId' => $student->getStudentId()
                                  );
