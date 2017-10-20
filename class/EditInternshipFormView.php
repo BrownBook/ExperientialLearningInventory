@@ -55,6 +55,7 @@ class EditInternshipFormView {
         $this->tpl = array();
 
         $this->tpl['INTERN_ID'] = $this->intern->getId();
+        $this->tpl['EMAIL_DOMAIN'] = $this->settings->getEmailDomain();
 
         $this->form = new \PHPWS_Form('internship');
         $this->formVals = array();
@@ -192,7 +193,7 @@ class EditInternshipFormView {
         $this->form->addCssClass('student_phone', 'form-control');
 
         $this->form->addText('student_email');
-        $this->form->setLabel('student_email', 'ASU Email');
+        $this->form->setLabel('student_email', 'Email');
         $this->form->addCssClass('student_email', 'form-control');
 
         /* Student Address */

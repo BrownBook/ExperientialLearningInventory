@@ -84,7 +84,7 @@
           <label class="col-lg-3 control-label" for="{STUDENT_EMAIL_ID}">{STUDENT_EMAIL_LABEL_TEXT}</label>
           <div class="col-lg-6">
             <div class="input-group">
-              {STUDENT_EMAIL}<span class="input-group-addon">@appstate.edu</span>
+              {STUDENT_EMAIL}<span class="input-group-addon">{EMAIL_DOMAIN}</span>
             </div>
           </div>
         </div>
