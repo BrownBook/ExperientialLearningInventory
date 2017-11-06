@@ -94,6 +94,7 @@ class Internship {
     public $paid;
     public $stipend;
     public $pay_rate;
+    public $co_op;
 
 
     // Course Info
@@ -118,6 +119,10 @@ class Internship {
 
     // Form token
     public $form_token;
+
+
+    // Static vars - Used to avoid repeated DB queries when looping over Internship objects
+    private static $termDescriptionList;
 
     /**
      * Constructs a new Internship object.
@@ -186,7 +191,7 @@ class Internship {
 
         // Majors - If double major, just take index 0
         $majors = $student->getMajors();
-        if(is_array($majors)) {
+        if(is_array($majors) && sizeof($majors) > 0) {
             $this->major_code = $majors[0]->getCode();
             $this->major_description = $majors[0]->getDescription();
         } else if (is_object($majors)) {
@@ -258,6 +263,12 @@ class Internship {
      */
     public function getCSV()
     {
+        // Initalize term description list, if needed
+        // Store term list in a static var, so hopefully we only do this once per export
+        if(!isset(self::$termDescriptionList)){
+            self::$termDescriptionList = TermFactory::getTermsAssoc();
+        }
+
         $csv = array();
 
         // Student data
@@ -302,7 +313,7 @@ class Internship {
         $csv['Emergency Contact Phone']    = $this->getEmergencyContactPhoneNumber();
 
         // Internship Data
-        $csv['Term']                   = Term::rawToRead($this->term, false);
+        $csv['Term']                   = self::$termDescriptionList[$this->term];
         $csv['Start Date']             = $this->getStartDate(true);
         $csv['End Date']               = $this->getEndDate(true);
         $csv['Credits']                = $this->credits;
@@ -326,7 +337,13 @@ class Internship {
         // Course Info
         $csv['Multi-part']             = $this->isMultipart() ? 'Yes' : 'No';
         $csv['Secondary Part']         = $this->isSecondaryPart() ? 'Yes' : 'No';
-        $csv['Course Subject']         = $this->getSubject()->getName();
+
+        if($this->getSubject() !== null){
+            $csv['Course Subject']     = $this->getSubject()->getName();
+        }else {
+            $csv['Course Subject']     = '';
+        }
+
         $csv['Course Number']          = $this->course_no;
         $csv['Course Section']         = $this->course_sect;
         $csv['Course Title']           = $this->course_title;
@@ -483,6 +500,10 @@ class Internship {
 
     public function getSubject()
     {
+        if($this->course_subj === null || $this->course_subj === 0){
+            return null;
+        }
+
         return new Subject($this->course_subj);
     }
 
@@ -699,7 +720,8 @@ class Internship {
             $tags['FACULTY_NAME'] = PHPWS_Text::moduleLink('&nbsp;', 'intern', array('action' => 'ShowInternship', 'internship_id' => $this->id));
         }
 
-        $tags['TERM'] = PHPWS_Text::moduleLink(Term::rawToRead($this->term), 'intern', array('action' => 'ShowInternship', 'internship_id' => $this->id));
+        $term = TermFactory::getTermByTermCode($this->term);
+        $tags['TERM'] = PHPWS_Text::moduleLink($term->getDescription(), 'intern', array('action' => 'ShowInternship', 'internship_id' => $this->id));
 
         $tags['WORKFLOW_STATE'] = PHPWS_Text::moduleLink($this->getWorkflowState()->getFriendlyName(), 'intern', array('action' => 'ShowInternship', 'internship_id' => $this->id));
 
@@ -1033,6 +1055,14 @@ class Internship {
 
     public function hasStipend() {
         if($this->stipend == 1){
+            return true;
+        }
+
+        return false;
+    }
+
+    public function isCoOp(){
+        if($this->co_op == 1){
             return true;
         }
 

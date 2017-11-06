@@ -3,6 +3,7 @@
 namespace Intern\WorkflowTransition;
 use Intern\WorkflowTransition;
 use Intern\Internship;
+use Intern\TermFactory;
 
 class RegistrationIssue extends WorkflowTransition {
     const sourceState = 'CollegeApprovedState';
@@ -45,7 +46,9 @@ class RegistrationIssue extends WorkflowTransition {
 
     public function doNotification(Internship $i, $note = null)
     {
-        $email = new \Intern\Email\RegistrationIssueEmail(\Intern\InternSettings::getInstance(), $i, $note);
+        $term = InternFactory::getTermByTermCode($i->getTerm());
+
+        $email = new \Intern\Email\RegistrationIssueEmail(\Intern\InternSettings::getInstance(), $i, $term, $note);
         $email->send();
     }
 }

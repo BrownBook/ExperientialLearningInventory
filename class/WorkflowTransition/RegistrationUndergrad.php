@@ -4,6 +4,7 @@ namespace Intern\WorkflowTransition;
 use Intern\WorkflowTransition;
 use Intern\Internship;
 use Intern\Exception\MissingDataException;
+use Intern\TermFactory;
 
 class RegistrationUndergrad extends WorkflowTransition {
     const sourceState = 'CollegeApprovedState';
@@ -45,7 +46,9 @@ class RegistrationUndergrad extends WorkflowTransition {
 
     public function doNotification(Internship $i, $note = null)
     {
-        $email = new \Intern\Email\RegistrationConfirmationEmail(\Intern\InternSettings::getInstance(), $i);
+        $term = TermFactory::getTermByTermCode($i->getTerm());
+
+        $email = new \Intern\Email\RegistrationConfirmationEmail(\Intern\InternSettings::getInstance(), $i, $term);
         $email->send();
     }
 

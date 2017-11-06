@@ -5,8 +5,10 @@ use \Intern\WorkflowStateFactory;
 use \Intern\ChangeHistory;
 use \Intern\AgencyFactory;
 use \Intern\DatabaseStorage;
-use \Intern\ExternalDataProviderFactory;
+use \Intern\DataProvider\Student\StudentDataProviderFactory;
+use \Intern\TermFactory;
 use \Intern\Exception\StudentNotFoundException;
+use \Intern\InternSettings;
 
 /**
  * Controller class to save changes (on create or update) to an Internship
@@ -36,6 +38,8 @@ class SaveInternship {
 
     public function execute()
     {
+        $internSettings = InternSettings::getInstance();
+
         /**************
          * Sanity Checks
          */
@@ -130,7 +134,7 @@ class SaveInternship {
 
         // Load the student object
         try {
-            $student = ExternalDataProviderFactory::getProvider()->getStudent($i->getBannerId(), $i->getTerm());
+            $student = StudentDataProviderFactory::getProvider()->getStudent($i->getBannerId());
         } catch (StudentNotFoundException $e){
             $student = null;
 
@@ -147,11 +151,14 @@ class SaveInternship {
         $i->avg_hours_week = $avg_hours_week ? $avg_hours_week : null;
         $i->paid = $_REQUEST['payment'] == 'paid';
         $i->stipend = isset($_REQUEST['stipend']) && $i->paid;
-        $i->pay_rate = $_REQUEST['pay_rate'];
+        $i->pay_rate = self::trimField($_REQUEST['pay_rate']);
+        $i->co_op = isset($_REQUEST['co_op']);
 
         if (\Current_User::isDeity()) {
             $i->term = $_REQUEST['term'];
         }
+
+        $term = TermFactory::getTermByTermCode($i->term);
 
         // Internship experience type
         if(isset($_REQUEST['experience_type'])){
@@ -160,12 +167,12 @@ class SaveInternship {
 
         if($i->isInternational()){
             // Set province
-            $i->loc_province = $_POST['loc_province'];
+            $i->loc_province = self::trimField($_POST['loc_province']);
         }
 
         // Address, city, zip are always set (no matter domestic or international)
-        $i->loc_address = strip_tags($_POST['loc_address']);
-        $i->loc_city = strip_tags($_POST['loc_city']);
+        $i->loc_address = self::trimField(strip_tags($_POST['loc_address']));
+        $i->loc_city = self::trimField(strip_tags($_POST['loc_city']));
         $i->loc_zip = strip_tags($_POST['loc_zip']);
 
         // Save Country if international
@@ -185,9 +192,9 @@ class SaveInternship {
         }
 
         // Course info
-        $i->course_no = !isset($_POST['course_no']) ? null : strip_tags($_POST['course_no']);
-        $i->course_sect = !isset($_POST['course_sect']) ? null : strip_tags($_POST['course_sect']);
-        $i->course_title = !isset($_POST['course_title']) ? null : strip_tags($_POST['course_title']);
+        $i->course_no = !isset($_POST['course_no']) ? null : self::trimField(strip_tags($_POST['course_no']));
+        $i->course_sect = !isset($_POST['course_sect']) ? null : self::trimField(strip_tags($_POST['course_sect']));
+        $i->course_title = !isset($_POST['course_title']) ? null : self::trimField(strip_tags($_POST['course_title']));
 
         // Multipart course
         if(isset($_POST['multipart'])){
@@ -212,19 +219,19 @@ class SaveInternship {
         }
 
         // Student Information
-        $i->first_name = $_REQUEST['student_first_name'];
-        $i->middle_name = $_REQUEST['student_middle_name'];
-        $i->last_name = $_REQUEST['student_last_name'];
+        $i->first_name = self::trimField($_REQUEST['student_first_name']);
+        $i->middle_name = self::trimField($_REQUEST['student_middle_name']);
+        $i->last_name = self::trimField($_REQUEST['student_last_name']);
 
-        $i->setFirstNameMetaphone($_REQUEST['student_first_name']);
-        $i->setMiddleNameMetaphone($_REQUEST['student_middle_name']);
-        $i->setLastNameMetaphone($_REQUEST['student_last_name']);
+        $i->setFirstNameMetaphone(self::trimField($_REQUEST['student_first_name']));
+        $i->setMiddleNameMetaphone(self::trimField($_REQUEST['student_middle_name']));
+        $i->setLastNameMetaphone(self::trimField($_REQUEST['student_last_name']));
 
-        $i->phone = $_REQUEST['student_phone'];
-        $i->email = $_REQUEST['student_email'];
+        $i->phone = self::trimField($_REQUEST['student_phone']);
+        $i->email = self::trimField($_REQUEST['student_email']);
 
-        $i->student_address = $_REQUEST['student_address'];
-        $i->student_city = $_REQUEST['student_city'];
+        $i->student_address = self::trimField($_REQUEST['student_address']);
+        $i->student_city = self::trimField($_REQUEST['student_city']);
         if($_REQUEST['student_state'] != '-1'){
             $i->student_state = $_REQUEST['student_state'];
         }else{
@@ -232,7 +239,7 @@ class SaveInternship {
         }
         $i->student_zip = $_REQUEST['student_zip'];
 
-        if(\Current_User::isDeity()){
+        if(\Current_User::isDeity() && $internSettings->getMultiCampusEnabled()){
             $i->campus = $_REQUEST['campus'];
         }
 
@@ -273,50 +280,59 @@ class SaveInternship {
         /************
          * OIED Certification
         */
-        // Check if this has changed from non-certified->certified so we can log it later
-        if($i->oied_certified == 0 && $_POST['oied_certified_hidden'] == 'true'){
-            // note the change for later
-            $oiedCertified = true;
-        }else{
-            $oiedCertified = false;
-        }
+        if($internSettings->getRequireIntlCertification()){
+            // Check if this has changed from non-certified->certified so we can log it later
+            if($i->oied_certified == 0 && $_POST['oied_certified_hidden'] == 'true'){
+                // note the change for later
+                $oiedCertified = true;
+            }else{
+                $oiedCertified = false;
+            }
 
-        if($_POST['oied_certified_hidden'] == 'true'){
-            $i->oied_certified = 1;
-        }else if($_POST['oied_certified_hidden'] == 'false'){
-            $i->oied_certified = 0;
-        }else{
-            $i->oied_certified = 0;
+            if($_POST['oied_certified_hidden'] == 'true'){
+                $i->oied_certified = 1;
+            }else if($_POST['oied_certified_hidden'] == 'false'){
+                $i->oied_certified = 0;
+            }else{
+                $i->oied_certified = 0;
+            }
+        } else {
+            // International approval not required, so always set this to false
+            $oiedCertified = false;
         }
 
         /************
          * Background and Drug checks
         */
-        // Check if this has changed from no to yes for sending email
-        if($i->background_check == 0 && $_REQUEST['background_code'] == '1'){
-            // note the change for later
-            $backgroundCheck = true;
-        }else{
-            $backgroundCheck = false;
+        if($internSettings->getBackgroundCheckRequestEnabled()){
+            // Check if this has changed from no to yes for sending email
+            if($i->background_check == 0 && $_REQUEST['background_code'] == '1'){
+                // note the change for later
+                $backgroundCheck = true;
+            }else{
+                $backgroundCheck = false;
+            }
+
+            if($_REQUEST['background_code'] == '1'){
+                $i->background_check = 1;
+            }else if($_REQUEST['background_code'] == '0'){
+                $i->background_check = 0;
+            }
         }
 
-        if($_REQUEST['background_code'] == '1'){
-            $i->background_check = 1;
-        }else if($_REQUEST['background_code'] == '0'){
-            $i->background_check = 0;
-        }
+        if($internSettings->getDrugCheckRequestEnabled()){
+            if($i->drug_check == 0 && $_REQUEST['drug_code'] == '1'){
+                // note the change for later
+                $drugCheck = true;
+            }else{
+                $drugCheck = false;
+            }
 
-        if($i->drug_check == 0 && $_REQUEST['drug_code'] == '1'){
-            // note the change for later
-            $drugCheck = true;
-        }else{
-            $drugCheck = false;
-        }
-
-        if($_REQUEST['drug_code'] == '1'){
-            $i->drug_check = 1;
-        }else if($_REQUEST['drug_code'] == '0'){
-            $i->drug_check = 0;
+            if($_REQUEST['drug_code'] == '1'){
+                $i->drug_check = 1;
+            }else if($_REQUEST['drug_code'] == '0'){
+                $i->drug_check = 0;
+            }
         }
 
         // If we don't have a state and this is a new internship,
@@ -344,33 +360,33 @@ class SaveInternship {
         }
 
         // Agency Info
-        $agency->name = $_REQUEST['agency_name'];
-        $agency->address = $_REQUEST['agency_address'];
-        $agency->city = $_REQUEST['agency_city'];
+        $agency->name = self::trimField($_REQUEST['agency_name']);
+        $agency->address = self::trimField($_REQUEST['agency_address']);
+        $agency->city = self::trimField($_REQUEST['agency_city']);
         $agency->zip = $_REQUEST['agency_zip'];
-        $agency->phone = $_REQUEST['agency_phone'];
+        $agency->phone = self::trimField($_REQUEST['agency_phone']);
 
         if($i->isDomestic()){
             $agency->state = $_REQUEST['agency_state'] == '-1' ? null : $_REQUEST['agency_state'];
         } else {
-            $agency->province = $_REQUEST['agency_province'];
+            $agency->province = self::trimField($_REQUEST['agency_province']);
             $agency->country = $_REQUEST['agency_country']== '-1' ? null : $_REQUEST['agency_country'];
         }
 
         // Agency Supervisor Info
-        $agency->supervisor_first_name = $_REQUEST['agency_sup_first_name'];
-        $agency->supervisor_last_name = $_REQUEST['agency_sup_last_name'];
-        $agency->supervisor_title = $_REQUEST['agency_sup_title'];
-        $agency->supervisor_phone = $_REQUEST['agency_sup_phone'];
-        $agency->supervisor_email = $_REQUEST['agency_sup_email'];
-        $agency->supervisor_fax = $_REQUEST['agency_sup_fax'];
-        $agency->supervisor_address = $_REQUEST['agency_sup_address'];
-        $agency->supervisor_city = $_REQUEST['agency_sup_city'];
+        $agency->supervisor_first_name = self::trimField($_REQUEST['agency_sup_first_name']);
+        $agency->supervisor_last_name = self::trimField($_REQUEST['agency_sup_last_name']);
+        $agency->supervisor_title = self::trimField($_REQUEST['agency_sup_title']);
+        $agency->supervisor_phone = self::trimField($_REQUEST['agency_sup_phone']);
+        $agency->supervisor_email = self::trimField($_REQUEST['agency_sup_email']);
+        $agency->supervisor_fax = self::trimField($_REQUEST['agency_sup_fax']);
+        $agency->supervisor_address = self::trimField($_REQUEST['agency_sup_address']);
+        $agency->supervisor_city = self::trimField($_REQUEST['agency_sup_city']);
         $agency->supervisor_zip = $_REQUEST['agency_sup_zip'];
         if($i->isDomestic()){
             $agency->supervisor_state = $_REQUEST['agency_sup_state'] == '-1' ? null : $_REQUEST['agency_sup_state'];
         } else {
-            $agency->supervisor_province = $_REQUEST['agency_sup_province'];
+            $agency->supervisor_province = self::trimField($_REQUEST['agency_sup_province']);
             $agency->supervisor_country = $_REQUEST['agency_sup_country'] == '-1' ? null : $_REQUEST['agency_sup_country'];
         }
         $agency->address_same_flag = isset($_REQUEST['copy_address']) ? 't' : 'f';
@@ -382,6 +398,10 @@ class SaveInternship {
             \PHPWS_DB::rollback();
             throw $e;
         }
+
+        //Commit to save changes in case of workflow error
+        \PHPWS_DB::commit();
+        \PHPWS_DB::begin();
 
         /***************************
          * State/Workflow Handling *
@@ -404,14 +424,14 @@ class SaveInternship {
 
             // Notify the faculty member that OIED has certified the internship
             if ($i->getFaculty() != null) {
-                $email = new \Intern\Email\OIEDCertifiedEmail(\Intern\InternSettings::getInstance(), $i);
+                $email = new \Intern\Email\OIEDCertifiedEmail(\Intern\InternSettings::getInstance(), $i, $term);
                 $email->send();
             }
         }
 
         // If the background check or drug check status changed to true (computed earlier), then send a notification
-        if($backgroundCheck || $drugCheck) {
-            $email = new \Intern\Email\BackgroundCheckEmail(\Intern\InternSettings::getInstance(), $i, $agency, $backgroundCheck, $drugCheck);
+        if(($internSettings->getBackgroundCheckRequestEnabled() || $internSettings->getDrugCheckRequestEnabled()) && ($backgroundCheck || $drugCheck)) {
+            $email = new \Intern\Email\BackgroundCheckEmail($internSettings, $i, $term, $agency, $backgroundCheck, $drugCheck);
             $email->send();
         }
 
@@ -457,5 +477,17 @@ class SaveInternship {
         }
 
         return $vals;
+    }
+
+    /**
+    *  Trim fields for all user input text fields
+    */
+    private static function trimField(string $info)
+    {
+      //trims whitespaces from beginning and end of string
+      $info = trim($info);
+      //trims extra spaces from middle of two words
+      $info = preg_replace('!\s+!', ' ', $info);
+      return $info;
     }
 }

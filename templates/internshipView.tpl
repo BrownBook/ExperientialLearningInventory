@@ -29,21 +29,28 @@
     </div>
 
     <div class="col-lg-2">
-        <!-- BEGIN copy_to_next_term -->
         <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-copy"></i> Continue Internship <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="index.php?module=intern&action=copyInternshipToNextTerm&internship_id={INTERN_ID}"><i class="fa fa-fast-forward"></i> Continue in {NEXT_TERM}</a></li>
+                <!-- BEGIN CONTINUE_TERM_LIST -->
+                <li><a href="index.php?module=intern&action=copyInternshipToNextTerm&internshipId={INTERN_ID}&destinationTerm={DEST_TERM}"><i class="fa fa-fast-forward"></i> Continue in {DEST_TERM_TEXT}</a></li>
+                <!-- END CONTINUE_TERM_LIST -->
+
+                <!-- BEGIN CONTINUE_TERM_NO_TERMS -->
+                <li><a href="" class="text-muted" style="color:#777; pointer-events: none" disabled>{CONTINUE_TERM_NO_TERMS}</a></li>
+                <!-- END CONTINUE_TERM_NO_TERMS -->
             </ul>
         </div>
-        <!-- END copy_to_next_term -->
     </div>
 
+    <!-- BEGIN generateContractButton -->
+    {GENERATE_CONTACT_BUTTON_ENABLE}
     <div class="col-lg-1 col-lg-offset-1">
       <button type="button" id="contract-button" class="btn btn-default pull-right generateContract"><i class="fa fa-file"></i> Generate Contract</button>
     </div>
+    <!-- END generateContractButton -->
   </div>
 
   <div class="row">
@@ -77,7 +84,7 @@
           <label class="col-lg-3 control-label" for="{STUDENT_EMAIL_ID}">{STUDENT_EMAIL_LABEL_TEXT}</label>
           <div class="col-lg-6">
             <div class="input-group">
-              {STUDENT_EMAIL}<span class="input-group-addon">@appstate.edu</span>
+              {STUDENT_EMAIL}<span class="input-group-addon">{EMAIL_DOMAIN}</span>
             </div>
           </div>
         </div>
@@ -117,10 +124,12 @@
           <div class="col-lg-6"><p class="form-control-static">{STUDENT_GPA}</p></div>
         </div>
 
+        <!-- BEGIN campus -->
         <div class="form-group">
           <label class="col-lg-3 control-label" for="campus">Campus</label>
           <div id="campus" class="col-lg-6"><p class="form-control-static">{CAMPUS}</p></div>
         </div>
+        <!-- END campus -->
 
         <div class="form-group">
           <label class="col-lg-3 control-label" for="level">Level</label>
@@ -155,10 +164,11 @@
           <div id="credit-hours" class="col-lg-6"><p class="form-control-static">{ENROLLED_CREDIT_HORUS}</p></div>
         </div>
 
+        <!-- BEGIN BACK_ACTIVE -->
         <div class="form-group">
-          <label class="col-lg-3 control-label" for="{BACKGROUND_CHECK_ID}">Background Check Needed?</label>
+          <label class="col-lg-3 control-label" for="backgroundCheck">Background Check Needed?</label>
           <div class="col-lg-6">
-              <div class="btn-group" data-toggle="buttons" role="group" aria-label="background selector">
+              <div id="backgroundCheck" class="btn-group" data-toggle="buttons" role="group" aria-label="background selector">
                 <label class="btn btn-default {BACK_ACTIVE}">
                   <input type="radio" name="background_code" autocomplete="off" value="1" {BACK_CHECKED}> Yes
                 </label>
@@ -168,11 +178,13 @@
               </div>
           </div>
         </div>
+        <!-- END BACK_ACTIVE -->
 
+        <!-- BEGIN DRUG_ACTIVE -->
         <div class="form-group">
-          <label class="col-lg-3 control-label" for="{BACKGROUND_CHECK_ID}">Drug Test Needed?</label>
+          <label class="col-lg-3 control-label" for="drugCheck">Drug Test Needed?</label>
           <div class="col-lg-6">
-              <div class="btn-group" data-toggle="buttons" role="group" aria-label="drug selector">
+              <div id="drugCheck" class="btn-group" data-toggle="buttons" role="group" aria-label="drug selector">
                 <label class="btn btn-default {DRUG_ACTIVE}">
                   <input type="radio" name="drug_code" autocomplete="off" value="1" {DRUG_CHECKED}> Yes
                 </label>
@@ -182,6 +194,7 @@
               </div>
           </div>
       </div>
+      <!-- END DRUG_ACTIVE -->
 
       </fieldset>
 
@@ -406,6 +419,7 @@
             <!-- END workflow_action_repeat -->
           </div>
         </div>
+        <!-- BEGIN international_certification -->
         <div class="form-group">
           <div class="col-lg-10">
             <div class="checkbox">
@@ -413,6 +427,8 @@
             </div>
           </div>
         </div>
+        <!-- BEGIN international_certification -->
+
       </fieldset>
 
       <!-- Faculty info -->
@@ -628,6 +644,10 @@
 
             <div class="checkbox">
               <label>{STIPEND}&nbsp;{STIPEND_LABEL_TEXT}</label>
+            </div>
+
+            <div class="checkbox">
+              <label>{CO_OP}&nbsp;{CO_OP_LABEL_TEXT}</label>
             </div>
           </div>
         </div>

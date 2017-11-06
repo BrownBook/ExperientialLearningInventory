@@ -191,6 +191,38 @@ class InternSettings {
     }
 
     /**
+     * Returns true if the background check request button should be enabled. False by default or if setting doesn't exist.
+     *
+     * @return boolean True if the background check request button should be enabled, false otherwise.
+     */
+    public function getBackgroundCheckRequestEnabled()
+    {
+        $result = \PHPWS_Settings::get('intern', 'backgroundCheckRequestEnabled');
+
+        if (!isset($result) || is_null($result)) {
+            return false;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Returns true if the drug check request button should be enabled. False by default or if the setting doesn't exist.
+     *
+     * @return boolean True if the drug check request button should be enabled, false otherwise.
+     */
+    public function getDrugCheckRequestEnabled()
+    {
+        $result = \PHPWS_Settings::get('intern', 'drugCheckRequestEnabled');
+
+        if (!isset($result) || is_null($result)) {
+            return false;
+        }
+
+        return $result;
+    }
+
+    /**
      * Returns the name background/drug check user email.
      *
      * @throws InvalidArgumentException
@@ -201,7 +233,61 @@ class InternSettings {
         $result = \PHPWS_Settings::get('intern', 'backgroundCheckEmail');
 
         if (!isset($result) || is_null($result)) {
-            throw new \InvalidArgumentException('Missing configuration for background/drug check address.');
+            return false;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Returns true if multiple campuses are allowed (i.e. main campus and distance ed.) Default false.
+     *
+     * @return boolean True if multiple campuses are allowed (i.e. main campus and distance ed), false otherwise.
+     */
+    public function getMultiCampusEnabled()
+    {
+        $result = \PHPWS_Settings::get('intern', 'multiCampusEnabled');
+
+        if (!isset($result) || is_null($result)) {
+            return false;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Returns the name of the student data provider to use.
+     *
+     * @throws InvalidArgumentException
+     * @return string - name of the student data provider to use
+     */
+    public function getStudentDataSource()
+    {
+        $result = \PHPWS_Settings::get('intern', 'studentDataSource');
+
+        if (!isset($result) || is_null($result)) {
+            throw new \InvalidArgumentException('Missing configuration for student data source.');
+        }
+
+        return $result;
+    }
+
+    public function getGenerateContractEnabled(){
+        $result = \PHPWS_Settings::get('intern', 'generateContractEnabled');
+
+        if (!isset($result) || is_null($result)) {
+            throw new \InvalidArgumentException('Missing configuration for generate contract enabled.');
+        }
+
+        return $result;
+    }
+
+    public function getRequireIntlCertification()
+    {
+        $result = \PHPWS_Settings::get('intern', 'requireIntlCertification');
+
+        if (!isset($result) || is_null($result)) {
+            throw new \InvalidArgumentException('Missing configuration for requiring international certification.');
         }
 
         return $result;

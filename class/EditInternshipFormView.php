@@ -4,6 +4,8 @@ namespace Intern;
 
 use Intern\ChangeHistoryView;
 use Intern\DepartmentFactory;
+use Intern\TermFactory;
+use Intern\InternSettings;
 
 /**
  * View class for showing the big internship form for
@@ -24,7 +26,9 @@ class EditInternshipFormView {
     private $agency;
     private $department;
     private $docs;
-    private $termInfo;
+    private $term;
+    private $studentExistingCreditHours;
+    private $settings;
 
     private $formVals;
 
@@ -34,7 +38,7 @@ class EditInternshipFormView {
      * @param string $pagetitle
      * @param Internship $i
      */
-    public function __construct(Internship $i, Student $student = null, Agency $agency, Array $docs, TermInfo $termInfo)
+    public function __construct(Internship $i, Student $student = null, Agency $agency, Array $docs, Term $term, $studentExistingCreditHours, InternSettings $settings)
     {
         \Layout::addPageTitle('Edit Internship');
 
@@ -44,11 +48,14 @@ class EditInternshipFormView {
         $this->agency = $agency;
         $this->department = $this->intern->getDepartment();
         $this->docs = $docs;
-        $this->termInfo = $termInfo;
+        $this->term = $term;
+        $this->studentExistingCreditHours = $studentExistingCreditHours;
+        $this->settings = $settings;
 
         $this->tpl = array();
 
         $this->tpl['INTERN_ID'] = $this->intern->getId();
+        $this->tpl['EMAIL_DOMAIN'] = $this->settings->getEmailDomain();
 
         $this->form = new \PHPWS_Form('internship');
         $this->formVals = array();
@@ -92,12 +99,52 @@ class EditInternshipFormView {
             $this->tpl['DELETE_URL'] = 'index.php?module=intern&action=DeleteInternship&internship_id=' . $this->intern->getId();
         }
 
-        // Determine if we can copy to the next term (i.e. the next term exists)
-        $nextTerm = Term::getNextTerm($this->intern->getTerm());
-        if(Term::termExists($nextTerm)){
-            $this->tpl['NEXT_TERM'] = Term::rawToRead($nextTerm);
+        /*********************
+         * Copy to Next Term *
+        *********************/
+
+        // Get next three terms
+        $term = TermFactory::getTermByTermCode($this->intern->getTerm());
+
+        $nextTerm = TermFactory::getNextTerm($term);
+
+        if($nextTerm !== null){
+            $nextTwoTerm = TermFactory::getNextTerm($nextTerm);
+        } else {
+            $nextTwoTerm = null;
         }
 
+        if($nextTwoTerm !== null){
+            $nextThreeTerm = TermFactory::getNextTerm($nextTwoTerm);
+        } else {
+            $nextThreeTerm = null;
+        }
+
+        $this->tpl['CONTINUE_TERM_LIST'] = array();
+
+        // Determine if we can copy to the next term (i.e. the next term exists)
+        if($nextTerm !== null){
+            $this->tpl['CONTINUE_TERM_LIST'][] = array('DEST_TERM'=>$nextTerm->getTermCode(), 'DEST_TERM_TEXT'=>$nextTerm->getDescription());
+        }
+
+        // Copy if it's Spring and exist, else if it's Summer 1 and exist.
+        if($nextThreeTerm !== null && $term->getSemesterType() == Term::SPRING){
+            $this->tpl['CONTINUE_TERM_LIST'][] = array('DEST_TERM'=>$nextThreeTerm->getTermCode(), 'DEST_TERM_TEXT'=>$nextThreeTerm->getDescription());
+        } else if($nextTwoTerm !== null && $term->getSemesterType() == Term::SUMMER1){
+            $this->tpl['CONTINUE_TERM_LIST'][] = array('DEST_TERM'=>$nextTwoTerm->getTermCode(), 'DEST_TERM_TEXT'=>$nextTwoTerm->getDescription());
+        }
+
+        // If no terms are available to copy to, show a helpful message
+        if(sizeof($this->tpl['CONTINUE_TERM_LIST']) == 0) {
+            $this->tpl['CONTINUE_TERM_NO_TERMS'] = 'No future terms available.';
+        }
+
+        /****************************
+         * Generate Contract Button *
+         ****************************/
+        if($this->settings->getGenerateContractEnabled()){
+            $this->tpl['GENERATE_CONTACT_BUTTON_ENABLE'] = ''; // Dummy var to toggle code block in template
+        }
 
         /*********************
          * Workflow / Status *
@@ -111,17 +158,20 @@ class EditInternshipFormView {
         /*****************
          * OIED Approval *
          */
-        $this->form->addCheck('oied_certified');
-        $this->form->setLabel('oied_certified', 'Certified by Office of International Education and Development');
+        // If enabled in settings, then add international office certification checkbox
+        if($this->settings->getRequireIntlCertification()){
+            $this->form->addCheck('oied_certified');
+            $this->form->setLabel('oied_certified', 'Certified by Office of International Education and Development');
 
-        // If the user is not allowed to do OIED certification, disable the checkbox
-        if(!\Current_User::allow('intern', 'oied_certify') || $this->intern->isDomestic()){
-            $this->form->setExtra('oied_certified', 'disabled="disabled" disabled');
+            // If the user is not allowed to do OIED certification, disable the checkbox
+            if(!\Current_User::allow('intern', 'oied_certify') || $this->intern->isDomestic()){
+                $this->form->setExtra('oied_certified', 'disabled="disabled" disabled');
+            }
+
+            // Hidden field that shadows the real field, to ensure a value is always submitted,
+            // because disabled fields are not submitted
+            $this->form->addHidden('oied_certified_hidden');
         }
-
-        // Hidden field that shadows the real field, to ensure a value is always submitted,
-        // because disabled fields are not submitted
-        $this->form->addHidden('oied_certified_hidden');
 
         /******************
          * Student fields *
@@ -143,7 +193,7 @@ class EditInternshipFormView {
         $this->form->addCssClass('student_phone', 'form-control');
 
         $this->form->addText('student_email');
-        $this->form->setLabel('student_email', 'ASU Email');
+        $this->form->setLabel('student_email', 'Email');
         $this->form->addCssClass('student_email', 'form-control');
 
         /* Student Address */
@@ -163,28 +213,32 @@ class EditInternshipFormView {
         $this->form->setLabel('student_zip','Zip Code');
         $this->form->addCssClass('student_zip', 'form-control');
 
-        if($this->intern->getBackgroundCheck() == 0){
-            $this->tpl['BACK_ACTIVE'] = '';
-            $this->tpl['BACK_NOT_ACTIVE'] = 'active';
-            $this->tpl['BACK_CHECKED'] = '';
-            $this->tpl['BACK_NOT_CHECKED'] = 'checked';
-        }else{
-            $this->tpl['BACK_ACTIVE'] = 'active';
-            $this->tpl['BACK_NOT_ACTIVE'] = '';
-            $this->tpl['BACK_CHECKED'] = 'checked';
-            $this->tpl['BACK_NOT_CHECKED'] = '';
+        if($this->settings->getBackgroundCheckRequestEnabled()){
+            if($this->intern->getBackgroundCheck() == 0){
+                $this->tpl['BACK_ACTIVE'] = '';
+                $this->tpl['BACK_NOT_ACTIVE'] = 'active';
+                $this->tpl['BACK_CHECKED'] = '';
+                $this->tpl['BACK_NOT_CHECKED'] = 'checked';
+            }else{
+                $this->tpl['BACK_ACTIVE'] = 'active';
+                $this->tpl['BACK_NOT_ACTIVE'] = '';
+                $this->tpl['BACK_CHECKED'] = 'checked';
+                $this->tpl['BACK_NOT_CHECKED'] = '';
+            }
         }
 
-        if($this->intern->getDrugCheck() == 0){
-            $this->tpl['DRUG_ACTIVE'] = '';
-            $this->tpl['DRUG_NOT_ACTIVE'] = 'active';
-            $this->tpl['DRUG_CHECKED'] = '';
-            $this->tpl['DRUG_NOT_CHECKED'] = 'checked';
-        }else{
-            $this->tpl['DRUG_ACTIVE'] = 'active';
-            $this->tpl['DRUG_NOT_ACTIVE'] = '';
-            $this->tpl['DRUG_CHECKED'] = 'checked';
-            $this->tpl['DRUG_NOT_CHECKED'] = '';
+        if($this->settings->getDrugCheckRequestEnabled()){
+            if($this->intern->getDrugCheck() == 0){
+                $this->tpl['DRUG_ACTIVE'] = '';
+                $this->tpl['DRUG_NOT_ACTIVE'] = 'active';
+                $this->tpl['DRUG_CHECKED'] = '';
+                $this->tpl['DRUG_NOT_CHECKED'] = 'checked';
+            }else{
+                $this->tpl['DRUG_ACTIVE'] = 'active';
+                $this->tpl['DRUG_NOT_ACTIVE'] = '';
+                $this->tpl['DRUG_CHECKED'] = 'checked';
+                $this->tpl['DRUG_NOT_CHECKED'] = '';
+            }
         }
 
         /************************
@@ -419,12 +473,12 @@ class EditInternshipFormView {
 
 
         if (\Current_User::isDeity()) {
-            $terms = Term::getTermsAssoc();
+            $terms = TermFactory::getTermsAssoc();
             $this->form->addSelect('term', $terms);
             $this->form->setMatch('term', $this->intern->term);
             $this->form->addCssClass('term', 'form-control');
         }else{
-            $this->tpl['TERM'] = Term::rawToRead($this->intern->term);
+            $this->tpl['TERM'] = $this->term->getDescription();
         }
 
 
@@ -497,6 +551,9 @@ class EditInternshipFormView {
         $this->form->setLabel('pay_rate', 'Pay Rate');
         $this->form->addCssClass('pay_rate', 'form-control');
 
+        $this->form->addCheck('co_op');
+        $this->form->setLabel('co_op', 'Co-op');
+
         /*******************
          * Internship Type *
          */
@@ -558,13 +615,15 @@ class EditInternshipFormView {
 
         $this->tpl['STUDENT_GPA'] = $this->intern->getGpa();
 
-        if (\Current_User::isDeity()) {
-            $campus = Internship::getCampusAssoc();
-            $this->form->addSelect('campus', $campus);
-            $this->form->setMatch('campus', $this->intern->campus);
-            $this->form->addCssClass('campus', 'form-control');
-        }else{
-            $this->tpl['CAMPUS'] = $this->intern->getCampusFormatted();
+        if($this->settings->getMultiCampusEnabled()){
+            if (\Current_User::isDeity()) {
+                $campus = Internship::getCampusAssoc();
+                $this->form->addSelect('campus', $campus);
+                $this->form->setMatch('campus', $this->intern->campus);
+                $this->form->addCssClass('campus', 'form-control');
+            } else {
+                $this->tpl['CAMPUS'] = $this->intern->getCampusFormatted();
+            }
         }
 
         $this->tpl['LEVEL'] = $this->intern->getLevelFormatted();
@@ -573,7 +632,7 @@ class EditInternshipFormView {
         // TODO: newer PHP versions provide syntax to clean up this logic
         if(isset($this->student)){
             // Credit Hours
-            $creditHours = $this->student->getCreditHours();
+            $creditHours = $this->studentExistingCreditHours;
             if(isset($creditHours)) {
                 $this->tpl['ENROLLED_CREDIT_HORUS'] = $creditHours;
             } else {
@@ -686,12 +745,7 @@ class EditInternshipFormView {
         $this->formVals['start_date'] = $this->intern->start_date ? date('m/d/Y', $this->intern->start_date) : null;
         $this->formVals['end_date'] = $this->intern->end_date ? date('m/d/Y', $this->intern->end_date) : null;
 
-        $part = $this->termInfo->getLongestTermPart();
-        if($part === null){
-            $this->tpl['TERM_DATES'] = $this->termInfo->getTermStartDate() . ' through ' . $this->termInfo->getTermEndDate() . ' (provisional)';
-        } else {
-            $this->tpl['TERM_DATES'] = $part->part_start_date . ' through ' . $part->part_end_date;
-        }
+        $this->tpl['TERM_DATES'] = $this->term->getStartDateFormatted() . ' through ' . $this->term->getEndDateFormatted();
 
         $this->formVals['credits'] = $this->intern->credits;
         $this->formVals['avg_hours_week'] = $this->intern->avg_hours_week;
@@ -713,13 +767,21 @@ class EditInternshipFormView {
             $this->form->setMatch('payment', 'unpaid');
         }
 
+        if($this->intern->isCoOp()){
+            $this->form->setMatch('co_op', true);
+        }
+
         $this->formVals['pay_rate'] = $this->intern->pay_rate;
 
-        if ($this->intern->oied_certified) {
-            $this->form->setMatch('oied_certified', true);
-            $this->form->setValue('oied_certified_hidden', 'true');
-        } else {
-            $this->form->setValue('oied_certified_hidden', 'false');
+        // If OIED certification is enabled, check certification status
+        // and set the checkbox and hidden field accordingly
+        if($this->settings->getRequireIntlCertification()){
+            if ($this->intern->oied_certified) {
+                $this->form->setMatch('oied_certified', true);
+                $this->form->setValue('oied_certified_hidden', 'true');
+            } else {
+                $this->form->setValue('oied_certified_hidden', 'false');
+            }
         }
     }
 
