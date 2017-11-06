@@ -7,6 +7,7 @@ use Intern\ExpectedCourseFactory;
 use Intern\Exception\MissingDataException;
 use Intern\Email\UnusualCourseEmail;
 use Intern\InternSettings;
+use Intern\TermFactory;
 
 class CollegeApprove extends WorkflowTransition {
     const sourceState = 'DepartmentApprovedState';
@@ -26,11 +27,16 @@ class CollegeApprove extends WorkflowTransition {
 
     public function doNotification(Internship $i, $note = null)
     {
+        $term = TermFactory::getTermByTermCode($i->getTerm());
+
         // If the subject and course number are not registered with InternshipInventory,
         // send an email to the appropriate receiver.
+        /*
+         ** Unusual Course notification disabled for ECU.
         if (!ExpectedCourseFactory::isExpectedCourse($i->getSubject(), $i->getCourseNumber())) {
-            $email = new UnusualCourseEmail(InternSettings::getInstance(), $i);
+            $email = new UnusualCourseEmail(InternSettings::getInstance(), $i, $term);
             $email->send();
         }
+        */
     }
   }
