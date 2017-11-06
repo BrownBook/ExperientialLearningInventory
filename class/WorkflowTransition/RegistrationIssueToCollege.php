@@ -4,10 +4,10 @@ namespace Intern\WorkflowTransition;
 use Intern\WorkflowTransition;
 use Intern\Internship;
 
-class RegistrationIssueToDean extends WorkflowTransition {
+class RegistrationIssueToCollege extends WorkflowTransition {
     const sourceState = 'RegistrationIssueState';
-    const destState   = 'SigAuthApprovedState';
-    const actionName  = 'Return for Dean Approval';
+    const destState   = 'CollegeApprovedState';
+    const actionName  = 'Return for College Approval';
 
     const sortIndex = 6;
 
@@ -15,6 +15,7 @@ class RegistrationIssueToDean extends WorkflowTransition {
         return array('register');
     }
 
+/*
     public function allowed(Internship $i)
     {
         if($i->isDistanceEd()){
@@ -29,4 +30,6 @@ class RegistrationIssueToDean extends WorkflowTransition {
 
         return false;
     }
+*/
+
 }

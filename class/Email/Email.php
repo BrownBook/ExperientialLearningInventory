@@ -123,7 +123,7 @@ abstract class Email {
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
             ->setFrom(array($fromAddress => $fromName))
-            ->setTo($to,$to)
+            ->setTo($to)
             ->setBody($content);
 
         if(isset($cc)){

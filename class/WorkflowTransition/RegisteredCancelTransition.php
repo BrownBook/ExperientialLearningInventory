@@ -16,6 +16,7 @@ class RegisteredCancelTransition extends WorkflowTransition {
         return array('register');
     }
 
+    /*
     public function allowed(Internship $i)
     {
         if($i->isDistanceEd()){
@@ -30,6 +31,7 @@ class RegisteredCancelTransition extends WorkflowTransition {
 
         return false;
     }
+    */
 
     public function getSourceState(){
         return array('RegisteredState');

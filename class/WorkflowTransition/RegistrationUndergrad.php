@@ -6,37 +6,43 @@ use Intern\Internship;
 use Intern\Exception\MissingDataException;
 use Intern\TermFactory;
 
-class GraduateRegistration extends WorkflowTransition {
-
-    const sourceState = 'GradSchoolApprovedState';
+class RegistrationUndergrad extends WorkflowTransition {
+    const sourceState = 'CollegeApprovedState';
     const destState   = 'RegisteredState';
-    const actionName  = 'Mark as Registered / Enrollment Complete (grad)';
+    const actionName  = 'Mark as Registered / Enrollment Complete';
 
     public function getAllowedPermissionList(){
         return array('register');
     }
 
+    /*
     public function isApplicable(Internship $i)
     {
-        if($i->isGraduate()){
+        if($i->isUndergraduate()){
             return true;
         }else{
             return false;
         }
     }
+    */
 
+    /*
     public function allowed(Internship $i)
     {
-        if($i->isDistanceEd()) {
-            if(\Current_User::allow('intern', 'distance_ed_register')) {
-    		    return true;
-    		} else {
-    		    return false;
+        if($i->isDistanceEd()){
+            if(\Current_User::allow('intern', 'distance_ed_register')){
+                return true;
+            }else{
+                return false;
             }
-    	} else {
-    		return parent::allowed($i);
-    	}
+        }
+        else
+        {
+            return parent::allowed($i);
+        }
+
     }
+    */
 
     public function doNotification(Internship $i, $note = null)
     {
@@ -72,6 +78,12 @@ class GraduateRegistration extends WorkflowTransition {
             if (!isset($creditHours) || $creditHours === '') {
                 throw new MissingDataException("Please enter the number of course credit hours.");
             }
+
+            /*
+            if(!\Current_User::isDeity() && $creditHours <= 0){
+                throw new MissingDataException("The number of course credit hours should be greater than zero.");
+            }
+            */
         }
     }
 }

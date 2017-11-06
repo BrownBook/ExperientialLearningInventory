@@ -17,10 +17,16 @@ $permissions['edit_courses']            = _('Edit Standard Internship Course Lis
 
 // Permissions for workflow transitions
 $permissions['create_internship']= _('Create Internships');
+
+$permissions['coordinator_approve'] = 'Coordinator Approve';
 $permissions['dept_approve']     = _('Department Approve');
-$permissions['sig_auth_approve'] = _('Signature Authority Approve');
-$permissions['dean_approve']     = _('Dean Approve');
+$permissions['college_approve']  = "College Approve";
+
+//$permissions['sig_auth_approve'] = _('Signature Authority Approve');
+//$permissions['dean_approve']     = _('Dean Approve');
+
 $permissions['register']         = _('Register');
+$permissions['complete']         = "Mark as Complete";
 $permissions['cancel']           = _('Cancel');
 $permissions['reinstate']        = _('Reinstate');
 

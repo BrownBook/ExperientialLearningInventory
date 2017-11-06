@@ -14,6 +14,7 @@ class RegisterAfterIssue extends WorkflowTransition {
         return array('register');
     }
 
+/*
     public function allowed(Internship $i)
     {
         if($i->isDistanceEd()){
@@ -28,6 +29,7 @@ class RegisterAfterIssue extends WorkflowTransition {
 
         return false;
     }
+*/
 
     public function doNotification(Internship $i, $note = null)
     {
