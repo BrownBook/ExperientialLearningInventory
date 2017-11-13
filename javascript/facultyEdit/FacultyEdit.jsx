@@ -17,7 +17,7 @@ class BannerSearch extends React.Component {
     handleSearch(){
         var bannerId = this.refs.bannerId.value.trim();
 
-        // TODO: use a regular exp to make sure it's nine digits, not just nine characters
+        // TODO: Not all schools use nine character bannerIDs, so may need to reconsider this
         if(bannerId.length === 9) {
             this.props.handleSearch(bannerId);
         }else{
@@ -60,8 +60,8 @@ class FacultyForm extends React.Component {
     // Event handler for Save button. Captures the data and passes
     // it as an object to the parent's handleSave() method.
     handleSave() {
-        this.props.handleSave({id: this.props.facultyData.id,
-                            username: this.props.facultyData.username,
+        this.props.handleSave({id: this.refs.facultyEditId.value,
+                            username: this.refs.facultyEditUsername.value,
                             first_name: this.refs.facultyEditFirstName.value,
                             last_name: this.refs.facultyEditLastName.value,
                             phone: this.refs.facultyEditPhone.value,
@@ -82,13 +82,13 @@ class FacultyForm extends React.Component {
 			    		<div className="col-md-6">
 			    			<div className="form-group">
 		                        <label htmlFor="faculty-edit-id">Banner ID:&nbsp;</label>
-		                        <span className="banner-id">{this.props.facultyData.id}</span>
+                                <input type="text" className="form-control" id="faculty-edit-id" ref="facultyEditId" defaultValue={this.props.facultyData.id} />
 		                    </div>
 			    		</div>
 						<div className="col-md-6">
 							<div className="form-group">
 		                        <label className="control-label" htmlFor="faculty-edit-username">Username:&nbsp;</label>
-					            <span className="username">{this.props.facultyData.username}</span>
+                                <input type="text" className="form-control" id="ffaculty-edit-username" ref="facultyEditUsername" defaultValue={this.props.facultyData.username} />
 		                    </div>
 			    		</div>
 				    </div>
@@ -509,15 +509,28 @@ class EditFaculty extends React.Component {
 			}.bind(this),
 			error: function(xhr, status, err) {
                 var warning = null;
-                if(xhr.status === 404){
-                    // Handle the case where we couldn't find anyone with that banner ID
-                    warning = "We couldn't find anyone with that Banner ID.";
-                    this.setState({errorWarning:warning})
-                    return;
-                }
 
-				warning = "Sorry, we couldn't load the details for that faculty member.";
-				this.setState({errorWarning:warning})
+                // if(xhr.status === 404){
+                //     // Handle the case where we couldn't find anyone with that banner ID
+                //     warning = "We couldn't find anyone with that Banner ID.";
+                //     this.setState({errorWarning:warning})
+                //     return;
+                // }
+
+                warning = "Sorry, we couldn't load the details for that faculty member. Please enter the data manually.";
+                let emptyData = {id: '',
+                                    username: '',
+                                    first_name: '',
+                                    last_name: '',
+                                    phone: '',
+                                    fax: '',
+                                    street_address1: '',
+                                    street_address2: '',
+                                    city: '',
+                                    state: '',
+                                    zip: ''
+                                };
+                this.setState({errorWarning:warning, showModalSearch: false, showModalForm: true, facultyData: emptyData});
 				console.error(this.props.url, status, err.toString());
 			}.bind(this)
 		});

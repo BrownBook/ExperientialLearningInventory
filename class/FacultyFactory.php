@@ -24,8 +24,13 @@ class FacultyFactory {
         if(!$result){
             $provider = StudentDataProviderFactory::getProvider();
             $result = $provider->getFacultyMember($id);
-            $result->id = $result->banner_id;
-            $result->username = $result->user_name;
+
+            if(isset($result) && isset($result->bannerId)){
+                $result->id = $result->banner_id;
+                $result->username = $result->user_name;
+            } else {
+                $result = null;
+            }
         }
 
         return $result;
