@@ -30,7 +30,7 @@ class MajorRest {
     {
         $pdo = PdoFactory::getPdoInstance();
 
-        $sql = "SELECT code, description, level
+        $sql = "SELECT id, description as name, hidden, level
                 FROM intern_major
                 ORDER BY description ASC";
 
