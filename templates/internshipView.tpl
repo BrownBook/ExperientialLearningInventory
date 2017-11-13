@@ -100,6 +100,11 @@
         </div>
 
         <div class="form-group">
+          <label class="col-lg-3 control-label" for="{STUDENT_ADDRESS2_ID}">{STUDENT_ADDRESS2_LABEL_TEXT}</label>
+          <div class="col-lg-6">{STUDENT_ADDRESS2}</div>
+        </div>
+
+        <div class="form-group">
           <label class="col-lg-3 control-label" for="{STUDENT_CITY_ID}">{STUDENT_CITY_LABEL_TEXT}</label>
           <div class="col-lg-6">{STUDENT_CITY}</div>
         </div>
