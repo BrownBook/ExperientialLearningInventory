@@ -31,7 +31,7 @@ CREATE TABLE intern_department (
 );
 
 create table intern_faculty (
-    id              integer NOT NULL,
+    id              character varying NOT NULL,
     username        character varying NOT NULL,
     first_name      character varying NOT NULL,
     last_name       character varying NOT NULL,
@@ -46,7 +46,7 @@ create table intern_faculty (
 );
 
 create table intern_faculty_department (
-    faculty_id      integer NOT NULL REFERENCES intern_faculty(id),
+    faculty_id      character varying NOT NULL REFERENCES intern_faculty(id),
     department_id   integer NOT NULL REFERENCES intern_department(id),
     PRIMARY KEY (faculty_id, department_id)
 );
@@ -577,7 +577,7 @@ CREATE TABLE intern_internship (
        term character varying NOT NULL REFERENCES intern_term(term),
 
        agency_id INT NOT NULL REFERENCES intern_agency(id),
-       faculty_id integer REFERENCES intern_faculty(id),
+       faculty_id character varying REFERENCES intern_faculty(id),
        department_id INT NOT NULL,
 
        start_date INT default 0,

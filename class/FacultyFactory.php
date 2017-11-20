@@ -82,4 +82,52 @@ class FacultyFactory {
 
         return $result;
     }
+
+    public static function saveFaculty(Faculty $faculty)
+    {
+        $db = PdoFactory::getPdoInstance();
+
+        $query = 'SELECT * FROM intern_faculty WHERE id = :facultyId';
+
+        $stmt = $db->prepare($query);
+        $stmt->execute(array('facultyId'=>$faculty->getId()));
+        $result = $stmt->fetchAll();
+
+        if(count($result) > 0){
+            // Faculty member exists, so update info
+            $query = 'UPDATE intern_faculty SET
+                            username = :username,
+                            first_name = :firstName,
+                            last_name = :lastName,
+                            phone = :phone,
+                            fax = :fax,
+                            street_address1 = :streetAddress1,
+                            street_address2 = :streetAddress2,
+                            city = :city,
+                            state = :state,
+                            zip = :zip
+                        WHERE id = :facultyId';
+        } else {
+            // Faculty member does not exist yet, do an INSERT
+            $query = 'INSERT INTO intern_faculty (id, username, first_name, last_name, phone, fax, street_address1, street_address2, city, state, zip)
+                       VALUES (:facultyId, :username, :firstName, :lastName, :phone, :fax, :streetAddress1, :streetAddress2, :city, :state, :zip)';
+        }
+
+        $params = array(
+            'facultyId'     => $faculty->getId(),
+            'username'      => $faculty->getUsername(),
+            'firstName'     => $faculty->getFirstName(),
+            'lastName'      => $faculty->getLastName(),
+            'phone'         => $faculty->getPhone(),
+            'fax'           => $faculty->getFax(),
+            'streetAddress1' => $faculty->getStreetAddress1(),
+            'streetAddress2' => $faculty->getStreetAddress2(),
+            'city'          => $faculty->getCity(),
+            'state'         => $faculty->getState(),
+            'zip'           => $faculty->getZip()
+        );
+
+        $stmt = $db->prepare($query);
+        $stmt->execute($params);
+    }
 }
