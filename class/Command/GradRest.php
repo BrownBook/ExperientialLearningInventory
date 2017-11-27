@@ -39,8 +39,8 @@ class GradRest {
 		$db = Database::newDB();
 		$pdo = $db->getPDO();
 
-		$sql = "INSERT INTO intern_grad_prog (id, name, hidden)
-				VALUES (nextval('intern_major_seq'), :grad, :hidden)";
+		$sql = "INSERT INTO intern_major (id, description, hidden, level, code)
+				VALUES (nextval('intern_major_seq'), :grad, :hidden, 'G', '')";
 
 		$sth = $pdo->prepare($sql);
 
@@ -58,7 +58,7 @@ class GradRest {
 			$hVal = $_REQUEST['val'];
 			$id = $_REQUEST['id'];
 
-			$sql = "UPDATE intern_grad_prog
+			$sql = "UPDATE intern_major
 					SET hidden=:val
 					WHERE id=:id";
 
@@ -71,7 +71,7 @@ class GradRest {
 			$mname = $_REQUEST['name'];
 			$id = $_REQUEST['id'];
 
-			$sql = "UPDATE intern_grad_prog
+			$sql = "UPDATE intern_major
 					SET name=:mname
 					WHERE id=:id";
 
@@ -86,8 +86,8 @@ class GradRest {
 		$db = Database::newDB();
 		$pdo = $db->getPDO();
 
-		$sql = "SELECT id, name, hidden
-				FROM intern_grad_prog
+		$sql = "SELECT id, description as name, hidden
+				FROM intern_major WHERE level != 'U'
 				ORDER BY name ASC";
 
 		$sth = $pdo->prepare($sql);

@@ -70,7 +70,9 @@ $query = "INSERT INTO intern_local_student_data (
                 :city,
                 :state,
                 :zip
-            ) ON CONFLICT (student_id) DO UPDATE SET
+            )";
+/*
+                ON CONFLICT (student_id) DO UPDATE SET
                 student_id = :studentId,
                 user_name = :username,
                 email = :email,
@@ -95,6 +97,7 @@ $query = "INSERT INTO intern_local_student_data (
                 state = :state,
                 zip = :zip
             WHERE intern_local_student_data.student_id = :studentId;";
+*/
 
 $stmt = $pdo->prepare($query);
 
@@ -113,8 +116,8 @@ while(($line = fgetcsv($inputFile)) !== FALSE) {
 
     $params['studentId'] = $line[0];
 
-    $params['email'] = $line[7];
-    $emailParts = explode("@", $line[7]);
+    $params['email'] = $line[8];
+    $emailParts = explode("@", $line[8]);
     $params['username'] = $emailParts[0];
 
     $params['lastName'] = $line[1];
@@ -123,26 +126,31 @@ while(($line = fgetcsv($inputFile)) !== FALSE) {
     $params['preferredName'] = ''; // TODO?
 
     $params['confidential'] = 'N'; // TODO?
-    $params['birthDate'] = $line[6];
-    $params['gender'] = $line[14];
+    $params['birthDate'] = $line[7];
+    $params['gender'] = $line[15];
 
-    $params['level'] = 'U'; // TODO
+    $params['level'] = $line[4];
     $params['campus'] = 'main_campus'; // Hard coded
-    $params['gpa'] = $line[5];
+
+    $params['gpa'] = $line[6];
+    if($params['gpa'] == '') {
+        $params['gpa'] = 0;
+    }
+
     $params['creditHours'] = 0; // TODO?
 
     $params['majorCode'] = ''; // TODO?
-    //$params['programDesc'] = $line[3]; // Unused
-    $params['majorDesc'] = $line[4];
+    //$params['programDesc'] = $line[3];
+    $params['majorDesc'] = $line[5];
 
     $params['gradDate'] = ''; // TODO?
-    $params['phone'] = $line[13];
+    $params['phone'] = $line[14];
 
-    $params['address'] = $line[8];
-    $params['address2'] = $line[9];
-    $params['city'] = $line[10];
-    $params['state'] = $line[11];
-    $params['zip'] = $line[12];
+    $params['address'] = $line[9];
+    $params['address2'] = $line[10];
+    $params['city'] = $line[11];
+    $params['state'] = $line[12];
+    $params['zip'] = $line[13];
 
     $stmt->execute($params);
 }
