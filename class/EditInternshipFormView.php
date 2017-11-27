@@ -695,7 +695,7 @@ class EditInternshipFormView {
     {
         // Faculty Supervisor
         $facultyId = $this->intern->getFacultyId();
-        if (isset($facultyId) && $facultyId != 0) {
+        if (isset($facultyId)) {
             $this->formVals['faculty_id'] = $facultyId;
         }
     }
