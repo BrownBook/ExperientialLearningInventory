@@ -712,7 +712,7 @@ class Internship {
         $tags['DEPT_NAME'] = PHPWS_Text::moduleLink($d->name, 'intern', array('action' => 'ShowInternship', 'internship_id' => $this->id));
 
         // Faculty info.
-        if(isset($this->faculty_id)){
+        if(isset($this->faculty_id) && $this->faculty_id != ''){
             $f = $this->getFaculty();
             $tags['FACULTY_NAME'] = PHPWS_Text::moduleLink($f->getFullName(), 'intern', array('action' => 'ShowInternship', 'internship_id' => $this->id));
         }else{

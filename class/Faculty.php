@@ -14,19 +14,19 @@ namespace Intern;
 class Faculty extends Model implements DbStorable {
 
     public $id;
-    private $username;
+    public $username;
 
-    private $firstName;
-    private $lastName;
+    public $first_name;
+    public $last_name;
 
-    private $phone;
-    private $fax;
+    public $phone;
+    public $fax;
 
-    private $streetAddress1;
-    private $streetAddress2;
-    private $city;
-    private $state;
-    private $zip;
+    public $street_address1;
+    public $street_address2;
+    public $city;
+    public $state;
+    public $zip;
 
     /**
      * Constructor
@@ -152,7 +152,7 @@ class Faculty extends Model implements DbStorable {
      */
     public function getFirstName()
     {
-        return $this->firstName;
+        return $this->first_name;
     }
 
     /**
@@ -161,7 +161,7 @@ class Faculty extends Model implements DbStorable {
      */
     public function setFirstName($first)
     {
-        $this->firstName = $first;
+        $this->first_name = $first;
     }
 
     /**
@@ -170,7 +170,7 @@ class Faculty extends Model implements DbStorable {
      */
     public function getLastName()
     {
-        return $this->lastName;
+        return $this->last_name;
     }
 
     /**
@@ -179,7 +179,7 @@ class Faculty extends Model implements DbStorable {
      */
     public function setLastName($last)
     {
-        $this->lastName = $last;
+        $this->last_name = $last;
     }
 
     /**
