@@ -5,13 +5,14 @@ namespace Intern;
 use \Intern\DataProvider\Student\StudentDataProviderFactory;
 
 use \phpws2\Database;
+use Intern\PdoFactory;
+use Intern\FacultyDB;
 
 class FacultyFactory {
 
     public static function getFacultyById($id)
     {
-        $db = Database::newDB();
-        $pdo = $db->getPDO();
+        $pdo = PdoFactory::getPdoInstance();
 
         $sql = "SELECT intern_faculty.* FROM intern_faculty WHERE intern_faculty.id = :id";
 
@@ -42,29 +43,17 @@ class FacultyFactory {
             throw new \InvalidArgumentException('Missing faculty id.');
         }
 
-        $sql = "SELECT intern_faculty.* FROM intern_faculty WHERE intern_faculty.id = {$id}";
+        $pdo = PdoFactory::getPdoInstance();
 
-        $row = \PHPWS_DB::getRow($sql);
+        $sql = "SELECT intern_faculty.* FROM intern_faculty WHERE intern_faculty.id = :id";
 
-        if (\PHPWS_Error::logIfError($row)) {
-            throw new Exception($row);
-        }
+        $stmt = $pdo->prepare($sql);
+        $stmt->setFetchMode(\PDO::FETCH_CLASS, 'Intern\FacultyDB');
+        $stmt->execute(array('id'=>$id));
 
-        $faculty = new FacultyDB();
+        $result = $stmt->fetch();
 
-        $faculty->setId($row['id']);
-        $faculty->setUsername($row['username']);
-        $faculty->setFirstName($row['first_name']);
-        $faculty->setLastName($row['last_name']);
-        $faculty->setPhone($row['phone']);
-        $faculty->setFax($row['fax']);
-        $faculty->setStreetAddress1($row['street_address1']);
-        $faculty->setStreetAddress2($row['street_address2']);
-        $faculty->setCity($row['city']);
-        $faculty->setState($row['state']);
-        $faculty->setZip($row['zip']);
-
-        return $faculty;
+        return $result;
     }
 
     /**
