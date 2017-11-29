@@ -87,18 +87,22 @@ class TermBlock extends React.Component {
         }
 
         return (
-            <div className="row">
-                {errorNotice}
-                <div className="col-sm-12 col-md-5 col-md-push-3">
-                    <div className={fgClasses} id="term">
-                        <label htmlFor="term" className="control-label">Term</label><br />
-                        <div className="btn-group" data-toggle="buttons">
-                            {termList}
+            <div>
+                <div className="row">
+                    {errorNotice}
+                    <div className="col-sm-12 col-md-5 col-md-push-3">
+                        <div className={fgClasses} id="term">
+                            <label htmlFor="term" className="control-label">Term</label><br />
+                            <div className="btn-group" data-toggle="buttons">
+                                {termList}
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div className="col-md-4 col-md-push-2">
-                    <span id="helpBlock" className="help-block" style={{marginTop: '32px'}}>{termDates}</span>
+                <div className="row">
+                    <div className="col-md-4 col-md-push-3">
+                        <span id="helpBlock" className="help-block" style={{marginTop: '.5em'}}>{termDates}</span>
+                    </div>
                 </div>
             </div>
 
