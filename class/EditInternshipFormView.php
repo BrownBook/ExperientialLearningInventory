@@ -88,7 +88,7 @@ class EditInternshipFormView {
     {
         javascript('jquery');
         javascript('jquery_ui');
-        javascriptMod('intern', 'formGoodies');
+        javascriptMod('intern', 'formGoodies', array('email_domain' => $this->settings->getEmailDomain()));
 
         // Form Submission setup
         $this->form->setAction('index.php?module=intern&action=SaveInternship');
