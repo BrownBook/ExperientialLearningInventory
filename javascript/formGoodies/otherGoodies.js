@@ -279,7 +279,7 @@ function initFacultySelector()
 
         $("#faculty_details").removeClass('text disabled'); // Disable detail text
         $("#faculty_name").html(faculty.first_name + " " + faculty.last_name + " - " + departmentName);
-        $("#faculty_email").html('<a href="mailto:' + faculty.username + '@appstate.edu">' + faculty.username + '@appstate.edu </a>');
+        $("#faculty_email").html('<a href="mailto:' + faculty.username + window.emailDomain + '">' + faculty.username + window.emailDomain + '</a>');
 
         if(faculty.phone !== ''){
             $("#faculty_phone").html('<a href="tel:+1' + faculty.phone + '">' + faculty.phone + '</a>');
