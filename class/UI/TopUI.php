@@ -2,6 +2,8 @@
 
 namespace Intern\UI;
 
+use Intern\InternSettings;
+
 /**
  * TopUI
  *
@@ -14,12 +16,16 @@ class TopUI implements UI
 
     public static function plug()
     {
+        $settings = InternSettings::getInstance();
+
         $tpl = array();
         $tpl['HOME_LINK']    = \PHPWS_Text::moduleLink('Menu', 'intern');
         $tpl['ADD_LINK']     = \PHPWS_Text::moduleLink('Add Student', 'intern', array('action' => 'ShowInternship'));
         $tpl['SEARCH_LINK']  = \PHPWS_Text::moduleLink('Search', 'intern', array('action' => 'search'));
 
-        $tpl['SYSTEM_NAME'] = \PHPWS_Settings::get('intern', 'systemName');
+        $tpl['SYSTEM_NAME'] = $settings->getSystemName();
+
+        $tpl['HELP_ADDRESS'] = $settings->getHelpEmailAddress();
 
         $auth = \Current_User::getAuthorization();
 

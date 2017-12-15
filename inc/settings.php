@@ -18,4 +18,5 @@ $settings = array('registrarEmail'              => null,
                   'requireIntlCertification'    => true,
                   'multiCampusEnabled'          => true,
                   'generateContractEnabled'     => true,
+                  'helpEmailAddress'            => null
             );

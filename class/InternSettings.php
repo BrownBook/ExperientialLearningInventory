@@ -292,4 +292,15 @@ class InternSettings {
 
         return $result;
     }
+
+    public function getHelpEmailAddress()
+    {
+        $result = \PHPWS_Settings::get('intern', 'helpEmailAddress');
+
+        if (!isset($result) || is_null($result)) {
+            throw new \InvalidArgumentException('Missing configuration for get help address.');
+        }
+
+        return $result;
+    }
 }
