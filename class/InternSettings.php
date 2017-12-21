@@ -155,6 +155,24 @@ class InternSettings {
     }
 
     /**
+     * Returns the email domain for students (e.g. '@students.appstate.edu')
+     * to use for appending to usernames.
+     *
+     * @throws InvalidArgumentException
+     * @return string
+     */
+    public function getStudentEmailDomain()
+    {
+        $result = \PHPWS_Settings::get('intern', 'studentEmailDomain');
+
+        if (!isset($result) || is_null($result)) {
+            throw new \InvalidArgumentException('Missing configuration for student email domain.');
+        }
+
+        return $result;
+    }
+
+    /**
      * Returns the friendly name of this system, used for the
      * "from" name in email notifications.
      *

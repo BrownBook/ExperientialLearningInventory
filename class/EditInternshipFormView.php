@@ -56,6 +56,7 @@ class EditInternshipFormView {
 
         $this->tpl['INTERN_ID'] = $this->intern->getId();
         $this->tpl['EMAIL_DOMAIN'] = $this->settings->getEmailDomain();
+        $this->tpl['STUDENT_EMAIL_DOMAIN'] = $this->settings->getStudentEmailDomain();
 
         $this->form = new \PHPWS_Form('internship');
         $this->formVals = array();

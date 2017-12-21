@@ -43,7 +43,7 @@ class EnrollmentReminderEmail extends Email {
 
         $this->tpl['NAME']    = $this->internship->getFullName();
         $this->tpl['BANNER']  = $this->internship->getBannerId();
-        $this->tpl['EMAIL']   = $this->internship->getEmailAddress() . $this->emailSettings->getEmailDomain();
+        $this->tpl['EMAIL']   = $this->internship->getEmailAddress() . $this->emailSettings->getStudentEmailDomain();
         $this->tpl['TERM']    = $this->term->getDescription();
 
         if($this->internship->getSubject() !== null && $this->internship->getSubject()->getId() != 0) {
@@ -85,6 +85,6 @@ class EnrollmentReminderEmail extends Email {
         $this->subject = 'Internship Registration Pending';
 
         // Append domain name to username
-        $this->to[] = $this->toUsername . $this->emailSettings->getEmailDomain();
+        $this->to[] = $this->toUsername . $this->emailSettings->getStudentEmailDomain();
     }
 }

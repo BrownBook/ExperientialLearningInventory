@@ -35,7 +35,7 @@ class RegistrationIssueEmail extends Email {
     protected function buildMessage()
     {
         $this->subject = 'Internship Enrollment Issue';
-        $this->to = $this->internship->email . $this->emailSettings->getEmailDomain();
+        $this->to = $this->internship->email . $this->emailSettings->getStudentEmailDomain();
 
         $subjects = Subject::getSubjects();
         $faculty = $this->internship->getFaculty();

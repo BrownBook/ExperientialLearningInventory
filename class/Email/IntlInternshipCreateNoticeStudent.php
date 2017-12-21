@@ -48,7 +48,7 @@ class IntlInternshipCreateNoticeStudent extends Email {
         $dept = new Department($this->internship->department_id);
         $this->tpl['DEPARTMENT'] = $dept->getName();
 
-        $this->to = $this->internship->email . $this->emailSettings->getEmailDomain();
+        $this->to = $this->internship->email . $this->emailSettings->getStudentEmailDomain();
 
         $this->subject = "International Internship Created - {$this->internship->first_name} {$this->internship->last_name}";
     }
