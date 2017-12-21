@@ -101,7 +101,7 @@ class RegistrationConfirmationEmail extends Email {
             $this->tpl['INTERNATIONAL'] = 'No';
         }
 
-        $this->to[] = $this->internship->email . $this->emailSettings->getEmailDomain();
+        $this->to[] = $this->internship->email . $this->emailSettings->getStudentEmailDomain();
 
         if ($faculty instanceof Faculty) {
             $this->cc[] = $faculty->getUsername() . $this->emailSettings->getEmailDomain();

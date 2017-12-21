@@ -210,7 +210,7 @@ class GetSearchSuggestions {
 
             $studentArray[] = array(
                                    'name' => $student->getLegalName(),
-                                   'email' => $student->getUsername() . $this->settings->getEmailDomain(),
+                                   'email' => $student->getUsername() . $this->settings->getStduentEmailDomain(),
                                    'major' => $major,
                                    'studentId' => $student->getStudentId()
                                  );

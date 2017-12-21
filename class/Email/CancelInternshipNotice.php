@@ -62,7 +62,7 @@ class CancelInternshipNotice extends Email {
         }
 
         //CC student
-        $this->cc[] = $this->internship->email . $this->emailSettings->getEmailDomain();
+        $this->cc[] = $this->internship->email . $this->emailSettings->getStudentEmailDomain();
 
         //CC faculty members
         $faculty = $this->internship->getFaculty();
