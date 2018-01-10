@@ -50,6 +50,7 @@ class ShowInternship {
         } catch(\Exception $e){
             $studentId = $intern->getBannerId();
             $student = null;
+            $existingCreditHours = '';
             \NQ::simple('intern', \Intern\UI\NotifyUI::WARNING, "We couldn't get the credit hours for {$studentId}. This probably means this person is not an active student.");
         }
 
