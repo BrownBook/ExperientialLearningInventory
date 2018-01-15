@@ -139,8 +139,8 @@ while(($line = fgetcsv($inputFile)) !== FALSE) {
 
     $params['creditHours'] = 0; // TODO?
 
-    $params['majorCode'] = ''; // TODO?
-    //$params['programDesc'] = $line[3];
+    $params['majorCode'] = $line[16];
+    //$params['programDesc'] = $line[3]; // Unused
     $params['majorDesc'] = $line[5];
 
     $params['gradDate'] = ''; // TODO?
