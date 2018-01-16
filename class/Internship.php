@@ -1114,6 +1114,7 @@ class Internship {
         return array('internship'       => 'Internship',
                      'student_teaching' => 'Student Teaching',
                      'practicum'        => 'Practicum',
-                     'clinical'         => 'Clinical');
+                     'clinical'         => 'Clinical',
+                     'other'            => 'Other');
     }
 }

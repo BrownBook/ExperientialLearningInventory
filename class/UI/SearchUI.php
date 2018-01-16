@@ -131,8 +131,8 @@ class SearchUI implements UI
         $form->addCheckAssoc('workflow_state', $workflowStates);
 
         // Internship types.
-        $types = Internship::getTypesAssoc();
-        $form->addRadioAssoc('type', $types);
+        //$types = Internship::getTypesAssoc();
+        //$form->addRadioAssoc('type', $types);
 
         /************************
          * Certification Status *
