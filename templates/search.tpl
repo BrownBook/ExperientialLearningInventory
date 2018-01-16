@@ -85,6 +85,9 @@
                 <label class="btn btn-default">Clinical
                   <input type="radio" name="type" value="clinical">
                 </label>
+                <label class="btn btn-default">Other
+                  <input type="radio" name="type" value="other">
+                </label>
               </div>
           </div>
         </div>
