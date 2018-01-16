@@ -138,7 +138,7 @@ class SaveInternship {
         } catch (StudentNotFoundException $e){
             $student = null;
 
-            $this->rerouteWithError('index.php?module=intern&action=ShowInternship', "We couldn't find a matching student in Banner. Your changes were saved, but this student probably needs to contact the Registrar's Office to re-enroll.");
+            //$this->rerouteWithError('index.php?module=intern&action=ShowInternship', "We couldn't find a matching student in Banner. Your changes were saved, but this student probably needs to contact the Registrar's Office to re-enroll.");
 			\NQ::close();
         }
 
