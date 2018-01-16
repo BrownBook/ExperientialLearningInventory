@@ -173,14 +173,16 @@
         <div class="form-group">
           <label class="col-lg-3 control-label" for="backgroundCheck">Background Check Needed?</label>
           <div class="col-lg-6">
-              <div id="backgroundCheck" class="btn-group" data-toggle="buttons" role="group" aria-label="background selector">
-                <label class="btn btn-default {BACK_ACTIVE}">
-                  <input type="radio" name="background_code" autocomplete="off" value="1" {BACK_CHECKED}> Yes
-                </label>
-                <label class="btn btn-default {BACK_NOT_ACTIVE}">
-                  <input type="radio" name="background_code" autocomplete="off" value="0" {BACK_NOT_CHECKED}> No
-                </label>
-              </div>
+            <!-- BEGIN back_check -->
+              <button type="button" class="btn btn-default" name="background_code" id="back_check_id" value="0">
+                {BACK_CHECK_REQUEST_BTN}
+              </button>
+              <!-- END back_check -->
+              <!-- BEGIN back_check_req -->
+              <button type="button" class="btn btn-default" name="background_code" id="back_check_id" value="1" disabled>
+                {BACK_CHECK_REQUESTED_BTN}
+              </button>
+              <!-- END back_check_req -->
           </div>
         </div>
         <!-- END BACK_ACTIVE -->
@@ -189,14 +191,16 @@
         <div class="form-group">
           <label class="col-lg-3 control-label" for="drugCheck">Drug Test Needed?</label>
           <div class="col-lg-6">
-              <div id="drugCheck" class="btn-group" data-toggle="buttons" role="group" aria-label="drug selector">
-                <label class="btn btn-default {DRUG_ACTIVE}">
-                  <input type="radio" name="drug_code" autocomplete="off" value="1" {DRUG_CHECKED}> Yes
-                </label>
-                <label class="btn btn-default {DRUG_NOT_ACTIVE}">
-                  <input type="radio" name="drug_code" autocomplete="off" value="0" {DRUG_NOT_CHECKED}> No
-                </label>
-              </div>
+              <!-- BEGIN drug_check -->
+              <button type="button" class="btn btn-default" name="drug_code" id="drug_check_id" value="0">
+                {DRUG_CHECK_REQUEST_BTN}
+              </button>
+              <!-- END drug_check -->
+              <!-- BEGIN drug_check_req -->
+              <button type="button" class="btn btn-default" name="drug_code" id="drug_check_id" value="1" disabled>
+                {DRUG_CHECK_REQUESTED_BTN}
+              </button>
+              <!-- END drug_check_req -->
           </div>
       </div>
       <!-- END DRUG_ACTIVE -->

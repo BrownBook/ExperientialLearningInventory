@@ -323,37 +323,8 @@ class SaveInternship {
 
         /************
          * Background and Drug checks
+         * Now handled in otherGoodies.js
         */
-        if($internSettings->getBackgroundCheckRequestEnabled()){
-            // Check if this has changed from no to yes for sending email
-            if($i->background_check == 0 && $_REQUEST['background_code'] == '1'){
-                // note the change for later
-                $backgroundCheck = true;
-            }else{
-                $backgroundCheck = false;
-            }
-
-            if($_REQUEST['background_code'] == '1'){
-                $i->background_check = 1;
-            }else if($_REQUEST['background_code'] == '0'){
-                $i->background_check = 0;
-            }
-        }
-
-        if($internSettings->getDrugCheckRequestEnabled()){
-            if($i->drug_check == 0 && $_REQUEST['drug_code'] == '1'){
-                // note the change for later
-                $drugCheck = true;
-            }else{
-                $drugCheck = false;
-            }
-
-            if($_REQUEST['drug_code'] == '1'){
-                $i->drug_check = 1;
-            }else if($_REQUEST['drug_code'] == '0'){
-                $i->drug_check = 0;
-            }
-        }
 
         // If we don't have a state and this is a new internship,
         // then set an initial state
@@ -447,12 +418,6 @@ class SaveInternship {
                 $email = new \Intern\Email\OIEDCertifiedEmail(\Intern\InternSettings::getInstance(), $i, $term);
                 $email->send();
             }
-        }
-
-        // If the background check or drug check status changed to true (computed earlier), then send a notification
-        if(($internSettings->getBackgroundCheckRequestEnabled() || $internSettings->getDrugCheckRequestEnabled()) && ($backgroundCheck || $drugCheck)) {
-            $email = new \Intern\Email\BackgroundCheckEmail($internSettings, $i, $term, $agency, $backgroundCheck, $drugCheck);
-            $email->send();
         }
 
         \PHPWS_DB::commit();

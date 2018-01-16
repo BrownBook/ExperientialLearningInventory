@@ -37,6 +37,6 @@ $settings = array('registrarEmail'              => null,
                   'multiCampusEnabled'          => true,
                   'generateContractEnabled'     => true,
                   'helpEmailAddress'            => null,
-                  'studentEmailDomain'          => null
+                  'studentEmailDomain'          => null,
                   'uncaughtExceptionEmail'      => null
           );
