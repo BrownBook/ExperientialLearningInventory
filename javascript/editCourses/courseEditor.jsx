@@ -112,6 +112,18 @@ class CreateCourse extends React.Component {
 			this.props.saveCourse(this.state.subject, courseNum);
 		}
 	}
+  handleKeyPress (e) {
+    // Making the Enter button on keyboard work for Create Course button.
+    if (e.charCode === 13){
+      this.handleSubmit();
+      this.handleFocus();
+
+    }
+  }
+  handleFocus() {
+    //Select text field after Enter used.
+    this.refs.courseNum.select();
+  }
 	render() {
 		return (
 			<div className="panel panel-default">
@@ -127,13 +139,13 @@ class CreateCourse extends React.Component {
 						</div>
 						<div className="col-md-6">
 							<label>Course Number:</label>
-							<input type="text" className="form-control" placeholder="0000" ref="courseNum" />
+							<input type="text" className="form-control" placeholder="0000" ref="courseNum" onKeyPress={this.handleKeyPress} />
 						</div>
 					</div>
 					<div className="row">
 						<br />
 						<div className="col-md-3 col-md-offset-6">
-							<button type="button" className="btn btn-default" onClick={this.handleSubmit}> Create Course </button>
+							<button type="button" className="btn btn-default" onClick={this.handleSubmit} > Create Course </button>
 						</div>
 					</div>
 				</div>
