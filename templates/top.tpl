@@ -56,9 +56,23 @@
         </ul>
       </li>
       <!-- END admin_links -->
+
+      <!-- BEGIN user_full_name -->
       <li>
         <a href="#">{USER_FULL_NAME}</a>
       </li>
+      <!-- END user_full_name -->
+
+      <!-- BEGIN password_dropdown -->
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{PASSWORD_DROPDOWN_NAME} <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li>
+            <a href="index.php?module=users&action=user&tab=my_page">Change Password</a>
+          </li>
+        </ul>
+      </li>
+      <!-- END password_dropdown -->
       <li>
         <a href="{LOGOUT_URI}"><i class="fa fa-sign-out"></i> Sign out</a>
       </li>

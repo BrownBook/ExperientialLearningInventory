@@ -47,7 +47,14 @@ class TopUI implements UI
 
         $auth = \Current_User::getAuthorization();
 
-        $tpl['USER_FULL_NAME'] = \Current_User::getDisplayName();
+        // If the user is a local user, show the dropdown with link to "my page" so they can change their password
+        if($auth->user->auth_script == 'local.php'){
+            $tpl['PASSWORD_DROPDOWN_NAME'] = \Current_User::getDisplayName();;
+        }else {
+            // Otherwise, it's just their name with no dropdown menu
+            $tpl['USER_FULL_NAME'] = \Current_User::getDisplayName();
+        }
+
         $tpl['LOGOUT_URI'] = $auth->logout_link;
 
 
