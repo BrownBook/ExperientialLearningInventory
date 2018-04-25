@@ -11,7 +11,7 @@
 <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse">
     <ul class="nav navbar-nav">
-      <li><a href="index.php?module=intern&action=ShowAddInternship"><i class="fa fa-plus"></i> Add Internship</a></li>
+      <li><a href="index.php?module=intern&action=ShowAddInternship"><i class="fa fa-plus"></i> Add Activity</a></li>
       <li><a href="index.php?module=intern&action=search"><i class="fa fa-search"></i> Search</a></li>
       <li><a href="mailto:{HELP_ADDRESS}?subject={SYSTEM_NAME} Help Request"><i class="fa fa-question"></i> Get Help</a></li>
     </ul>
