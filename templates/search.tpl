@@ -68,7 +68,7 @@
       </fieldset>
 
       <fieldset>
-        <legend>Internship Type</legend>
+        <legend>Activity Type</legend>
         <div class="form-group">
           <label class="col-lg-3 control-label" for="type">Location</label>
           <div class="col-lg-9">

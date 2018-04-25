@@ -11,7 +11,7 @@
 </script>
 
 <h1>
-  <i class="fa fa-edit"></i> Edit Internship
+  <i class="fa fa-edit"></i> Edit Experiential Learning Activity
 </h1>
 
 <form class="form-horizontal {FORM_CLASS}" id="{FORM_ID}" action="{FORM_ACTION}" autocomplete="{FORM_AUTOCOMPLETE}" method="{FORM_METHOD}"{FORM_ENCODE}>
@@ -222,7 +222,7 @@
       <fieldset>
         <legend>Location</legend>
         <p>
-          <span class="help-block">Physical Location of Internship</span>
+          <span class="help-block">Physical Location of Activity</span>
         </p>
 
         <div class="form-group">
