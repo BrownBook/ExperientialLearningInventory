@@ -116,41 +116,41 @@ while(($line = fgetcsv($inputFile)) !== FALSE) {
 
     $params['studentId'] = $line[0];
 
-    $params['email'] = $line[8];
-    $emailParts = explode("@", $line[8]);
+    $params['email'] = $line[12];
+    $emailParts = explode("@", $line[12]);
     $params['username'] = $emailParts[0];
 
-    $params['lastName'] = $line[1];
-    $params['firstName'] = $line[2];
-    $params['middleName'] = ''; // TODO?
+    $params['lastName'] = $line[3];
+    $params['firstName'] = $line[1];
+    $params['middleName'] = $line[2]; // TODO?
     $params['preferredName'] = ''; // TODO?
 
     $params['confidential'] = 'N'; // TODO?
-    $params['birthDate'] = $line[7];
-    $params['gender'] = $line[15];
+    $params['birthDate'] = ''; // TODO
+    $params['gender'] = $line[4];
 
-    $params['level'] = $line[4];
+    $params['level'] = $line[18];
     $params['campus'] = 'main_campus'; // Hard coded
 
-    $params['gpa'] = $line[6];
+    $params['gpa'] = $line[21];
     if($params['gpa'] == '') {
         $params['gpa'] = 0;
     }
 
     $params['creditHours'] = 0; // TODO?
 
-    $params['majorCode'] = $line[16];
+    $params['majorCode'] = $line[14];
     //$params['programDesc'] = $line[3]; // Unused
-    $params['majorDesc'] = $line[5];
+    $params['majorDesc'] = $line[16];
 
     $params['gradDate'] = ''; // TODO?
-    $params['phone'] = $line[14];
+    $params['phone'] = $line[13];
 
-    $params['address'] = $line[9];
-    $params['address2'] = $line[10];
-    $params['city'] = $line[11];
-    $params['state'] = $line[12];
-    $params['zip'] = $line[13];
+    $params['address'] = $line[5];
+    $params['address2'] = $line[6];
+    $params['city'] = $line[7];
+    $params['state'] = $line[8];
+    $params['zip'] = $line[10];
 
     $stmt->execute($params);
 }
