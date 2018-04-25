@@ -85,5 +85,17 @@ class ExceptionEmail extends Email {
 
         $this->tpl['MESSAGE'] = ob_get_contents();
         ob_end_clean();
+
+        /**
+         *  If the email address isn't set, then output a sensible error
+         *  Continuing to try to send this will result in an exception from SwiftMailer
+         * This is probably being called from within an exception handler already, so we don't
+         * want to throw another exception.
+         */
+        if($this->to === null || $this->to[0] === null){
+            echo "uncaughtExceptionEmail address was not set. Exception is:</br>\n";
+            echo $this->tpl['MESSAGE'];
+            exit;
+        }
     }
 }
