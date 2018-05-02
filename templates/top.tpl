@@ -47,6 +47,9 @@
           <!-- BEGIN courses -->
           <li>{EDIT_COURSES_LINK}</li>
           <!-- END courses -->
+          <!-- BEGIN student_import -->
+          <li>{STUDENT_IMPORT}</li>
+          <!-- END student_import -->
           <!-- BEGIN settings -->
           <li>{ADMIN_SETTINGS}</li>
           <!-- END settings -->

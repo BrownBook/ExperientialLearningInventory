@@ -311,6 +311,15 @@ class InternshipInventory {
                 $ctrl = new Command\RequestDrugScreening();
                 $ctrl->execute();
                 break;
+            case 'ShowStudentImport':
+                $ctrl = new Command\ShowStudentImport();
+                $view = $ctrl->execute();
+                $this->content = $view->display();
+                break;
+            case 'ImportStudents':
+                $ctrl = new Command\ImportStudents();
+                $ctrl->execute();
+                break;
             default:
                 $menu = new UI\InternMenu();
                 $this->content = $menu->display();
