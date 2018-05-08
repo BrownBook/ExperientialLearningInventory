@@ -246,7 +246,7 @@ class Internship {
 	if($this->faculty_id === ''){
 	    $this->faculty_id = null;
 	}
-	
+
         $db = $this->getDb();
         try {
             $result = $db->saveObject($this);
@@ -1138,6 +1138,7 @@ class Internship {
                      'student_teaching' => 'Student Teaching',
                      'practicum'        => 'Practicum',
                      'clinical'         => 'Clinical',
+                     'studyabroad'      => 'Study Abroad',
                      'other'            => 'Other');
     }
 }

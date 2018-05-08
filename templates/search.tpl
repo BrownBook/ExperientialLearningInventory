@@ -70,7 +70,7 @@
       <fieldset>
         <legend>Activity Type</legend>
         <div class="form-group">
-          <label class="col-lg-3 control-label" for="type">Location</label>
+          <label class="col-lg-3 control-label" for="type">Type</label>
           <div class="col-lg-9">
               <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-default">Internship
@@ -84,6 +84,9 @@
                 </label>
                 <label class="btn btn-default">Clinical
                   <input type="radio" name="type" value="clinical">
+                </label>
+                <label class="btn btn-default">Study Abroad
+                  <input type="radio" name="type" value="studyabroad">
                 </label>
                 <label class="btn btn-default">Other
                   <input type="radio" name="type" value="other">
