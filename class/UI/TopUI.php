@@ -90,9 +90,13 @@ class TopUI implements UI
             $adminOptions['EDIT_COURSES_LINK'] = \PHPWS_Text::secureLink('Edit Course List','intern',array('action' => 'edit_courses'));
         }
 
+        if(\Current_User::allow('intern', 'student_import')){
+            $adminOptions['STUDENT_IMPORT'] = \PHPWS_Text::secureLink('Import Student Data', 'intern', array('action' => 'ShowStudentImport'));
+        }
+
         if(\Current_User::isDeity()){
             $adminOptions['CONTROL_PANEL']         = \PHPWS_Text::secureLink('Control Panel','controlpanel');
-            $adminOptions['ADMIN_SETTINGS']      = \PHPWS_Text::secureLink('Admin Settings','intern',array('action' => 'showAdminSettings'));
+            $adminOptions['ADMIN_SETTINGS']        = \PHPWS_Text::secureLink('Admin Settings','intern',array('action' => 'showAdminSettings'));
             $adminOptions['EDIT_ADMINS_LINK']      = \PHPWS_Text::secureLink('Edit Administrators','intern',array('action' => 'showEditAdmins'));
         }
 
