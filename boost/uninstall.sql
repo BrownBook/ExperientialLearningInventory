@@ -3,7 +3,6 @@
 BEGIN;
 
 DROP TABLE intern_document CASCADE;
-DROP TABLE intern_grad_prog CASCADE;
 DROP TABLE intern_major CASCADE;
 DROP TABLE intern_term CASCADE;
 DROP TABLE intern_internship CASCADE;
@@ -27,7 +26,6 @@ DROP SEQUENCE intern_internship_seq;
 DROP SEQUENCE intern_document_seq;
 DROP SEQUENCE intern_term_seq;
 DROP SEQUENCE intern_major_seq;
-DROP SEQUENCE intern_grad_prog_seq;
 DROP SEQUENCE intern_state_seq;
 DROP SEQUENCE intern_affiliation_agreement_seq;
 
