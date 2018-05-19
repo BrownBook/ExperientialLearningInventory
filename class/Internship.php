@@ -296,11 +296,9 @@ class Internship {
         $csv['Last Name']   = $this->last_name;
 
         // Academic Info
-        $csv['Level']           = $this->getLevel();
-
-        // TODO
-        $csv['Major Description'] = '';
-        $csv['Major Code'] = '';
+        $csv['Level']               = $this->getLevel();
+        $csv['Major Description']   = $this->getMajorDescription();
+        $csv['Major Code']          = $this->getMajorCode();
 
         $csv['GPA']             = $this->getGpa();
         $csv['Campus']          = $this->getCampus();
