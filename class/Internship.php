@@ -75,11 +75,6 @@ class Internship {
      * @deprecated
      * @see $major_code
      */
-    public $grad_prog;
-    /**
-     * @deprecated
-     * @see $major_code
-     */
     public $ugrad_major;
 
     // Contact Info
@@ -301,17 +296,10 @@ class Internship {
         $csv['Last Name']   = $this->last_name;
 
         // Academic Info
-        $csv['Level']           = $this->getLevel();
-        if($this->getLevel() == 'ugrad'){
-            //$csv['Undergrad Major'] = $this->getUgradMajor()->getName();
-            $csv['Grduate Program'] = '';
-        }else if($this->getLevel() == 'grad'){
-            $csv['Undergrad Major'] = '';
-            //$csv['Graduate Program'] = $this->getGradProgram()->getName();
-        }else{
-            $csv['Undergrad Major'] = '';
-            $csv['Grduate Program'] = '';
-        }
+        $csv['Level']               = $this->getLevel();
+        $csv['Major Description']   = $this->getMajorDescription();
+        $csv['Major Code']          = $this->getMajorCode();
+
         $csv['GPA']             = $this->getGpa();
         $csv['Campus']          = $this->getCampus();
 
@@ -435,18 +423,6 @@ class Internship {
     {
         if(!is_null($this->ugrad_major) && $this->ugrad_major != 0){
             return new Major($this->ugrad_major);
-        }else{
-            return null;
-        }
-    }
-
-    /**
-     * Get a GradProgram object for the graduate program of this student.
-     */
-    public function getGradProgram()
-    {
-        if(!is_null($this->grad_prog) && $this->grad_prog != 0){
-            return new GradProgram($this->grad_prog);
         }else{
             return null;
         }

@@ -28,7 +28,7 @@ class MajorUI implements UI
         /* Check if user can add/edit/hide/delete majors. */
         if(!\Current_User::allow('intern', 'edit_major') &&
            !\Current_User::allow('intern', 'delete_major')){
-            \NQ::simple('intern', NotifyUI::WARNING, 'You do not have permission to edit undergraduate majors.');
+            \NQ::simple('intern', NotifyUI::WARNING, 'You do not have permission to edit majors.');
             return false;
         }
 
