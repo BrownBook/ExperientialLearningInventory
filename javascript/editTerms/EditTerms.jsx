@@ -257,6 +257,12 @@ class TermInput extends React.Component {
             this.refs.undergrad_overload.value = '';
             this.refs.grad_overload.value = '';
         }
+
+        this.setState({showCalendarCensus: false});
+        this.setState({showCalendarAvailable: false});
+        this.setState({showCalendarStart: false});
+        this.setState({showCalendarEnd: false});
+
         this.props.onTermCreate(tcode, stype, descr, census, available, start, end, ugradOver, gradOver);
     }
     render() {
