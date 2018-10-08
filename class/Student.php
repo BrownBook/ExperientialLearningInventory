@@ -45,7 +45,6 @@ class Student {
     private $middleName;
     private $lastName;
     private $preferredName;
-    private $birthDate;
     private $gender;
 
     private $confidential;
@@ -170,18 +169,6 @@ class Student {
 
     public function setPreferredName($name) {
         $this->preferredName = $name;
-    }
-
-    public function getBirthDate() {
-        return $this->birthDate;
-    }
-
-    /**
-     * Sets birth date
-     * @param $date String - Date, formatted as mm/dd/yyyy, ex: 6/20/1995
-     */
-    public function setBirthDateFromString($date) {
-        $this->birthDate = strtotime($date);
     }
 
     public function getGender() {

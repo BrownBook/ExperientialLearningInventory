@@ -601,7 +601,6 @@ CREATE TABLE intern_internship (
        first_name_meta character varying,
        middle_name_meta character varying,
        last_name_meta character varying,
-       birth_date integer NOT NULL,
 
        loc_address varchar NULL,
        loc_city varchar NULL,
@@ -844,7 +843,6 @@ CREATE TABLE intern_local_student_data (
     preferred_name      character varying,
     confidential        character varying,
 
-    birth_date          character varying,
     gender              character varying,
 
     level               character varying,

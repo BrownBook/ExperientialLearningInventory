@@ -31,7 +31,6 @@ $query = "INSERT INTO intern_local_student_data (
                 last_name,
                 preferred_name,
                 confidential,
-                birth_date,
                 gender,
                 level,
                 campus,
@@ -55,7 +54,6 @@ $query = "INSERT INTO intern_local_student_data (
                 :lastName,
                 :preferredName,
                 :confidential,
-                :birthDate,
                 :gender,
                 :level,
                 :campus,
@@ -81,7 +79,6 @@ $query = "INSERT INTO intern_local_student_data (
                 last_name = :lastName,
                 preferred_name = :preferredName,
                 confidential = :confidential,
-                birth_date = :birthDate,
                 gender = :gender,
                 level = :level,
                 campus = :campus,
@@ -126,7 +123,6 @@ while(($line = fgetcsv($inputFile)) !== FALSE) {
     $params['preferredName'] = ''; // TODO?
 
     $params['confidential'] = 'N'; // TODO?
-    $params['birthDate'] = ''; // TODO
     $params['gender'] = $line[4];
 
     $params['level'] = $line[18];
