@@ -1,9 +1,7 @@
 Experiential Learning Inventory
 ===================
 
-(Fork of Internship Inventory for ECU)
-
-[![Build Status](https://travis-ci.org/AppStateESS/InternshipInventory.svg?branch=master)](https://travis-ci.org/AppStateESS/InternshipInventory)
+[![Build Status](https://travis-ci.org/BrownBook/ExperientialLearningInventory.svg?branch=master)](https://travis-ci.org/BrownBook/ExperientialLearningInventory)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/AppStateESS/InternshipInventory/badges/quality-score.png?s=c90941c8179a4c726384b8b21bcd71536e7f1f36)](https://scrutinizer-ci.com/g/AppStateESS/InternshipInventory/)
 [![Code Climate](https://codeclimate.com/github/AppStateESS/InternshipInventory.png)](https://codeclimate.com/github/AppStateESS/InternshipInventory)
 
