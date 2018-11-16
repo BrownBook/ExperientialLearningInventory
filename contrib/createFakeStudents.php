@@ -330,7 +330,6 @@ function get_row()
         'middle_name' => $middle_name,
         'last_name' => $last_name,
         'preferred_name' => pref_name($first_name),
-        'birth_date' => dob(),
         'gender' => mt_rand(0, 1) ? 'M' : 'F',
         'level' => $student_level,
         'credit_hours' => credit_for_term(),
@@ -569,14 +568,6 @@ function middle_name($first_name)
             return $middle_name;
         }
     }
-}
-
-function dob()
-{
-    $low_range = floor(17 * 86400 * 365.25);
-    $high_range = floor(22 * 86400 * 365.25);
-    $unix_dob = time() - mt_rand($low_range, $high_range);
-    return strftime('%Y-%m-%d', $unix_dob);
 }
 
 /**

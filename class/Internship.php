@@ -57,7 +57,6 @@ class Internship {
     public $first_name;
     public $middle_name;
     public $last_name;
-    public $birth_date;
 
     // Metaphones for fuzzy search
     public $first_name_meta;
@@ -192,7 +191,6 @@ class Internship {
         $this->first_name   = $student->getFirstName();
         $this->middle_name  = $student->getMiddleName();
         $this->last_name    = $student->getLastName();
-        $this->birth_date   = $student->getBirthDate();
 
         $this->setFirstNameMetaphone($student->getFirstName());
         $this->setMiddleNameMetaphone($student->getMiddleName());
@@ -769,14 +767,6 @@ class Internship {
      */
     public function getEmailAddress(){
         return $this->email;
-    }
-
-    public function getBirthDateFormatted() {
-        if(!isset($this->birth_date) || $this->birth_date === 0){
-            return null;
-        }
-
-        return date('n/j/Y', $this->birth_date);
     }
 
     public function getFacultyId()

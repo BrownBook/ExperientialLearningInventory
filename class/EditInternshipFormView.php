@@ -616,14 +616,6 @@ class EditInternshipFormView {
         // Student
         $this->tpl['BANNER'] = $this->intern->getBannerId();
 
-        $birthday = $this->intern->getBirthDateFormatted();
-
-        if(is_null($birthday)) {
-            $this->tpl['BIRTH_DATE'] = '<span class="text-muted"><em>Not available</em></span>';
-        } else {
-            $this->tpl['BIRTH_DATE'] = $this->intern->getBirthDateFormatted();
-        }
-
         $this->tpl['STUDENT_GPA'] = $this->intern->getGpa();
 
         if($this->settings->getMultiCampusEnabled()){
