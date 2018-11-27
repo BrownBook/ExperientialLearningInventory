@@ -58,7 +58,7 @@ class EditInternshipFormView {
      */
     public function __construct(Internship $i, Student $student = null, Agency $agency, Array $docs, Term $term, $studentExistingCreditHours, InternSettings $settings)
     {
-        \Layout::addPageTitle('Edit Internship');
+        \Layout::addPageTitle('Edit Activity');
 
         $this->intern = $i;
         $this->student = $student;
@@ -303,7 +303,7 @@ class EditInternshipFormView {
         $this->form->addCssClass('agency_name', 'form-control');
 
         $this->form->addCheck('copy_address_agency');
-        $this->form->setLabel('copy_address_agency', "Agency's address is same as Internship's");
+        $this->form->setLabel('copy_address_agency', "Agency's address is same as Activity's");
 
         $this->form->addText('agency_address');
         $this->form->setLabel('agency_address', 'Address');
@@ -511,7 +511,7 @@ class EditInternshipFormView {
         $this->form->addCssClass('avg_hours_week', 'form-control');
 
         $this->form->addCheck('multipart');
-        $this->form->setLabel('multipart', 'This internship is part of a multi-part experience.');
+        $this->form->setLabel('multipart', 'This activity is part of a multi-part experience.');
 
         $this->form->addCheck('secondary_part');
         $this->form->setLabel('secondary_part', 'This is a secondary part (enrollment complete through primary part).');

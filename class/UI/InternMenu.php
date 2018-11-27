@@ -44,7 +44,7 @@ class InternMenu implements UI {
 
         // Total number of internships for Diety users
         if (\Current_User::isDeity()) {
-            $tags['GRAND_TOTAL_LABEL'] = _('Total Internships in Database: ');
+            $tags['GRAND_TOTAL_LABEL'] = _('Total Experiential Learning Activities in Database: ');
 
             $db = new \PHPWS_DB('intern_internship');
             $gt = $db->select('count');
