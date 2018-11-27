@@ -30,7 +30,7 @@ class HostAgency extends React.Component {
             <div className="row">
                 <div className="col-sm-12 col-md-4 col-md-push-3">
                     <div className={fgClasses} id="agency">
-                        <label htmlFor="agency2" className="control-label">Internship Host</label>
+                        <label htmlFor="agency2" className="control-label">Experiential Learning Host</label>
                         <input type="text" id="agency2" name="agency" className="form-control" placeholder="Acme, Inc." />
                     </div>
                 </div>
@@ -49,7 +49,7 @@ class CreateInternshipButton extends React.Component {
         if(this.props.submitted) {
             button = <button type="submit" className="btn btn-lg btn-primary pull-right" id="create-btn" disabled ><i className="fa fa-spinner fa-spin"></i> Saving...</button>;
         } else {
-            button = <button type="submit" className="btn btn-lg btn-primary pull-right" id="create-btn" onClick={this.handleClick} >Create Internship</button>;
+            button = <button type="submit" className="btn btn-lg btn-primary pull-right" id="create-btn" onClick={this.handleClick} >Create Activity</button>;
         }
         return (
             <div className="row">
