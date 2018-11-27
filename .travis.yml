@@ -25,6 +25,7 @@ after_success:
     - tar -czf ExperientialLearningInventory.tar.gz *
 
 notifications:
+  email: false
 
 #deploy:
 #  provider: releases
