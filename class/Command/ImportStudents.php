@@ -224,16 +224,16 @@ class ImportStudents {
             'STREET_LINE1',
             'STREET_LINE2',
             'CITY',
-            'STATE',
-            'COUNTRY',
-            'ZIP',
+            'STATE_PROVINCE',
+            'NATION',
+            'POSTAL_CODE',
             'EMAIL_ADDRESS',
-            'PHONE_NUMBER',
+            'PHONE_NUMBER_COMBINED',
             'PROGRAM',
             'PROGRAM_DESC',
             'MAJOR_DESC',
             'STUDENT_LEVEL',
-            'STUDENT_CLASS',
+            'STUDENT_CLASSIFICATION',
             'GPA'
         );
 
