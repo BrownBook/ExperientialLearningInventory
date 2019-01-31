@@ -1105,6 +1105,9 @@ class Internship {
                      'practicum'        => 'Practicum',
                      'clinical'         => 'Clinical',
                      'studyabroad'      => 'Study Abroad',
+                     'research'         => 'Research',
+                     'capstone'         => 'Capstone',
+                     'field_work'       => 'Field Work',
                      'other'            => 'Other');
     }
 }
