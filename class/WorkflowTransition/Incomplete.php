@@ -6,7 +6,7 @@ use Intern\Internship;
 
 class Incomplete extends WorkflowTransition {
     const sourceState = 'CompletedState';
-    const destState   = 'RegisteredState';
+    const destState   = 'NewState';
     const actionName  = 'Mark as Incomplete';
 
     public function getAllowedPermissionList(){

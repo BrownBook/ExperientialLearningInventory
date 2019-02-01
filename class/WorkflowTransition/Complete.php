@@ -5,7 +5,7 @@ use Intern\WorkflowTransition;
 use Intern\Internship;
 
 class Complete extends WorkflowTransition {
-    const sourceState = 'RegisteredState';
+    const sourceState = 'NewState';
     const destState   = 'CompletedState';
     const actionName  = 'Mark as Complete';
 
