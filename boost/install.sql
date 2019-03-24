@@ -548,7 +548,7 @@ CREATE TABLE intern_term (
 );
 
 create table intern_student_autocomplete (
-    banner_id           integer NOT NULL,
+    banner_id           character varying NOT NULL,
     username            character varying,
     first_name          character varying,
     middle_name         character varying,
