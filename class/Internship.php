@@ -1108,6 +1108,7 @@ class Internship {
                      'research'         => 'Research',
                      'capstone'         => 'Capstone',
                      'field_work'       => 'Field Work',
+                     'project'          => 'Project',
                      'other'            => 'Other');
     }
 }
