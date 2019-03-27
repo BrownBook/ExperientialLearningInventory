@@ -169,6 +169,7 @@ class SaveInternship {
         $i->credits = isset($_POST['multipart']) && isset($_POST['secondary_part']) ? null : (int) $_REQUEST['credits'];
         $avg_hours_week = (int) $_REQUEST['avg_hours_week'];
         $i->avg_hours_week = $avg_hours_week ? $avg_hours_week : null;
+        $i->setTotalHours($_REQUEST['total_hours']);
         $i->paid = $_REQUEST['payment'] == 'paid';
         $i->stipend = isset($_REQUEST['stipend']) && $i->paid;
         $i->pay_rate = self::trimField($_REQUEST['pay_rate']);

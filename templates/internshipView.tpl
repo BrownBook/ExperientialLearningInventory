@@ -665,6 +665,11 @@
           <label class="col-lg-3 col-lg-offset-1control-label" for="{AVG_HOURS_WEEK_ID}">{AVG_HOURS_WEEK_LABEL_TEXT}</label>
           <div class="col-lg-3">{AVG_HOURS_WEEK}</div>
         </div>
+
+        <div class="form-group">
+          <label class="col-lg-3 col-lg-offset-1control-label" for="{TOTAL_HOURS_ID}">{TOTAL_HOURS_LABEL_TEXT}</label>
+          <div class="col-lg-3">{TOTAL_HOURS}</div>
+        </div>
       </fieldset>
 
       <div class="form-group">

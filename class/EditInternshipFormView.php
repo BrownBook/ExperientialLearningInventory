@@ -510,6 +510,10 @@ class EditInternshipFormView {
         $this->form->setLabel('avg_hours_week', 'Average Hours per Week');
         $this->form->addCssClass('avg_hours_week', 'form-control');
 
+        $this->form->addText('total_hours');
+        $this->form->setLabel('total_hours', 'Total Hours');
+        $this->form->addCssClass('total_hours', 'form-control');
+
         $this->form->addCheck('multipart');
         $this->form->setLabel('multipart', 'This activity is part of a multi-part experience.');
 
@@ -753,6 +757,7 @@ class EditInternshipFormView {
 
         $this->formVals['credits'] = $this->intern->credits;
         $this->formVals['avg_hours_week'] = $this->intern->avg_hours_week;
+        $this->formVals['total_hours'] = $this->intern->getTotalHours();
         $this->formVals['loc_address'] = $this->intern->loc_address;
         $this->formVals['loc_city'] = $this->intern->loc_city;
         $this->formVals['loc_zip'] = $this->intern->loc_zip;

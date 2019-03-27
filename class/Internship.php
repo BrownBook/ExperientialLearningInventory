@@ -107,6 +107,7 @@ class Internship {
     public $paid;
     public $stipend;
     public $pay_rate;
+    public $total_hours;
     public $co_op;
 
 
@@ -327,6 +328,7 @@ class Internship {
         $csv['End Date']               = $this->getEndDate(true);
         $csv['Credits']                = $this->credits;
         $csv['Average Hours Per Week'] = $this->avg_hours_week;
+        $csv['Total Hours']            = $this->getTotalHours();
         $csv['Paid']                   = $this->paid == 1 ? 'Yes' : 'No';
         $csv['Stipend']                = $this->stipend == 1 ? 'Yes' : 'No';
 
@@ -1056,6 +1058,14 @@ class Internship {
         }
 
         return false;
+    }
+
+    public function getTotalHours(){
+        return $this->total_hours;
+    }
+
+    public function setTotalHours($hours){
+        $this->total_hours = $hours;
     }
 
     public function getExperienceType(){
