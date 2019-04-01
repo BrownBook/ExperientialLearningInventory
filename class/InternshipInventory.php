@@ -315,6 +315,11 @@ class InternshipInventory {
                 $ctrl = new Command\ImportStudents();
                 $ctrl->execute();
                 break;
+            case 'ShowImportInternshipStart':
+                $ctrl = new Command\ShowImportInternshipStart();
+                $view = $ctrl->execute();
+                $this->content = $view->display();
+                break;
             default:
                 $menu = new UI\InternMenu();
                 $this->content = $menu->display();

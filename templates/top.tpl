@@ -50,6 +50,9 @@
           <!-- BEGIN student_import -->
           <li>{STUDENT_IMPORT}</li>
           <!-- END student_import -->
+          <!-- BEGIN internship_import -->
+          <li>{INTERNSHIP_IMPORT}</li>
+          <!-- END internship_import -->
           <!-- BEGIN settings -->
           <li>{ADMIN_SETTINGS}</li>
           <!-- END settings -->
