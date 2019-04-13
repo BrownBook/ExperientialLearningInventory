@@ -90,7 +90,7 @@ class TopUI implements UI
         }
 
         if(\Current_User::allow('intern', 'internship_import')){
-            $adminOptions['INTERNSHIP_IMPORT'] = \PHPWS_Text::secureLink('Import Internships', 'intern', array('action' => 'ShowImportInternshipStart'));
+            $adminOptions['ACTIVITY_IMPORT'] = \PHPWS_Text::secureLink('Import Activities', 'intern', array('action' => 'ShowImportActivitiesStart'));
         }
 
         if(\Current_User::isDeity()){

@@ -23,7 +23,7 @@
 
 namespace Intern;
 
-class ImportInternshipView {
+class ImportActivitiesView {
 
     public function __construct()
     {
@@ -33,6 +33,6 @@ class ImportInternshipView {
     {
         $tpl = array();
 
-        return 'Hello, world.';
+        return \PHPWS_Template::process($tpl, 'intern', 'importActivities.tpl');
     }
 }

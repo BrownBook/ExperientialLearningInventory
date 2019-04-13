@@ -51,7 +51,7 @@
           <li>{STUDENT_IMPORT}</li>
           <!-- END student_import -->
           <!-- BEGIN internship_import -->
-          <li>{INTERNSHIP_IMPORT}</li>
+          <li>{ACTIVITY_IMPORT}</li>
           <!-- END internship_import -->
           <!-- BEGIN settings -->
           <li>{ADMIN_SETTINGS}</li>

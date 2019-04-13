@@ -29,7 +29,7 @@ namespace Intern\Command;
  * Controller to show the initial UI for importing internships.
  */
 
-class ShowImportInternshipStart {
+class ShowImportActivitiesStart {
 
     public function __construct() {
 
@@ -38,9 +38,14 @@ class ShowImportInternshipStart {
     public function execute()
     {
         // Check permissions
-        // TODO
+        if(!\Current_User::allow('intern', 'internship_import')){
+            \NQ::simple('intern', \Intern\UI\NotifyUI::ERROR, 'You do not have permission to import student data.');
+            \NQ::close();
+            \PHPWS_Core::home();
+            return;
+        }
 
-        $view = new \Intern\ImportInternshipView();
+        $view = new \Intern\ImportActivitiesView();
 
         return $view;
     }
