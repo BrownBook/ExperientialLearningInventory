@@ -324,6 +324,11 @@ class InternshipInventory {
                 $ctrl = new Command\ImportActivities();
                 $ctrl->execute();
                 break;
+            case 'ViewActivityImport':
+                $ctrl = new Command\ViewActivityImport();
+                $view = $ctrl->execute();
+                $this->content = $view->display();
+                break;
             default:
                 $menu = new UI\InternMenu();
                 $this->content = $menu->display();

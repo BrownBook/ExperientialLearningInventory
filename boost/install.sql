@@ -867,15 +867,18 @@ CREATE TABLE intern_import (
     id INT NOT NULL,
     name character varying NOT NULL,
     uploaded_timestamp INT NOT NULL,
-    uploaded_by character varying,
-    imported_on INT
+    uploaded_by character varying NOT NULL,
+    imported_timestamp INT,
     PRIMARY KEY(id)
 );
 
-CREATE TABLE intern_import_internship (
+CREATE SEQUENCE intern_import_seq;
+
+CREATE TABLE intern_import_activity (
     id          INT NOT NULL,
     import_id   INT NOT NULL REFERENCES intern_import(id),
-    banner_id   character varying,
+    row_num     INT NOT NULL,
+    student_id   character varying,
     first_name  character varying,
     last_name   character varying,
     term        character varying,
@@ -886,5 +889,7 @@ CREATE TABLE intern_import_internship (
     department_name character varying,
     PRIMARY KEY(id)
 );
+
+CREATE SEQUENCE intern_import_activity_seq;
 
 COMMIT;
