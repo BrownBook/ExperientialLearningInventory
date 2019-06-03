@@ -8,9 +8,12 @@
         <a href="index.php?module=intern&action=ValidateActivityImport&import_id={IMPORT_ID}" class="btn btn-primary">Validate Import <i class="fa fa-chevron-right"></i></a>
     </div>
 
+    <!-- BEGIN show_import_button -->
+    {SHOW_IMPORT_BUTTON}
     <div class="form-group">
         <a href="index.php?module=intern&action=ImportActivities&import_id={IMPORT_ID}" class="btn btn-danger">Import Activities <i class="fa fa-upload"></i></a>
     </div>
+    <!-- END show_import_button -->
 </div>
 
 

@@ -42,7 +42,13 @@ class ActivityImportView {
 
         $rows = array();
 
+        $numValidRows = 0;
+
         foreach($this->importData as $rowData) {
+
+            if($rowData['validation_errors'] == ''){
+                $numValidRows++;
+            }
 
             $rowTags = array(
                 'ROW_NUM' => $rowData['row_num'],
@@ -66,6 +72,10 @@ class ActivityImportView {
         }
 
         $tpl['uploaded_rows'] = $rows;
+
+        if($this->importMetadata['validated_on'] !== null && $numValidRows > 0){
+            $tpl['SHOW_IMPORT_BUTTON'] = '';
+        }
 
         return \PHPWS_Template::process($tpl, 'intern', 'activityImport.tpl');
     }
