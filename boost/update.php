@@ -120,6 +120,9 @@ function intern_update(&$content, $currentVersion)
             internRunDbMigration('update_00.02.01.sql');
         case version_compare($currentVersion, '0.2.2', '<') :
             Users_Permission::registerPermissions('intern', $content);
+        case version_compare($currentVersion, '0.2.4', '<') :
+            internRunDbMigration('update_00.02.04.sql');
+            Users_Permission::registerPermissions('intern', $content);
     }
 
     return TRUE;
