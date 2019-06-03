@@ -43,7 +43,8 @@ class ActivityImportView {
         $rows = array();
 
         foreach($this->importData as $rowData) {
-            $rows[] = array(
+
+            $rowTags = array(
                 'ROW_NUM' => $rowData['row_num'],
                 'STUDENT_ID' => $rowData['student_id'],
                 'FIRST_NAME' => $rowData['first_name'],
@@ -53,8 +54,15 @@ class ActivityImportView {
                 'EXPERIENCE_TYPE' => $rowData['experience_type'],
                 'HOST_NAME' => $rowData['host_name'],
                 'HOST_STATE' => $rowData['host_state'],
-                'DEPARTMENT_NAME' => $rowData['department_name']
+                'DEPARTMENT_NAME' => $rowData['department_name'],
+                'VALIDATION_ERRORS' => $rowData['validation_errors']
             );
+
+            if($rowData['validation_errors'] === ''){
+                $rowTags['VALIDATION_GREEN_CHECK'] = '';
+            }
+
+            $rows[] = $rowTags;
         }
 
         $tpl['uploaded_rows'] = $rows;

@@ -21,20 +21,15 @@
 namespace Intern\Command;
 
 use \Intern\PdoFactory;
+use \Intern\ActivityImportFactory;
+use \Intern\DepartmentFactory;
+use \Intern\Internship;
+use \Intern\StudentFactory;
+use \Intern\DatabaseStorage;
+use \Intern\Agency;
+use \Intern\WorkflowStateFactory;
 
 class ImportActivities {
-
-    const expectedRowOrder = array(
-        'Banner ID',
-        'First Name',
-        'Last Name',
-        'Term',
-        'Level',
-        'Experience Type',
-        'Host State',
-        'Department',
-        'Host Agency'
-    );
 
     public function execute()
     {
@@ -46,151 +41,96 @@ class ImportActivities {
             return;
         }
 
-        // Check that a file was selected
-        if(sizeof($_FILES) !== 1){
-            \NQ::simple('intern', \Intern\UI\NotifyUI::ERROR, 'Please select a file to upload.');
+        // Check that an import id was supplied
+        if(!isset($_REQUEST['import_id'])){
+            \NQ::simple('intern', \Intern\UI\NotifyUI::ERROR, 'The import id was missing. Try selecting an import from the import list below.');
             \NQ::close();
             \PHPWS_Core::reroute('index.php?module=intern&action=ShowImportActivitiesStart');
+            return;
         }
 
-        $fileInfo = $_FILES['internshipDataFile'];
+        // Get the import ID
+        $importId = $_REQUEST['import_id'];
 
-        // Check that there wasn't an upload error
-        if($fileInfo['error'] == 1){
-            \NQ::simple('intern', \Intern\UI\NotifyUI::ERROR, 'There was an error while sending the file to the server. No data was imported.');
+        // Get all of the *validated* rows we're attempting to import based on the import id
+        $importRows = ActivityImportFactory::getActivityImportValidRows($importId);
+
+        if(sizeof($importRows) === 0){
+            var_dump('no valid rows');
+            \NQ::simple('intern', \Intern\UI\NotifyUI::WARNING, 'There were no valididated activities to import. No activities could be imported from this upload.');
             \NQ::close();
-            \PHPWS_Core::reroute('index.php?module=intern&action=ShowImportActivitiesStart');
+            \PHPWS_Core::reroute('index.php?module=intern&action=ViewActivityImport&id=' . $importId);
         }
 
-        // Check that the type is correct
-        if($fileInfo['type'] !== 'text/csv'){
-
-            \NQ::simple('intern', \Intern\UI\NotifyUI::ERROR, "The file we uploaded appears to be the wrong type ({$fileInfo['type']}). Please select a Comma Separated Values (.csv) file.");
-            \NQ::close();
-            \PHPWS_Core::reroute('index.php?module=intern&action=ShowImportActivitiesStart');
-        }
-
-        $destinationFilePath = PHPWS_SOURCE_DIR . 'files/activityDataImport/';
-        $destFileName = 'activityDataImport-' . date('Y-m-d-G-i-s') . '.csv';
-        $destinationFullFileName = $destinationFilePath . $destFileName;
-
-        // Create the activityDataImport directory, if it doesn't exist
-        if(!file_exists($destinationFilePath)){
-            mkdir($destinationFilePath, 0700);
-        }
-
-        // Move file to its save storage location
-        move_uploaded_file($fileInfo['tmp_name'], $destinationFullFileName);
-
-        // Open file handle to the file after it has been moved
-        $fileHandle = fopen($destinationFullFileName, 'r');
-
-        // Read the first line
-        $firstLine = fgetcsv($fileHandle);
-
-        // Check that the column order matches
-        if(!self::checkColumnOrder($firstLine)){
-            \NQ::simple('intern', \Intern\UI\NotifyUI::ERROR, 'The file we uploaded appears to have the wrong column order. Please check the columns and try again.');
-            \NQ::simple('intern', \Intern\UI\NotifyUI::ERROR, 'Columns in uploaded file: ' . implode(',', $firstLine));
-            \NQ::simple('intern', \Intern\UI\NotifyUI::ERROR, 'Expected column order: ' . implode(',', self::expectedRowOrder));
-            \NQ::close();
-            \PHPWS_Core::reroute('index.php?module=intern&action=ShowImportActivitiesStart');
-        }
+        var_dump('Importing rows', $importRows);
 
         $db = PdoFactory::getPdoInstance();
+
+        // Get the full list of all departments (to avoid querying over and over)
+        $departments = DepartmentFactory::getAllDepartments();
+        $deptObjects = array(); // Accumulate the DB objects we've used so far
 
         // Start a transaction
         $beginStmt = $db->beginTransaction();
 
-        // Create the import table entry
-        $insertQuery = 'INSERT INTO intern_import (id, name, uploaded_timestamp, uploaded_by)
-                            VALUES (
-                                nextval(\'intern_import_seq\'),
-                                :name,
-                                :uploaded_timestamp,
-                                :uploaded_by
-                            )';
-        $insertStmt = $db->prepare($insertQuery);
-        $params = array('name' => 'foobar',
-                        'uploaded_timestamp' => time(),
-                        'uploaded_by' => 'current user');
-        $insertStmt->execute($params);
+        foreach($importRows as $row){
+            // Create each new activity
 
-        // Get the ID of the row we just created
-        $importId = $db->lastInsertId();
+            // Create the Student object
+            $student = StudentFactory::getStudent($row['student_id'], $row['term']);
 
-        $insertQuery = 'INSERT INTO intern_import_activity (
-                            id,
-                            import_id,
-                            row_num,
-                            student_id,
-                            first_name,
-                            last_name,
-                            term,
-                            level,
-                            experience_type,
-                            host_name,
-                            host_state,
-                            department_name
-                        )
-                        VALUES (
-                            nextval(\'intern_import_activity_seq\'),
-                            :import_id,
-                            :row_num,
-                            :student_id,
-                            :first_name,
-                            :last_name,
-                            :term,
-                            :level,
-                            :experience_type,
-                            :host_name,
-                            :host_state,
-                            :department_name
-                        )';
-        $insertStmt = $db->prepare($insertQuery);
+            // Set the term
+            $term = $row['term'];
 
-        // This row counter is intended to match the actual row number
-        // from the source csv file that was uploaded
-        $rowNumber = 2;
-        while(($row = fgetcsv($fileHandle)) !== false) {
-            $params = array();
+            // Create and save the new agency object
+            $agency = new Agency($row['host_name']);
+            DatabaseStorage::save($agency);
 
-            $params['import_id']    = $importId;
-            $params['row_num']      = $rowNumber;
-            $params['student_id']   = $row[0];
-            $params['first_name']   = $row[1];
-            $params['last_name']    = $row[2];
-            $params['term']         = $row[3];
-            $params['level']        = $row[4];
-            $params['experience_type']  = $row[5];
-            $params['host_state']       = $row[6];
-            $params['department_name']  = $row[7];
-            $params['host_name']        = $row[8];
+            // Get the location - Domestic vs international
+            $location = 'domestic'; //TODO: handle importing international locations
 
-            $rowNumber++;
+            // TODO Get the state
+            $state = $row['host_state'];
 
-            $insertStmt->execute($params);
+            // Get the country
+            $country = '';
+
+            // Get the department object
+            $deptIndex =  array_search($row['department_name'], array_column($departments, 'name')); // Search the array of associative arrays for the dept name we want
+            $deptId = $departments[$deptIndex]['id']; // Use the array index to find the database id of the department for this activity
+
+            if(isset($deptObjects[$deptId])){
+                // We've already fetched this department object, just use the existing one
+                $department = $deptObjects[$deptId];
+            } else {
+                // We don't have this dept yet, so go query the database
+                $department = DepartmentFactory::getDepartmentById($deptId);
+                $deptObjects[$deptId] = $department; // Store it for next time
+            }
+
+            // Create the new internship object
+            $intern = new Internship($student, $term, $location, $state, $country, $department, $agency);
+
+            // Set the import ID on the internship, so we know where it came from
+            $intern->setImportId($importId);
+
+            // Setup the workflow state
+            $workflowState = WorkflowStateFactory::getState('CompletedState');
+            $intern->setState($workflowState);
+
+            // Save it to the database
+            $intern->save();
+
+            // Update the import activity with this internship id, so we can show its status
+            // TODO
         }
+
+        // Save the timestamp when we imported this dataset
+        $updateImportQuery = 'UPDATE intern_import SET imported_timestamp = :unixTime WHERE id = :importId';
+        $updateImportStmt = $db->prepare($updateImportQuery);
+        $updateImportStmt->execute(array('unixTime'=> time(), 'importId' => $importId));
 
         // Commit the database transaction
         $commitStmt = $db->commit();
-
-        // Add a success message
-        \NQ::simple('intern', \Intern\UI\NotifyUI::SUCCESS, 'Student data uploaded successfully!');
-        \NQ::close();
-
-        // Redirect to the controller for viewing the uploaded data
-        \PHPWS_Core::reroute('index.php?module=intern&action=ViewActivityImport&id=' . $importId);
-    }
-
-    private function checkColumnOrder(Array $row){
-
-        for($i = 0; $i < sizeof(self::expectedRowOrder); $i++){
-            if(self::expectedRowOrder[$i] !== trim($row[$i])){
-                return false;
-            }
-        }
-
-        return true;
     }
 }

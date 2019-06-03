@@ -627,6 +627,7 @@ CREATE TABLE intern_internship (
        experience_type character varying default 'internship',
        background_check SMALLINT DEFAULT 0,
        drug_check SMALLINT DEFAULT 0,
+       import_id INT NULL REFERENCS intern_import(id),
        PRIMARY KEY(id)
 );
 
@@ -869,6 +870,7 @@ CREATE TABLE intern_import (
     uploaded_timestamp INT NOT NULL,
     uploaded_by character varying NOT NULL,
     imported_timestamp INT,
+    validated_on INT,
     PRIMARY KEY(id)
 );
 
@@ -887,6 +889,8 @@ CREATE TABLE intern_import_activity (
     host_name       character varying,
     host_state      character varying,
     department_name character varying,
+    validation_errors character varying,
+    validated_on INT,
     PRIMARY KEY(id)
 );
 

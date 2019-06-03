@@ -9,7 +9,7 @@
     </div>
 
     <div class="form-group">
-        <a href="index.php?module=intern&action=ImportActivites&import_id={IMPORT_ID}" class="btn btn-danger">Import Activities <i class="fa fa-upload"></i></a>
+        <a href="index.php?module=intern&action=ImportActivities&import_id={IMPORT_ID}" class="btn btn-danger">Import Activities <i class="fa fa-upload"></i></a>
     </div>
 </div>
 
@@ -26,6 +26,7 @@
         <th>Host Name</th>
         <th>Host State</th>
         <th>Department Name</th>
+        <th>Validation Status</th>
 
     </tr>
 
@@ -41,6 +42,13 @@
       <td>{HOST_NAME}</td>
       <td>{HOST_STATE}</td>
       <td>{DEPARTMENT_NAME}</td>
+      <td>
+          {VALIDATION_ERRORS}
+          <!-- BEGIN green_check -->
+          {VALIDATION_GREEN_CHECK}
+          <i class="fa fa-check text-success"></i>
+          <!-- END green_check -->
+      </td>
   </tr>
 <!-- END uploaded_rows -->
 </table>

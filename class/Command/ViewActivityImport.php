@@ -20,8 +20,8 @@
 
 namespace Intern\Command;
 
-use \Intern\PdoFactory;
 use \Intern\ActivityImportView;
+use \Intern\ActivityImportFactory;
 
 class ViewActivityImport {
 
@@ -45,24 +45,16 @@ class ViewActivityImport {
 
         $importId = $_REQUEST['id'];
 
-        // Get a PDO connection
-        $db = PdoFactory::getPdoInstance();
+        $importMetadata = ActivityImportFactory::getActivityImport($importId);
 
-        $importMetadataQuery = 'SELECT * FROM intern_import WHERE id = :id';
-        $metadataStmt = $db->prepare($importMetadataQuery);
-        $metadataStmt->execute(array('id' => $importId));
+        $importData = ActivityImportFactory::getActivityImportRows($importId);
 
-        $importMetadata = $metadataStmt->fetchAll(\PDO::FETCH_ASSOC);
-
-        //var_dump($importMetadata[0]);
-
-        $importDataQuery = 'SELECT * FROM intern_import_activity where import_id = :id';
-        $importDataStmt = $db->prepare($importDataQuery);
-        $importDataStmt->execute(array('id' => $importId));
-
-        $importData = $importDataStmt->fetchAll(\PDO::FETCH_ASSOC);
-
-        //var_dump($importData);
+        if(sizeof($importData) <= 0){
+            \NQ::simple('intern', \Intern\UI\NotifyUI::ERROR, 'The import id was not found. Try selecting an import from the import list below.');
+            \NQ::close();
+            \PHPWS_Core::reroute('index.php?module=intern&action=ShowImportActivitiesStart');
+            return;
+        }
 
         $view = new ActivityImportView($importMetadata[0], $importData);
 
