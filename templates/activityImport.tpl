@@ -1,4 +1,4 @@
-<h2>Activity Import</h2>
+<h2>Activity Import Preview</h2>
 
 <h4>{IMPORT_NAME}</h4>
 <p>Uploaded on {UPLOADED_DATE} by {UPLOADED_BY}</p>
