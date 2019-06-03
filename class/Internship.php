@@ -134,6 +134,7 @@ class Internship {
     // Form token
     public $form_token;
 
+    public $import_id; // Foreign key from the intern_import table, showing the source file/batch this internship was uploaded from
 
     // Static vars - Used to avoid repeated DB queries when looping over Internship objects
     private static $termDescriptionList;
@@ -1103,6 +1104,16 @@ class Internship {
     public function getFormToken()
     {
         return $this->form_token;
+    }
+
+    public function getImportId()
+    {
+        return $this->import_id;
+    }
+
+    public function setImportId($importId)
+    {
+        $this->import_id = $importId;
     }
 
     /***********************

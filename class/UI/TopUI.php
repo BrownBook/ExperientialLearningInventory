@@ -89,6 +89,10 @@ class TopUI implements UI
             $adminOptions['STUDENT_IMPORT'] = \PHPWS_Text::secureLink('Import Student Data', 'intern', array('action' => 'ShowStudentImport'));
         }
 
+        if(\Current_User::allow('intern', 'internship_import')){
+            $adminOptions['ACTIVITY_IMPORT'] = \PHPWS_Text::secureLink('Import Activities', 'intern', array('action' => 'ShowImportActivitiesStart'));
+        }
+
         if(\Current_User::isDeity()){
             $adminOptions['CONTROL_PANEL']         = \PHPWS_Text::secureLink('Control Panel','controlpanel');
             $adminOptions['ADMIN_SETTINGS']        = \PHPWS_Text::secureLink('Admin Settings','intern',array('action' => 'showAdminSettings'));

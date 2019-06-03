@@ -315,6 +315,28 @@ class InternshipInventory {
                 $ctrl = new Command\ImportStudents();
                 $ctrl->execute();
                 break;
+            case 'ShowImportActivitiesStart':
+                $ctrl = new Command\ShowImportActivitiesStart();
+                $view = $ctrl->execute();
+                $this->content = $view->display();
+                break;
+            case 'UploadActivities':
+                $ctrl = new Command\UploadActivities();
+                $ctrl->execute();
+                break;
+            case 'ViewActivityImport':
+                $ctrl = new Command\ViewActivityImport();
+                $view = $ctrl->execute();
+                $this->content = $view->display();
+                break;
+            case 'ValidateActivityImport':
+                $ctrl = new Command\ValidateActivityImport();
+                $ctrl->execute();
+                break;
+            case 'ImportActivities':
+                $ctrl = new Command\ImportActivities();
+                $ctrl->execute();
+                break;
             default:
                 $menu = new UI\InternMenu();
                 $this->content = $menu->display();

@@ -28,6 +28,8 @@ class Student {
     const DOCTORAL  = 'doctoral';
     const POSTDOC   = 'postdoc';
 
+    const LEVELS = array(self::UNDERGRAD, self::GRADUATE, self::GRADUATE2, self::DOCTORAL, self::POSTDOC);
+
     const MAIN_CAMPUS = 'main_campus';
     const DISTANCE_ED = 'distance_ed';
 

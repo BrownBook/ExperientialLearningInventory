@@ -96,6 +96,7 @@ class State {
         return $resultState;
     }
 
+    // TODO: Make this a class constant
     /* http://www.bytemycode.com/snippets/snippet/454/ */
     public static $UNITED_STATES = array(-1 => 'Select State',
             'AL' => "Alabama",

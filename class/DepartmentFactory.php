@@ -19,7 +19,9 @@
  */
 
 namespace Intern;
-use Intern\Department;
+use \Intern\Department;
+use \Intern\PdoFactory;
+
 
 /**
  * Factory for loading Department objects.
@@ -82,6 +84,21 @@ class DepartmentFactory {
         $db->setIndexBy('id');
 
         return $db->select('col');
+    }
+
+    /**
+     * Returns all departments as an associate array, including hidden departments
+     *
+     * @return Array Associative array of all departments
+     */
+    public static function getAllDepartments()
+    {
+        $db = PdoFactory::getPdoInstance();
+
+        $deptStmt = $db->prepare('SELECT * FROM intern_department');
+        $deptStmt->execute();
+
+        return $deptStmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
