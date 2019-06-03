@@ -56,13 +56,13 @@ class ImportActivities {
         $importRows = ActivityImportFactory::getActivityImportValidRows($importId);
 
         if(sizeof($importRows) === 0){
-            var_dump('no valid rows');
+            //var_dump('no valid rows');
             \NQ::simple('intern', \Intern\UI\NotifyUI::WARNING, 'There were no valididated activities to import. No activities could be imported from this upload.');
             \NQ::close();
             \PHPWS_Core::reroute('index.php?module=intern&action=ViewActivityImport&id=' . $importId);
         }
 
-        var_dump('Importing rows', $importRows);
+        //var_dump('Importing rows', $importRows);
 
         $db = PdoFactory::getPdoInstance();
 
@@ -72,6 +72,8 @@ class ImportActivities {
 
         // Start a transaction
         $beginStmt = $db->beginTransaction();
+
+        $count = 0;
 
         foreach($importRows as $row){
             // Create each new activity
@@ -121,8 +123,11 @@ class ImportActivities {
             // Save it to the database
             $intern->save();
 
-            // Update the import activity with this internship id, so we can show its status
+            // Update the imported activity with this internship id, so we can show its status
             // TODO
+
+
+            $count++;
         }
 
         // Save the timestamp when we imported this dataset
@@ -132,5 +137,10 @@ class ImportActivities {
 
         // Commit the database transaction
         $commitStmt = $db->commit();
+
+        // Redirect to the view page
+        \NQ::simple('intern', \Intern\UI\NotifyUI::SUCCESS, "Successfully imported $count activities.");
+        \NQ::close();
+        \PHPWS_Core::reroute('index.php?module=intern&action=ViewActivityImport&id=' . $importId);
     }
 }
