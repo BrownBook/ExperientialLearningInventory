@@ -30,4 +30,4 @@ CREATE TABLE intern_import_activity (
 
 CREATE SEQUENCE intern_import_activity_seq;
 
-ALTER TABLE intern_internship ADD COLUMN import_id INT NULL REFERENCS intern_import(id);
+ALTER TABLE intern_internship ADD COLUMN import_id INT NULL REFERENCES intern_import(id);
