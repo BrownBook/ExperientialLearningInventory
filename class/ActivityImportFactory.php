@@ -66,4 +66,18 @@ class ActivityImportFactory {
         return $importDataStmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public static function getActivityImportInvalidRows($importId)
+    {
+        // Get a PDO connection
+        $db = PdoFactory::getPdoInstance();
+
+        $importDataQuery = "SELECT * FROM intern_import_activity WHERE
+                                import_id = :id AND
+                                validation_errors != ''";
+        $importDataStmt = $db->prepare($importDataQuery);
+        $importDataStmt->execute(array('id' => $importId));
+
+        return $importDataStmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
 }

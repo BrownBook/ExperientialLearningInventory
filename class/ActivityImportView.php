@@ -77,6 +77,11 @@ class ActivityImportView {
             $tpl['SHOW_IMPORT_BUTTON'] = '';
         }
 
+        // If there were errors, show the download button
+        if($numValidRows < sizeof($this->importData)){
+            $tpl['SHOW_DOWNLOAD_BUTTON'] = '';
+        }
+
         return \PHPWS_Template::process($tpl, 'intern', 'activityImport.tpl');
     }
 }

@@ -337,6 +337,10 @@ class InternshipInventory {
                 $ctrl = new Command\ImportActivities();
                 $ctrl->execute();
                 break;
+            case 'DownloadImportValidationErrors':
+                $ctrl = new Command\DownloadImportValidationErrors();
+                $ctrl->execute();
+                break;
             default:
                 $menu = new UI\InternMenu();
                 $this->content = $menu->display();

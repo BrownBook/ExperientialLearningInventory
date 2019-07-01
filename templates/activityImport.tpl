@@ -11,9 +11,16 @@
     <!-- BEGIN show_import_button -->
     {SHOW_IMPORT_BUTTON}
     <div class="form-group">
-        <a href="index.php?module=intern&action=ImportActivities&import_id={IMPORT_ID}" class="btn btn-danger">Import Activities <i class="fa fa-upload"></i></a>
+        <a href="index.php?module=intern&action=ImportActivities&import_id={IMPORT_ID}" class="btn btn-danger"><i class="fa fa-upload"></i> Import Activities</a>
     </div>
     <!-- END show_import_button -->
+
+    <!-- BEGIN show_download_button -->
+    {SHOW_DOWNLOAD_BUTTON}
+    <div class="form-group">
+        <a href="index.php?module=intern&action=DownloadImportValidationErrors&import_id={IMPORT_ID}" class="btn btn-warning"><i class="fa fa-download"></i> Download Validation Errors</a>
+    </div>
+    <!-- END show_download_button -->
 </div>
 
 
