@@ -43,7 +43,7 @@ class ActivityImportFactory {
         // Get a PDO connection
         $db = PdoFactory::getPdoInstance();
 
-        $importDataQuery = 'SELECT * FROM intern_import_activity where import_id = :id';
+        $importDataQuery = 'SELECT * FROM intern_import_activity WHERE import_id = :id ORDER BY row_num';
         $importDataStmt = $db->prepare($importDataQuery);
         $importDataStmt->execute(array('id' => $importId));
 
