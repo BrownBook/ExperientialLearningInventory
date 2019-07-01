@@ -616,6 +616,7 @@ CREATE TABLE intern_internship (
        corequisite_number character varying,
        corequisite_section character varying,
        avg_hours_week INT NULL,
+       total_hours character varying,
        domestic SMALLINT NOT NULL,
        international SMALLINT NOT NULL,
        paid SMALLINT,
