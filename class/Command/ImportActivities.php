@@ -91,7 +91,7 @@ class ImportActivities {
             // Get the location - Domestic vs international
             $location = 'domestic'; //TODO: handle importing international locations
 
-            // TODO Get the state
+            // Get the state
             $state = $row['host_state'];
 
             // Get the country
