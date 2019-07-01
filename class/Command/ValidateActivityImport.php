@@ -71,9 +71,9 @@ class ValidateActivityImport {
         // Get the set of valid experiences types
         $expTypes = array_keys(Internship::getTypesAssoc());
 
-        // Get the lsit of host states
-        $states = array_keys(State::$UNITED_STATES);
-        array_shift($states); // Remove the -1 => "Select..." option
+        // Get the list of *enabled* host states
+        //$states = array_keys(State::$UNITED_STATES);
+        $states = array_keys(State::getAllowedStates());
 
         // Get the list of department names
         $departments = DepartmentFactory::getAllDepartments();
@@ -121,7 +121,7 @@ class ValidateActivityImport {
 
             // Check host state (is valid state abbreviation)
             if(!in_array($row['host_state'], $states)){
-                $validationIssues[] = 'Invalid host state abbreviation. Should be two upper-case letters.';
+                $validationIssues[] = 'Invalid host state. State is not enabled in State Authorization settings, or the abbreviation is incorrect (should be two upper-case letters, ex. "NC").';
             }
 
             // Department Name (Is a valid department name)
