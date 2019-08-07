@@ -99,6 +99,7 @@ class ImportStudents {
                         preferred_name,
                         gender,
                         level,
+                        class,
                         campus,
                         gpa,
                         credit_hours,
@@ -121,6 +122,7 @@ class ImportStudents {
                         :preferredName,
                         :gender,
                         :level,
+                        :class,
                         :campus,
                         :gpa,
                         :creditHours,
@@ -144,6 +146,7 @@ class ImportStudents {
                             preferred_name = :preferredName,
                             gender = :gender,
                             level = :level,
+                            class = :class,
                             campus = :campus,
                             gpa = :gpa,
                             credit_hours = :creditHours,
@@ -166,28 +169,31 @@ class ImportStudents {
 
             $params['studentId']    = $row[0];
             $params['firstName']    = $row[1];
-            $params['middleName']   = $row[2];
-            $params['lastName']     = $row[3];
-            $params['gender']       = $row[4];
-            $params['address']      = $row[5];
-            $params['address2']     = $row[6];
-            $params['city']         = $row[7];
-            $params['state']        = $row[8];
-            //$params['country'] = $row[9];
-            $params['zip']          = $row[10];
-            $params['email']        = $row[11];
+            $params['preferredName'] = $row[2];
+            $params['middleName']   = $row[3];
+            $params['lastName']     = $row[4];
+            $params['gender']       = $row[5];
+            //$params['statusDesc']   = $row[6];
+            $params['creditHours']  = $row[7];
+            $params['address']      = $row[8];
+            $params['address2']     = $row[9];
+            $params['city']         = $row[10];
+            $params['state']        = $row[11];
+            $params['country']      = $row[12];
+            $params['zip']          = $row[13];
+            $params['email']        = $row[14];
 
-            $emailParts = explode("@", $row[11]);
+            $emailParts = explode("@", $row[14]);
             $params['username'] = $emailParts[0];
 
-            $params['phone']        = $row[12];
-            $params['majorCode']    = $row[13];
-            //$params['programDescription']   = $row[14];
-            $params['majorDesc']    = $row[15];
-            $params['level']        = $row[16];
-            //$params['class']        = $row[17];
+            $params['phone']        = '';
+            $params['majorCode']    = $row[15];
+            //$params['programDescription']   = $row[16];
+            $params['majorDesc']    = $row[17];
+            $params['level']        = $row[18];
+            $params['class']        = $row[19];
 
-            $params['gpa']          = $row[18];
+            $params['gpa']          = $row[20];
             if($params['gpa'] == '') {
                 $params['gpa'] = 0;
             }
@@ -195,8 +201,6 @@ class ImportStudents {
             // Hard coded vales, these fields not being imported yet
             $params['campus']           = 'main_campus';
             $params['confidential']     = 'N';
-            $params['preferredName']    = '';
-            $params['creditHours']      = 0;
 
             try {
                 $insertStmt->execute($params);
@@ -217,23 +221,26 @@ class ImportStudents {
     private function checkColumnOrder($row){
         $expectedRow = array(
             'ID',
-            'FIRST_NAME',
-            'MIDDLE_NAME',
-            'LAST_NAME',
-            'GENDER',
-            'STREET_LINE1',
-            'STREET_LINE2',
-            'CITY',
-            'STATE_PROVINCE',
-            'NATION',
-            'POSTAL_CODE',
-            'EMAIL_ADDRESS',
-            'PHONE_NUMBER_COMBINED',
-            'PROGRAM',
-            'PROGRAM_DESC',
-            'MAJOR_DESC',
-            'STUDENT_LEVEL',
-            'STUDENT_CLASSIFICATION',
+            'First Name',
+            'Preferred First Name',
+            'Middle Name',
+            'Last Name',
+            'Gender',
+            'Status Desc',
+            'Registered Credits',
+            'Street Line 1',
+            'Street Line 2',
+            'City',
+            'State',
+            'Country',
+            'ZIP',
+            'Email Address',
+            //'PHONE_NUMBER_COMBINED',
+            'Program',
+            'Program Desc',
+            'Major Desc',
+            'Student Level',
+            'Student Classification',
             'GPA'
         );
 
