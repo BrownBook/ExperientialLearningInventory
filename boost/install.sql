@@ -848,6 +848,7 @@ CREATE TABLE intern_local_student_data (
     gender              character varying,
 
     level               character varying,
+    class               character varying,
     campus              character varying,
     gpa                 double precision,
     credit_hours        integer default 0,
@@ -861,6 +862,7 @@ CREATE TABLE intern_local_student_data (
     city                character varying,
     state               character varying,
     zip                 character varying,
+    country             character varying,
 
     primary key(student_id)
 );
