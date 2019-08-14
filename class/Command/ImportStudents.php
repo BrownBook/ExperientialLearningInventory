@@ -111,6 +111,7 @@ class ImportStudents {
                         city,
                         state,
                         zip,
+                        country,
                         confidential
                     ) VALUES (
                         :studentId,
@@ -134,6 +135,7 @@ class ImportStudents {
                         :city,
                         :state,
                         :zip,
+                        :country
                         :confidential
                     )';
 
@@ -158,6 +160,7 @@ class ImportStudents {
                             city = :city,
                             state = :state,
                             zip = :zip,
+                            country = :country,
                             confidential = :confidential
                         WHERE student_id = :studentId';
 
@@ -174,26 +177,33 @@ class ImportStudents {
             $params['lastName']     = $row[4];
             $params['gender']       = $row[5];
             //$params['statusDesc']   = $row[6];
-            $params['creditHours']  = $row[7];
-            $params['address']      = $row[8];
-            $params['address2']     = $row[9];
-            $params['city']         = $row[10];
-            $params['state']        = $row[11];
-            $params['country']      = $row[12];
-            $params['zip']          = $row[13];
-            $params['email']        = $row[14];
 
-            $emailParts = explode("@", $row[14]);
+            if(trim($row[6]) === ''){
+                $creditHours = 0;
+            } else {
+                $creditHours = $row[6];
+            }
+            $params['creditHours']  = $creditHours;
+
+            $params['address']      = $row[7];
+            $params['address2']     = $row[8];
+            $params['city']         = $row[9];
+            $params['state']        = $row[10];
+            $params['country']      = $row[11];
+            $params['zip']          = $row[12];
+            $params['email']        = $row[13];
+
+            $emailParts = explode("@", $row[13]);
             $params['username'] = $emailParts[0];
 
             $params['phone']        = '';
-            $params['majorCode']    = $row[15];
-            //$params['programDescription']   = $row[16];
-            $params['majorDesc']    = $row[17];
-            $params['level']        = $row[18];
-            $params['class']        = $row[19];
+            $params['majorCode']    = $row[14];
+            //$params['programDescription']   = $row[15];
+            $params['majorDesc']    = $row[16];
+            $params['level']        = $row[17];
+            $params['class']        = $row[18];
 
-            $params['gpa']          = $row[20];
+            $params['gpa']          = $row[19];
             if($params['gpa'] == '') {
                 $params['gpa'] = 0;
             }
@@ -226,7 +236,7 @@ class ImportStudents {
             'Middle Name',
             'Last Name',
             'Gender',
-            'Status Desc',
+            //'Status Desc',
             'Registered Credits',
             'Street Line 1',
             'Street Line 2',
