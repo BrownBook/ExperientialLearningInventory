@@ -628,7 +628,7 @@ CREATE TABLE intern_internship (
        experience_type character varying default 'internship',
        background_check SMALLINT DEFAULT 0,
        drug_check SMALLINT DEFAULT 0,
-       import_id INT NULL REFERENCS intern_import(id),
+       import_id INT NULL REFERENCES intern_import(id),
        PRIMARY KEY(id)
 );
 
