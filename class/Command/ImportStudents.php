@@ -135,7 +135,7 @@ class ImportStudents {
                         :city,
                         :state,
                         :zip,
-                        :country
+                        :country,
                         :confidential
                     )';
 
