@@ -29,7 +29,7 @@ $settings = array('registrarEmail'              => null,
                   'backgroundCheckRequestEnabled'=>false,
                   'drugCheckRequestEnabled'     => false,
                   'backgroundCheckEmail'        => null,
-                  'systemName'                  => 'Internship Inventory',
+                  'systemName'                  => 'Experiential Learning Inventory',
                   'wsdlUri'                     => '',
                   'unusualCourseEmail'          => null,
                   'studentDataSource'           => 'localDataProvider', // 'localDataProvider', 'webServiceDataProvider', 'webServiceTestProvider'
