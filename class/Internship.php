@@ -177,6 +177,11 @@ class Internship {
         // Set initial OIED certification
         $this->setOiedCertified(false);
 
+        // Set initial values
+        $this->setCoOp(false);
+        $this->setBackgroundCheck(false);
+        $this->setDrugCheck(false);
+
         // Set Form Token
         $this->form_token = uniqid();
     }
@@ -1059,6 +1064,10 @@ class Internship {
         }
 
         return false;
+    }
+
+    public function setCoOp($status){
+    	$this->co_op = $status;
     }
 
     public function getTotalHours(){
