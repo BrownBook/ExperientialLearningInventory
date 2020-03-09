@@ -25,7 +25,7 @@ use Intern\Internship;
 class DepartmentApprove extends WorkflowTransition {
     const sourceState = 'CoordinatorApprovedState';
     const destState   = 'DepartmentApprovedState';
-    const actionName  = 'Mark as Depatment Approved';
+    const actionName  = 'Mark as Department Approved';
 
     public function getAllowedPermissionList(){
         return array('dept_approve');
