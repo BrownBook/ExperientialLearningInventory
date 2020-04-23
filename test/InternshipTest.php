@@ -24,8 +24,9 @@ use \Intern\Internship;
 use \Intern\Student;
 use \Intern\Agency;
 use \Intern\Department;
+use PHPUnit\Framework\TestCase;
 
-class InternshipTest extends \PHPUnit\Framework\TestCase
+class InternshipTest extends TestCase
 {
     public function testSetStudentData()
     {
@@ -56,7 +57,7 @@ class InternshipTest extends \PHPUnit\Framework\TestCase
         $student->setMiddleName('Doe');
         $student->setLastName('Smith');
 
-        $student->setLevel(Student::UNDERGRAD);
+        $student->setLevel('U');
         $student->setCampus(Student::MAIN_CAMPUS);
         $student->setGpa(3.55);
         $student->addMajor(new \Intern\AcademicMajor('355*', 'Management', 'U'));

@@ -476,6 +476,7 @@ INSERT INTO intern_subject (id, abbreviation, description) VALUES (nextval('inte
 INSERT INTO intern_subject (id, abbreviation, description) VALUES (nextval('intern_subject_seq'),'US','University Studies');
 INSERT INTO intern_subject (id, abbreviation, description) VALUES (nextval('intern_subject_seq'),'WGC','Watauga Global Community');
 INSERT INTO intern_subject (id, abbreviation, description) VALUES (nextval('intern_subject_seq'),'WS','Women’s Studies');
+INSERT INTO intern_subject (id, abbreviation, description) VALUES (nextval('intern_subject_seq'),'PHO','Photography');
 
 CREATE TABLE intern_agency (
        id INT NOT NULL,
@@ -564,7 +565,6 @@ create table intern_student_autocomplete (
     PRIMARY KEY(banner_id)
 );
 
-
 CREATE TABLE intern_import (
     id INT NOT NULL,
     name character varying NOT NULL,
@@ -596,6 +596,14 @@ CREATE TABLE intern_import_activity (
 );
 
 CREATE SEQUENCE intern_import_activity_seq;
+
+
+CREATE TABLE intern_student_level(
+  code varchar NOT NULL,
+  description varchar,
+  level varchar NOT NULL,
+  PRIMARY KEY(code)
+);
 
 
 CREATE TABLE intern_internship (

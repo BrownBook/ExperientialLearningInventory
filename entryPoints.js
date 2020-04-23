@@ -12,6 +12,7 @@ module.exports = {
       facultyEdit: JS_DIR + '/facultyEdit/FacultyEdit.jsx',
       editMajor: JS_DIR + '/editMajor/editMajor.jsx',
       editGrad: JS_DIR + '/editGrad/editGrad.jsx',
+      editLevel: JS_DIR + '/editLevel/editLevel.jsx',
       affiliateList: JS_DIR + '/affiliationAgreement/AffiliateList.jsx',
       affiliationDepartments: JS_DIR + '/affiliationAgreement/AffiliationDepartments.jsx',
       affiliationLocation: JS_DIR + '/affiliationAgreement/AffiliationLocation.jsx',
@@ -19,6 +20,7 @@ module.exports = {
       editExpectedCourses: JS_DIR + '/editCourses/courseEditor.jsx',
       majorSelector: JS_DIR + '/majorSelector/MajorSelector.jsx',
       adminSettings: JS_DIR + '/settings/settings.jsx',
+      editTerms: JS_DIR + '/editTerms/EditTerms.jsx',
       vendor: ['jquery', 'react', 'react-dom', 'react-bootstrap']
     }
 }
