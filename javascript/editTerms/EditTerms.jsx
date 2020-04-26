@@ -2,7 +2,28 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import Calendar from 'react-calendar';
+
+import TermRow from './TermRow.jsx';
+import TermInput from './TermInput.jsx';
+
+/**
+ * This file is part of Internship Inventory.
+ *
+ * Internship Inventory is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * Internship Inventory is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License version 3
+ * along with Internship Inventory.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Copyright 2011-2018 Appalachian State University
+ */
 
 class ErrorMessagesBlock extends React.Component {
     render() {
@@ -36,363 +57,8 @@ class ErrorMessagesBlock extends React.Component {
     }
 }
 
-class TermRow extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            editMode: false
-        };
 
-        this.handleEdit = this.handleEdit.bind(this);
-        this.handleSave = this.handleSave.bind(this);
-        this.timestampToDate = this.timestampToDate.bind(this);
-        this.onCancelSave = this.onCancelSave.bind(this);
-    }
-    timestampToDate(timestamp) {
-
-        var date = new Date(timestamp * 1000);
-        var year = date.getFullYear();
-        var month = date.getMonth() + 1;
-        var day = date.getDate();
-        var formattedDate = month + "/" + day + "/" + year;
-
-        return formattedDate;
-    }
-    handleEdit() {
-        this.setState({editMode: true});
-    }
-    handleSave() {
-        this.setState({editMode: false});
-
-        var newTcode = ReactDOM.findDOMNode(this.refs.savedTcode).value.trim();
-        var newStype = ReactDOM.findDOMNode(this.refs.savedStype).value.trim();
-        var newDescr = ReactDOM.findDOMNode(this.refs.savedDescr).value.trim();
-        var newCensusDate = ReactDOM.findDOMNode(this.refs.savedCensusDate).value.trim();
-        var newAvailDate = ReactDOM.findDOMNode(this.refs.savedAvailDate).value.trim();
-        var newStartDate = ReactDOM.findDOMNode(this.refs.savedStartDate).value.trim();
-        var newEndDate = ReactDOM.findDOMNode(this.refs.savedEndDate).value.trim();
-        var newUgradOverload = ReactDOM.findDOMNode(this.refs.savedUgradOverload).value.trim();
-        var newGradOverload = ReactDOM.findDOMNode(this.refs.savedGradOverload).value.trim();
-
-        if (newTcode === '') {
-            newTcode = this.props.tcode;
-        }
-        if (newStype === '') {
-            newStype = this.props.stype;
-        }
-        if (newDescr === '') {
-            newDescr = this.props.descr;
-        }
-        if (newCensusDate === '') {
-            newCensusDate = this.timestampToDate(this.props.census);
-        }
-        if (newAvailDate === '') {
-            newAvailDate = this.timestampToDate(this.props.available);
-        }
-        if (newStartDate === '') {
-            newStartDate = this.timestampToDate(this.props.start);
-        }
-        if (newEndDate === '') {
-            newEndDate = this.timestampToDate(this.props.end);
-        }
-        if (newUgradOverload === '') {
-            newUgradOverload = this.props.ugradOverload;
-        }
-        if (newGradOverload === '') {
-            newGradOverload = this.props.gradOverload;
-        }
-
-        this.props.onTermSave(newTcode, newStype, newDescr, newCensusDate, newAvailDate, newStartDate, newEndDate, newUgradOverload, newGradOverload, this.props.tcode);
-    }
-    onCancelSave() {
-        this.setState({editMode: false});
-    }
-    render() {
-
-        var mainButton = null;
-
-        let censusDate = this.timestampToDate(this.props.census);
-        let availDate = this.timestampToDate(this.props.available);
-        let startDate = this.timestampToDate(this.props.start);
-        let endDate = this.timestampToDate(this.props.end);
-
-        // if you are not editing
-        if (!this.state.editMode)
-        {
-            mainButton = <a onClick={this.handleEdit} data-toggle="tooltip" title="Edit"><i className="glyphicon glyphicon-pencil"/></a>
-            return (
-            <tr>
-                <td>{this.props.tcode}</td>
-                <td>{this.props.stype}</td>
-                <td>{this.props.descr}</td>
-                <td>{censusDate}</td>
-                <td>{availDate}</td>
-                <td>{startDate}</td>
-                <td>{endDate}</td>
-                <td>{this.props.ugradOver}</td>
-                <td>{this.props.gradOver}</td>
-                <td>{mainButton}</td>
-            </tr>
-            );
-        }
-        //if you are editing
-        else
-        {
-            mainButton = <a onClick={this.handleSave} data-toggle="tooltip" title="Save Changes"><i className="glyphicon glyphicon-floppy-save"/></a>
-            return (
-            <tr>
-                <td><input type="text" className="form-control" ref="savedTcode" defaultValue={this.props.tcode}/></td>
-                <td><input type="text" className="form-control" ref="savedStype" defaultValue={this.props.stype}/></td>
-                <td><input type="text" className="form-control" ref="savedDescr" defaultValue={this.props.descr}/></td>
-                <td><input type="text" className="form-control" ref="savedCensusDate" defaultValue={censusDate}/></td>
-                <td><input type="text" className="form-control" ref="savedAvailDate" defaultValue={availDate}/></td>
-                <td><input type="text" className="form-control" ref="savedStartDate" defaultValue={startDate}/></td>
-                <td><input type="text" className="form-control" ref="savedEndDate" defaultValue={endDate}/></td>
-                <td><input type="text" className="form-control" ref="savedUgradOverload" defaultValue={this.props.ugradOver}/></td>
-                <td><input type="text" className="form-control" ref="savedGradOverload" defaultValue={this.props.gradOver}/></td>
-                <td style={{"verticalAlign" : "middle"}}>{mainButton}</td>
-                <td style={{"verticalAlign" : "middle"}}><a onClick={this.onCancelSave} title="Cancel Changes"><i className="glyphicon glyphicon-remove"/></a></td>
-            </tr>
-            );
-        }
-    }
-}
-
-class TermInput extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            censusDateInput: new Date(),
-            availableDateInput: new Date(),
-            startDateInput: new Date(),
-            endDateInput: new Date(),
-            showCalendarCensus: false,
-            showCalendarAvailable: false,
-            showCalendarStart: false,
-            showCalendarEnd: false
-        };
-
-        this.onChangeCensus = this.onChangeCensus.bind(this);
-        this.onChangeAvailable = this.onChangeAvailable.bind(this);
-        this.onChangeStart = this.onChangeStart.bind(this);
-        this.onChangeEnd = this.onChangeEnd.bind(this);
-        this.showCalendarCensus = this.showCalendarCensus.bind(this);
-        this.showCalendarAvailable = this.showCalendarAvailable.bind(this);
-        this.showCalendarStart = this.showCalendarStart.bind(this);
-        this.showCalendarEnd = this.showCalendarEnd.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-    onChangeCensus(censusDateInput) {
-      this.setState({censusDateInput: censusDateInput});
-      (this.refs.census_date).value = censusDateInput.toLocaleDateString("en-US");
-    }
-    onChangeAvailable(availableDateInput) {
-      this.setState({availableDateInput: availableDateInput});
-      (this.refs.available_date).value = availableDateInput.toLocaleDateString("en-US");
-    }
-    onChangeStart(startDateInput) {
-      this.setState({startDateInput: startDateInput});
-      (this.refs.start_date).value = startDateInput.toLocaleDateString("en-US");
-    }
-    onChangeEnd(endDateInput) {
-       this.setState({endDateInput: endDateInput});
-       (this.refs.end_date).value = endDateInput.toLocaleDateString("en-US");
-    }
-    showCalendarCensus() {
-        if (this.state.showCalendarCensus === false) {
-            this.setState({showCalendarAvailable: false});
-            this.setState({showCalendarStart: false});
-            this.setState({showCalendarEnd: false});
-        }
-        this.setState({showCalendarCensus: !this.state.showCalendarCensus});
-    }
-    showCalendarAvailable() {
-        if (this.state.showCalendarAvailable === false) {
-            this.setState({showCalendarCensus: false});
-            this.setState({showCalendarStart: false});
-            this.setState({showCalendarEnd: false});
-        }
-        this.setState({showCalendarAvailable: !this.state.showCalendarAvailable});
-
-    }
-    showCalendarStart() {
-        if (this.state.showCalendarStart === false) {
-            this.setState({showCalendarCensus: false});
-            this.setState({showCalendarAvailable: false});
-            this.setState({showCalendarEnd: false});
-        }
-        this.setState({showCalendarStart: !this.state.showCalendarStart});
-
-    }
-    showCalendarEnd() {
-        if (this.state.showCalendarEnd === false) {
-            this.setState({showCalendarCensus: false});
-            this.setState({showCalendarAvailable: false});
-            this.setState({showCalendarStart: false});
-        }
-        this.setState({showCalendarEnd: !this.state.showCalendarEnd});
-
-    }
-    handleSubmit() {
-        var tcode = ReactDOM.findDOMNode(this.refs.term_code).value.trim();
-        var stype = ReactDOM.findDOMNode(this.refs.sem_type).value.trim();
-        var descr = ReactDOM.findDOMNode(this.refs.description).value;
-        var census = ReactDOM.findDOMNode(this.refs.census_date).value.trim();
-        var available = ReactDOM.findDOMNode(this.refs.available_date).value.trim();
-        var start = ReactDOM.findDOMNode(this.refs.start_date).value.trim();
-        var end = ReactDOM.findDOMNode(this.refs.end_date).value.trim();
-        var ugradOver = ReactDOM.findDOMNode(this.refs.undergrad_overload).value.trim();
-        var gradOver = ReactDOM.findDOMNode(this.refs.grad_overload).value.trim();
-
-        if (tcode !== '' && stype !== '' && descr !== '' && census !== '' &&
-            available !== '' && start !== '' && end !== '' && ugradOver !== '' &&
-            gradOver !== '') {
-            this.refs.term_code.value = '';
-            this.refs.sem_type.value = '';
-            this.refs.description.value = '';
-            this.refs.census_date.value = '';
-            this.refs.available_date.value = '';
-            this.refs.start_date.value = '';
-            this.refs.end_date.value = '';
-            this.refs.undergrad_overload.value = '';
-            this.refs.grad_overload.value = '';
-        }
-
-        this.setState({showCalendarCensus: false});
-        this.setState({showCalendarAvailable: false});
-        this.setState({showCalendarStart: false});
-        this.setState({showCalendarEnd: false});
-
-        this.props.onTermCreate(tcode, stype, descr, census, available, start, end, ugradOver, gradOver);
-    }
-    render() {
-
-      var censusCalendar = null;
-      var availableCalendar = null;
-      var startCalendar = null;
-      var endCalendar = null;
-
-      if (this.state.showCalendarCensus) {
-          censusCalendar = <Calendar onChange={this.onChangeCensus}
-                            value={this.state.censusDateInput} calendarType="US"/>
-      }
-      if (this.state.showCalendarAvailable) {
-          availableCalendar = <Calendar onChange={this.onChangeAvailable}
-                               value={this.state.availableDateInput} calendarType="US"/>
-      }
-      if (this.state.showCalendarStart) {
-          startCalendar = <Calendar onChange={this.onChangeStart}
-                           value={this.state.startDateInput} calendarType="US"/>
-      }
-      if (this.state.showCalendarEnd) {
-          endCalendar = <Calendar onChange={this.onChangeEnd}
-                         value={this.state.endDateInput} calendarType="US"/>
-      }
-
-      return (
-      <div className="form-group" style={{margin: '1em'}}>
-
-          <div className="row">
-
-              <div className="col-sm-3">
-                  <div className="form-group">
-                      <label>Term Code: </label>
-                      <input type="text" className="form-control" placeholder="00000" ref="term_code"/>
-                  </div>
-              </div>
-
-              <div className="col-sm-3">
-                  <div className="form-group">
-                      <label>Semester Type: </label>
-                      <input type="text" className="form-control" placeholder="0" ref="sem_type"/>
-                  </div>
-              </div>
-
-              <div className="col-sm-3">
-                  <div className="form-group">
-                      <label>Description: </label>
-                      <input type="text" className="form-control" placeholder="Season 0 0000" ref="description"/>
-                  </div>
-              </div>
-
-              <div className="col-sm-3">
-                  <div className="form-group">
-                      <label>Census Date:
-                          <i className="fa fa-calendar" aria-hidden="true" onClick={this.showCalendarCensus}
-                             style={{paddingLeft: '5px'}} title="Click for Calendar View"></i>
-                      </label>
-                      <input type="text" className="form-control" placeholder="00/00/0000" ref="census_date"/>
-                      {censusCalendar}
-                  </div>
-              </div>
-
-          </div>
-
-          <div className="row">
-
-              <div className="col-sm-3">
-                  <div className="form-group">
-                      <label>Available On Date:
-                          <i className="fa fa-calendar" aria-hidden="true" onClick={this.showCalendarAvailable}
-                             style={{paddingLeft: '5px'}} title="Click for Calendar View"></i>
-                      </label>
-                      <input type="text" className="form-control" placeholder="00/00/0000" ref="available_date"/>
-                      {availableCalendar}
-                  </div>
-              </div>
-
-              <div className="col-sm-3">
-                  <div className="form-group">
-                      <label>Start Date:
-                          <i className="fa fa-calendar" aria-hidden="true" onClick={this.showCalendarStart}
-                             style={{paddingLeft: '5px'}} title="Click for Calendar View"></i>
-                      </label>
-                      <input type="text" className="form-control" placeholder="00/00/0000" ref="start_date"/>
-                      {startCalendar}
-                  </div>
-              </div>
-
-              <div className="col-sm-3">
-                  <div className="form-group">
-
-                      <label>End Date:
-                          <i className="fa fa-calendar" aria-hidden="true" onClick={this.showCalendarEnd}
-                             style={{paddingLeft: '5px'}} title="Click for Calendar View"></i>
-                      </label>
-                      <input type="text" className="form-control" placeholder="00/00/0000" ref="end_date"/>
-                      {endCalendar}
-                  </div>
-              </div>
-
-              <div className="col-sm-3">
-                  <div className="form-group">
-                      <label>Undergraduate Overload Hours: </label>
-                      <input type="text" className="form-control" placeholder="00" ref="undergrad_overload"/>
-                  </div>
-              </div>
-
-          </div>
-
-          <div className="row">
-
-              <div className="col-sm-3">
-                  <div className="form-group">
-                      <label>Graduate Overload Hours: </label>
-                      <input type="text" className="form-control" placeholder="00" ref="grad_overload"/>
-                  </div>
-              </div>
-
-              <div className="col-sm-9">
-                  <br></br>
-                  <button type="button" className="btn btn-primary btn-block" onClick={this.handleSubmit}>Create Term</button>
-              </div>
-
-          </div>
-      </div>);
-    }
-}
-
-class TermSelector extends React.Component {
+class TermEditor extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -407,22 +73,18 @@ class TermSelector extends React.Component {
         this.onTermCreate = this.onTermCreate.bind(this);
         this.onTermSave = this.onTermSave.bind(this);
     }
-    componentWillMount() {
+    componentDidMount() {
         this.getData();
     }
     getData() {
-        $.ajax({
-            url: 'index.php?module=intern&action=termRest',
-            type: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                this.setState({mainData: data});
-            }.bind(this),
-            error: function(xhr, status, err) {
-              alert("Failed to grab term data.")
-              console.error(this.props.url, status, err.toString());
-            }.bind(this)
-        });
+        fetch('index.php?module=intern&action=termRest')
+            .then(response => response.json())
+            .then((result) => {
+                this.setState({mainData: result});
+            })
+            .catch((error) => {
+                console.log('Error:', error);
+            });
     }
     onTermCreate(tcode, stype, descr, census, available, start, end, ugradOver, gradOver) {
 
@@ -593,10 +255,10 @@ class TermSelector extends React.Component {
                             <thead>
                                 <tr>
                                     <th>Term Code</th>
-                                    <th>Semester Type</th>
                                     <th>Description</th>
-                                    <th>Census Date</th>
+                                    <th>Semester Type</th>
                                     <th>Available On Date</th>
+                                    <th>Census Date</th>
                                     <th>Start Date</th>
                                     <th>End Date</th>
                                     <th>Undergraduate<br></br>Overload Hours</th>
@@ -616,6 +278,6 @@ class TermSelector extends React.Component {
 
 
 ReactDOM.render(
-    <TermSelector />,
+    <TermEditor />,
     document.getElementById('edit_terms')
 );
