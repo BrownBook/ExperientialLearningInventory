@@ -136,11 +136,38 @@ class TermEditor extends React.Component {
             return;
         }
 
-        census = this.dateToTimestamp(census);
-        available = this.dateToTimestamp(available);
-        start = this.dateToTimestamp(start);
-        end = this.dateToTimestamp(end);
+        census      = this.dateToTimestamp(census);
+        available   = this.dateToTimestamp(available);
+        start       = this.dateToTimestamp(start);
+        end         = this.dateToTimestamp(end);
 
+        const postData = {
+            'code': tcode,
+            'type': stype,
+            'descr': descr,
+            'census': census,
+            'available': available,
+            'start': start,
+            'end': end,
+            'ugradOver': ugradOver,
+            'gradOver': gradOver
+        };
+
+        fetch('index.php?module=intern&action=termRest', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(postData)
+        })
+            .then(response => response.json())
+            .then((result) => {
+                this.setState({errorWarning: 'Term successfully added', messageType: 'success'});
+            })
+            .catch((error) => {
+                console.error(error);
+                this.setState({errorWarning: 'Failed to add term', messageType: 'error'});
+            });
+
+        /*
         $.ajax({
             url: 'index.php?module=intern&action=termRest&code='+tcode+'&type='+stype+
             '&descr='+descr+'&census='+census+'&available='+available+'&start='+start+
@@ -157,6 +184,7 @@ class TermEditor extends React.Component {
                 this.setState({errorWarning: errorMessage, messageType: "error"});
             }.bind(this)
         });
+        */
     }
     onTermSave(newtermc, newsemtype, newdescri, newcensusd, newavaild, newstartd, newendd, newugradover, newgradover, oldTcode) {
 

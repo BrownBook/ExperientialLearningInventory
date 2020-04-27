@@ -17,7 +17,7 @@
  *
  * Copyright 2011-2018 Appalachian State University
  */
- 
+
 namespace Intern\Command;
 use \phpws2\Database;
 
@@ -27,7 +27,8 @@ class TermRest {
 
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'POST':
-                $this->post();
+                $data = $this->post();
+                echo json_encode($data);
                 exit;
             case 'GET':
                 $data = $this->get();
@@ -47,58 +48,50 @@ class TermRest {
     // available date, start date, end date, semester type,
     // undergrad overload hours, grad overload hours.
     public function post() {
-        $code = $_REQUEST['code'];
-        $census = $_REQUEST['census'];
-        $descr = $_REQUEST['descr'];
-        $available = $_REQUEST['available'];
-        $start = $_REQUEST['start'];
-        $end = $_REQUEST['end'];
-        $type = $_REQUEST['type'];
-        $ugradOver = $_REQUEST['ugradOver'];
-        $gradOver = $_REQUEST['gradOver'];
 
+        $termData = json_decode(file_get_contents('php://input'));
 
-        if ($code == '') {
+        if ($termData->code == '') {
             header('HTTP/1.1 500 Internal Server Error');
             echo("Missing a term code.");
             exit;
         }
-        if ($census == '') {
+        if ($termData->census == '') {
             header('HTTP/1.1 500 Internal Server Error');
             echo("Missing a census date.");
             exit;
         }
-        if ($descr == '') {
+        if ($termData->descr == '') {
             header('HTTP/1.1 500 Internal Server Error');
             echo("Missing a term description.");
             exit;
         }
-        if ($available == '') {
+        if ($termData->available == '') {
             header('HTTP/1.1 500 Internal Server Error');
             echo("Missing an available date.");
             exit;
         }
-        if ($start == '') {
+        if ($termData->start == '') {
             header('HTTP/1.1 500 Internal Server Error');
             echo("Missing a start date.");
             exit;
         }
-        if ($end == '') {
+        if ($termData->end == '') {
             header('HTTP/1.1 500 Internal Server Error');
             echo("Missing an end date.");
             exit;
         }
-        if ($type == '') {
+        if ($termData->type == '') {
             header('HTTP/1.1 500 Internal Server Error');
             echo("Missing a semester type.");
             exit;
         }
-        if ($ugradOver == '') {
+        if ($termData->ugradOver == '') {
             header('HTTP/1.1 500 Internal Server Error');
             echo("Missing undergraduate overload hours.");
             exit;
         }
-        if ($gradOver == '') {
+        if ($termData->gradOver == '') {
             header('HTTP/1.1 500 Internal Server Error');
             echo("Missing graduate overload hours.");
             exit;
@@ -116,10 +109,12 @@ class TermRest {
 
         $sth = $pdo->prepare($sql);
 
-        $sth->execute(array('code'=>$code, 'census'=>$census, 'descr'=>$descr,
-                      'available'=>$available, 'start'=>$start,
-                      'end_date'=>$end, 'type'=>$type, 'ugradOver'=>$ugradOver,
-                      'gradOver'=>$gradOver));
+        $sth->execute(array('code'=>$termData->code, 'census'=>$termData->census, 'descr'=>$termData->descr,
+                      'available'=>$termData->available, 'start'=>$termData->start,
+                      'end_date'=>$termData->end, 'type'=>$termData->type, 'ugradOver'=>$termData->ugradOver,
+                      'gradOver'=>$termData->gradOver));
+
+        return 'success';
     }
 
     public function get() {
