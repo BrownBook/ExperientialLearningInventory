@@ -545,6 +545,8 @@ CREATE TABLE intern_term (
        start_timestamp integer NOT NULL,
        end_timestamp integer NOT NULL,
        semester_type integer NOT NULL,
+       undergrad_overload_hours smallint NOT NULL,
+       grad_overload_hours smallint NOT NULL,
        PRIMARY KEY (term)
 );
 
