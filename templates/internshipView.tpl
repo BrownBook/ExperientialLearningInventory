@@ -672,6 +672,8 @@
         </div>
       </fieldset>
 
+      <div id="covidRisk"></div>
+
       <div class="form-group">
         <button type="submit" class="btn btn-primary pull-right" id="{SUBMIT_ID}">{SUBMIT_VALUE}</button>
       </div>
@@ -703,3 +705,4 @@
 
 <script type="text/javascript" src="{vendor_bundle}"></script>
 <script type="text/javascript" src="{entry_bundle}"></script>
+<script type="text/javascript" src="{covid_bundle}"></script>

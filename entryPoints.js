@@ -19,6 +19,7 @@ module.exports = {
       editExpectedCourses: JS_DIR + '/editCourses/courseEditor.jsx',
       majorSelector: JS_DIR + '/majorSelector/MajorSelector.jsx',
       adminSettings: JS_DIR + '/settings/settings.jsx',
+      covidRisk: JS_DIR + '/covidRisk/covidRisk.jsx',
       vendor: ['jquery', 'react', 'react-dom', 'react-bootstrap']
     }
 }
