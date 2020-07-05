@@ -227,11 +227,10 @@ class TermEditor extends React.Component {
     }
     render()
     {
-        var data = null;
-        var inData = null;
+        var termRows = null;
         if (this.state.mainData != null) {
             var termSave = this.onTermSave;
-            data = this.state.mainData.map(function (data) {
+            termRows = this.state.mainData.map(function (data) {
                 return (
                     <TermRow  key={data.term}
                         tcode={data.term}
@@ -247,12 +246,10 @@ class TermEditor extends React.Component {
                 );
             });
             var termCreate = this.onTermCreate;
-            inData = <TermInput onTermCreate={termCreate}
-                                messageType={this.state.messageType} />
+            //inData = <TermInput onTermCreate={termCreate} messageType={this.state.messageType} />
 
         } else {
-            data = "";
-            inData = "";
+            termRows = '';
         }
 
         var errors;
@@ -261,6 +258,7 @@ class TermEditor extends React.Component {
         } else {
             errors = <ErrorMessagesBlock key="errorSet" errors={this.state.errorWarning} messageType={this.state.messageType} />
         }
+
         return (
             <div className="terms">
 
@@ -268,37 +266,44 @@ class TermEditor extends React.Component {
                   {errors}
               </ReactCSSTransitionGroup>
 
-                <h3>Add Term: </h3>
-                <div className="addTerm">
+
+              <div className="row">
+                <div className="col-sm-6">
                     <div className="panel panel-default">
-                        {inData}
+                        <div className="panel-body">
+                            <h4>Create a new Term: </h4>
+                            <TermInput onTermCreate={termCreate} messageType={this.state.messageType} />
+                        </div>
                     </div>
                 </div>
+              </div>
 
-                <br></br>
-                <h3>Current Terms:</h3>
-                <div className="termTable">
-                    <div className="row">
+              <div className="row">
+                <div className="col-sm-10">
+                    <div className="termTable">
                         <table className="table table-condensed table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Term Code</th>
-                                    <th>Description</th>
-                                    <th>Semester Type</th>
-                                    <th>Available On Date</th>
-                                    <th>Census Date</th>
-                                    <th>Start Date</th>
-                                    <th>End Date</th>
-                                    <th>Undergraduate<br></br>Overload Hours</th>
-                                    <th>Graduate<br></br>Overload Hours</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {data}
-                            </tbody>
+                              <thead>
+                                  <tr>
+                                      <th>Term Code</th>
+                                      <th>Description</th>
+                                      <th>Semester Type</th>
+                                      <th>Available On Date</th>
+                                      <th>Census Date</th>
+                                      <th>Start Date</th>
+                                      <th>End Date</th>
+                                      <th>Undergraduate<br></br>Overload Hours</th>
+                                      <th>Graduate<br></br>Overload Hours</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  {termRows}
+                              </tbody>
                         </table>
                     </div>
                 </div>
+
+              </div>
+
             </div>
         );
     }
