@@ -5,6 +5,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import TermRow from './TermRow.jsx';
 import TermInput from './TermInput.jsx';
+import ErrorMessagesBlock from './ErrorMessagesBlock.jsx';
 
 /**
  * This file is part of Internship Inventory.
@@ -23,39 +24,8 @@ import TermInput from './TermInput.jsx';
  * along with Internship Inventory.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Copyright 2011-2018 Appalachian State University
+ * Copyright 2020 Brown Book Software, LLC
  */
-
-class ErrorMessagesBlock extends React.Component {
-    render() {
-        if (this.props.errors === null) {
-            return '';
-        }
-
-        var errors = this.props.errors; // The error or success message.
-
-        // If this is an error notification.
-        if (this.props.messageType === "error") {
-            return (
-                <div className="row">
-                    <div className="alert alert-warning" role="alert">
-                        <strong>Warning! </strong> {errors}
-                    </div>
-                </div>
-            );
-        }
-        // If this is a succes notification.
-        else if (this.props.messageType === "success") {
-            return (
-                <div className="row">
-                    <div className="alert alert-success alert-dismissable" role="alert">
-                        <strong>Success! </strong> {errors}
-                        <button type="button" className="close close-alert" data-dismiss="alert" aria-hidden="true">x</button>
-                    </div>
-                </div>
-            );
-        }
-    }
-}
 
 
 class TermEditor extends React.Component {
@@ -166,25 +136,6 @@ class TermEditor extends React.Component {
                 console.error(error);
                 this.setState({errorWarning: 'Failed to add term', messageType: 'error'});
             });
-
-        /*
-        $.ajax({
-            url: 'index.php?module=intern&action=termRest&code='+tcode+'&type='+stype+
-            '&descr='+descr+'&census='+census+'&available='+available+'&start='+start+
-            '&end='+end+'&ugradOver='+ugradOver+'&gradOver='+gradOver,
-            type: 'POST',
-            success: function(data) {
-                this.getData();
-                var message = "Term successfully added.";
-                this.setState({errorWarning: message, messageType: "success"});
-            }.bind(this),
-            error: function(xhr, status, err) {
-                var errorMessage = "Failed to add term.";
-                console.error(this.props.url, status, err.toString());
-                this.setState({errorWarning: errorMessage, messageType: "error"});
-            }.bind(this)
-        });
-        */
     }
     onTermSave(newtermc, newsemtype, newdescri, newcensusd, newavaild, newstartd, newendd, newugradover, newgradover, oldTcode) {
 
@@ -204,6 +155,7 @@ class TermEditor extends React.Component {
         var cleanugradover = encodeURIComponent(newugradover);
         var cleangradover = encodeURIComponent(newgradover);
 
+        // TODO: Use fetch API
         $.ajax({
             url: 'index.php?module=intern&action=termRest&newTcode='+cleantermc+'&newSemtype='+cleansemtype+
             '&newDesc='+cleandescri+'&newCensus='+cleancensusd+'&newAvail='+cleanavaild+'&newStart='+cleanstartd+
