@@ -231,18 +231,18 @@ class TermEditor extends React.Component {
               </div>
 
               <div className="row">
-                <div className="col-sm-10">
+                <div className="col-sm-12">
                     <div className="termTable">
-                        <table className="table table-condensed table-striped">
+                        <table className="table">
                               <thead>
                                   <tr>
                                       <th>Term Code</th>
                                       <th>Description</th>
                                       <th>Semester Type</th>
-                                      <th>Available On Date</th>
-                                      <th>Census Date</th>
-                                      <th>Start Date</th>
-                                      <th>End Date</th>
+                                      <th>Available On</th>
+                                      <th>Drop/Add</th>
+                                      <th>Term Start Date</th>
+                                      <th>Term End Date</th>
                                       <th>Undergraduate<br></br>Overload Hours</th>
                                       <th>Graduate<br></br>Overload Hours</th>
                                   </tr>

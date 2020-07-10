@@ -235,7 +235,7 @@ class TermInput extends React.Component {
 
               <div className="col-sm-6">
                   <div className="form-group" ref="censusCalendar">
-                      <label onClick={this.showCalendarCensus}>Census Date:
+                      <label onClick={this.showCalendarCensus}>Drop/Add Date:
                           <i className="fa fa-calendar" aria-hidden="true" style={{paddingLeft: '5px'}} title="Click for Calendar View"></i>
                       </label>
                       <input type="text" className="form-control" placeholder="MM/DD/YYYY" ref="census_date" onClick={this.showCalendarCensus}/>
@@ -248,7 +248,7 @@ class TermInput extends React.Component {
 
               <div className="col-sm-6">
                   <div className="form-group" ref="startCalendar">
-                      <label onClick={this.showCalendarStart}>Start Date:
+                      <label onClick={this.showCalendarStart}>Term Start Date:
                           <i className="fa fa-calendar" aria-hidden="true" style={{paddingLeft: '5px'}} title="Click for Calendar View"></i>
                       </label>
                       <input type="text" className="form-control" placeholder="MM/DD/YYYY" ref="start_date" onClick={this.showCalendarStart}/>
@@ -258,7 +258,7 @@ class TermInput extends React.Component {
 
               <div className="col-sm-6">
                   <div className="form-group" ref="endCalendar">
-                      <label onClick={this.showCalendarEnd}>End Date:
+                      <label onClick={this.showCalendarEnd}>Term End Date:
                           <i className="fa fa-calendar" aria-hidden="true" style={{paddingLeft: '5px'}} title="Click for Calendar View"></i>
                       </label>
                       <input type="text" className="form-control" placeholder="MM/DD/YYYY" ref="end_date" onClick={this.showCalendarEnd}/>

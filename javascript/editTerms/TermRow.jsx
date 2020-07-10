@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import classNames from 'classnames';
 
 /**
  * This file is part of Internship Inventory.
@@ -96,17 +97,29 @@ class TermRow extends React.Component {
 
         var mainButton = null;
 
-        let censusDate = this.timestampToDate(this.props.census);
         let availDate = this.timestampToDate(this.props.available);
+        let censusDate = this.timestampToDate(this.props.census);
         let startDate = this.timestampToDate(this.props.start);
         let endDate = this.timestampToDate(this.props.end);
+
+        let availDateObj = new Date(this.props.available * 1000);
+        let censusDateObj = new Date(this.props.census * 1000);
+        let today = new Date();
+
+        console.log(availDate, today, censusDate);
+        let active = (availDateObj < today && today < censusDateObj) ? true : false;
+        console.log(active);
+
+        let rowClasses = classNames({
+            'info': active
+        });
 
         // if you are not editing
         if (!this.state.editMode)
         {
             mainButton = <a onClick={this.handleEdit} data-toggle="tooltip" title="Edit"><i className="glyphicon glyphicon-pencil"/></a>
             return (
-            <tr>
+            <tr className={rowClasses}>
                 <td>{this.props.tcode}</td>
                 <td>{this.props.descr}</td>
                 <td>{this.props.stype}</td>
