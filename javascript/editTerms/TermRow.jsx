@@ -106,9 +106,7 @@ class TermRow extends React.Component {
         let censusDateObj = new Date(this.props.census * 1000);
         let today = new Date();
 
-        console.log(availDate, today, censusDate);
         let active = (availDateObj < today && today < censusDateObj) ? true : false;
-        console.log(active);
 
         let rowClasses = classNames({
             'info': active

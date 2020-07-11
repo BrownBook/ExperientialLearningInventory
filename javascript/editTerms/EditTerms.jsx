@@ -131,6 +131,7 @@ class TermEditor extends React.Component {
             .then(response => response.json())
             .then((result) => {
                 this.setState({errorWarning: 'Term successfully added', messageType: 'success'});
+                this.getData(); // Refresh the data and update the table after term is updated
             })
             .catch((error) => {
                 console.error(error);
@@ -163,9 +164,8 @@ class TermEditor extends React.Component {
             type: 'PUT',
             success: function(data) {
                 $("#success").show();
-                var added = 'Updated the table.';
-                this.setState({success: added});
-                this.getData();
+                this.setState({success: 'Changes saved.'});
+                this.getData(); // Refresh the data and update the table after term is updated
             }.bind(this),
             error: function(xhr, status, err) {
                 var errorMessage = "Failed to update term.";
