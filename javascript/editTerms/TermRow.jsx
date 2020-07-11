@@ -113,42 +113,41 @@ class TermRow extends React.Component {
         });
 
         // if you are not editing
-        if (!this.state.editMode)
+        if (this.state.editMode)
         {
-            mainButton = <a onClick={this.handleEdit} data-toggle="tooltip" title="Edit"><i className="glyphicon glyphicon-pencil"/></a>
-            return (
-            <tr className={rowClasses}>
-                <td>{this.props.tcode}</td>
-                <td>{this.props.descr}</td>
-                <td>{this.props.stype}</td>
-                <td>{availDate}</td>
-                <td>{censusDate}</td>
-                <td>{startDate}</td>
-                <td>{endDate}</td>
-                <td>{this.props.ugradOver}</td>
-                <td>{this.props.gradOver}</td>
-                <td>{mainButton}</td>
-            </tr>
-            );
-        }
-        //if you are editing
-        else
-        {
+            // Edit mode enabled
             mainButton = <a onClick={this.handleSave} data-toggle="tooltip" title="Save Changes"><i className="glyphicon glyphicon-floppy-save"/></a>
             return (
-            <tr>
-                <td><input type="text" className="form-control" ref="savedTcode" defaultValue={this.props.tcode}/></td>
-                <td><input type="text" className="form-control" ref="savedStype" defaultValue={this.props.stype}/></td>
-                <td><input type="text" className="form-control" ref="savedDescr" defaultValue={this.props.descr}/></td>
-                <td><input type="text" className="form-control" ref="savedCensusDate" defaultValue={censusDate}/></td>
-                <td><input type="text" className="form-control" ref="savedAvailDate" defaultValue={availDate}/></td>
-                <td><input type="text" className="form-control" ref="savedStartDate" defaultValue={startDate}/></td>
-                <td><input type="text" className="form-control" ref="savedEndDate" defaultValue={endDate}/></td>
-                <td><input type="text" className="form-control" ref="savedUgradOverload" defaultValue={this.props.ugradOver}/></td>
-                <td><input type="text" className="form-control" ref="savedGradOverload" defaultValue={this.props.gradOver}/></td>
-                <td style={{"verticalAlign" : "middle"}}>{mainButton}</td>
-                <td style={{"verticalAlign" : "middle"}}><a onClick={this.onCancelSave} title="Cancel Changes"><i className="glyphicon glyphicon-remove"/></a></td>
-            </tr>
+                <tr>
+                    <td><input type="text" className="form-control" ref="savedTcode" defaultValue={this.props.tcode}/></td>
+                    <td><input type="text" className="form-control" ref="savedStype" defaultValue={this.props.stype}/></td>
+                    <td><input type="text" className="form-control" ref="savedDescr" defaultValue={this.props.descr}/></td>
+                    <td><input type="text" className="form-control" ref="savedCensusDate" defaultValue={censusDate}/></td>
+                    <td><input type="text" className="form-control" ref="savedAvailDate" defaultValue={availDate}/></td>
+                    <td><input type="text" className="form-control" ref="savedStartDate" defaultValue={startDate}/></td>
+                    <td><input type="text" className="form-control" ref="savedEndDate" defaultValue={endDate}/></td>
+                    <td><input type="text" className="form-control" ref="savedUgradOverload" defaultValue={this.props.ugradOver}/></td>
+                    <td><input type="text" className="form-control" ref="savedGradOverload" defaultValue={this.props.gradOver}/></td>
+                    <td style={{"verticalAlign" : "middle"}}>{mainButton}</td>
+                    <td style={{"verticalAlign" : "middle"}}><a onClick={this.onCancelSave} title="Cancel Changes"><i className="glyphicon glyphicon-remove"/></a></td>
+                </tr>
+            );
+        } else {
+            // Not editing
+            mainButton = <a onClick={this.handleEdit} data-toggle="tooltip" title="Edit"><i className="glyphicon glyphicon-pencil"/></a>
+            return (
+                <tr className={rowClasses}>
+                    <td>{this.props.tcode}</td>
+                    <td>{this.props.descr}</td>
+                    <td>{this.props.stype}</td>
+                    <td>{availDate}</td>
+                    <td>{censusDate}</td>
+                    <td>{startDate}</td>
+                    <td>{endDate}</td>
+                    <td>{this.props.ugradOver}</td>
+                    <td>{this.props.gradOver}</td>
+                    <td>{mainButton}</td>
+                </tr>
             );
         }
     }

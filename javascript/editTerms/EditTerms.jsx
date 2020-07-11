@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-import TermRow from './TermRow.jsx';
 import TermInput from './TermInput.jsx';
+import TermTable from './TermTable.jsx';
 import ErrorMessagesBlock from './ErrorMessagesBlock.jsx';
 
 /**
@@ -179,30 +179,6 @@ class TermEditor extends React.Component {
     }
     render()
     {
-        var termRows = null;
-        if (this.state.mainData != null) {
-            var termSave = this.onTermSave;
-            termRows = this.state.mainData.map(function (data) {
-                return (
-                    <TermRow  key={data.term}
-                        tcode={data.term}
-                        stype={data.semester_type}
-                        descr={data.description}
-                        census={data.census_date_timestamp}
-                        available={data.available_on_timestamp}
-                        start={data.start_timestamp}
-                        end={data.end_timestamp}
-                        ugradOver={data.undergrad_overload_hours}
-                        gradOver={data.grad_overload_hours}
-                        onTermSave={termSave} />
-                );
-            });
-            var termCreate = this.onTermCreate;
-            //inData = <TermInput onTermCreate={termCreate} messageType={this.state.messageType} />
-
-        } else {
-            termRows = '';
-        }
 
         var errors;
         if (this.state.errorWarning == null) {
@@ -224,7 +200,7 @@ class TermEditor extends React.Component {
                     <div className="panel panel-default">
                         <div className="panel-body">
                             <h4>Create a new Term: </h4>
-                            <TermInput onTermCreate={termCreate} messageType={this.state.messageType} />
+                            <TermInput onTermCreate={this.onTermCreate} messageType={this.state.messageType} />
                         </div>
                     </div>
                 </div>
@@ -232,26 +208,7 @@ class TermEditor extends React.Component {
 
               <div className="row">
                 <div className="col-sm-12">
-                    <div className="termTable">
-                        <table className="table">
-                              <thead>
-                                  <tr>
-                                      <th>Term Code</th>
-                                      <th>Description</th>
-                                      <th>Semester Type</th>
-                                      <th>Available On</th>
-                                      <th>Drop/Add</th>
-                                      <th>Term Start Date</th>
-                                      <th>Term End Date</th>
-                                      <th>Undergraduate<br></br>Overload Hours</th>
-                                      <th>Graduate<br></br>Overload Hours</th>
-                                  </tr>
-                              </thead>
-                              <tbody>
-                                  {termRows}
-                              </tbody>
-                        </table>
-                    </div>
+                    <TermTable termData={this.state.mainData} onTermSave={this.onTermSave}/>
                 </div>
 
               </div>
