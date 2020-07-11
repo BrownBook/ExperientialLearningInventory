@@ -22,6 +22,11 @@ namespace Intern;
 
 class Student {
     // Defines for Internship Inventory student Data
+    const UNDERGRAD = 'ugrad';
+    const GRADUATE  = 'grad';
+    const GRADUATE2 = 'grad2';
+    const DOCTORAL  = 'doctoral';
+    const POSTDOC   = 'postdoc';
 
     const LEVELS = array(self::UNDERGRAD, self::GRADUATE, self::GRADUATE2, self::DOCTORAL, self::POSTDOC);
 
@@ -99,7 +104,7 @@ class Student {
         }*/
         if ($level == self::UNDERGRAD) {
             $limit = $term->getUndergradOverloadHours();
-        } else if {
+        } else if ($level == self::GRADUATE){
             $limit = $term->getGradOverloadHours();
         }
 
