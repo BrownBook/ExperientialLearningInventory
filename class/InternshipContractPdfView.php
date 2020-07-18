@@ -70,7 +70,7 @@ class InternshipContractPdfView {
      */
     private function generatePdf()
     {
-        $this->pdf = new \FPDI('P', 'mm', 'Letter');
+        $this->pdf = new \setasign\Fpdi\Fpdi('P', 'mm', 'Letter');
         $a = $this->internship->getAgency();
         $d = $this->internship->getDepartment();
         $f = $this->internship->getFaculty();
@@ -155,8 +155,8 @@ class InternshipContractPdfView {
         $this->pdf->cell(12, 5, $this->internship->getAvgHoursPerWeek());
 
         /* Term right aligned*/
-        //$this->pdf->setXY(8, 106);
-        //$this->pdf->cell(27, 6, $this->term->getDescription(), 0, 0, 'R');
+        $this->pdf->setXY(1, 103);
+        $this->pdf->cell(27, 6, $this->term->getDescription(), 0, 0, 'R');
 
         /* Dates for begining and end of term center aligned*/
         $this->pdf->setXY(87, 106);

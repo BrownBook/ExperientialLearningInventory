@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of Internship Inventory.
  *
@@ -18,36 +19,31 @@
  * Copyright 2011-2018 Appalachian State University
  */
 
-namespace Intern\Command;
-use \Intern\Department;
-use \Intern\State;
-use \Intern\CountryFactory;
-use \Intern\UI\NotifyUI;
+namespace Intern\UI;
 
-/*
- * ShowAddInternship
- *
- * Controller for showing the Add Internship view.
- */
+use \Intern\AssetResolver;
 
-class ShowAddInternship {
+/**
+*
+* @author Cydney Caldwell
+*
+*/
+class StudentLevelUI implements UI {
 
-    public function __construct() {
-
-    }
-
-    public function execute()
+    public function display()
     {
-        // Check permissions
-        if(!\Current_User::allow('intern', 'create_internship')){
-            \NQ::simple('intern', NotifyUI::ERROR, 'You do not have permission to create new internships.');
-            \NQ::close();
-            \PHPWS_Core::home();
+        /* Permission check */
+        if(!\Current_User::allow('intern', 'edit_level')){
+            \NQ::simple('intern', NotifyUI::ERROR, "You do not have permission to edit student levels.");
+            return ;
         }
 
+        $tpl = array();
 
-        $view = new \Intern\AddInternshipView();
+        $tpl['vendor_bundle'] = AssetResolver::resolveJsPath('assets.json', 'vendor');
+        $tpl['entry_bundle'] = AssetResolver::resolveJsPath('assets.json', 'editLevel');
 
-        return $view->render();
+        return \PHPWS_Template::process($tpl, 'intern', 'edit_level.tpl');
     }
+
 }

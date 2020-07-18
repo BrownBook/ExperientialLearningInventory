@@ -44,6 +44,11 @@
 }
 /***** End Typeahead Styles *****/
 
+.react-calendar {
+    z-index: 999;
+    position: absolute;
+}
+
 /***** Creation Interface Transitions *****/
 .example-enter {
   opacity: 0.01;

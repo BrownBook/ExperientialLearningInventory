@@ -17,37 +17,30 @@
  *
  * Copyright 2011-2018 Appalachian State University
  */
+ 
+namespace Intern\UI;
 
-namespace Intern\Command;
-use \Intern\Department;
-use \Intern\State;
-use \Intern\CountryFactory;
-use \Intern\UI\NotifyUI;
+use \Intern\AssetResolver;
 
-/*
- * ShowAddInternship
- *
- * Controller for showing the Add Internship view.
- */
+/**
+ * Class for handing UI for Term editing and creation
+ * @author Olivia Perugini <peruginioc at appstate dot edu>
+ **/
+ class TermUI implements UI {
 
-class ShowAddInternship {
+    public function display() {
 
-    public function __construct() {
+        // permissions, if needed ?
+        //if(!\Current_User::allow('intern', 'edit_terms')){
+        //    \NQ::simple('intern', NotifyUI::WARNING, 'You do not have permission to edit terms.');
+        //    return false;
+        //}
 
+        $tpl = array();
+        $tpl['vendor_bundle'] = AssetResolver::resolveJsPath('assets.json', 'vendor');
+        $tpl['entry_bundle'] = AssetResolver::resolveJsPath('assets.json', 'editTerms');
+        //$tpl['S']
+
+        return \PHPWS_Template::process($tpl, 'intern', 'edit_terms.tpl');
     }
-
-    public function execute()
-    {
-        // Check permissions
-        if(!\Current_User::allow('intern', 'create_internship')){
-            \NQ::simple('intern', NotifyUI::ERROR, 'You do not have permission to create new internships.');
-            \NQ::close();
-            \PHPWS_Core::home();
-        }
-
-
-        $view = new \Intern\AddInternshipView();
-
-        return $view->render();
-    }
-}
+ }

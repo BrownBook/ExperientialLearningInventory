@@ -156,6 +156,22 @@ class InternshipView {
             return;
         }
 
+        // Show warning if the student's level does not exist
+        $level = $this->intern->getLevel();
+        $code = LevelFactory::getLevelObjectById($level);
+        if($code->getLevel() == 'Unknown')
+        {
+            \NQ::simple('intern', UI\NotifyUI::WARNING, "This student's level of {$code->getCode()} did not exist. It was created and set to Unknown. Please ask an administrator for help.");
+        }
+
+        // Show warning if the student's current level is different from the level listed in banner
+        $currentLevel = $this->student->getLevel();
+        $currentC = LevelFactory::getLevelObjectById($currentLevel);
+        if($level != $currentLevel)
+        {
+            \NQ::simple('intern', UI\NotifyUI::WARNING, "The students current level is {$currentC->getDesc()} and is different from the internships level listed.");
+        }
+
         // Show warning if graduation date is prior to start date
         $gradDate = $this->student->getGradDate();
         if(isset($gradDate) && $gradDate < $this->intern->getStartDate())
@@ -171,16 +187,18 @@ class InternshipView {
 
         // Show warning if student is enrolled for more than the credit hour limit for the term
         $internHours = $this->intern->getCreditHours();
-
+        /*
+         * Diabled until proper fix.
         if(isset($internHours) && $this->student->isCreditHourLimited($internHours, $this->studentExistingCreditHours, $this->term)) {
             \NQ::simple('intern', UI\NotifyUI::WARNING, 'This internship will cause the student to exceed the semester credit hour limit. This student will need an Overload Permit from their Dean\'s Office.');
         }
+         * 
+         */
 
         // Show warning if GPA is below the minimum
         if($this->student->getGpa() < Internship::GPA_MINIMUM) {
             $minGpa = sprintf('%.2f', Internship::GPA_MINIMUM);
             \NQ::simple('intern', UI\NotifyUI::WARNING, "This student's GPA is less than the required minimum of {$minGpa}.");
         }
-
     }
 }
