@@ -61,13 +61,11 @@ class SaveInternship
     {
         $internSettings = InternSettings::getInstance();
 
-        /**************
         // We don't want to do certain things like state change or error checks if this is an ajax request.
         $isAjax = false;
         if(\Canopy\Request::isAjax()){
             $isAjax = true;
         }
-        ******/
 
         /**************
          * Sanity Checks

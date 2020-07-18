@@ -5,8 +5,6 @@ CREATE TABLE intern_student_level(
   PRIMARY KEY(code)
 );
 
-CREATE SEQUENCE intern_student_level_seq;
-
 INSERT INTO "intern_student_level" ("code", "description", "level") VALUES ('U', 'Undergraduate', 'ugrad');
 INSERT INTO "intern_student_level" ("code", "description", "level") VALUES ('G', 'Graduate', 'grad');
 INSERT INTO "intern_student_level" ("code", "description", "level") VALUES ('G2', 'Graduate 2', 'grad');
