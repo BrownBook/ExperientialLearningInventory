@@ -29,7 +29,7 @@ class ErrorMessagesBlock extends React.Component {
 class DepartmentList extends React.Component {
   render() {
     return (
-     	<option value={this.props.id}>{this.props.name}</option>
+        <option value={this.props.id}>{this.props.name}</option>
     )
   }
 }
@@ -96,7 +96,7 @@ class SearchAdmin extends React.Component {
 			dataType: 'json',
 			success: function(data) {
 				this.setState({mainData: data,
-							   displayData: data});
+                                displayData: data});
 				this.searchList();
 			}.bind(this),
 			error: function(xhr, status, err) {
@@ -253,9 +253,9 @@ class SearchAdmin extends React.Component {
 				<DeleteAdmin key={admin.id}
 						fullname={admin.display_name}
 						username={admin.username}
-					  	department={admin.name}
-					  	id={admin.id}
-					  	onAdminDelete={onAdminDelete} />
+                        department={admin.name}
+                        id={admin.id}
+                        onAdminDelete={onAdminDelete} />
 				);
 			});
 		} else {

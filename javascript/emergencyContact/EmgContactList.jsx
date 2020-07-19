@@ -120,7 +120,7 @@ class ModalForm extends React.Component {
             <Modal show={this.props.show} onHide={this.handleExit} backdrop='static'>
                 <Modal.Header closeButton>
                   <Modal.Title>Emergency Contact</Modal.Title>
-                  {this.state.showError ? <Message type="warning" children={this.state.warningMsg}></Message> : null}
+                  {this.state.showError ? <Message type="warning">{this.state.warningMsg}</Message> : null}
 
                 </Modal.Header>
                 <Modal.Body>

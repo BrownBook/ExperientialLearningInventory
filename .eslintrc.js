@@ -23,7 +23,12 @@ module.exports = {
 
   // import plugin is temporarily disabled, scroll below to see why
 //  plugins: [/*'import', */'flowtype', 'jsx-a11y', 'react'],
-    plugins: [/*'import', */'flowtype', 'react'], // Disable jsx-a11y until packages are compatible
+  plugins: [/*'import', */'flowtype', 'react'], // Disable jsx-a11y until packages are compatible
+
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
 
   env: {
     browser: true,
@@ -44,6 +49,9 @@ module.exports = {
   },
 
   settings: {
+    "react": {
+      "version": "detect"
+    },
     'import/ignore': [
       'node_modules',
       '\\.(json|css|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$',
@@ -155,6 +163,11 @@ module.exports = {
     'unicode-bom': ['warn', 'never'],
     'use-isnan': 'warn',
     'valid-typeof': 'warn',
+
+    'no-console': 'off',
+    'react/prop-types': 'off',
+    'react/no-string-refs': 'off',
+    'react/no-find-dom-node': 'off',
 
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/
 

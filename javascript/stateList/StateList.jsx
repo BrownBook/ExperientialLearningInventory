@@ -1,20 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-
+import PropTypes from 'prop-types';
 
 class StateList extends React.Component {
 	// Disables/Enables the state in the dropdown
     render() {
         var optionSelect = null;
-  	    if (this.props.active === 1) {
-  	        optionSelect = <option value={this.props.sAbbr} disabled>{this.props.stateName}</option>
-  	    } else {
+        if (this.props.active === 1) {
+            optionSelect = <option value={this.props.sAbbr} disabled>{this.props.stateName}</option>
+        } else {
             optionSelect = <option value={this.props.sAbbr}>{this.props.stateName}</option>
-  	    }
+        }
 
         return (optionSelect);
     }
+}
+
+StateList.propTypes = {
+    active: PropTypes.any,
+    sAbbr: PropTypes.string,
+    stateName: PropTypes.string
 }
 
 
@@ -40,6 +46,13 @@ class TableStates extends React.Component {
 			</tr>
 		);
 	}
+}
+
+TableStates.propTypes = {
+    onStateDelete: PropTypes.func,
+    active: PropTypes.num,
+    stateName: PropTypes.string,
+    sAbbr: PropTypes.string
 }
 
 
@@ -152,9 +165,9 @@ class States extends React.Component {
 			states = this.state.dropData.map(function (data) {
 			return (
 					<StateList key={data.abbr}
-							   sAbbr={data.abbr}
-							   stateName={data.full_name}
-							   active={data.active} />
+                            sAbbr={data.abbr}
+                            stateName={data.full_name}
+                            active={data.active} />
 				);
 			});
 		} else {
@@ -167,10 +180,10 @@ class States extends React.Component {
 			row = this.state.dropData.map(function (data) {
 			return (
 					<TableStates key={data.abbr}
-							   sAbbr={data.abbr}
-							   stateName={data.full_name}
-							   active={data.active}
-							   onStateDelete={onStateDelete} />
+                            sAbbr={data.abbr}
+                            stateName={data.full_name}
+                            active={data.active}
+                            onStateDelete={onStateDelete} />
 				);
 			});
 		} else {
@@ -208,6 +221,10 @@ class States extends React.Component {
 			</div>
 		);
 	}
+}
+
+States.propTypes = {
+    url: PropTypes.string
 }
 
 
