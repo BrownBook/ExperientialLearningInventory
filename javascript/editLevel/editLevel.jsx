@@ -113,8 +113,8 @@ class DisplayData extends React.Component{
 		var textLev = null;
 		var eButton = null;
 		var textName = <span className="text-muted"> {this.props.code} </span>;
-		var desName = <span className="text-muted"> {this.props.description} </span>;;
-		var levelName = <span className="text-muted">{this.props.level} </span>;;
+		var desName = <span className="text-muted"> {this.props.description} </span>;
+		var levelName = <span className="text-muted">{this.props.level} </span>;
 		if (this.state.editMode) {
 			textDes = <div id={this.props.description} >
 				<input type="text" className="form-control" defaultValue={this.props.description} ref="savedDesData" />

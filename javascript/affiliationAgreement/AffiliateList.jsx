@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
 class ErrorMessagesBlock extends React.Component {
     render() {
@@ -25,12 +26,21 @@ class ErrorMessagesBlock extends React.Component {
     }
 }
 
+ErrorMessagesBlock.propTypes = {
+    errors: PropTypes.string
+}
+
 class DepartmentList extends React.Component {
     render() {
         return (
             <option value={this.props.id}>{this.props.name}</option>
         )
     }
+}
+
+DepartmentList.propTypes = {
+    id: PropTypes.string,
+    name: PropTypes.string
 }
 
 class ShowAffiliate extends React.Component {
@@ -87,6 +97,14 @@ class ShowAffiliate extends React.Component {
             </tr>
         );
     }
+}
+
+ShowAffiliate.propTypes = {
+    id: PropTypes.string,
+    name: PropTypes.string,
+    auto_renew: PropTypes.any,
+    end_date: PropTypes.any,
+    onShowAffiliate: PropTypes.func
 }
 
 // Main module that calls several components to build

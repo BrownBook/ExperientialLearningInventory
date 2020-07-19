@@ -5,7 +5,7 @@ php:
     - 7.3
 
 install:
-    - nvm install 6
+    - nvm install 10
     - npm install -g yarn
     - yarn install
     - composer install

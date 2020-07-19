@@ -21,7 +21,7 @@ class Notifications extends React.Component {
             else if (this.props.msgType === 'error')
             {
                 notification = <div className="alert alert-danger" role="alert">
-                                	<i className="fa fa-times fa-2x pull-left"></i> {this.props.msg}
+                                    <i className="fa fa-times fa-2x pull-left"></i> {this.props.msg}
                                </div>
             }
         } else {
@@ -64,11 +64,11 @@ class CourseList extends React.Component {
 			cRow = this.props.subjectData.map(function(sub) {
 				return (
 					<CourseRow key={sub.id}
-							   id={sub.id}
-							   abbr={sub.abbreviation}
-							   name={sub.description}
-							   cnum={sub.course_num}
-							   deleteCourse={deleteCourse} />
+                                id={sub.id}
+                                abbr={sub.abbreviation}
+                                name={sub.description}
+                                cnum={sub.course_num}
+                                deleteCourse={deleteCourse} />
 				);
 			});
 		} else{
@@ -176,13 +176,13 @@ class CourseSelector extends React.Component {
 			url: 'index.php?module=intern&action=NormalCoursesRest',
 			type: 'GET',
 			dataType: 'json',
-    			success: function(data) {
-				this.setState({subjectData: data});
-			}.bind(this),
-			error: function(xhr, status, err) {
-				alert("Failed to grab subject data.")
-				console.error(this.props.url, status, err.toString());
-			}.bind(this)
+                success: function(data) {
+                            this.setState({subjectData: data});
+                        }.bind(this),
+                error: function(xhr, status, err) {
+                            alert("Failed to grab subject data.")
+                            console.error(this.props.url, status, err.toString());
+                        }.bind(this)
 		});
 	}
 	saveCourse(subjectId, course_num){

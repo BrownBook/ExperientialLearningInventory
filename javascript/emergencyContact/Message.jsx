@@ -21,9 +21,6 @@ import PropTypes from 'prop-types'
  */
 
 class Message extends Component {
-  constructor(props) {
-    super(props)
-  }
 
   render() {
     let icon = ''
@@ -43,6 +40,9 @@ class Message extends Component {
       case 'warning':
         icon = 'fa fa-hand-paper-o'
         break
+        
+      default:
+        icon = 'fa fa-info-circle'
     }
 
     let messageType = 'alert alert-dismissible alert-' + this.props.type
