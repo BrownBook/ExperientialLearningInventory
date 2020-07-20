@@ -38,5 +38,9 @@ $settings = array('registrarEmail'              => null,
                   'generateContractEnabled'     => true,
                   'helpEmailAddress'            => null,
                   'studentEmailDomain'          => null,
-                  'uncaughtExceptionEmail'      => null
+                  'uncaughtExceptionEmail'      => null,
+                  'ShowStartEndDateWarning'     => true,
+                  'ShowMinGPAWarning'           => true,
+                  'ShowCreditHourWarning'       => true,
+                  'MinimumGPA'                  => '2.0'
           );
