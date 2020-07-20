@@ -339,4 +339,63 @@ class InternSettings {
 
         return $result;
     }
+
+    public function showMinGPAWarning()
+    {
+        $result = \PHPWS_Settings::get('intern', 'ShowMinGPAWarning');
+
+        if (!isset($result) || is_null($result)) {
+            // Default to true
+            return true;
+        }
+
+        if($result === 0){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function getMinimumGPA()
+    {
+        $result = \PHPWS_Settings::get('intern', 'MinimumGPA');
+
+        if (!isset($result) || is_null($result)) {
+            return 2.0; // Just a random default?  ¯\_(ツ)_/¯
+        }
+
+        return floatval($result);
+    }
+
+    public function showCreditHourWarning()
+    {
+        $result = \PHPWS_Settings::get('intern', 'ShowCreditHourWarning');
+
+        if (!isset($result) || is_null($result)) {
+            // Default to true
+            return true;
+        }
+
+        if($result === 0){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function showStartEndDateWarning()
+    {
+        $result = \PHPWS_Settings::get('intern', 'ShowStartEndDateWarning');
+
+        if (!isset($result) || is_null($result)) {
+            // Default to true
+            return true;
+        }
+
+        if($result === 0){
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
