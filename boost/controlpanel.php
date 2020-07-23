@@ -23,10 +23,10 @@
 */
 
 $link[] = array(
-        'label'         => 'Intern Inventory',
+        'label'         => 'Experiential Learning Inventory',
         'restricted'    => true,
         'url'           => 'index.php?module=intern',
-        'description'   => 'Manage Intern Inventory',
+        'description'   => 'Manage Learning Inventory',
         'image'         => 'freedo_Glossy_Globe_small.png',
         'tab'           => 'content'
         );
