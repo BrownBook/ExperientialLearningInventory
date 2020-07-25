@@ -397,11 +397,6 @@ class EditInternshipFormView {
             $this->form->setLabel('agency_sup_zip', 'Postal Code');
         }
 
-        $this->form->addText('agency_sup_fax');
-        $this->form->setLabel('agency_sup_fax', 'Fax');
-        $this->form->addCssClass('agency_sup_fax', 'form-control');
-
-
         /**********************
          * Internship details *
          */
@@ -733,7 +728,6 @@ class EditInternshipFormView {
         $this->formVals['agency_sup_title']       = $this->agency->supervisor_title;
         $this->formVals['agency_sup_phone']       = $this->agency->supervisor_phone;
         $this->formVals['agency_sup_email']       = $this->agency->supervisor_email;
-        $this->formVals['agency_sup_fax']         = $this->agency->supervisor_fax;
         $this->formVals['agency_sup_address']     = $this->agency->supervisor_address;
         $this->formVals['agency_sup_city']        = $this->agency->supervisor_city;
         $this->formVals['agency_sup_zip']         = $this->agency->supervisor_zip;

@@ -171,7 +171,6 @@ function initFacultySelector()
         $("#faculty_details").hide();
         $("#faculty_email").html('');
         $("#faculty_phone").html('');
-        $("#faculty_fax").html('');
         $("#faculty_address").html('');
 
         if($("#internship_department").val() === '-1'){
@@ -308,12 +307,6 @@ function initFacultySelector()
             $("#faculty_phone").html('<a href="tel:+1' + faculty.phone + '">' + faculty.phone + '</a>');
         }else{
             $("#faculty_phone").html('<small class="text-muted">Has not been set</small>');
-        }
-
-        if(faculty.fax !== '' && faculty.fax !== null){
-            $("#faculty_fax").html('<a href="fax:+1' + faculty.fax + '">' + faculty.fax + '</a>');
-        }else{
-            $("#faculty_fax").html('<small class="text-muted">Has not been set</small>');
         }
 
         // Format the address

@@ -48,7 +48,6 @@ class Agency implements DbStorable {
     public $supervisor_title;
     public $supervisor_phone;
     public $supervisor_email;
-    public $supervisor_fax;
     public $supervisor_address;
     public $supervisor_city;
     public $supervisor_state;
@@ -87,7 +86,6 @@ class Agency implements DbStorable {
         $csv['Host Super. Title']      = $this->supervisor_title;
         $csv['Host Super. Phone']      = $this->supervisor_phone;
         $csv['Host Super. Email']      = $this->supervisor_email;
-        $csv['Host Super. Fax']        = $this->supervisor_fax;
         $csv['Host Super. Address']    = $this->supervisor_address;
         $csv['Host Super. City']       = $this->supervisor_city;
         $csv['Host Super. State']      = $this->supervisor_state == null ? '' : $this->supervisor_state;
@@ -196,7 +194,6 @@ class Agency implements DbStorable {
         $vars['supervisor_title']       = $this->getSupervisorTitle();
         $vars['supervisor_phone']       = $this->getSupervisorPhoneNumber();
         $vars['supervisor_email']       = $this->getSupervisorEmail();
-        $vars['supervisor_fax']         = $this->getSupervisorFaxNumber();
         $vars['supervisor_address']     = $this->getSupervisorAddress();
         $vars['supervisor_city']        = $this->getSupervisorCity();
         $vars['supervisor_state']       = $this->getSupervisorState();
@@ -281,11 +278,6 @@ class Agency implements DbStorable {
     public function getSupervisorEmail()
     {
         return $this->supervisor_email;
-    }
-
-    public function getSupervisorFaxNumber()
-    {
-        return $this->supervisor_fax;
     }
 
     public function getSupervisorAddress()

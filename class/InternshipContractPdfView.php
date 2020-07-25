@@ -189,9 +189,6 @@ class InternshipContractPdfView {
             $this->pdf->setXY(29, 140);
             $this->pdf->cell(77, 5, $f->getPhone());
 
-            $this->pdf->setXY(25, 147);
-            $this->pdf->cell(77, 5, $f->getFax());
-
             $this->pdf->setXY(28, 154);
             $this->pdf->cell(77, 5, $f->getUsername() . '@appstate.edu');
         }
@@ -260,9 +257,6 @@ class InternshipContractPdfView {
 
         $this->pdf->setXY(125, 154);
         $this->pdf->cell(33, 5, $a->getSupervisorPhoneNumber());
-
-        $this->pdf->setXY(166, 154);
-        $this->pdf->cell(40, 5, $a->getSupervisorFaxNumber());
 
         /* Internship Location */
         $internshipAddress = trim($this->internship->getStreetAddress());

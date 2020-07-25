@@ -394,7 +394,6 @@ class SaveInternship
         $agency->supervisor_title = self::trimField($_REQUEST['agency_sup_title']);
         $agency->supervisor_phone = self::trimField($_REQUEST['agency_sup_phone']);
         $agency->supervisor_email = self::trimField($_REQUEST['agency_sup_email']);
-        $agency->supervisor_fax = self::trimField($_REQUEST['agency_sup_fax']);
         $agency->supervisor_address = self::trimField($_REQUEST['agency_sup_address']);
         $agency->supervisor_city = self::trimField($_REQUEST['agency_sup_city']);
         $agency->supervisor_zip = $_REQUEST['agency_sup_zip'];
