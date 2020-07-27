@@ -111,7 +111,6 @@ class FacultyFactory {
                             first_name = :firstName,
                             last_name = :lastName,
                             phone = :phone,
-                            fax = :fax,
                             street_address1 = :streetAddress1,
                             street_address2 = :streetAddress2,
                             city = :city,
@@ -120,8 +119,8 @@ class FacultyFactory {
                         WHERE id = :facultyId';
         } else {
             // Faculty member does not exist yet, do an INSERT
-            $query = 'INSERT INTO intern_faculty (id, username, first_name, last_name, phone, fax, street_address1, street_address2, city, state, zip)
-                       VALUES (:facultyId, :username, :firstName, :lastName, :phone, :fax, :streetAddress1, :streetAddress2, :city, :state, :zip)';
+            $query = 'INSERT INTO intern_faculty (id, username, first_name, last_name, phone, street_address1, street_address2, city, state, zip)
+                       VALUES (:facultyId, :username, :firstName, :lastName, :phone, :streetAddress1, :streetAddress2, :city, :state, :zip)';
         }
 
         $params = array(
@@ -130,7 +129,6 @@ class FacultyFactory {
             'firstName'     => $faculty->getFirstName(),
             'lastName'      => $faculty->getLastName(),
             'phone'         => $faculty->getPhone(),
-            'fax'           => $faculty->getFax(),
             'streetAddress1' => $faculty->getStreetAddress1(),
             'streetAddress2' => $faculty->getStreetAddress2(),
             'city'          => $faculty->getCity(),

@@ -71,7 +71,6 @@ class FacultyForm extends React.Component {
                             first_name: this.refs.facultyEditFirstName.value,
                             last_name: this.refs.facultyEditLastName.value,
                             phone: this.refs.facultyEditPhone.value,
-                            fax: this.refs.facultyEditFax.value,
                             street_address1: this.refs.facultyEditStreetAddress1.value,
                             street_address2: this.refs.facultyEditStreetAddress2.value,
                             city: this.refs.facultyEditCity.value,
@@ -114,10 +113,6 @@ class FacultyForm extends React.Component {
                         <div className="col-md-6">
                             <label htmlFor="faculty-edit-phone">Phone</label>
                             <input type="text" className="form-control" id="faculty-edit-phone" ref="facultyEditPhone" defaultValue={this.props.facultyData.phone} />
-                        </div>
-                        <div className="col-md-6">
-                            <label htmlFor="faculty-edit-fax">Fax</label>
-                            <input type="text" className="form-control" id="faculty-edit-fax" ref="facultyEditFax" defaultValue={this.props.facultyData.fax} />
                         </div>
                     </div>
 
@@ -565,7 +560,6 @@ class EditFaculty extends React.Component {
                                     first_name: '',
                                     last_name: '',
                                     phone: '',
-                                    fax: '',
                                     street_address1: '',
                                     street_address2: '',
                                     city: '',

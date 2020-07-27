@@ -90,7 +90,6 @@ class RestFacultyById {
         $faculty->setLastName($postarray->last_name);
 
         $faculty->setPhone($postarray->phone);
-        $faculty->setFax($postarray->fax);
 
         $faculty->setStreetAddress1($postarray->street_address1);
         $faculty->setStreetAddress2($postarray->street_address2);

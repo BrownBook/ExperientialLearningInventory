@@ -477,14 +477,6 @@
                   </p>
                 </div>
               </div>
-
-              <div class="row">
-                <div class="col-lg-12">
-                  <p>
-                    <abbr title="Fax"><i class="fa fa-print"></i></abbr> &nbsp;<span id="faculty_fax"></span>
-                  </p>
-                </div>
-              </div>
             </div>
 
             <div class="col-lg-5">
@@ -586,11 +578,6 @@
         <div class="form-group">
           <label class="col-lg-3 control-label" for="{AGENCY_SUP_EMAIL_ID}">{AGENCY_SUP_EMAIL_LABEL_TEXT}</label>
           <div class="col-lg-6">{AGENCY_SUP_EMAIL}</div>
-        </div>
-
-        <div class="form-group">
-          <label class="col-lg-3 control-label" for="{AGENCY_SUP_FAX_ID}">{AGENCY_SUP_FAX_LABEL_TEXT}</label>
-          <div class="col-lg-6">{AGENCY_SUP_FAX}</div>
         </div>
 
         <div class="checkbox">

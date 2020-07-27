@@ -38,7 +38,6 @@ class Faculty extends Model implements DbStorable {
     public $last_name;
 
     public $phone;
-    public $fax;
 
     public $street_address1;
     public $street_address2;
@@ -49,7 +48,7 @@ class Faculty extends Model implements DbStorable {
     /**
      * Constructor
      */
-    public function __construct($id, $username, $firstName, $lastName, $phone, $fax, $streetAddress1, $streetAddress2, $city, $state, $zip)
+    public function __construct($id, $username, $firstName, $lastName, $phone, $streetAddress1, $streetAddress2, $city, $state, $zip)
     {
         $this->setId($id);
         $this->setUsername($username);
@@ -58,7 +57,6 @@ class Faculty extends Model implements DbStorable {
         $this->setLastName($lastName);
 
         $this->setPhone($phone);
-        $this->setFax($fax);
 
         $this->setStreetAddress1($streetAddress1);
         $this->setStreetAddress2($streetAddress2);
@@ -77,7 +75,6 @@ class Faculty extends Model implements DbStorable {
         $vars['last_name']          = $this->getLastName();
 
         $vars['phone']              = $this->getPhone();
-        $vars['fax']                = $this->getFax();
 
         $vars['street_address1']    = $this->getStreetAddress1();
         $vars['street_address2']    = $this->getStreetAddress2();
@@ -216,24 +213,6 @@ class Faculty extends Model implements DbStorable {
     public function setPhone($phone)
     {
         $this->phone = $phone;
-    }
-
-    /**
-     * Returns this faculty member's fax number.
-     * @return string
-     */
-    public function getFax()
-    {
-        return $this->fax;
-    }
-
-    /**
-     * Sets this faculty member's fax number
-     * @param string $fax
-     */
-    public function setFax($fax)
-    {
-        $this->fax = $fax;
     }
 
     /**
