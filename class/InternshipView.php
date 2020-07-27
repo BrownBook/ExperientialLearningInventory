@@ -138,14 +138,17 @@ class InternshipView {
             \NQ::simple('intern', \Intern\UI\NotifyUI::WARNING, "This student's 'level' is not set in Banner. This could mean this student is not currently enrolled.");
         }
 
-        // Show a warning if the start date selected is outside of the term start date
-        if($this->intern->start_date != 0 && ($this->intern->start_date < $this->term->getStartTimestamp() || $this->intern->start_date > $this->term->getEndTimestamp())){
-          \NQ::simple('intern', UI\NotifyUI::WARNING, "The start date you selected is outside the dates of the term.");
-        }
+        // Decide if we should show start/end date warnings
+        if($this->settings->showStartEndDateWarning()){
+            // Show a warning if the start date selected is outside of the term start date
+            if($this->intern->start_date != 0 && ($this->intern->start_date < $this->term->getStartTimestamp() || $this->intern->start_date > $this->term->getEndTimestamp())){
+              \NQ::simple('intern', UI\NotifyUI::WARNING, "The start date you selected is outside the dates of the term.");
+            }
 
-        // Show a warning if the ending date selected is outside of the term end date
-        if($this->intern->end_date != 0 && ($this->intern->end_date > $this->term->getEndTimestamp() || $this->intern->end_date < $this->term->getStartTimestamp())){
-          \NQ::simple('intern', UI\NotifyUI::WARNING, "The end date you selected is outside the dates of the term.");
+            // Show a warning if the ending date selected is outside of the term end date
+            if($this->intern->end_date != 0 && ($this->intern->end_date > $this->term->getEndTimestamp() || $this->intern->end_date < $this->term->getStartTimestamp())){
+              \NQ::simple('intern', UI\NotifyUI::WARNING, "The end date you selected is outside the dates of the term.");
+            }
         }
     }
 
@@ -154,6 +157,22 @@ class InternshipView {
         // Check if we have a student object. If we don't, then bail immediately.
         if(!isset($this->student)){
             return;
+        }
+
+        // Show warning if the student's level does not exist
+        $level = $this->intern->getLevel();
+        $code = LevelFactory::getLevelObjectById($level);
+        if($code->getLevel() == 'Unknown')
+        {
+            \NQ::simple('intern', UI\NotifyUI::WARNING, "This student's level of {$code->getCode()} did not exist. It was created and set to Unknown. Please ask an administrator for help.");
+        }
+
+        // Show warning if the student's current level is different from the level listed in banner
+        $currentLevel = $this->student->getLevel();
+        $currentC = LevelFactory::getLevelObjectById($currentLevel);
+        if($level != $currentLevel)
+        {
+            \NQ::simple('intern', UI\NotifyUI::WARNING, "The students current level is {$currentC->getDesc()} and is different from the internships level listed.");
         }
 
         // Show warning if graduation date is prior to start date
@@ -171,16 +190,18 @@ class InternshipView {
 
         // Show warning if student is enrolled for more than the credit hour limit for the term
         $internHours = $this->intern->getCreditHours();
-
+        /*
+         * Diabled until proper fix. Should respect the term's overload hour settings.
         if(isset($internHours) && $this->student->isCreditHourLimited($internHours, $this->studentExistingCreditHours, $this->term)) {
             \NQ::simple('intern', UI\NotifyUI::WARNING, 'This internship will cause the student to exceed the semester credit hour limit. This student will need an Overload Permit from their Dean\'s Office.');
         }
+         *
+         */
 
         // Show warning if GPA is below the minimum
-        if($this->student->getGpa() < Internship::GPA_MINIMUM) {
-            $minGpa = sprintf('%.2f', Internship::GPA_MINIMUM);
+        if($this->settings->showMinGPAWarning() && $this->student->getGpa() < $this->settings->getMinimumGPA()) {
+            $minGpa = sprintf('%.2f', $this->settings->getMinimumGPA());
             \NQ::simple('intern', UI\NotifyUI::WARNING, "This student's GPA is less than the required minimum of {$minGpa}.");
         }
-
     }
 }

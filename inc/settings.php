@@ -29,7 +29,7 @@ $settings = array('registrarEmail'              => null,
                   'backgroundCheckRequestEnabled'=>false,
                   'drugCheckRequestEnabled'     => false,
                   'backgroundCheckEmail'        => null,
-                  'systemName'                  => 'Internship Inventory',
+                  'systemName'                  => 'Experiential Learning Inventory',
                   'wsdlUri'                     => '',
                   'unusualCourseEmail'          => null,
                   'studentDataSource'           => 'localDataProvider', // 'localDataProvider', 'webServiceDataProvider', 'webServiceTestProvider'
@@ -38,5 +38,9 @@ $settings = array('registrarEmail'              => null,
                   'generateContractEnabled'     => true,
                   'helpEmailAddress'            => null,
                   'studentEmailDomain'          => null,
-                  'uncaughtExceptionEmail'      => null
+                  'uncaughtExceptionEmail'      => null,
+                  'ShowStartEndDateWarning'     => true,
+                  'ShowMinGPAWarning'           => true,
+                  'ShowCreditHourWarning'       => true,
+                  'MinimumGPA'                  => '2.0'
           );

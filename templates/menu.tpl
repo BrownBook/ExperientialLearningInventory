@@ -5,7 +5,7 @@
     <p><a class="btn btn-primary btn-large" href="index.php?module=intern&action=ShowAddInternship"><i class="fa fa-plus"></i> Add Activity</a></p>
   </div>
   <div class="col-lg-4">
-    <h2>Search</h2>
+    <h2>Search &amp; Report</h2>
     <p>Find an existing activity or generate reports based on search criteria.</p>
     <p><a class="btn btn-primary btn-large" href="index.php?module=intern&action=search"><i class="fa fa-search"></i> Search Inventory</a></p>
   </div>

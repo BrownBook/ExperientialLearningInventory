@@ -113,8 +113,12 @@ class ImportActivities {
             // Create the new internship object
             $intern = new Internship($student, $term, $location, $state, $country, $department, $agency);
 
-            // Set the experience type
             $intern->setExperienceType($row['experience_type']);
+
+            // Set other defaults
+            $intern->co_op = 0;
+            $intern->background_check = 0;
+            $intern->drug_check = 0;
 
             // Set the import ID on the internship, so we know where it came from
             $intern->setImportId($importId);

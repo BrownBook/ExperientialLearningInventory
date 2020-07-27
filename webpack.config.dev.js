@@ -10,6 +10,7 @@ var JS_DIR = path.resolve(__dirname, 'javascript');
 
 
 module.exports = {
+    mode: 'development',
     devtool: 'eval',
     entry: entryPointList.entryPoints,
     output: {
@@ -39,7 +40,7 @@ module.exports = {
             use: [
               {
                 loader: 'babel-loader',
-                query: {presets: ['es2015', 'react']}
+                query: {presets: ['env', 'react']}
               }
             ]
         }, {
@@ -58,9 +59,9 @@ module.exports = {
         new AssetsPlugin({
             filename: 'assets.json',
             prettyPrint: true
-        }),
+        })
         //new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.bundle.js")
-        new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.bundle.js' })
+        //new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.bundle.js' })
 
     ]
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import PropTypes from 'prop-types';
 
 class AddData extends React.Component {
     constructor(props){
@@ -26,13 +27,13 @@ class AddData extends React.Component {
 						<div className="row">
 							<div className="col-md-8">
                                 <div className="form-group">
-								    <input type="text" className="form-control" ref="addData" />
+                                <input type="text" className="form-control" ref="addData" />
                                 </div>
 							</div>
 
 							<div className="col-md-4">
                                 <div className="form-group">
-								    <button className="btn btn-default btn-md" onClick={this.handleClick}>{this.props.buttonTitle}</button>
+                                <button className="btn btn-default btn-md" onClick={this.handleClick}>{this.props.buttonTitle}</button>
                                 </div>
 							</div>
 						</div>
@@ -42,6 +43,12 @@ class AddData extends React.Component {
 		);
 
 	}
+}
+
+AddData.propTypes = {
+    panelTitle: PropTypes.string,
+    buttonTitle: PropTypes.string,
+    onCreate: PropTypes.func
 }
 
 
@@ -81,7 +88,6 @@ class DisplayData extends React.Component {
 	render() {
         var name = null;
         var hButton = null;
-
 		// Determines which element to show on the page (hide/show and Save/Edit)
 		if (this.props.hidden === 0) {
 			name = this.props.name;
@@ -96,8 +102,8 @@ class DisplayData extends React.Component {
 		if (this.state.editMode) {
 			//var eName = 'Save';
 			text = <div id={this.props.id} >
-		  				<input type="text" className="form-control" defaultValue={this.props.name} ref="savedData" />
-						</div>
+                        <input type="text" className="form-control" defaultValue={this.props.name} ref="savedData" />
+					</div>
 
 			eButton = <button className="btn btn-default btn-xs" type="submit" onClick={this.handleSave}> Save </button>
 		} else {
@@ -117,6 +123,14 @@ class DisplayData extends React.Component {
 		);
 
 	}
+}
+
+DisplayData.propTypes = {
+    id: PropTypes.string,
+    name: PropTypes.string,
+    hidden: PropTypes.any,
+    onSave: PropTypes.function,
+    onHidden: PropTypes.function
 }
 
 
@@ -215,21 +229,24 @@ class Manager extends React.Component {
 		});
 	}
 	render() {
-        var data = null;
-
+        var data = null
+        var description = null
 		if (this.state.mainData != null) {
-			//var buttonTitle = this.props.buttonTitle;
-			//var panelTitle = this.props.panelTitle;
 			var onHidden = this.onHidden;
 			var onSave = this.onSave;
 			data = this.state.mainData.map(function (data) {
-			return (
-				<DisplayData key={data.id}
-						   id={data.id}
-						   name={data.name}
-						   hidden={data.hidden}
-						   onHidden={onHidden}
-						   onSave={onSave} />
+                if(data.name == null){
+                    description = data.description
+                } else{
+                    description = data.name
+                }
+                return (
+                    <DisplayData key={data.id}
+                        id={data.id}
+						name={description}
+						hidden={data.hidden}
+						onHidden={onHidden}
+						onSave={onSave} />
 				);
 			});
 
@@ -267,8 +284,8 @@ class Manager extends React.Component {
 							</table>
 					</div>
 					<AddData onCreate={this.onCreate}
-							   buttonTitle={this.props.buttonTitle}
-						       panelTitle={this.props.panelTitle}  />
+                                buttonTitle={this.props.buttonTitle}
+                                panelTitle={this.props.panelTitle}  />
 
 				</div>
 			</div>
@@ -276,5 +293,12 @@ class Manager extends React.Component {
 	}
 }
 
+Manager.propTypes = {
+    url: PropTypes.string,
+    buttonTitle: PropTypes.string,
+    panelTitle: PropTypes.string,
+    title: PropTypes.string,
+    ajaxURL: PropTypes.string,
+}
 
 export default Manager;

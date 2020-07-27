@@ -41,7 +41,7 @@ class InternshipInventory {
         // Check if it is time to add more term. If so, show a warning to admins.
         $futureTerms = TermFactory::getFutureTermsAssoc();
         if(sizeof($futureTerms) < 3 && \Current_User::isDeity()){
-            \NQ::simple('intern', \Intern\UI\NotifyUI::WARNING, "There are less than three future terms available. It's probably time to add a new term.");
+            \NQ::simple('intern', \Intern\UI\NotifyUI::WARNING, "There are fewer than three future terms available. It's probably time to add a new term.");
         }
 
 
@@ -113,12 +113,10 @@ class InternshipInventory {
                 $view = new UI\AffiliateAgreementUI();
                 $this->content = $view->display();
                 break;
-
             case 'addAgreementView':
                 $view = new UI\AddAgreementUI();
                 $this->content = $view->display();
                 break;
-
             case 'addAffiliate':
                 $ctrl = new Command\SaveAffiliate();
                 $ctrl->execute();
@@ -180,6 +178,20 @@ class InternshipInventory {
                 $view = new UI\SettingsUI();
                 $this->content = $view->display();
                 break;
+            case 'edit_level':
+                if (!\Current_User::allow('intern', 'edit_level')) {
+                    disallow();
+                }
+                $view = new UI\StudentLevelUI();
+                $this->content = $view->display();
+                break;
+            case 'edit_terms':
+                if (!\Current_User::allow('intern', 'edit_terms')) {
+                    disallow();
+                }
+                $view = new UI\TermUI();
+                $this->content = $view->display();
+                break;
             case 'showEditAdmins':
                 $view = new UI\AdminUI();
                 $this->content = $view->display();
@@ -189,6 +201,13 @@ class InternshipInventory {
                     disallow();
                 }
                 $view = new UI\CoursesUI();
+                $this->content = $view->display();
+                break;
+            case 'edit_terms':
+                if (!\Current_User::allow('intern', 'edit_terms')) {
+                    disallow();
+                }
+                $view = new UI\TermUI();
                 $this->content = $view->display();
                 break;
             case 'pdf':
@@ -268,6 +287,14 @@ class InternshipInventory {
                 break;
             case 'adminRest':
                 $ctrl = new Command\AdminRest();
+                $ctrl->execute();
+                break;
+            case 'levelRest':
+                $ctrl = new Command\LevelRest();
+                $ctrl->execute();
+                break;
+            case 'termRest':
+                $ctrl = new Command\TermRest();
                 $ctrl->execute();
                 break;
             case 'majorRest':

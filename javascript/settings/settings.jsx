@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import PropTypes from 'prop-types';
 
 class ErrorMessagesBlock extends Component{
     // constructor(props) {
@@ -25,7 +26,12 @@ class ErrorMessagesBlock extends Component{
             </div>
         );
     }
-};
+}
+
+ErrorMessagesBlock.propTypes = {
+    stat: PropTypes.string,
+    notif: PropTypes.string
+}
 
 class Settings extends Component {
     constructor(props) {
@@ -69,11 +75,11 @@ class Settings extends Component {
                     this.setState({data: data, submitted: false, notification: message, notificationStatus: notifStatus});
                 }.bind(this),
                 error: function(xhr, status, err) {
-    				var message = "Settings did not save.";
+                    var message = "Settings did not save.";
                     var notifStatus = "danger";
                     this.setState({notification: message, notificationStatus: notifStatus});
-    				console.error(this.props.url, status, err.toString());
-    			}.bind(this)
+                    console.error(this.props.url, status, err.toString());
+                }.bind(this)
             });
         });
 
@@ -188,6 +194,10 @@ class Settings extends Component {
         </div>
         )
     }
+}
+
+Settings.propTypes = {
+    url: PropTypes.string
 }
 
 ReactDOM.render(

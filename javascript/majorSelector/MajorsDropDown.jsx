@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class MajorsDropDown extends React.Component {
     constructor(props){
@@ -33,6 +34,11 @@ class MajorsDropDown extends React.Component {
             </div>
         );
     }
+}
+
+MajorsDropDown.propTypes = {
+    majors: PropTypes.any,
+    level: PropTypes.any
 }
 
 export default MajorsDropDown;

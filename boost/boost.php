@@ -3,8 +3,8 @@
  * @author Micah Carter <mcarter at tux dot appstate dot edu>
  */
 
-$proper_name  = 'Intern Inventory';
-$version      = '0.2.4';
+$proper_name  = 'Experiential Learning Inventory';
+$version      = '0.3.1';
 $register     = false;
 $unregister   = false;
 $import_sql   = true;

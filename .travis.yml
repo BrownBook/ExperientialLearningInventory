@@ -5,16 +5,14 @@ php:
     - 7.3
 
 install:
-    - nvm install 6
+    - nvm install 10
     - npm install -g yarn
-    #- yarn global add bower
-    #- "npm config set spin false"
-    #- npm install -g bower
     - yarn install
+    - composer install
 
 script:
 - ".travis-build/phplint ."
-- phpunit
+- vendor/bin/phpunit -v
 
 after_script:
 - vendor/bin/test-reporter

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import PropTypes from 'prop-types';
 
 import {Button, Modal} from 'react-bootstrap';
 
@@ -35,7 +36,7 @@ class BannerSearch extends React.Component {
         return (
             <div>
                 <div className="form-group">
-                    <label htmlFor="bannerId-search">Faculty Member's Banner ID</label>
+                    <label htmlFor="bannerId-search">Faculty Member&apos;s ID Number</label>
                     <input type="text" id="bannerId-search" className="form-control" ref="bannerId" placeholder="Banner ID" onKeyPress={this.onKeyPress} />
                 </div>
                 <div className="form-group pull-right">
@@ -45,6 +46,11 @@ class BannerSearch extends React.Component {
             </div>
         );
     }
+}
+
+BannerSearch.propTypes = {
+    handleSearch: PropTypes.func,
+    showNotification: PropTypes.func
 }
 
 
@@ -79,46 +85,46 @@ class FacultyForm extends React.Component {
 				<div className="col-md-offset-1 col-md-10">
 
 					<div className="row">
-			    		<div className="col-md-6">
-			    			<div className="form-group">
-		                        <label htmlFor="faculty-edit-id">Banner ID:&nbsp;</label>
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label htmlFor="faculty-edit-id">Banner ID:&nbsp;</label>
                                 <input type="text" className="form-control" id="faculty-edit-id" ref="facultyEditId" defaultValue={this.props.facultyData.id} />
-		                    </div>
-			    		</div>
+                            </div>
+                        </div>
 						<div className="col-md-6">
 							<div className="form-group">
-		                        <label className="control-label" htmlFor="faculty-edit-username">Username:&nbsp;</label>
+                                <label className="control-label" htmlFor="faculty-edit-username">Username:&nbsp;</label>
                                 <input type="text" className="form-control" id="ffaculty-edit-username" ref="facultyEditUsername" defaultValue={this.props.facultyData.username} />
-		                    </div>
-			    		</div>
-				    </div>
+                            </div>
+                        </div>
+                    </div>
 
-			    	<div className="row">
-			    		<div className="col-md-6">
-						    <label htmlFor="faculty-edit-first_name">First Name</label>
-					        <input type="text" className="form-control" id="faculty-edit-first_name" ref="facultyEditFirstName" defaultValue={this.props.facultyData.first_name} />
-				        </div>
-				      	<div className="col-md-6">
-						    <label htmlFor="faculty-edit-last_name">Last Name</label>
-						    <input type="text" className="form-control" id="faculty-edit-last_name" ref="facultyEditLastName" defaultValue={this.props.facultyData.last_name} />
-					    </div>
-				    </div>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <label htmlFor="faculty-edit-first_name">First Name</label>
+                            <input type="text" className="form-control" id="faculty-edit-first_name" ref="facultyEditFirstName" defaultValue={this.props.facultyData.first_name} />
+                        </div>
+                        <div className="col-md-6">
+                            <label htmlFor="faculty-edit-last_name">Last Name</label>
+                            <input type="text" className="form-control" id="faculty-edit-last_name" ref="facultyEditLastName" defaultValue={this.props.facultyData.last_name} />
+                        </div>
+                    </div>
 
-				    <div className="row">
-			    		<div className="col-md-6">
-						    <label htmlFor="faculty-edit-phone">Phone</label>
-						    <input type="text" className="form-control" id="faculty-edit-phone" ref="facultyEditPhone" defaultValue={this.props.facultyData.phone} />
-					    </div>
-						<div className="col-md-6">
-						    <label htmlFor="faculty-edit-fax">Fax</label>
-						    <input type="text" className="form-control" id="faculty-edit-fax" ref="facultyEditFax" defaultValue={this.props.facultyData.fax} />
-					    </div>
-				    </div>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <label htmlFor="faculty-edit-phone">Phone</label>
+                            <input type="text" className="form-control" id="faculty-edit-phone" ref="facultyEditPhone" defaultValue={this.props.facultyData.phone} />
+                        </div>
+                        <div className="col-md-6">
+                            <label htmlFor="faculty-edit-fax">Fax</label>
+                            <input type="text" className="form-control" id="faculty-edit-fax" ref="facultyEditFax" defaultValue={this.props.facultyData.fax} />
+                        </div>
+                    </div>
 
 
                     <div className="form-group">
-				        <label htmlFor="faculty-edit-street_address1">Address</label>
-				        <input  type="text" className="form-control" id="faculty-edit-street_address1" ref="facultyEditStreetAddress1" defaultValue={this.props.facultyData.street_address1} />
+                        <label htmlFor="faculty-edit-street_address1">Address</label>
+                        <input  type="text" className="form-control" id="faculty-edit-street_address1" ref="facultyEditStreetAddress1" defaultValue={this.props.facultyData.street_address1} />
                     </div>
 
                     <div className="form-group">
@@ -141,11 +147,16 @@ class FacultyForm extends React.Component {
                         <input type="text" className="form-control" id="faculty-edit-zip" ref="facultyEditZip" defaultValue={this.props.facultyData.zip} />
                     </div>
 
-      				<Button bsStyle='primary' onClick={this.handleSave}>Save Changes</Button>
+                    <Button bsStyle='primary' onClick={this.handleSave}>Save Changes</Button>
 				</div>
 			</div>
         );
     }
+}
+
+FacultyForm.propTypes = {
+    handleSave: PropTypes.func,
+    facultyData: PropTypes.object,
 }
 
 // Modal Pop-up for adding/editing faculty members
@@ -217,11 +228,11 @@ class FacultyModal extends React.Component {
                 // If we're not editing this faculty, then we're adding a new faculty
                 // So we need to create the faculty -> department association
                 if(!this.props.edit){
-				    this.addFacultyToDept(data);
+                    this.addFacultyToDept(data);
                 }
 
                 if(this.props.edit){
- 					var departNum = this.props.deptNum;
+                    var departNum = this.props.deptNum;
 					this.props.getDeptFaculty(departNum);
 
                     this.props.hide();
@@ -240,11 +251,11 @@ class FacultyModal extends React.Component {
 		this.setState({errorWarning:msg});
 	}
     render() {
-    	// Warning notification for invalid Banner size or Banner ID
-    	var notification = <div className="alert alert-warning" role="alert">{this.state.errorWarning !== '' ? this.state.errorWarning: this.props.errorWarning}</div>
+        // Warning notification for invalid Banner size or Banner ID
+        var notification = <div className="alert alert-warning" role="alert">{this.state.errorWarning !== '' ? this.state.errorWarning: this.props.errorWarning}</div>
 
         // Search bar for inputting the Banner ID
-	    var searchBanner = <BannerSearch handleSearch={this.handleSearch} showNotification={this.showNotification}/>;
+        var searchBanner = <BannerSearch handleSearch={this.handleSearch} showNotification={this.showNotification}/>;
 
         // Modal Form used to show and update the data. This could look better...
         var modalForm = <FacultyForm facultyData={this.props.facultyData} handleSave={this.handleSave}/>
@@ -267,9 +278,9 @@ class FacultyModal extends React.Component {
 
 
             <Modal.Body>
-            	{this.state.errorWarning !== '' || this.props.errorWarning !== '' ? notification: null}
-            	{this.props.showModalSearch ? searchBanner: null}
-    			{this.props.showModalForm ? modalForm: null}
+                {this.state.errorWarning !== '' || this.props.errorWarning !== '' ? notification: null}
+                {this.props.showModalSearch ? searchBanner: null}
+                {this.props.showModalForm ? modalForm: null}
             </Modal.Body>
 
 
@@ -281,6 +292,18 @@ class FacultyModal extends React.Component {
     }
 }
 
+FacultyModal.propTypes = {
+    id: PropTypes.string,
+    showModalSearch: PropTypes.bool,
+    showModalForm: PropTypes.bool,
+    errorWarning: PropTypes.string,
+    edit: PropTypes.bool,
+    show: PropTypes.func,
+    hide: PropTypes.func,
+    facultyData: PropTypes.any,
+    url: PropTypes.string,
+    getDeptFaculty: PropTypes.func,
+}
 
 
 class FacultyTableRow extends React.Component {
@@ -288,10 +311,10 @@ class FacultyTableRow extends React.Component {
         super(props);
         this.state = {
                 showModal: false,
-        		userData: null,
-        		showModalSearch: false,
-        		showModalForm: true,
-        		errorWarning: ''
+                userData: null,
+                showModalSearch: false,
+                showModalForm: true,
+                errorWarning: ''
             };
 
         this.handleRemove = this.handleRemove.bind(this);
@@ -311,7 +334,7 @@ class FacultyTableRow extends React.Component {
 
 			}.bind(this),
 			error: function(xhr, status, err) {
-				console.error(this.props.url, status, err.toString());
+                console.error(this.props.url, status, err.toString());
 			}.bind(this)
 		});
 	}
@@ -341,29 +364,42 @@ class FacultyTableRow extends React.Component {
                                 hide={this.hideModal}
                                 edit={true}
                                 deptNum={this.props.deptNum}
-        				        id={this.props.id}
-        				        facultyData={this.state.userData}
-        				        showModalSearch={this.state.showModalSearch}
-        						showModalForm={this.state.showModalForm}
-        						getFacultyDetail={this.getFacultyDetails}
-        						errorWarning={this.state.errorWarning}
-        						getDeptFaculty={this.props.getDeptFaculty} />
+                                id={this.props.id}
+                                facultyData={this.state.userData}
+                                showModalSearch={this.state.showModalSearch}
+                                showModalForm={this.state.showModalForm}
+                                getFacultyDetail={this.getFacultyDetails}
+                                errorWarning={this.state.errorWarning}
+                                getDeptFaculty={this.props.getDeptFaculty} />
                 </td>
 			</tr>
 		);
 	}
 }
 
+FacultyTableRow.propTypes = {
+    id: PropTypes.string,
+    deptNum: PropTypes.string,
+    fname: PropTypes.string,
+    lname: PropTypes.string,
+    getDeptFaculty: PropTypes.func,
+    onFacultyRemove: PropTypes.func,
+    url: PropTypes.string,
+}
 
 class DepartmentList extends React.Component {
 	render() {
 		// Creates each department in the dropdown
-	    return (
-	     	<option value={this.props.id}>{this.props.name}</option>
-	    )
+        return (
+            <option value={this.props.id}>{this.props.name}</option>
+        )
 	}
 }
 
+DepartmentList.propTypes = {
+    id: PropTypes.string,
+    name: PropTypes.string,
+}
 
 class FacultyTable extends React.Component {
 	render() {
@@ -391,7 +427,7 @@ class FacultyTable extends React.Component {
 				// Sets the table with a message stating that there isn't data in the department.
 				faculty = <tr>
 							<td colSpan="4"><span className="text-muted"><em>No department data exists for this department</em></span></td>
-						  </tr>
+                          </tr>
 			}
 		} else {
 			faculty = '';
@@ -418,7 +454,13 @@ class FacultyTable extends React.Component {
 	}
 }
 
+FacultyTable.propTypes = {
+    tableData: PropTypes.any,
+    deptNum: PropTypes.string,
+    getDeptFaculty: PropTypes.func,
+    onFacultyRemove: PropTypes.func
 
+}
 
 
 class EditFaculty extends React.Component {
@@ -622,13 +664,16 @@ class EditFaculty extends React.Component {
 				</div>
 
                 <FacultyModal show={this.state.showPopup} hide={this.hideModal} deptNum={this.state.deptNum} getDeptFaculty={this.getDeptFaculty}
-                			   showModalSearch={this.state.showModalSearch} showModalForm={this.state.showModalForm} facultyData={this.state.facultyData}
-                			   getFacultyDetails={this.getFacultyDetails} errorWarning={this.state.errorWarning}/>
+                                showModalSearch={this.state.showModalSearch} showModalForm={this.state.showModalForm} facultyData={this.state.facultyData}
+                                getFacultyDetails={this.getFacultyDetails} errorWarning={this.state.errorWarning}/>
 			</div>
 		);
 	}
 }
 
+EditFaculty.propTypes = {
+    url: PropTypes.string,
+}
 
 
 ReactDOM.render(

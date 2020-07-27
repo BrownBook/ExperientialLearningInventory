@@ -12,7 +12,7 @@ class SearchBox extends React.Component {
     }
     componentDidMount() {
 
-    	var searchSuggestions = new Bloodhound({
+        var searchSuggestions = new Bloodhound({
             datumTokenizer: function(datum){
                 var nameTokens      = Bloodhound.tokenizers.obj.whitespace('name');
                 var studentIdTokens = Bloodhound.tokenizers.obj.whitespace('studentId');
@@ -20,12 +20,12 @@ class SearchBox extends React.Component {
 
                 return nameTokens.concat(studentIdTokens).concat(usernameTokens);
             },
-    		queryTokenizer: Bloodhound.tokenizers.whitespace,
-    		remote: {
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            remote: {
                 url: 'index.php?module=intern&action=GetSearchSuggestions&searchString=%QUERY',
                 wildcard: '%QUERY'
             }
-    	});
+        });
 
         var myComponent = this;
         var element = this.refs.typeahead;
@@ -35,20 +35,20 @@ class SearchBox extends React.Component {
             hint: true
         },
         {
-        	name: 'students',
-        	display: 'studentId',
-        	source: searchSuggestions.ttAdapter(),
+            name: 'students',
+            display: 'studentId',
+            source: searchSuggestions.ttAdapter(),
             limit: 15,
-        	templates: {
-        		suggestion: function(row) {
+            templates: {
+                suggestion: function(row) {
                     if(row.error === undefined){
                         return ('<p>'+row.name + ' &middot; ' + row.studentId + '</p>');
                     } else {
                         myComponent.setState({dataError: row.error});
                         return ('<p></p>');
                     }
-        		}
-        	}
+                }
+            }
         });
 
         // Event handler for selecting a suggestion
