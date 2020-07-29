@@ -114,6 +114,7 @@ class ImportActivities {
             $intern = new Internship($student, $term, $location, $state, $country, $department, $agency);
 
             $intern->setExperienceType($row['experience_type']);
+            $intern->setLocationZipCode($row['host_zip_code']);
 
             // Set other defaults
             $intern->co_op = 0;
