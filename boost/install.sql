@@ -590,6 +590,7 @@ CREATE TABLE intern_import_activity (
     host_name       character varying,
     host_state      character varying,
     department_name character varying,
+    host_zip_code   character varying,
     validation_errors character varying,
     validated_on INT,
     PRIMARY KEY(id)

@@ -847,6 +847,13 @@ class Internship {
     }
 
     /**
+     * Set the internship location's zip code
+     */
+    public function setLocationZipCode($zipCode){
+        $this->loc_zip = $zipCode;
+    }
+
+    /**
     * Returns the Department's database id
     * @return integer department id
     */
