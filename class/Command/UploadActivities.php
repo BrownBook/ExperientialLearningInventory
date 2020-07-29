@@ -33,7 +33,8 @@ class UploadActivities {
         'Experience Type',
         'Host State',
         'Department',
-        'Host Agency'
+        'Host Agency',
+        'Host Agency Zip Code'
     );
 
     public function execute()
@@ -131,7 +132,8 @@ class UploadActivities {
                             experience_type,
                             host_name,
                             host_state,
-                            department_name
+                            department_name,
+                            host_zip_code
                         )
                         VALUES (
                             nextval(\'intern_import_activity_seq\'),
@@ -145,7 +147,8 @@ class UploadActivities {
                             :experience_type,
                             :host_name,
                             :host_state,
-                            :department_name
+                            :department_name,
+                            :host_zip_code
                         )';
         $insertStmt = $db->prepare($insertQuery);
 
@@ -166,6 +169,7 @@ class UploadActivities {
             $params['host_state']       = trim($row[6]);
             $params['department_name']  = trim($row[7]);
             $params['host_name']        = trim($row[8]);
+            $params['host_zip_code']    = trim($row[9]);
 
             $rowNumber++;
 
