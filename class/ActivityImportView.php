@@ -60,6 +60,7 @@ class ActivityImportView {
                 'EXPERIENCE_TYPE' => $rowData['experience_type'],
                 'HOST_NAME' => $rowData['host_name'],
                 'HOST_STATE' => $rowData['host_state'],
+                'HOST_ZIP_CODE' => $rowData['host_zip_code'],
                 'DEPARTMENT_NAME' => $rowData['department_name'],
                 'VALIDATION_ERRORS' => $rowData['validation_errors']
             );

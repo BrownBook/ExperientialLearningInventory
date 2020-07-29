@@ -35,6 +35,7 @@
         <th>Experience Type</th>
         <th>Host Name</th>
         <th>Host State</th>
+        <th>Host Zip</th>
         <th>Department Name</th>
         <th>Validation Status</th>
 
@@ -51,6 +52,7 @@
       <td>{EXPERIENCE_TYPE}</td>
       <td>{HOST_NAME}</td>
       <td>{HOST_STATE}</td>
+      <td>{HOST_ZIP_CODE}</td>
       <td>{DEPARTMENT_NAME}</td>
       <td>
           {VALIDATION_ERRORS}
