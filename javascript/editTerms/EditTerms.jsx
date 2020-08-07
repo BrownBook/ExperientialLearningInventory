@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import TermInput from './TermInput.jsx';
 import TermTable from './TermTable.jsx';
@@ -190,9 +190,9 @@ class TermEditor extends React.Component {
         return (
             <div className="terms">
 
-              <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
+              <CSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
                   {errors}
-              </ReactCSSTransitionGroup>
+              </CSSTransitionGroup>
 
 
               <div className="row">

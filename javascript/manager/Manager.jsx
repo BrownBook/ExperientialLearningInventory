@@ -126,11 +126,11 @@ class DisplayData extends React.Component {
 }
 
 DisplayData.propTypes = {
-    id: PropTypes.string,
+    id: PropTypes.any,
     name: PropTypes.string,
     hidden: PropTypes.any,
-    onSave: PropTypes.function,
-    onHidden: PropTypes.function
+    onSave: PropTypes.any,
+    onHidden: PropTypes.any
 }
 
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
@@ -39,7 +39,7 @@ class DepartmentList extends React.Component {
 }
 
 DepartmentList.propTypes = {
-    id: PropTypes.string,
+    id: PropTypes.any,
     name: PropTypes.string
 }
 
@@ -100,7 +100,7 @@ class ShowAffiliate extends React.Component {
 }
 
 ShowAffiliate.propTypes = {
-    id: PropTypes.string,
+    id: PropTypes.any,
     name: PropTypes.string,
     auto_renew: PropTypes.any,
     end_date: PropTypes.any,
@@ -390,9 +390,9 @@ class AffiliateList extends React.Component {
         return (
             <div className="affiliateList">
 
-                <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
+                <CSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
                     {errors}
-                </ReactCSSTransitionGroup>
+                </CSSTransitionGroup>
 
                 <div className="row">
                     <div className="col-md-4">

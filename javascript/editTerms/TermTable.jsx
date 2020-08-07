@@ -45,7 +45,7 @@ class TermTable extends React.Component {
             }.bind(this));
         } else {
             // TODO: loading spinner
-            termRows = '';
+            termRows = null;
         }
 
         return (

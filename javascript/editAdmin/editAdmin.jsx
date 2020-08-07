@@ -1,9 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-
-//var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 class ErrorMessagesBlock extends React.Component {
     render() {
@@ -285,9 +283,9 @@ class SearchAdmin extends React.Component {
 		return (
 			<div className="search">
 
-				<ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
+				<CSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
                     {errors}
-                </ReactCSSTransitionGroup>
+                </CSSTransitionGroup>
                 <h1> Administrators </h1>
                     <div className="row" style={{marginTop: '2em'}}>
                         <div className="col-md-5 col-md-push-6">

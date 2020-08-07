@@ -21,6 +21,9 @@ module.exports = {
     externals: {
         "jquery": "$"
     },
+    watchOptions: {
+        ignored: ['**/node_modules/**', '**/vendor/**']
+    },
     module: {
         rules: [
         {

@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import InternationalDropDown from '../createInterface/InternationalDropDown.jsx';
 import StateDropDown from '../createInterface/StateDropDown.jsx';
 
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 class LocationSelector extends React.Component {
     constructor(props) {
@@ -105,9 +105,9 @@ class LocationSelector extends React.Component {
                   </div>
                 </div>
 
-                <ReactCSSTransitionGroup transitionName="example" transitionLeave={false} transitionEnterTimeout={500}>
+                <CSSTransitionGroup transitionName="example" transitionLeave={false} transitionEnterTimeout={500}>
                     {dropdown}
-                </ReactCSSTransitionGroup>
+                </CSSTransitionGroup>
             </div>
         );
     }

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import StudentSearch from './StudentSearch.jsx';
 import TermBlock from './TermBlock.jsx';
@@ -218,9 +218,9 @@ class CreateInternshipInterface extends React.Component {
                 <input type="hidden" name="module" value="intern"/>
                 <input type="hidden" name="action" value="AddInternship"/>
 
-                <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
+                <CSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
                     {errors}
-                </ReactCSSTransitionGroup>
+                </CSSTransitionGroup>
 
                 <StudentSearch ref="studentSearch"/>
 

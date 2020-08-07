@@ -50,7 +50,7 @@ class TableStates extends React.Component {
 
 TableStates.propTypes = {
     onStateDelete: PropTypes.func,
-    active: PropTypes.num,
+    active: PropTypes.any,
     stateName: PropTypes.string,
     sAbbr: PropTypes.string
 }
