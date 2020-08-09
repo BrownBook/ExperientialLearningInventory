@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import InternationalDropDown from '../createInterface/InternationalDropDown.jsx';
 import StateDropDown from '../createInterface/StateDropDown.jsx';
 
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
 class LocationSelector extends React.Component {
     constructor(props) {
@@ -63,9 +63,9 @@ class LocationSelector extends React.Component {
         if(!this.state.domestic && !this.state.international) {
             dropdown = '';
         } else if (this.state.domestic) {
-            dropdown = <StateDropDown key="states" ref={(element) => {this.stateDropDown = element}} states={this.state.availableStates} formStyle='horizontal'/>;
+            dropdown = <CSSTransition timeout={{ "enter": 500, "exit": 0}} classNames="example"><StateDropDown key="states" ref={(element) => {this.stateDropDown = element}} states={this.state.availableStates} formStyle='horizontal'/></CSSTransition>;
         } else {
-            dropdown = <InternationalDropDown key="countries" ref={(element) => {this.countryDropDown = element}} countries={this.state.availableCountries} formStyle='horizontal'/>;
+            dropdown = <CSSTransition timeout={{ "enter": 500, "exit": 0}} classNames="example"><InternationalDropDown key="countries" ref={(element) => {this.countryDropDown = element}} countries={this.state.availableCountries} formStyle='horizontal'/></CSSTransition>;
         }
 
         var anyLabelClass = classNames({
@@ -105,9 +105,9 @@ class LocationSelector extends React.Component {
                   </div>
                 </div>
 
-                <CSSTransitionGroup transitionName="example" transitionLeave={false} transitionEnterTimeout={500}>
+                <TransitionGroup>
                     {dropdown}
-                </CSSTransitionGroup>
+                </TransitionGroup>
             </div>
         );
     }

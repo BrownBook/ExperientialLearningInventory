@@ -221,7 +221,7 @@ class EmergencyContactList extends React.Component {
         this.openAddModal = this.openAddModal.bind(this);
         this.closeAddModal = this.closeAddModal.bind(this);
     }
-    componentWillMount(){
+    componentDidMount(){
         this.getData();
     }
     closeAddModal() {

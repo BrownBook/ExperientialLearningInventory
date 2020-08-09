@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
 import TermInput from './TermInput.jsx';
 import TermTable from './TermTable.jsx';
@@ -184,15 +184,15 @@ class TermEditor extends React.Component {
         if (this.state.errorWarning == null) {
             errors = '';
         } else {
-            errors = <ErrorMessagesBlock key="errorSet" errors={this.state.errorWarning} messageType={this.state.messageType} />
+            errors = <CSSTransition timeout={500} classNames="example"><ErrorMessagesBlock key="errorSet" errors={this.state.errorWarning} messageType={this.state.messageType} /></CSSTransition>
         }
 
         return (
             <div className="terms">
 
-              <CSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
+              <TransitionGroup>
                   {errors}
-              </CSSTransitionGroup>
+              </TransitionGroup>
 
 
               <div className="row">

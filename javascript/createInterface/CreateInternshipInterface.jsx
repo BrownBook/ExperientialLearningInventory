@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
 import StudentSearch from './StudentSearch.jsx';
 import TermBlock from './TermBlock.jsx';
@@ -207,9 +207,9 @@ class CreateInternshipInterface extends React.Component {
     render() {
         var errors;
         if(this.state.errorMessages == null){
-            errors = '';
+            errors = null;
         } else {
-            errors = <ErrorMessagesBlock key="errorSet" errors={this.state.errorMessages} />
+            errors = <CSSTransition timeout={{ "enter": 500, "exit": 0}} classNames="example"><ErrorMessagesBlock key="errorSet" errors={this.state.errorMessages} /></CSSTransition>
         }
 
         return (
@@ -218,9 +218,9 @@ class CreateInternshipInterface extends React.Component {
                 <input type="hidden" name="module" value="intern"/>
                 <input type="hidden" name="action" value="AddInternship"/>
 
-                <CSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
+                <TransitionGroup>
                     {errors}
-                </CSSTransitionGroup>
+                </TransitionGroup>
 
                 <StudentSearch ref="studentSearch"/>
 

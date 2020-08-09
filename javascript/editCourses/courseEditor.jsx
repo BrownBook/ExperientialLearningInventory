@@ -168,7 +168,7 @@ class CourseSelector extends React.Component {
         this.saveCourse = this.saveCourse.bind(this);
         this.deleteCourse = this.deleteCourse.bind(this);
 	}
-	componentWillMount(){
+	componentDidMount(){
 		this.getCourseData();
 	}
 	getCourseData(){

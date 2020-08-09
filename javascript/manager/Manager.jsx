@@ -148,7 +148,7 @@ class Manager extends React.Component {
         this.onSave = this.onSave.bind(this);
         this.onCreate = this.onCreate.bind(this);
 	}
-	componentWillMount(){
+	componentDidMount(){
 		this.getData();
 	}
 	getData(){

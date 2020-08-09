@@ -1,7 +1,10 @@
 import React from 'react';
 import $ from 'jquery';
 import classNames from 'classnames';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import {
+  CSSTransition,
+  TransitionGroup,
+} from 'react-transition-group';
 
 import InternationalDropDown from './InternationalDropDown.jsx';
 import StateDropDown from './StateDropDown.jsx';
@@ -69,9 +72,17 @@ class LocationBlock extends React.Component {
         if(this.state.domestic === null) {
             dropdown = '';
         } else if (this.state.domestic) {
-            dropdown = <StateDropDown key="states" ref={(element) => {this.stateDropDown = element}} states={this.state.availableStates}/>;
+            dropdown = (
+                <CSSTransition timeout={{ "enter": 500, "exit": 0}} classNames="example">
+                    <StateDropDown key="states" ref={(element) => {this.stateDropDown = element}} states={this.state.availableStates}/>
+                </CSSTransition>
+            );
         } else {
-            dropdown = <InternationalDropDown key="countries" ref={(element) => {this.countryDropDown = element}} countries={this.state.availableCountries}/>;
+            dropdown = (
+                <CSSTransition timeout={{ "enter": 500, "exit": 0}} classNames="example">
+                    <InternationalDropDown key="countries" ref={(element) => {this.countryDropDown = element}} countries={this.state.availableCountries}/>
+                </CSSTransition>
+            );
         }
         return (
             <div>
@@ -90,10 +101,9 @@ class LocationBlock extends React.Component {
                         </div>
                     </div>
                 </div>
-
-                <CSSTransitionGroup transitionName="example" transitionLeave={false} transitionEnterTimeout={500} >
+                <TransitionGroup>
                     {dropdown}
-                </CSSTransitionGroup>
+                </TransitionGroup>
             </div>
         );
     }

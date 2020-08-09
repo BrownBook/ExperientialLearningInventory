@@ -58,11 +58,11 @@
   opacity: 1;
   transition: opacity .3s ease-in;
 }
-.example-leave {
+.example-exit {
   opacity: 1;
 }
 
-.example-leave.example-leave-active {
+.example-exit.example-exit-active {
   opacity: 0.01;
   transition: opacity .1s ease-in;
 }

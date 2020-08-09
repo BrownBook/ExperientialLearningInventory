@@ -68,7 +68,7 @@ class States extends React.Component {
         this.handleDrop = this.handleDrop.bind(this);
         this.onStateDelete = this.onStateDelete.bind(this);
 	}
-	componentWillMount(){
+	componentDidMount(){
 		this.getData();
 	}
 	getData(){

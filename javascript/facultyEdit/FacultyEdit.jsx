@@ -174,7 +174,7 @@ class FacultyModal extends React.Component {
 			showModalSearch: true,
 		};
     }
-	componentWillMount() {
+	componentDidMount() {
 		// Used for editing a user (see edit handler).
 		// Disables/enables modal form and then grabs and displays the data.
 		if (this.props.edit === true)
@@ -480,7 +480,7 @@ class EditFaculty extends React.Component {
         this.getFacultyDetails = this.getFacultyDetails.bind(this);
         this.getDeptFaculty = this.getDeptFaculty.bind(this);
 	}
-	componentWillMount(){
+	componentDidMount(){
 		// Setting the department data in the state
 		// for the dropdown box.
 		this.getData();
