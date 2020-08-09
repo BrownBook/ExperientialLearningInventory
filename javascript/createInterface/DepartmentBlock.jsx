@@ -14,7 +14,7 @@ class Department extends React.Component {
     setError(status){
         this.setState({hasError: status});
     }
-    componentWillMount() {
+    componentDidMount() {
         $.ajax({
             url: 'index.php?module=intern&action=GetDepartments',
             dataType: 'json',

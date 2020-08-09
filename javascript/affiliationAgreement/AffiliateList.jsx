@@ -134,7 +134,7 @@ class AffiliateList extends React.Component {
         this.onShow = this.onShow.bind(this);
         this.updateDisplayData = this.updateDisplayData.bind(this);
     }
-    componentWillMount() {
+    componentDidMount() {
         // Grabs department and affiliate agreement
         // data at start of execution.
         this.getData();

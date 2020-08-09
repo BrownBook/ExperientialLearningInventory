@@ -110,7 +110,7 @@ class LocationBox extends React.Component {
     removeLoc(loc) {
         this.deleteData(loc);
     }
-    componentWillMount() {
+    componentDidMount() {
         // Get data on inital load
         this.getData();
     }
