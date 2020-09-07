@@ -29,6 +29,12 @@ class ModalForm extends React.Component {
         this.handleSave = this.handleSave.bind(this);
         this.handleExit = this.handleExit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+
+        // Setup refs
+        this.emg_name       = React.createRef();
+        this.emg_relation   = React.createRef();
+        this.emg_phone      = React.createRef();
+        this.emg_email      = React.createRef();
     }
     componentDidMount() {
         let cChecked;
@@ -68,8 +74,10 @@ class ModalForm extends React.Component {
         var exp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         return exp.test(input)
     }
-    handleSave() {
-        if (this.refs.emg_name.value === '' || this.refs.emg_relation.value === '' ||  this.refs.emg_phone.value === '') {
+    handleSave(e) {
+        e.stopPropagation();
+
+        if (this.emg_name.current.value === '' || this.emg_relation.current.value === '' ||  this.emg_phone.current.value === '') {
             // If any field is left empty, it will display an error message in the modal form.
             this.setState({showError: true,
                            warningMsg: "Please check to ensure all fields have been filled in."});
@@ -77,14 +85,14 @@ class ModalForm extends React.Component {
         }
 
         // format is (111) 111 - 1111 (16 chars)
-        if (!this.state.isInternational && this.refs.emg_phone.value.length !== 16){
+        if (!this.state.isInternational && this.emg_phone.current.value.length !== 16){
             this.setState({showError: true,
                            warningMsg: "Please use a valid phone number."});
             return
         }
 
         // If it fails the format check, show error
-        if (!this.formatEmail(this.refs.emg_email.value)){
+        if (!this.formatEmail(this.emg_email.current.value)){
             this.setState({showError: true,
                            warningMsg: "Please use a valid email."});
             return
@@ -93,16 +101,17 @@ class ModalForm extends React.Component {
         this.setState({showError: false,
                        warningMsg: ""});
         var contact = {id: this.props.id,
-                       name: this.refs.emg_name.value,
-                       relation: this.refs.emg_relation.value,
-                       phone: this.refs.emg_phone.value,
-                       email:this.refs.emg_email.value};
+                       name: this.emg_name.current.value,
+                       relation: this.emg_relation.current.value,
+                       phone: this.emg_phone.current.value,
+                       email:this.emg_email.current.value};
 
         // Call parent's save handler
         this.props.handleSaveContact(contact);
     }
-    handleExit(){
+    handleExit(e){
         //resets state so any warnings previously are reset.
+        e.stopPropagation();
         this.setState({
             showError: false,
             warningMsg: '',
@@ -114,49 +123,57 @@ class ModalForm extends React.Component {
            isInternational: !this.state.isInternational
         })
     }
+    captureClick(e){
+        // Capture click events from the containing div so that click events
+        // don't make it back to the <EmergencyContact> list item element,
+        // where they can cause unexpected behavior.
+        e.stopPropagation();
+    }
     render() {
 
         return (
-            <Modal show={this.props.show} onHide={this.handleExit} backdrop='static'>
-                <Modal.Header closeButton>
-                  <Modal.Title>Emergency Contact</Modal.Title>
-                  {this.state.showError ? <Message type="warning">{this.state.warningMsg}</Message> : null}
+            <div onClick={this.captureClick}>
+                <Modal show={this.props.show} onHide={this.handleExit} backdrop='static'>
+                    <Modal.Header closeButton>
+                      <Modal.Title>Emergency Contact</Modal.Title>
+                      {this.state.showError ? <Message type="warning">{this.state.warningMsg}</Message> : null}
 
-                </Modal.Header>
-                <Modal.Body>
-                    <form className="form-horizontal">
-                        <div className="form-group">
-                            <label className="col-lg-3 control-label">Name</label>
-                            <div className="col-lg-9"><input  type="text" className="form-control" id="emg-name" ref="emg_name" defaultValue={this.props.name} /></div>
-                        </div>
-                        <div className="form-group">
-                            <label className="col-lg-3 control-label">Relation</label>
-                            <div className="col-lg-9"><input  type="text" className="form-control" id="emg-relation" ref="emg_relation" defaultValue={this.props.relation} /></div>
-                        </div>
-                        <div className="form-group">
-                          <div className="col-sm-offset-3 col-sm-10">
-                            <div className="checkbox">
-                              <label>
-                                <input type="checkbox" id="emg-international" ref="emg_international" checked={this.state.isInternational} onChange={this.handleChange}/> International Number
-                              </label>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <form className="form-horizontal">
+                            <div className="form-group">
+                                <label className="col-lg-3 control-label">Name</label>
+                                <div className="col-lg-9"><input  type="text" className="form-control" id="emg-name" ref={this.emg_name} defaultValue={this.props.name} /></div>
                             </div>
-                          </div>
-                        </div>
-                        <div className="form-group">
-                            <label className="col-lg-3 control-label">Phone</label>
-                            <div className="col-lg-9"><input  type="text" className="form-control" id="emg-phone" ref="emg_phone" defaultValue={this.props.phone} onChange={this.formatPhone} /></div>
-                        </div>
-                        <div className="form-group">
-                            <label className="col-lg-3 control-label">Email</label>
-                            <div className="col-lg-9"><input  type="text" className="form-control" id="emg-email" ref="emg_email" defaultValue={this.props.email}/></div>
-                        </div>
-                    </form>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={this.handleSave}>Save</Button>
-                    <Button onClick={this.handleExit}>Close</Button>
-                </Modal.Footer>
-            </Modal>
+                            <div className="form-group">
+                                <label className="col-lg-3 control-label">Relation</label>
+                                <div className="col-lg-9"><input  type="text" className="form-control" id="emg-relation" ref={this.emg_relation} defaultValue={this.props.relation} /></div>
+                            </div>
+                            <div className="form-group">
+                              <div className="col-sm-offset-3 col-sm-10">
+                                <div className="checkbox">
+                                  <label>
+                                    <input type="checkbox" id="emg-international" ref={this.emg_international} checked={this.state.isInternational} onChange={this.handleChange}/> International Number
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="form-group">
+                                <label className="col-lg-3 control-label">Phone</label>
+                                <div className="col-lg-9"><input  type="text" className="form-control" id="emg-phone" ref={this.emg_phone} defaultValue={this.props.phone} onChange={this.formatPhone} /></div>
+                            </div>
+                            <div className="form-group">
+                                <label className="col-lg-3 control-label">Email</label>
+                                <div className="col-lg-9"><input  type="text" className="form-control" id="emg-email" ref={this.emg_email} defaultValue={this.props.email}/></div>
+                            </div>
+                        </form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={this.handleSave}>Save</Button>
+                        <Button onClick={this.handleExit}>Close</Button>
+                    </Modal.Footer>
+                </Modal>
+            </div>
         );
     }
 }
