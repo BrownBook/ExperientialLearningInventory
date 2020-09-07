@@ -56,9 +56,11 @@ class DepartmentDropdown extends React.Component {
         super(props);
 
         this.add = this.add.bind(this);
+
+        this.deptChoices = React.createRef();
     }
     add() {
-        var deptToAdd = this.refs.deptChoices.value;
+        var deptToAdd = this.deptChoices.current.value;
         this.props.onAdd(deptToAdd);
     }
     render() {
@@ -87,7 +89,7 @@ class DepartmentDropdown extends React.Component {
         return (
             <div>
                 <div className="form-group">
-                    <select className="form-control" ref="deptChoices">
+                    <select className="form-control" ref={this.deptChoices}>
                         <option value="-1">Select a Department</option>
                         {selectOptions}
                     </select>
