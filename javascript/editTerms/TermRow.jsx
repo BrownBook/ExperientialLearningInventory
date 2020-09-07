@@ -33,14 +33,24 @@ class TermRow extends React.Component {
         this.handleSave = this.handleSave.bind(this);
         this.timestampToDate = this.timestampToDate.bind(this);
         this.onCancelSave = this.onCancelSave.bind(this);
+
+        this.termCodeRef = React.createRef();
+        this.semesterTypeRef = React.createRef();
+        this.descriptionRef = React.createRef();
+        this.censusDateRef = React.createRef();
+        this.availableDateRef = React.createRef();
+        this.startDateRef = React.createRef();
+        this.endDateRef = React.createRef();
+        this.undergradOverloadRef = React.createRef();
+        this.gradOverloadRef = React.createRef();
     }
     timestampToDate(timestamp) {
 
-        var date = new Date(timestamp * 1000);
-        var year = date.getFullYear();
-        var month = date.getMonth() + 1;
-        var day = date.getDate();
-        var formattedDate = month + "/" + day + "/" + year;
+        let date = new Date(timestamp * 1000);
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        let formattedDate = month + "/" + day + "/" + year;
 
         return formattedDate;
     }
@@ -50,15 +60,15 @@ class TermRow extends React.Component {
     handleSave() {
         this.setState({editMode: false});
 
-        var newTcode = ReactDOM.findDOMNode(this.refs.savedTcode).value.trim();
-        var newStype = ReactDOM.findDOMNode(this.refs.savedStype).value.trim();
-        var newDescr = ReactDOM.findDOMNode(this.refs.savedDescr).value.trim();
-        var newCensusDate = ReactDOM.findDOMNode(this.refs.savedCensusDate).value.trim();
-        var newAvailDate = ReactDOM.findDOMNode(this.refs.savedAvailDate).value.trim();
-        var newStartDate = ReactDOM.findDOMNode(this.refs.savedStartDate).value.trim();
-        var newEndDate = ReactDOM.findDOMNode(this.refs.savedEndDate).value.trim();
-        var newUgradOverload = ReactDOM.findDOMNode(this.refs.savedUgradOverload).value.trim();
-        var newGradOverload = ReactDOM.findDOMNode(this.refs.savedGradOverload).value.trim();
+        let newTcode = this.termCodeRef.current.value.trim();
+        let newStype = this.semesterTypeRef.current.value.trim();
+        let newDescr = this.descriptionRef.current.value.trim();
+        let newCensusDate = this.censusDateRef.current.value.trim();
+        let newAvailDate = this.availableDateRef.current.value.trim();
+        let newStartDate = this.startDateRef.current.value.trim();
+        let newEndDate = this.endDateRef.current.value.trim();
+        let newUgradOverload = this.undergradOverloadRef.current.value.trim();
+        let newGradOverload = this.gradOverloadRef.current.value.trim();
 
         if (newTcode === '') {
             newTcode = this.props.tcode;
@@ -119,15 +129,15 @@ class TermRow extends React.Component {
             mainButton = <a onClick={this.handleSave} data-toggle="tooltip" title="Save Changes"><i className="glyphicon glyphicon-floppy-save"/></a>
             return (
                 <tr>
-                    <td><input type="text" className="form-control" ref="savedTcode" defaultValue={this.props.tcode}/></td>
-                    <td><input type="text" className="form-control" ref="savedStype" defaultValue={this.props.stype}/></td>
-                    <td><input type="text" className="form-control" ref="savedDescr" defaultValue={this.props.descr}/></td>
-                    <td><input type="text" className="form-control" ref="savedCensusDate" defaultValue={censusDate}/></td>
-                    <td><input type="text" className="form-control" ref="savedAvailDate" defaultValue={availDate}/></td>
-                    <td><input type="text" className="form-control" ref="savedStartDate" defaultValue={startDate}/></td>
-                    <td><input type="text" className="form-control" ref="savedEndDate" defaultValue={endDate}/></td>
-                    <td><input type="text" className="form-control" ref="savedUgradOverload" defaultValue={this.props.ugradOver}/></td>
-                    <td><input type="text" className="form-control" ref="savedGradOverload" defaultValue={this.props.gradOver}/></td>
+                    <td><input type="text" className="form-control" ref={this.termCodeRef} defaultValue={this.props.tcode}/></td>
+                    <td><input type="text" className="form-control" ref={this.semesterTypeRef} defaultValue={this.props.stype}/></td>
+                    <td><input type="text" className="form-control" ref={this.descriptionRef} defaultValue={this.props.descr}/></td>
+                    <td><input type="text" className="form-control" ref={this.censusDateRef} defaultValue={censusDate}/></td>
+                    <td><input type="text" className="form-control" ref={this.availableDateRef} defaultValue={availDate}/></td>
+                    <td><input type="text" className="form-control" ref={this.startDateRef} defaultValue={startDate}/></td>
+                    <td><input type="text" className="form-control" ref={this.endDateRef} defaultValue={endDate}/></td>
+                    <td><input type="text" className="form-control" ref={this.undergradOverloadRef} defaultValue={this.props.ugradOver}/></td>
+                    <td><input type="text" className="form-control" ref={this.gradOverloadRef} defaultValue={this.props.gradOver}/></td>
                     <td style={{"verticalAlign" : "middle"}}>{mainButton}</td>
                     <td style={{"verticalAlign" : "middle"}}><a onClick={this.onCancelSave} title="Cancel Changes"><i className="glyphicon glyphicon-remove"/></a></td>
                 </tr>
