@@ -8,9 +8,11 @@ class AddData extends React.Component {
         super(props);
 
         this.handleClick = this.handleClick.bind(this);
+
+        this.addDataRef = React.createRef();
     }
 	handleClick() {
-		var textName = ReactDOM.findDOMNode(this.refs.addData).value.trim();
+		var textName = this.addDataRef.current.value.trim();
 		this.props.onCreate(textName);
 	}
 	render() {
@@ -27,7 +29,7 @@ class AddData extends React.Component {
 						<div className="row">
 							<div className="col-md-8">
                                 <div className="form-group">
-                                <input type="text" className="form-control" ref="addData" />
+                                <input type="text" className="form-control" ref={this.addDataRef} />
                                 </div>
 							</div>
 
@@ -62,6 +64,8 @@ class DisplayData extends React.Component {
         this.handleEdit = this.handleEdit.bind(this);
         this.handleHide = this.handleHide.bind(this);
         this.handleSave = this.handleSave.bind(this);
+
+        this.savedDataRef = React.createRef();
 	}
 	handleEdit() {
 		this.setState({editMode: true});
@@ -74,7 +78,7 @@ class DisplayData extends React.Component {
 		this.setState({editMode: false});
 
 		// Grabs the value in the textbox
-		var newName = ReactDOM.findDOMNode(this.refs.savedData).value.trim();
+		var newName = this.savedDataRef.current.value.trim();
 
 		if (newName === '')
 		{
@@ -102,7 +106,7 @@ class DisplayData extends React.Component {
 		if (this.state.editMode) {
 			//var eName = 'Save';
 			text = <div id={this.props.id} >
-                        <input type="text" className="form-control" defaultValue={this.props.name} ref="savedData" />
+                        <input type="text" className="form-control" defaultValue={this.props.name} ref={this.savedDataRef} />
 					</div>
 
 			eButton = <button className="btn btn-default btn-xs" type="submit" onClick={this.handleSave}> Save </button>

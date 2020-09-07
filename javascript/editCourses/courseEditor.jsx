@@ -101,13 +101,15 @@ class CreateCourse extends React.Component {
         this.handleDrop = this.handleDrop.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleKeyPress = this.handleKeyPress.bind(this);
+
+        this.courseNum = React.createRef();
 	}
 	handleDrop(e) {
 		this.setState({subject: e.target.value});
 	}
 	handleSubmit(){
 		// Trims the value and then determines if its length is = 4 and if it's all numbers.
-		var courseNum = ReactDOM.findDOMNode(this.refs.courseNum).value.trim();
+		var courseNum = this.courseNum.current.value.trim();
 		if (courseNum.length === 4 && /^\d+$/.test(courseNum) && this.state.subject !== '_-1')
 		{
 			this.props.saveCourse(this.state.subject, courseNum);
@@ -123,7 +125,7 @@ class CreateCourse extends React.Component {
   }
   handleFocus() {
     //Select text field after Enter used.
-    this.refs.courseNum.select();
+    this.courseNum.current.select();
   }
 	render() {
 		return (
@@ -140,7 +142,7 @@ class CreateCourse extends React.Component {
 						</div>
 						<div className="col-md-6">
 							<label>Course Number:</label>
-							<input type="text" className="form-control" placeholder="0000" ref="courseNum" onKeyPress={this.handleKeyPress} />
+							<input type="text" className="form-control" placeholder="0000" ref={this.courseNum} onKeyPress={this.handleKeyPress} />
 						</div>
 					</div>
 					<div className="row">

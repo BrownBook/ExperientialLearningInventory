@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import classNames from 'classnames';
 import Bloodhound from 'corejs-typeahead';
@@ -9,10 +8,12 @@ class SearchBox extends React.Component {
       super(props);
 
       this.state = {dataError: null};
+
+      this.typeAheadRef = React.createRef();
     }
     componentDidMount() {
 
-        var searchSuggestions = new Bloodhound({
+        let searchSuggestions = new Bloodhound({
             datumTokenizer: function(datum){
                 var nameTokens      = Bloodhound.tokenizers.obj.whitespace('name');
                 var studentIdTokens = Bloodhound.tokenizers.obj.whitespace('studentId');
@@ -27,8 +28,8 @@ class SearchBox extends React.Component {
             }
         });
 
-        var myComponent = this;
-        var element = this.refs.typeahead;
+        let myComponent = this;
+        let element = this.typeAheadRef.current;
         $(element).typeahead({
             minLength: 3,
             highlight: true,
@@ -87,11 +88,10 @@ class SearchBox extends React.Component {
         });
     }
     componentWillUnmount() {
-        var element = ReactDOM.findDOMNode(this);
-        $(element).typeahead('destroy');
+        $(this.typeAheadRef).typeahead('destroy');
     }
     render() {
-        var errorNotice = null;
+        let errorNotice = null;
 
         if(this.state.dataError !== null){
             errorNotice = <div style={{marginTop: "1em"}} className="alert alert-danger">
@@ -102,7 +102,7 @@ class SearchBox extends React.Component {
         return (
             <div>
                 <div>
-                    <input type="search" name="studentId" id="studentSearch" className="form-control typeahead input-lg" placeholder="Banner ID, User name, or Full Name" ref="typeahead" autoComplete="off" autoFocus={true}/>
+                    <input type="search" name="studentId" id="studentSearch" className="form-control typeahead input-lg" placeholder="Banner ID, User name, or Full Name" ref={this.typeAheadRef} autoComplete="off" autoFocus={true}/>
                 </div>
                 {errorNotice}
             </div>
