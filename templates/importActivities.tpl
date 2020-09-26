@@ -1,4 +1,4 @@
-<h2 style="margin-bottom:1em;">Import Experential Activities</h2>
+<h2 style="margin-bottom:1em;">Import Experiential Activities</h2>
 
 <div class="row">
     <div class="col-md-3">
