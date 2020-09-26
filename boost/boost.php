@@ -4,7 +4,7 @@
  */
 
 $proper_name  = 'Experiential Learning Inventory';
-$version      = '0.3.2';
+$version      = '0.3.4';
 $register     = false;
 $unregister   = false;
 $import_sql   = true;

@@ -1154,21 +1154,4 @@ class Internship {
     {
         $this->import_id = $importId;
     }
-
-    /***********************
-    * Static Methods
-    ***********************/
-    public static function getTypesAssoc()
-    {
-        return array('internship'       => 'Internship',
-                     'student_teaching' => 'Student Teaching',
-                     'practicum'        => 'Practicum',
-                     'clinical'         => 'Clinical',
-                     'studyabroad'      => 'Study Abroad',
-                     'research'         => 'Research',
-                     'capstone'         => 'Capstone',
-                     'field_work'       => 'Field Work',
-                     'project'          => 'Project',
-                     'other'            => 'Other');
-    }
 }

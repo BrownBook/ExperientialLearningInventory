@@ -277,7 +277,8 @@ class ResultsUI implements UI
         }
 
         // Experience type
-        if (!is_null($type)) {
+        if ($type !== '-1' && !is_null($type)) {
+            var_dump($type);exit;
             $pager->addWhere('experience_type', $type);
         }
 
