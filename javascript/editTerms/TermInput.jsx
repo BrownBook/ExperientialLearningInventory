@@ -47,6 +47,21 @@ class TermInput extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
 
         this.handleClickOutside = this.handleClickOutside.bind(this);
+
+        this.tcodeRef = React.createRef();
+        this.stypeRef = React.createRef();
+        this.descRef = React.createRef();
+        this.censusRef = React.createRef();
+        this.availableRef = React.createRef();
+        this.startRef = React.createRef();
+        this.endRef = React.createRef();
+        this.ugradOverRef = React.createRef();
+        this.gradOverRef = React.createRef();
+
+        this.availableCalendarRef = React.createRef();
+        this.censusCalendarRef = React.createRef();
+        this.startCalendarRef = React.createRef();
+        this.endCalendarRef = React.createRef();
     }
 
     // Add/remove event listeners for closing the calendar component when user clicks outside the component
@@ -59,38 +74,38 @@ class TermInput extends React.Component {
     }
 
     handleClickOutside(event) {
-        if (this.refs.availableCalendar && !this.refs.availableCalendar.contains(event.target)) {
+        if (this.availableCalendarRef.current && !this.availableCalendarRef.current.contains(event.target)) {
             this.setState({showCalendarAvailable: false});
         }
 
-        if (this.refs.censusCalendar && !this.refs.censusCalendar.contains(event.target)) {
+        if (this.censusCalendarRef.current && !this.censusCalendarRef.current.contains(event.target)) {
             this.setState({showCalendarCensus: false});
         }
 
-        if (this.refs.startCalendar && !this.refs.startCalendar.contains(event.target)) {
+        if (this.startCalendarRef.current && !this.startCalendarRef.current.contains(event.target)) {
             this.setState({showCalendarStart: false});
         }
 
-        if (this.refs.endCalendar && !this.refs.endCalendar.contains(event.target)) {
+        if (this.endCalendarRef.current && !this.endCalendarRef.current.contains(event.target)) {
             this.setState({showCalendarEnd: false});
         }
     }
 
     onChangeCensus(censusDateInput) {
       this.setState({censusDateInput: censusDateInput});
-      (this.refs.census_date).value = censusDateInput.toLocaleDateString("en-US");
+      this.censusRef.current.value = censusDateInput.toLocaleDateString("en-US");
     }
     onChangeAvailable(availableDateInput) {
       this.setState({availableDateInput: availableDateInput});
-      (this.refs.available_date).value = availableDateInput.toLocaleDateString("en-US");
+      this.availableRef.current.value = availableDateInput.toLocaleDateString("en-US");
     }
     onChangeStart(startDateInput) {
       this.setState({startDateInput: startDateInput});
-      (this.refs.start_date).value = startDateInput.toLocaleDateString("en-US");
+      this.startRef.current.value = startDateInput.toLocaleDateString("en-US");
     }
     onChangeEnd(endDateInput) {
        this.setState({endDateInput: endDateInput});
-       (this.refs.end_date).value = endDateInput.toLocaleDateString("en-US");
+       this.endRef.current.value = endDateInput.toLocaleDateString("en-US");
     }
 
     showCalendarAvailable() {
@@ -132,28 +147,30 @@ class TermInput extends React.Component {
 
     }
     handleSubmit() {
-        var tcode = ReactDOM.findDOMNode(this.refs.term_code).value.trim();
-        var stype = ReactDOM.findDOMNode(this.refs.sem_type).value.trim();
-        var descr = ReactDOM.findDOMNode(this.refs.description).value;
-        var census = ReactDOM.findDOMNode(this.refs.census_date).value.trim();
-        var available = ReactDOM.findDOMNode(this.refs.available_date).value.trim();
-        var start = ReactDOM.findDOMNode(this.refs.start_date).value.trim();
-        var end = ReactDOM.findDOMNode(this.refs.end_date).value.trim();
-        var ugradOver = ReactDOM.findDOMNode(this.refs.undergrad_overload).value.trim();
-        var gradOver = ReactDOM.findDOMNode(this.refs.grad_overload).value.trim();
+        let tcode       = this.tcodeRef.current.value.trim();
+        let stype       = this.stypeRef.current.value.trim();
+        let descr       = this.descRef.current.value.trim();
+        let census      = this.censusRef.current.value.trim();
+        let available   = this.availableRef.current.value.trim();
+        let start       = this.startRef.current.value.trim();
+        let end         = this.endRef.current.value.trim();
+        let ugradOver   = this.ugradOverRef.current.value.trim();
+        let gradOver    = this.gradOverRef.current.value.trim();
 
+        // If everything had a value, then clear the values
+        // TODO: Fix this to only clear values if the values were successfully saved
         if (tcode !== '' && stype !== '' && descr !== '' && census !== '' &&
             available !== '' && start !== '' && end !== '' && ugradOver !== '' &&
             gradOver !== '') {
-            this.refs.term_code.value = '';
-            this.refs.sem_type.value = '';
-            this.refs.description.value = '';
-            this.refs.census_date.value = '';
-            this.refs.available_date.value = '';
-            this.refs.start_date.value = '';
-            this.refs.end_date.value = '';
-            this.refs.undergrad_overload.value = '';
-            this.refs.grad_overload.value = '';
+            this.tcodeRef.current.value = '';
+            this.stypeRef.current.value = '';
+            this.descRef.current.value = '';
+            this.censusRef.current.value = '';
+            this.availableRef.current.value = '';
+            this.startRef.current.value = '';
+            this.endRef.current.value = '';
+            this.ugradOverRef.current.value = '';
+            this.gradOverRef.current.value = '';
         }
 
         this.setState({showCalendarCensus: false});
@@ -196,14 +213,14 @@ class TermInput extends React.Component {
               <div className="col-sm-6">
                   <div className="form-group">
                       <label>Term Code: </label>
-                      <input type="text" className="form-control" placeholder="YYYYSS" ref="term_code"/>
+                      <input type="text" className="form-control" placeholder="YYYYSS" ref={this.tcodeRef} />
                   </div>
               </div>
 
               <div className="col-sm-6">
                   <div className="form-group">
                       <label>Semester Type:</label>
-                      <select className="form-control" ref="sem_type">
+                      <select className="form-control" ref={this.stypeRef} >
                           <option value="">Semester Type</option>
                           <option value="1">Spring</option>
                           <option value="2">Summer</option>
@@ -218,27 +235,27 @@ class TermInput extends React.Component {
               <div className="col-sm-12">
                   <div className="form-group">
                       <label>Description: </label>
-                      <input type="text" className="form-control" placeholder="Season YYYY" ref="description"/>
+                      <input type="text" className="form-control" placeholder="Season YYYY" ref={this.descRef}/>
                   </div>
               </div>
           </div>
           <div className="row">
               <div className="col-sm-6">
-                  <div className="form-group" ref="availableCalendar" >
+                  <div className="form-group" ref={this.availableCalendarRef} >
                       <label onClick={this.showCalendarAvailable}>Available On:
                           <i className="fa fa-calendar" aria-hidden="true" style={{paddingLeft: '5px'}} title="Click for Calendar View" ></i>
                       </label>
-                      <input type="text" className="form-control" placeholder="MM/DD/YYYY" ref="available_date" onClick={this.showCalendarAvailable}/>
+                      <input type="text" className="form-control" placeholder="MM/DD/YYYY" ref={this.availableRef} onClick={this.showCalendarAvailable}/>
                       {availableCalendar}
                   </div>
               </div>
 
               <div className="col-sm-6">
-                  <div className="form-group" ref="censusCalendar">
+                  <div className="form-group" ref={this.censusCalendarRef}>
                       <label onClick={this.showCalendarCensus}>Drop/Add Date:
                           <i className="fa fa-calendar" aria-hidden="true" style={{paddingLeft: '5px'}} title="Click for Calendar View"></i>
                       </label>
-                      <input type="text" className="form-control" placeholder="MM/DD/YYYY" ref="census_date" onClick={this.showCalendarCensus}/>
+                      <input type="text" className="form-control" placeholder="MM/DD/YYYY" ref={this.censusRef} onClick={this.showCalendarCensus}/>
                       {censusCalendar}
                   </div>
               </div>
@@ -247,21 +264,21 @@ class TermInput extends React.Component {
           <div className="row">
 
               <div className="col-sm-6">
-                  <div className="form-group" ref="startCalendar">
+                  <div className="form-group" ref={this.startCalendarRef}>
                       <label onClick={this.showCalendarStart}>Term Start Date:
                           <i className="fa fa-calendar" aria-hidden="true" style={{paddingLeft: '5px'}} title="Click for Calendar View"></i>
                       </label>
-                      <input type="text" className="form-control" placeholder="MM/DD/YYYY" ref="start_date" onClick={this.showCalendarStart}/>
+                      <input type="text" className="form-control" placeholder="MM/DD/YYYY" ref={this.startRef} onClick={this.showCalendarStart}/>
                       {startCalendar}
                   </div>
               </div>
 
               <div className="col-sm-6">
-                  <div className="form-group" ref="endCalendar">
+                  <div className="form-group" ref={this.endCalendarRef}>
                       <label onClick={this.showCalendarEnd}>Term End Date:
                           <i className="fa fa-calendar" aria-hidden="true" style={{paddingLeft: '5px'}} title="Click for Calendar View"></i>
                       </label>
-                      <input type="text" className="form-control" placeholder="MM/DD/YYYY" ref="end_date" onClick={this.showCalendarEnd}/>
+                      <input type="text" className="form-control" placeholder="MM/DD/YYYY" ref={this.endRef} onClick={this.showCalendarEnd}/>
                       {endCalendar}
                   </div>
               </div>
@@ -272,14 +289,14 @@ class TermInput extends React.Component {
               <div className="col-sm-6">
                   <div className="form-group">
                       <label>Undergraduate Overload Hours: </label>
-                      <input type="text" className="form-control" placeholder="0" ref="undergrad_overload"/>
+                      <input type="text" className="form-control" placeholder="0" ref={this.ugradOverRef} />
                   </div>
               </div>
 
               <div className="col-sm-6">
                   <div className="form-group">
                       <label>Graduate Overload Hours: </label>
-                      <input type="text" className="form-control" placeholder="0" ref="grad_overload"/>
+                      <input type="text" className="form-control" placeholder="0" ref={this.gradOverRef} />
                   </div>
               </div>
           </div>
