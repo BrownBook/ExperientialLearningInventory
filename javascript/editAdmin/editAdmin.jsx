@@ -78,6 +78,8 @@ class SearchAdmin extends React.Component {
         this.getDept = this.getDept.bind(this);
         this.onAdminDelete = this.onAdminDelete.bind(this);
         this.onAdminCreate = this.onAdminCreate.bind(this);
+
+        this.usernameRef = React.createRef();
 	}
 	componentDidMount() {
 		// Grabs the department data and admin data
@@ -237,7 +239,7 @@ class SearchAdmin extends React.Component {
 		this.setState({dropData: e.target.value});
 	}
 	handleSubmit() {
-		var username = ReactDOM.findDOMNode(this.refs.username).value.trim();
+		var username = this.usernameRef.current.value.trim();
 		var deptNum = this.state.dropData;
 
 		this.onAdminCreate(username, deptNum);
@@ -301,7 +303,7 @@ class SearchAdmin extends React.Component {
                                         <div className="col-md-6">
                                             <div className="form-group" style={{marginTop: '1em'}}>
                                                 <label>Username:</label>
-                                                <input type="text" className="form-control" placeholder="Username" ref="username" />
+                                                <input type="text" className="form-control" placeholder="Username" ref={this.usernameRef} />
                                             </div>
                                         </div>
                                     </div>
