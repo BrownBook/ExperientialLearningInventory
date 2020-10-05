@@ -47,9 +47,11 @@ class LocationDropdown extends React.Component {
         super(props);
 
         this.add = this.add.bind(this);
+
+        this.locChoices = React.createRef();
     }
     add() {
-        var locToAdd = this.refs.locChoices.value;
+        var locToAdd = this.locChoices.current.value;
         this.props.onAdd(locToAdd);
     }
     render() {
@@ -78,7 +80,7 @@ class LocationDropdown extends React.Component {
         return (
             <div className="LocationDropdown">
                 <div className="form-group">
-                    <select className="form-control" ref="locChoices">
+                    <select className="form-control" ref={this.locChoices}>
                         <option value="-1">Select a State</option>
                         {selectOptions}
                     </select>
