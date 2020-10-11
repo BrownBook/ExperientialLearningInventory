@@ -166,8 +166,8 @@ module.exports = {
 
     'no-console': 'off',
     'react/prop-types': 'off',
-    'react/no-string-refs': 'off',
-    'react/no-find-dom-node': 'off',
+    'react/no-string-refs': 'warn',
+    'react/no-find-dom-node': 'warn',
 
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/
 

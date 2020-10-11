@@ -25,11 +25,16 @@ class AddData extends React.Component{
 	constructor(props, context) {
 		super(props, context);
 		this.handleClick = this.handleClick.bind(this);
+
+        this.newCodeRef = React.createRef();
+        this.newDescRef = React.createRef();
+        this.newLevelRef = React.createRef();
 	}
 	handleClick(){
-		var textCode = ReactDOM.findDOMNode(this.refs.addNewCode).value.trim();
-		var textDes = ReactDOM.findDOMNode(this.refs.addNewDesc).value.trim();
-		var textLev = ReactDOM.findDOMNode(this.refs.addNewLevel).value.trim();
+		let textCode = this.newCodeRef.current.value.trim();
+		let textDes = this.newDescRef.current.value.trim();
+		let textLev = this.newLevelRef.current.value.trim();
+
 		this.props.onCreate(textCode, textDes, textLev);
 	}
 	render() {
@@ -46,7 +51,7 @@ class AddData extends React.Component{
 						<div className="row">
 							<div className="col-md-8">
 								<div className="form-group">
-									<input id="codeName" type="text" className="form-control" ref="addNewCode" />
+									<input id="codeName" type="text" className="form-control" ref={this.newCodeRef} />
 								</div>
 							</div>
 						</div>
@@ -58,7 +63,7 @@ class AddData extends React.Component{
 						<div className="row">
 							<div className="col-md-8">
 								<div className="form-group">
-									<input id="desName" type="text" className="form-control" ref="addNewDesc" />
+									<input id="desName" type="text" className="form-control" ref={this.newDescRef} />
 								</div>
 							</div>
 						</div>
@@ -70,7 +75,7 @@ class AddData extends React.Component{
 						<div className="row">
 							<div className="col-md-8">
 								<div className="forCodem-group">
-									<input id="levName" type="text" className="form-control" ref="addNewLevel" />
+									<input id="levName" type="text" className="form-control" ref={this.newLevelRef} />
 								</div>
 							</div>
 							<div className="col-md-4">
@@ -90,9 +95,14 @@ class AddData extends React.Component{
 class DisplayData extends React.Component{
 	constructor(props, context) {
 		super(props, context);
+
 		this.state = {editMode: false};
+
 		this.handleEdit = this.handleEdit.bind(this);
 		this.handleSave = this.handleSave.bind(this);
+
+        this.descriptionRef = React.createRef();
+        this.levelRef = React.createRef();
 	}
 	handleEdit() {
 		this.setState({editMode: true});
@@ -102,11 +112,11 @@ class DisplayData extends React.Component{
 		this.setState({editMode: false});
 
 		// Grabs the value in the textbox
-		var newCode = this.props.code;
-		var newDes = ReactDOM.findDOMNode(this.refs.savedDesData).value.trim();
-		var newLeve = ReactDOM.findDOMNode(this.refs.savedLevelData).value.trim();
+		let newCode = this.props.code;
+		let newDescription = this.descriptionRef.current.value.trim();
+		let newLevel = this.levelRef.current.value.trim();
 
-		this.props.onSave(newCode, newDes, newLeve);
+		this.props.onSave(newCode, newDescription, newLevel);
 	}
 	render() {
 		var textDes = null;
@@ -117,10 +127,10 @@ class DisplayData extends React.Component{
 		var levelName = <span className="text-muted">{this.props.level} </span>;
 		if (this.state.editMode) {
 			textDes = <div id={this.props.description} >
-				<input type="text" className="form-control" defaultValue={this.props.description} ref="savedDesData" />
+				<input type="text" className="form-control" defaultValue={this.props.description} ref={this.descriptionRef} />
 			</div>
 			textLev = <div id={this.props.level} >
-				<input type="text" className="form-control" defaultValue={this.props.level} ref="savedLevelData" />
+				<input type="text" className="form-control" defaultValue={this.props.level} ref={this.levelRef} />
 			</div>
 			eButton = <button className="btn btn-default btn-xs" type="submit" onClick={this.handleSave}> Save </button>
 		} else {
