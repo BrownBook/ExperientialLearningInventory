@@ -60,9 +60,9 @@ class MajorSelector extends React.Component {
         if(!this.state.undergrad && !this.state.graduate) {
             majorsDropdown = <MajorsDropDown formStyle='horizontal'/>;
         } else if (this.state.undergrad) {
-            majorsDropdown = <MajorsDropDown key="undergradMajors" ref="undergrad" majors={this.state.availableUndergradMajors} level='ugrad' formStyle='horizontal'/>;
+            majorsDropdown = <MajorsDropDown key="undergradMajors" majors={this.state.availableUndergradMajors} level='ugrad' formStyle='horizontal'/>;
         } else {
-            majorsDropdown = <MajorsDropDown key="gradMajors" ref="graduate" majors={this.state.availableGradMajors} level='grad' formStyle='horizontal'/>;
+            majorsDropdown = <MajorsDropDown key="gradMajors" majors={this.state.availableGradMajors} level='grad' formStyle='horizontal'/>;
         }
 
         var anyLevelClass = classNames({
