@@ -98,6 +98,12 @@ class CreateInternshipInterface extends React.Component {
         this.state = {submitted: false, errorMessages: null};
 
         this.handleSubmit = this.handleSubmit.bind(this);
+
+        this.studentSearchRef = React.createRef();
+        this.termBlockRef = React.createRef();
+        this.locationBlockRef = React.createRef();
+        this.departmentRef  = React.createRef();
+        this.hostAgencyRef = React.createRef();
     }
     // Top-level onSubmit handler for the creation form
     handleSubmit(e) {
@@ -132,67 +138,67 @@ class CreateInternshipInterface extends React.Component {
         var errors = [];
 
         // Check the student Component
-        if(form.elements.studentId.value === '' || !thisComponent.refs.studentSearch.studentFound()){
-            thisComponent.refs.studentSearch.setError(true);
+        if(form.elements.studentId.value === '' || !thisComponent.studentSearchRef.current.studentFound()){
+            thisComponent.studentSearchRef.current.setError(true);
             errors.push('Student ID');
             valid = false;
         }else{
-            thisComponent.refs.studentSearch.setError(false);
+            thisComponent.studentSearchRef.current.setError(false);
         }
 
         // Check the term
         if(form.elements.term.value === ''){
-            thisComponent.refs.termBlock.setError(true);
+            thisComponent.termBlockRef.current.setError(true);
             errors.push('Term');
             valid = false;
         }else {
-            thisComponent.refs.termBlock.setError(false);
+            thisComponent.termBlockRef.current.setError(false);
         }
 
         // Check the location
         if(form.elements.location.value === ''){
-            thisComponent.refs.locationBlock.setError(true);
+            thisComponent.locationBlockRef.current.setError(true);
             errors.push('Location');
             valid = false;
         }else{
-            thisComponent.refs.locationBlock.setError(false);
+            thisComponent.locationBlockRef.current.setError(false);
         }
 
         // Check the location's state/internal drop down's value
         if(form.elements.location.value === 'domestic'){
             if(form.elements.state.value === '-1'){
-                thisComponent.refs.locationBlock.stateDropDown.setError(true);
+                thisComponent.locationBlockRef.current.stateDropDown.setError(true);
                 errors.push('State');
                 valid = false;
             }else{
-                thisComponent.refs.locationBlock.stateDropDown.setError(false);
+                thisComponent.locationBlockRef.current.stateDropDown.setError(false);
             }
         } else if(form.elements.location.value === 'international') {
             if(form.elements.country.value === '-1') {
-                thisComponent.refs.locationBlock.countryDropDown.setError(true);
+                thisComponent.locationBlockRef.current.countryDropDown.setError(true);
                 errors.push('Country');
                 valid = false;
             }else{
-                thisComponent.refs.locationBlock.countryDropDown.setError(false);
+                thisComponent.locationBlockRef.current.countryDropDown.setError(false);
             }
         }
 
         // Check the department
         if(form.elements.department.value === '_-1'){
-            thisComponent.refs.department.setError(true);
+            thisComponent.departmentRef.current.setError(true);
             valid = false;
             errors.push('Department');
         }else{
-            thisComponent.refs.department.setError(false);
+            thisComponent.departmentRef.current.setError(false);
         }
 
         // Check the host agency
         if(form.elements.agency.value === ''){
-            thisComponent.refs.hostAgency.setError(true);
+            thisComponent.hostAgencyRef.current.setError(true);
             valid = false;
             errors.push('Host Agency');
         }else{
-            thisComponent.refs.hostAgency.setError(false);
+            thisComponent.hostAgencyRef.current.setError(false);
         }
 
         if(errors.length !== 0){
@@ -222,15 +228,15 @@ class CreateInternshipInterface extends React.Component {
                     {errors}
                 </TransitionGroup>
 
-                <StudentSearch ref="studentSearch"/>
+                <StudentSearch ref={this.studentSearchRef}/>
 
-                <TermBlock ref="termBlock"/>
+                <TermBlock ref={this.termBlockRef}/>
 
-                <LocationBlock ref="locationBlock"/>
+                <LocationBlock ref={this.locationBlockRef}/>
 
-                <Department ref="department"/>
+                <Department ref={this.departmentRef}/>
 
-                <HostAgency ref="hostAgency"/>
+                <HostAgency ref={this.hostAgencyRef}/>
 
                 <CreateInternshipButton submitted={this.state.submitted}/>
             </form>

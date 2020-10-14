@@ -19,6 +19,8 @@ class TermBlock extends React.Component {
         };
 
         this.handleChange = this.handleChange.bind(this);
+
+        this.termRef = React.createRef();
     }
     componentDidMount() {
         $.ajax({
@@ -80,7 +82,7 @@ class TermBlock extends React.Component {
             termList = Object.keys(this.state.terms).map(function(key) {
                             return (
                                 <label className="btn btn-default" key={key} onClick={this.handleChange}>
-                                    <input type="radio" ref="term" name="term" key={key} value={key} />{this.state.terms[key].description}
+                                    <input type="radio" ref={this.termRef} name="term" key={key} value={key} />{this.state.terms[key].description}
                                 </label>
                             );
                         }.bind(this))

@@ -14,9 +14,11 @@ class BannerSearch extends React.Component {
 
         this.handleSearch = this.handleSearch.bind(this);
         this.onKeyPress = this.onKeyPress.bind(this);
+
+        this.bannerIdRef = React.createRef();
     }
     handleSearch(){
-        var bannerId = this.refs.bannerId.value.trim();
+        var bannerId = this.bannerIdRef.current.value.trim();
 
         // TODO: Not all schools use nine character bannerIDs, so may need to reconsider this
         if(bannerId.length === 9) {
@@ -37,7 +39,7 @@ class BannerSearch extends React.Component {
             <div>
                 <div className="form-group">
                     <label htmlFor="bannerId-search">Faculty Member&apos;s ID Number</label>
-                    <input type="text" id="bannerId-search" className="form-control" ref="bannerId" placeholder="Banner ID" onKeyPress={this.onKeyPress} />
+                    <input type="text" id="bannerId-search" className="form-control" ref={this.bannerIdRef} placeholder="Banner ID" onKeyPress={this.onKeyPress} />
                 </div>
                 <div className="form-group pull-right">
                     <Button onClick={this.handleSearch}>Search</Button>
@@ -62,20 +64,31 @@ class FacultyForm extends React.Component {
         super(props);
 
         this.handleSave = this.handleSave.bind(this);
+
+        this.facultyEditIdRef = React.createRef();
+        this.facultyEditUsernameRef = React.createRef();
+        this.facultyEditFirstNameRef = React.createRef();
+        this.facultyEditLastNameRef = React.createRef();
+        this.facultyEditPhoneRef = React.createRef();
+        this.facultyEditStreetAddress1Ref = React.createRef();
+        this.facultyEditStreetAddress2Ref = React.createRef();
+        this.facultyEditCityRef = React.createRef();
+        this.facultyEditStateRef = React.createRef();
+        this.facultyEditZipRef = React.createRef();
     }
     // Event handler for Save button. Captures the data and passes
     // it as an object to the parent's handleSave() method.
     handleSave() {
-        this.props.handleSave({id: this.refs.facultyEditId.value,
-                            username: this.refs.facultyEditUsername.value,
-                            first_name: this.refs.facultyEditFirstName.value,
-                            last_name: this.refs.facultyEditLastName.value,
-                            phone: this.refs.facultyEditPhone.value,
-                            street_address1: this.refs.facultyEditStreetAddress1.value,
-                            street_address2: this.refs.facultyEditStreetAddress2.value,
-                            city: this.refs.facultyEditCity.value,
-                            state: this.refs.facultyEditState.value,
-                            zip: this.refs.facultyEditZip.value
+        this.props.handleSave({id: this.facultyEditIdRef.current.value,
+                            username: this.facultyEditUsernameRef.current.value,
+                            first_name: this.facultyEditFirstNameRef.current.value,
+                            last_name: this.facultyEditLastNameRef.current.value,
+                            phone: this.facultyEditPhoneRef.current.value,
+                            street_address1: this.facultyEditStreetAddress1Ref.current.value,
+                            street_address2: this.facultyEditStreetAddress2Ref.current.value,
+                            city: this.facultyEditCityRef.current.value,
+                            state: this.facultyEditStateRef.current.value,
+                            zip: this.facultyEditZipRef.current.value
                         });
     }
     render(){
@@ -87,13 +100,13 @@ class FacultyForm extends React.Component {
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="faculty-edit-id">Banner ID:&nbsp;</label>
-                                <input type="text" className="form-control" id="faculty-edit-id" ref="facultyEditId" defaultValue={this.props.facultyData.id} />
+                                <input type="text" className="form-control" id="faculty-edit-id" ref={this.facultyEditIdRef} defaultValue={this.props.facultyData.id} />
                             </div>
                         </div>
 						<div className="col-md-6">
 							<div className="form-group">
                                 <label className="control-label" htmlFor="faculty-edit-username">Username:&nbsp;</label>
-                                <input type="text" className="form-control" id="ffaculty-edit-username" ref="facultyEditUsername" defaultValue={this.props.facultyData.username} />
+                                <input type="text" className="form-control" id="ffaculty-edit-username" ref={this.facultyEditUsernameRef} defaultValue={this.props.facultyData.username} />
                             </div>
                         </div>
                     </div>
@@ -101,45 +114,45 @@ class FacultyForm extends React.Component {
                     <div className="row">
                         <div className="col-md-6">
                             <label htmlFor="faculty-edit-first_name">First Name</label>
-                            <input type="text" className="form-control" id="faculty-edit-first_name" ref="facultyEditFirstName" defaultValue={this.props.facultyData.first_name} />
+                            <input type="text" className="form-control" id="faculty-edit-first_name" ref={this.facultyEditFirstNameRef} defaultValue={this.props.facultyData.first_name} />
                         </div>
                         <div className="col-md-6">
                             <label htmlFor="faculty-edit-last_name">Last Name</label>
-                            <input type="text" className="form-control" id="faculty-edit-last_name" ref="facultyEditLastName" defaultValue={this.props.facultyData.last_name} />
+                            <input type="text" className="form-control" id="faculty-edit-last_name" ref={this.facultyEditLastNameRef} defaultValue={this.props.facultyData.last_name} />
                         </div>
                     </div>
 
                     <div className="row">
                         <div className="col-md-6">
                             <label htmlFor="faculty-edit-phone">Phone</label>
-                            <input type="text" className="form-control" id="faculty-edit-phone" ref="facultyEditPhone" defaultValue={this.props.facultyData.phone} />
+                            <input type="text" className="form-control" id="faculty-edit-phone" ref={this.facultyEditPhoneRef} defaultValue={this.props.facultyData.phone} />
                         </div>
                     </div>
 
 
                     <div className="form-group">
                         <label htmlFor="faculty-edit-street_address1">Address</label>
-                        <input  type="text" className="form-control" id="faculty-edit-street_address1" ref="facultyEditStreetAddress1" defaultValue={this.props.facultyData.street_address1} />
+                        <input  type="text" className="form-control" id="faculty-edit-street_address1" ref={this.facultyEditStreetAddress1Ref} defaultValue={this.props.facultyData.street_address1} />
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="faculty-edit-street_address2">Address Line 2</label>
-                        <input type="text" className="form-control" id="faculty-edit-street_address2" ref="facultyEditStreetAddress2" defaultValue={this.props.facultyData.street_address2} />
+                        <input type="text" className="form-control" id="faculty-edit-street_address2" ref={this.facultyEditStreetAddress2Ref} defaultValue={this.props.facultyData.street_address2} />
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="faculty-edit-city">City</label>
-                        <input type="text" className="form-control" id="faculty-edit-city" ref="facultyEditCity" defaultValue={this.props.facultyData.city} />
+                        <input type="text" className="form-control" id="faculty-edit-city" ref={this.facultyEditCityRef} defaultValue={this.props.facultyData.city} />
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="faculty-edit-state">State</label>
-                        <input type="text" className="form-control" id="faculty-edit-state" ref="facultyEditState" defaultValue={this.props.facultyData.state} />
+                        <input type="text" className="form-control" id="faculty-edit-state" ref={this.facultyEditStateRef} defaultValue={this.props.facultyData.state} />
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="faculty-edit-zip">Zip</label>
-                        <input type="text" className="form-control" id="faculty-edit-zip" ref="facultyEditZip" defaultValue={this.props.facultyData.zip} />
+                        <input type="text" className="form-control" id="faculty-edit-zip" ref={this.facultyEditZipRef} defaultValue={this.props.facultyData.zip} />
                     </div>
 
                     <Button bsStyle='primary' onClick={this.handleSave}>Save Changes</Button>
@@ -293,7 +306,7 @@ FacultyModal.propTypes = {
     showModalForm: PropTypes.bool,
     errorWarning: PropTypes.string,
     edit: PropTypes.bool,
-    show: PropTypes.func,
+    show: PropTypes.bool,
     hide: PropTypes.func,
     facultyData: PropTypes.any,
     url: PropTypes.string,
@@ -392,7 +405,7 @@ class DepartmentList extends React.Component {
 }
 
 DepartmentList.propTypes = {
-    id: PropTypes.string,
+    id: PropTypes.number,
     name: PropTypes.string,
 }
 
