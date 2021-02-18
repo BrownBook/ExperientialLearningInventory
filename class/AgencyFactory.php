@@ -41,4 +41,15 @@ class AgencyFactory {
 
         return $stmt->fetch();
     }
+
+    public static function getAgencyList() {
+        $db = Database::newDB();
+        $pdo = $db->getPDO();
+
+        $stmt = $pdo->prepare("SELECT * FROM intern_agency");
+        $stmt->execute();
+        $stmt->setFetchMode(\PDO::FETCH_ASSOC);
+
+        return $stmt->fetchAll();
+    }
 }

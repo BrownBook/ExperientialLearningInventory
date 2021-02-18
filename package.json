@@ -16,6 +16,7 @@
     "react-dom": "^16.13.1",
     "react-dropzone": "~3.13.3",
     "react-input-calendar": "^0.5.4",
+    "react-select": "^3.1.1",
     "react-transition-group": "^4.4.1"
   },
   "devDependencies": {
@@ -45,6 +46,7 @@
     "jest-resolve": "^26.5.2",
     "jest-watch-typeahead": "^0.6.1",
     "json-loader": "0.5.7",
+    "prettier": "^2.2.1",
     "react-a11y": "^1.1.0",
     "react-bootstrap": "^0.33.1",
     "react-dev-utils": "^10.2.1",

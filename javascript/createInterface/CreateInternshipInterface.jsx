@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import classNames from 'classnames';
 
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
@@ -8,36 +7,37 @@ import StudentSearch from './StudentSearch.jsx';
 import TermBlock from './TermBlock.jsx';
 import LocationBlock from './LocationBlock.jsx';
 import Department from './DepartmentBlock.jsx';
+import HostAgency from './HostAgency.jsx'
 
 /*********************
  * Host Agency Field *
  *********************/
-class HostAgency extends React.Component {
-    constructor(props) {
-      super(props);
-
-      this.state = {hasError: false};
-    }
-    setError(status){
-        this.setState({hasError: status});
-    }
-    render() {
-        var fgClasses = classNames({
-                        'form-group': true,
-                        'has-error': this.state.hasError
-                    });
-        return (
-            <div className="row">
-                <div className="col-sm-12 col-md-4 col-md-push-3">
-                    <div className={fgClasses} id="agency">
-                        <label htmlFor="agency2" className="control-label">Experiential Learning Host</label>
-                        <input type="text" id="agency2" name="agency" className="form-control" placeholder="Acme, Inc." />
-                    </div>
-                </div>
-            </div>
-        );
-    }
-}
+// class HostAgency extends React.Component {
+//     constructor(props) {
+//       super(props);
+//
+//       this.state = {hasError: false};
+//     }
+//     setError(status){
+//         this.setState({hasError: status});
+//     }
+//     render() {
+//         var fgClasses = classNames({
+//                         'form-group': true,
+//                         'has-error': this.state.hasError
+//                     });
+//         return (
+//             <div className="row">
+//                 <div className="col-sm-12 col-md-4 col-md-push-3">
+//                     <div className={fgClasses} id="agency">
+//                         <label htmlFor="agency2" className="control-label">Experiential Learning Host</label>
+//                         <input type="text" id="agency2" name="agency" className="form-control" placeholder="Acme, Inc." />
+//                     </div>
+//                 </div>
+//             </div>
+//         );
+//     }
+// }
 
 
 /*****************
@@ -193,13 +193,15 @@ class CreateInternshipInterface extends React.Component {
         }
 
         // Check the host agency
-        if(form.elements.agency.value === ''){
-            thisComponent.hostAgencyRef.current.setError(true);
-            valid = false;
-            errors.push('Host Agency');
-        }else{
-            thisComponent.hostAgencyRef.current.setError(false);
-        }
+        // if(form.elements.agency.value === ''){
+        //     thisComponent.hostAgencyRef.current.setError(true);
+        //     valid = false;
+        //     errors.push('Host Agency');
+        // }else{
+        //     thisComponent.hostAgencyRef.current.setError(false);
+        // }
+
+        //thisComponent.hostAgencyRef.current.validate()
 
         if(errors.length !== 0){
             thisComponent.setErrorMessages(errors);
@@ -236,7 +238,7 @@ class CreateInternshipInterface extends React.Component {
 
                 <Department ref={this.departmentRef}/>
 
-                <HostAgency ref={this.hostAgencyRef}/>
+                <HostAgency />
 
                 <CreateInternshipButton submitted={this.state.submitted}/>
             </form>

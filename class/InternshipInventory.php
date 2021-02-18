@@ -368,6 +368,9 @@ class InternshipInventory {
                 $ctrl = new Command\DownloadImportValidationErrors();
                 $ctrl->execute();
                 break;
+            case 'AgencyRest':
+                $ctrl = new Command\AgencyRest();
+                $ctrl->execute();
             default:
                 $menu = new UI\InternMenu();
                 $this->content = $menu->display();
