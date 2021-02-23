@@ -25,11 +25,11 @@ use \Intern\ActivityImportView;
 
 use \Intern\ActivityImportFactory;
 use \Intern\TermFactory;
-use \Intern\Internship;
 use \Intern\State;
 use \Intern\DepartmentFactory;
 use \Intern\Student;
 use \Intern\StudentFactory;
+use Intern\ExperienceTypeFactory;
 
 use \Intern\Exception\StudentNotFoundException;
 
@@ -69,7 +69,7 @@ class ValidateActivityImport {
         $terms = array_keys(TermFactory::getTermsAssoc());
 
         // Get the set of valid experiences types
-        $expTypes = array_keys(Internship::getTypesAssoc());
+        $expTypes = array_keys(ExperienceTypeFactory::getExperienceTypesKeyPair());
 
         // Get the list of *enabled* host states
         //$states = array_keys(State::$UNITED_STATES);

@@ -52,6 +52,11 @@
             <div class="col-md-3">{COURSE_SECT}</div>
           </div>
 
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="{TYPE_ID}">{TYPE_LABEL_TEXT}</label>
+            <div class="col-md-8">{TYPE}</div>
+          </div>
+
         </fieldset>
 
         <fieldset class="search-fieldset">
@@ -71,35 +76,6 @@
       <!-- Level & Major Fieldset -->
       <fieldset>
         <div id="MajorSelector"></div>
-      </fieldset>
-
-      <fieldset>
-        <legend>Activity Type</legend>
-        <div class="form-group">
-          <label class="col-lg-3 control-label" for="type">Type</label>
-          <div class="col-lg-9">
-              <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-default">Internship
-                  <input type="radio" name="type" value="internship">
-                </label>
-                <label class="btn btn-default">Student Teaching
-                  <input type="radio" name="type" value="student_teaching">
-                </label>
-                <label class="btn btn-default">Practicum
-                  <input type="radio" name="type" value="practicum">
-                </label>
-                <label class="btn btn-default">Clinical
-                  <input type="radio" name="type" value="clinical">
-                </label>
-                <label class="btn btn-default">Study Abroad
-                  <input type="radio" name="type" value="studyabroad">
-                </label>
-                <label class="btn btn-default">Other
-                  <input type="radio" name="type" value="other">
-                </label>
-              </div>
-          </div>
-        </div>
       </fieldset>
 
   </div> <!-- End Left Column -->

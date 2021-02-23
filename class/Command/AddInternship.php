@@ -108,6 +108,9 @@ class AddInternship {
         // Create a new internship object
         $intern = new Internship($student, $term, $location, $state, $country, $department, $agency);
 
+        // Set a default experience type of basic 'Internship'
+        $intern->setExperienceType('internship');
+
         // Save it!!
         $intern->save();
 

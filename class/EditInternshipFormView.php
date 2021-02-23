@@ -24,6 +24,7 @@ use Intern\ChangeHistoryView;
 use Intern\DepartmentFactory;
 use Intern\TermFactory;
 use Intern\InternSettings;
+use Intern\ExperienceTypeFactory;
 
 /**
  * View class for showing the big internship form for
@@ -567,7 +568,10 @@ class EditInternshipFormView {
         /*******************
          * Internship Type *
          */
-        $this->form->addRadioAssoc('experience_type', Internship::getTypesAssoc());
+        //$this->form->addRadioAssoc('experience_type', ExperienceTypeFactory::getExperienceTypesKeyPair());
+        $this->form->addSelect('experience_type', ExperienceTypeFactory::getExperienceTypesKeyPair());
+        $this->form->setLabel('experience_type', 'Experience Type');
+        $this->form->addCssClass('experience_type', 'form-control');
         $this->form->setMatch('experience_type', 'internship');
 
         /*********

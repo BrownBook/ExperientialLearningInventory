@@ -606,6 +606,23 @@ CREATE TABLE intern_student_level(
   PRIMARY KEY(code)
 );
 
+CREATE TABLE intern_exp_type (
+    code varchar NOT NULL,
+    short_name varchar NOT NULL,
+    description varchar,
+    PRIMARY KEY (code)
+);
+
+INSERT INTO intern_exp_type VALUES('internship', 'Internship', 'A course requiring students to participate in a partnership, professional employment, work experience or cooperative education with any entity external to the institution, generally under the supervision of an employee of the external entity.');
+INSERT INTO intern_exp_type VALUES('student_teaching', 'Student Teaching', 'A course requiring students to instruct or teach at an entity external to the institution, generally as part of the culminating curriculum of a teacher education or certificate program.');
+INSERT INTO intern_exp_type VALUES('practicum', 'Practicum', 'A course requiring students to participate in an approved project or proposal that practically applies previously studied theory of the field or discipline under the supervision of an expert or qualified representative of the field or discipline.');
+INSERT INTO intern_exp_type VALUES('clinical', 'Clinical', 'A course requiring medical- or healthcare-focused experiential work where students test, observe, experiment, or practice a field or discipline in a hands-on or simulated environment.');
+INSERT INTO intern_exp_type VALUES('studyabroad', 'Study Abroad', '');
+INSERT INTO intern_exp_type VALUES('research', 'Research', '');
+INSERT INTO intern_exp_type VALUES('capstone', 'Capstone', '');
+INSERT INTO intern_exp_type VALUES('field_work', 'Field Work', '');
+INSERT INTO intern_exp_type VALUES('project', 'Project', '');
+INSERT INTO intern_exp_type VALUES('other', 'Other', '');
 
 CREATE TABLE intern_internship (
        id INT NOT NULL,
@@ -668,7 +685,7 @@ CREATE TABLE intern_internship (
        co_op smallint default 0,
        multi_part SMALLINT,
        secondary_part SMALLINT,
-       experience_type character varying default 'internship',
+       experience_type character varying REFERENCES intern_exp_type(code),
        background_check SMALLINT DEFAULT 0,
        drug_check SMALLINT DEFAULT 0,
        import_id INT NULL REFERENCES intern_import(id),

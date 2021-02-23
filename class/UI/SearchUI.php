@@ -20,7 +20,6 @@
 
 namespace Intern\UI;
 
-use Intern\Internship;
 use Intern\TermFactory;
 use Intern\DepartmentFactory;
 use Intern\Major;
@@ -29,6 +28,7 @@ use Intern\Subject;
 use Intern\WorkflowStateFactory;
 use Intern\DataProvider\Major\MajorsProviderFactory;
 use Intern\AssetResolver;
+use Intern\ExperienceTypeFactory;
 
   /**
    * SearchUI
@@ -154,8 +154,11 @@ class SearchUI implements UI
         $form->addCheckAssoc('workflow_state', $workflowStates);
 
         // Internship types.
-        //$types = Internship::getTypesAssoc();
-        //$form->addRadioAssoc('type', $types);
+        $types = ExperienceTypeFactory::getExperienceTypesKeyPair();
+        $types = array('-1' => 'All Experience Types') + $types;
+        $form->addSelect('type', $types);
+        $form->setLabel('type', 'Experience Type');
+        $form->addCssClass('type', 'form-control');
 
         /************************
          * Certification Status *
