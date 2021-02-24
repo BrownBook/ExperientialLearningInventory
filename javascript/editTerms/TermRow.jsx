@@ -129,10 +129,10 @@ class TermRow extends React.Component {
             return (
                 <tr>
                     <td><input type="text" className="form-control" ref={this.termCodeRef} defaultValue={this.props.tcode}/></td>
-                    <td><input type="text" className="form-control" ref={this.semesterTypeRef} defaultValue={this.props.stype}/></td>
                     <td><input type="text" className="form-control" ref={this.descriptionRef} defaultValue={this.props.descr}/></td>
-                    <td><input type="text" className="form-control" ref={this.censusDateRef} defaultValue={censusDate}/></td>
+                    <td><input type="text" className="form-control" ref={this.semesterTypeRef} defaultValue={this.props.stype}/></td>
                     <td><input type="text" className="form-control" ref={this.availableDateRef} defaultValue={availDate}/></td>
+                    <td><input type="text" className="form-control" ref={this.censusDateRef} defaultValue={censusDate}/></td>
                     <td><input type="text" className="form-control" ref={this.startDateRef} defaultValue={startDate}/></td>
                     <td><input type="text" className="form-control" ref={this.endDateRef} defaultValue={endDate}/></td>
                     <td><input type="text" className="form-control" ref={this.undergradOverloadRef} defaultValue={this.props.ugradOver}/></td>
