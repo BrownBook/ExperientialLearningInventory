@@ -199,6 +199,7 @@ class StudentSearch extends React.Component {
       'has-feedback': this.state.studentFound,
       'has-error': this.state.hasError
     });
+
     return (
       <div className="row">
         <div className="col-sm-12 col-md-6 col-md-push-3">
