@@ -4,7 +4,7 @@ This message is to confirm that your internship has been processed by the Regist
 
 Students:
     Please check your AppalNet account to verify your course schedule includes the Internship Course listed below.
-    
+
 Internship Advisers:
     Please verify this student is listed on your course roster.
 
@@ -14,10 +14,10 @@ If you have any questions, please contact your internship adviser (listed below)
 Student
 --------
 Name: {NAME}
-Banner ID: {BANNER}
+Student ID: {BANNER}
 Username: {USER}
 Phone: {PHONE}
-    
+
 Internship
 -----------
 Term: {TERM}

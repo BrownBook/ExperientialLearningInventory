@@ -12,10 +12,10 @@ If you have any questions, please contact your internship adviser (listed below)
 Student
 --------
 Name: {NAME}
-Banner ID: {BANNER}
+Student ID: {BANNER}
 Username: {USER}
 Phone: {PHONE}
-    
+
 Internship
 -----------
 Term: {TERM}

@@ -1,12 +1,12 @@
 Hello,
 
-The following student's internship has been dean approved, but the course number was not registered for automatic insurance enrollment. 
+The following student's internship has been dean approved, but the course number was not registered for automatic insurance enrollment.
 
 
 Student
 --------
 Name: {NAME}
-Banner ID: {BANNER}
+Student ID: {BANNER}
 Username: {USER}
 Phone: {PHONE}
 

@@ -25,7 +25,7 @@ use \Intern\PdoFactory;
 class UploadActivities {
 
     const expectedRowOrder = array(
-        'Banner ID',
+        'Student ID',
         'First Name',
         'Last Name',
         'Term',

@@ -5,7 +5,7 @@ The following student requires a {CHECK} Check for their internship with {AGENCY
 Student
 --------
 Name: {NAME}
-Banner ID: {BANNER}
+Student ID: {BANNER}
 Term: {TERM}
 Level: {LEVEL}
 Email: {EMAIL}

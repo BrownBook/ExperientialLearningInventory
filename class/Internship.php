@@ -299,7 +299,7 @@ class Internship {
         $csv = array();
 
         // Student data
-        $csv['Banner ID']   = $this->banner;
+        $csv['Student ID']   = $this->banner;
         $csv['First Name']  = $this->first_name;
         $csv['Middle Name'] = $this->middle_name;
         $csv['Last Name']   = $this->last_name;
@@ -791,9 +791,9 @@ class Internship {
     }
 
     /**
-    * Returns the Banner ID of this student.
+    * Returns the Student ID of this student.
     *
-    * @return string Banner ID
+    * @return string Student ID
     */
     public function getBannerId(){
         return $this->banner;
