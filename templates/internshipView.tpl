@@ -232,6 +232,23 @@
       </fieldset>
 
       <div class="form-group">
+        <div class="btn-group col-lg-6 col-lg-push-3" role="group" aria-label="Location Options" data-toggle="buttons">
+          <!-- <button type="button" class="btn btn-default">On-Site</button>
+          <button type="button" class="btn btn-default">Virtual</button>
+          <button type="button" class="btn btn-default">Hybrid</button> -->
+          <label class="btn btn-default {ONSITE_ACTIVE}">On-site
+            <input type="radio" name="location_type" value="onsite" {ONSITE_CHECKED}>
+          </label>
+          <label class="btn btn-default {VIRTUAL_ACTIVE}">Virtual
+            <input type="radio" name="location_type" value="virtual" {VIRTUAL_CHECKED}>
+          </label>
+          <label class="btn btn-default {HYBRID_ACTIVE}">Hybrid
+            <input type="radio" name="location_type" value="hybrid" {HYBRID_CHECKED}>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
         <label class="col-lg-3 control-label" for="{LOC_ADDRESS_ID}">{LOC_ADDRESS_LABEL_TEXT}</label>
         <div class="col-lg-6">{LOC_ADDRESS}</div>
       </div>
