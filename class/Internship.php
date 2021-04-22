@@ -95,6 +95,7 @@ class Internship {
     public $domestic;
     public $international;
 
+    public $location_type; // on-site, virtual, hybrid
     public $loc_address;
     public $loc_city;
     public $loc_state;
@@ -155,6 +156,7 @@ class Internship {
         $this->term = $term;
 
         // Set basic location data
+        $this->setLocationType('onsite'); // Default to onsite location
         if($location == 'domestic') {
             $this->setDomestic(true);
             $this->setInternational(false);
@@ -362,6 +364,7 @@ class Internship {
         // Internship location data
         $csv['Domestic']               = $this->isDomestic() ? 'Yes' : 'No';
         $csv['International']          = $this->isInternational() ? 'Yes' : 'No';
+        $csv['Location Type']          = $this->getLocationType();
         $csv['Location Address']       = $this->loc_address;
         $csv['Location City']          = $this->loc_city;
         $csv['Location State']         = $this->loc_state;
@@ -684,6 +687,15 @@ class Internship {
     public function getLocationProvince()
     {
         return $this->loc_province;
+    }
+
+    public function getLocationType() {
+        return $this->location_type;
+    }
+
+    // Sets the location type. Should be one of: 'onsite', 'virtual', 'hybrid'
+    public function setLocationType($type) {
+        $this->location_type = $type;
     }
 
     public function isOiedCertified()

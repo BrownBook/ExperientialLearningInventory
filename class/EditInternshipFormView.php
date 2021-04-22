@@ -16,6 +16,7 @@
  * along with Internship Inventory.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Copyright 2011-2018 Appalachian State University
+ * Copyright 2021 Brown Book Software
  */
 
 namespace Intern;
@@ -412,6 +413,20 @@ class EditInternshipFormView {
             $this->tpl['LOCATION'] = 'International';
             $this->form->addHidden('location', 'international');
         }
+
+        // Location type
+        $locationType = $this->intern->getLocationType();
+        if($locationType == 'onsite') {
+            $this->tpl['ONSITE_ACTIVE'] = 'active';
+            $this->tpl['ONSITE_CHECKED'] = 'checked';
+        } else if ($locationType == 'virtual'){
+            $this->tpl['VIRTUAL_ACTIVE'] = 'active';
+            $this->tpl['VIRTUAL_CHECKED'] = 'checked';
+        } else if ($locationType == 'hybrid'){
+            $this->tpl['HYBRID_ACTIVE'] = 'active';
+            $this->tpl['HYBRID_CHECKED'] = 'checked';
+        }
+
 
         // Domestic fields
         $this->form->addText('loc_address');
