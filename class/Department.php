@@ -30,6 +30,7 @@ namespace Intern;
 class Department extends Model
 {
     public $name;
+    public $college_name;
     public $hidden;
     public $corequisite; // Whether or not a corequisite course is required for interns in this department.
 
@@ -45,7 +46,10 @@ class Department extends Model
      */
     public function getCSV()
     {
-        return array('Department' => $this->name);
+        return array(
+                'Department' => $this->name,
+                'College' => $this->college_name
+            );
     }
 
     public function getId(){
@@ -54,6 +58,10 @@ class Department extends Model
 
     public function getName(){
         return $this->name;
+    }
+
+    public function getCollegeName(){
+        return $this->college_name;
     }
 
     public function isHidden(){
