@@ -130,7 +130,14 @@ class TermRow extends React.Component {
                 <tr>
                     <td><input type="text" className="form-control" ref={this.termCodeRef} defaultValue={this.props.tcode}/></td>
                     <td><input type="text" className="form-control" ref={this.descriptionRef} defaultValue={this.props.descr}/></td>
-                    <td><input type="text" className="form-control" ref={this.semesterTypeRef} defaultValue={this.props.stype}/></td>
+                    <td>
+                      <select className="form-control" ref={this.semesterTypeRef} defaultValue={this.props.stype} >
+                        <option value="1">Spring</option>
+                        <option value="2">Summer 1</option>
+                        <option value="3">Summer 2</option>
+                        <option value="4">Fall</option>
+                      </select>
+                    </td>
                     <td><input type="text" className="form-control" ref={this.availableDateRef} defaultValue={availDate}/></td>
                     <td><input type="text" className="form-control" ref={this.censusDateRef} defaultValue={censusDate}/></td>
                     <td><input type="text" className="form-control" ref={this.startDateRef} defaultValue={startDate}/></td>
@@ -144,11 +151,31 @@ class TermRow extends React.Component {
         } else {
             // Not editing
             mainButton = <a onClick={this.handleEdit} data-toggle="tooltip" title="Edit"><i className="glyphicon glyphicon-pencil"/></a>
+
+            let semesterType = ''
+            console.log(this.props.stype)
+            switch(this.props.stype){
+                case 1:
+                    semesterType = 'Spring'
+                    break
+                case 2:
+                    semesterType = 'Summer 1'
+                    break
+                case 3:
+                    semesterType = 'Summer 2'
+                    break
+                case 4:
+                    semesterType = 'Fall'
+                    break
+                default:
+                    semesterType = 'Unknown Semester Type Code'
+            }
+
             return (
                 <tr className={rowClasses}>
                     <td>{this.props.tcode}</td>
                     <td>{this.props.descr}</td>
-                    <td>{this.props.stype}</td>
+                    <td>{semesterType}</td>
                     <td>{availDate}</td>
                     <td>{censusDate}</td>
                     <td>{startDate}</td>
