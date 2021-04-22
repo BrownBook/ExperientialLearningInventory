@@ -662,6 +662,7 @@ CREATE TABLE intern_internship (
        middle_name_meta character varying,
        last_name_meta character varying,
 
+       location_type character varying NULL,
        loc_address character varying NULL,
        loc_city character varying NULL,
        loc_state character varying NULL,

@@ -16,6 +16,7 @@
  * along with Internship Inventory.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Copyright 2011-2018 Appalachian State University
+ * Copyright 2021 Brown Book Software
  */
 
 namespace Intern\Command;
@@ -36,7 +37,7 @@ use Intern\DatabaseStorage;
  * Controller class for creating an new internship.
  *
  * @author Jeremy Booker
- * @package hms
+ * @package intern
  */
 class AddInternship {
 

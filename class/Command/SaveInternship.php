@@ -17,6 +17,7 @@
  * along with Internship Inventory.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Copyright 2011-2018 Appalachian State University
+ * Copyright 2021 Brown Book Software
  */
 
 namespace Intern\Command;
@@ -216,6 +217,7 @@ class SaveInternship
         }
 
         // Address, city, zip are always set (no matter domestic or international)
+        $i->location_type = $_POST['location_type'];
         $i->loc_address = self::trimField(strip_tags($_POST['loc_address']));
         $i->loc_city = self::trimField(strip_tags($_POST['loc_city']));
         $i->loc_zip = strip_tags($_POST['loc_zip']);
