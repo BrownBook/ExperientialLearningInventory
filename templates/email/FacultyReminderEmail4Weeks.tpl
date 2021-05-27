@@ -17,7 +17,7 @@ departmental internship coordinator.
 Student Info
 --------
 Name: {NAME}
-Banner ID: {BANNER}
+Student ID: {BANNER}
 Email Address: {EMAIL}
 
 Internship Info

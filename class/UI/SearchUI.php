@@ -55,9 +55,9 @@ class SearchUI implements UI
         $form->addHidden('action', 'results');
         $form->useRowRepeat();
 
-        // Student name or Banner ID
+        // Student name or Student ID
         $form->addText('name');
-        $form->setLabel('name', "Name or Banner ID");
+        $form->setLabel('name', "Name or Student ID");
 
         /***************
          * Course Info *

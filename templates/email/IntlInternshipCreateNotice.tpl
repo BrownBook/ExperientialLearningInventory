@@ -4,7 +4,7 @@ An international internship has been created for {NAME} in the Internship Invent
 
 Details:
 Name: {NAME} ({USER}@appstate.edu)
-Banner ID: {BANNER}
+Student ID: {BANNER}
 Phone #: {PHONE}
 
 Country: {COUNTRY}

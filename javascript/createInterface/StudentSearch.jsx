@@ -102,7 +102,7 @@ class SearchBox extends React.Component {
         return (
             <div>
                 <div>
-                    <input type="search" name="studentId" id="studentSearch" className="form-control typeahead input-lg" placeholder="Banner ID, User name, or Full Name" ref={this.typeAheadRef} autoComplete="off" autoFocus={true}/>
+                    <input type="search" name="studentId" id="studentSearch" className="form-control typeahead input-lg" placeholder="Student ID, User name, or Full Name" ref={this.typeAheadRef} autoComplete="off" autoFocus={true}/>
                 </div>
                 {errorNotice}
             </div>
@@ -177,7 +177,7 @@ class StudentSearch extends React.Component {
                             <div className="row">
                                 <div className="col-sm-12 col-md-10 col-md-push-1">
                                     <div className={fgClasses} id="studentId">
-                                        <label htmlFor="studentId2" className="sr-only">Banner ID, User name, or Full Name</label>
+                                        <label htmlFor="studentId2" className="sr-only">Student ID, User name, or Full Name</label>
                                         <SearchBox onSelect={this.doSearch} onReset={this.resetPreview}/>
                                         {this.state.studentFound ? <span className="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span> : null }
                                         {this.state.studentFound ? <span id="inputSuccess2Status" className="sr-only">(success)</span> : null }

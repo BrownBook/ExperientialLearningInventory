@@ -14,7 +14,7 @@ The Graduate School has been notified and will enroll the student in the request
 Student
 --------
 Name: {NAME}
-Banner ID: {BANNER}
+Student ID: {BANNER}
 Username: {USER}
 Phone: {PHONE}
 

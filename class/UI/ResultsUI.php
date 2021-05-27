@@ -186,7 +186,8 @@ class ResultsUI implements UI
             $name = trim($name);
         }
 
-        // Check to see if name is set and looks like a valid Banner ID
+        // Check to see if name is set and looks like a valid Student ID
+        // TODO: Remove assumption about student ID being 8/9 digits
         if (!is_null($name) && preg_match("/\d{8}/", $name)) {
             $pager->addWhere('fuzzy.banner', $name);
 
@@ -356,7 +357,7 @@ class ResultsUI implements UI
         $pager->addSortHeader('last_name', 'Student\'s Name');
 
         // $pager->joinResult('student_id', 'intern_student', 'id', 'banner');
-        $pager->addSortHeader('banner', 'Banner ID');
+        $pager->addSortHeader('banner', 'Student ID');
 
         $pager->joinResult('department_id', 'intern_department', 'id', 'name');
         $pager->addSortHeader('intern_department.name', 'Department Name');

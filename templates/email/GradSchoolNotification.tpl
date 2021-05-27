@@ -6,10 +6,10 @@ The following graduate student's internship has been approved by the appropriate
 Student
 --------
 Name: {NAME}
-Banner ID: {BANNER}
+Student ID: {BANNER}
 Username: {USER}
 Phone: {PHONE}
-    
+
 Internship
 -----------
 Term: {TERM}
