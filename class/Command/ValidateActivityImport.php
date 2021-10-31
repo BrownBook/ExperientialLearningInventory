@@ -104,7 +104,7 @@ class ValidateActivityImport {
             }
 
             // Check level
-            if(!in_array($row['level'], Student::LEVELS)){
+            if(!in_array(strtolower($row['level']), Student::LEVELS)){
                 $validationIssues[] = "Unknown/invalid level: {$row['level']}";
             }
 
