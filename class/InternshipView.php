@@ -162,7 +162,9 @@ class InternshipView {
         // Show warning if the student's level does not exist
         $level = $this->intern->getLevel();
         $code = LevelFactory::getLevelObjectById($level);
-        if($code->getLevel() == 'Unknown')
+
+        // $code can be false if the level code doesn't exist in intern_student_level.
+        if($code !== false && $code->getLevel() == 'Unknown')
         {
             \NQ::simple('intern', UI\NotifyUI::WARNING, "This student's level of {$code->getCode()} did not exist. It was created and set to Unknown. Please ask an administrator for help.");
         }
