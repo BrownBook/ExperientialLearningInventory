@@ -109,7 +109,7 @@ class ValidateActivityImport {
             }
 
             // Check experience type
-            if(!in_array($row['experience_type'], $expTypes)){
+            if(!in_array(strtolower($row['experience_type']), $expTypes)){
                 $validationIssues[] = "Unknown/invalid experience type: {$row['experience_type']}";
 
             }
