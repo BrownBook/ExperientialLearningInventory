@@ -217,7 +217,15 @@ class SaveInternship
         }
 
         // Address, city, zip are always set (no matter domestic or international)
-        $i->location_type = $_POST['location_type'];
+        if(isset($_POST['location_type'])){
+            $i->location_type = $_POST['location_type'];
+        } else {
+            // For internships created before location_type field existed, there won't
+            // be a value in $_POSET['location_type'] and that'll cause an error when saving other changes,
+            // so provide a default to 'on-site'
+            $i->location_type = 'on-site';
+        }
+
         $i->loc_address = self::trimField(strip_tags($_POST['loc_address']));
         $i->loc_city = self::trimField(strip_tags($_POST['loc_city']));
         $i->loc_zip = strip_tags($_POST['loc_zip']);
