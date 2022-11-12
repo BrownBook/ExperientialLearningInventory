@@ -10,6 +10,9 @@ jobs:
   buildAndRelease:
     runs-on: ubuntu-latest
     steps:
+      - name: Actions checkout
+        uses: actions/checkout@v1
+
       - name: Build Project
         uses: ./.github/workflows/node.js.yml
 
