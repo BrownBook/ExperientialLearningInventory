@@ -39,7 +39,8 @@
   "scripts": {
     "dev": "webpack --config webpack.config.dev.js --watch",
     "build": "webpack --config webpack.config.prod.js",
-    "lint": "eslint './javascript/**/*.jsx'"
+    "lint": "eslint './javascript/**/*.jsx'",
+    "test": ""
   },
   "repository": {
     "type": "git",
