@@ -10,11 +10,11 @@ jobs:
   buildAndRelease:
     runs-on: ubuntu-latest
     steps:
-      - name: Actions checkout
-        uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v3
 
       - name: Build Project
-        uses: ./.github/workflows/node.js.yml
+        uses: BrownBook/ExperientialLearningInventory/.github/workflows/node.js.yml
 
       - name: Create Artifact
         run: rm -rf node_modules && tar -czf ExperientialLearningInventory-${{ github.ref }}.tar.gz
