@@ -11,7 +11,8 @@ module.exports = {
       rules: {
         'spaced-comment': 'off',
         semi: 'off',
-        'no-multiple-empty-lines': 'off'
+        'no-multiple-empty-lines': 'off',
+        'space-before-function-paren': 'off'
       }
     }
   ],
