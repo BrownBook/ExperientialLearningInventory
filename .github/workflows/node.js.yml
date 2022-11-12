@@ -3,6 +3,8 @@
 
 on:
   workflow_call:
+    inputs:
+    secrets:
   # push:
   #   branches: ['main']
   # pull_request:
