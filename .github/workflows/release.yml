@@ -7,28 +7,16 @@ on:
     tags: ['v*'] # Push events to matching v*, i.e. v1.0, v20.15.10
 
 jobs:
-  buildAndRelease:
+  build:
+    uses: uses: BrownBook/ExperientialLearningInventory/.github/workflows/node.js.yml@main
+
+  release:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [18.x]
 
     steps:
-      - uses: actions/checkout@v3
-
-      # - name: Setup Node.js ${{ matrix.node-version }}
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: ${{ matrix.node-version }}
-      #     cache: 'npm'
-
-      # - run: npm ci
-      # - run: npm run build
-      # - run: npm test
-
-      - name: Build Project
-        uses: BrownBook/ExperientialLearningInventory/.github/workflows/node.js.yml@main
-
       - name: Create Artifact
         # run: rm -rf node_modules && tar -czf ExperientialLearningInventory-${{ github.ref_name }}.tar.gz boost class contrib img inc javascript/dist templates vendor assets.json cli.php entryPoints.js index.php LICENSE
         run: rm -rf node_modules && tar -czf ExperientialLearningInventory-${{ github.ref_name }}.tar.gz boost class contrib img inc javascript/dist templates assets.json cli.php entryPoints.js index.php LICENSE
