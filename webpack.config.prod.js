@@ -42,7 +42,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new ESLintPlugin({ files: 'javascript/**/*.jsx' }),
+    new ESLintPlugin({ files: 'javascript/**/*.jsx', options: { emitWarning: true } }),
     new AssetsPlugin({
       filename: 'assets.json',
       prettyPrint: true
