@@ -30,7 +30,7 @@ jobs:
       #  uses: BrownBook/ExperientialLearningInventory/.github/workflows/node.js.yml@main
 
       - name: Create Artifact
-        run: rm -rf node_modules && tar -czf ExperientialLearningInventory-${{ github.ref }}.tar.gz
+        run: rm -rf node_modules && tar -czf ExperientialLearningInventory-${{ github.ref }}.tar.gz boost class contrib img inc javascript/dist templates vendor assets.json cli.php entryPoints.js index.php LICENSE
 
       - name: Create Release
         id: create_release
