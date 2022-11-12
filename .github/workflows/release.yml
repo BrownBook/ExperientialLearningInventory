@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    uses: uses: BrownBook/ExperientialLearningInventory/.github/workflows/node.js.yml@main
+    uses: BrownBook/ExperientialLearningInventory/.github/workflows/node.js.yml@main
 
   release:
     runs-on: ubuntu-latest
