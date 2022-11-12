@@ -11,10 +11,8 @@ jobs:
     uses: BrownBook/ExperientialLearningInventory/.github/workflows/node.js.yml@main
 
   release:
+    needs: build
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18.x]
 
     steps:
       - name: Create Artifact
