@@ -11,7 +11,8 @@ jobs:
   build:
     strategy:
       matrix:
-        php-versions: ['7.4', '8.0', '8.1']
+        php-versions: ['7.1', '7.4']
+        #php-versions: ['7.1', '7.4', '8.0', '8.1']
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
