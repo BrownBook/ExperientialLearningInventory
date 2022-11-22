@@ -57,7 +57,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: '7.2'
           extensions: mbstring, intl
           tools: phpstan
 
@@ -78,4 +78,4 @@ jobs:
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
       - name: Static Analysis using PHPStan
-        run: phpstan analyse --no-progress src/
+        run: phpstan analyse --no-progress class/
