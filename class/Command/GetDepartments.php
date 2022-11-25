@@ -20,7 +20,7 @@
 
 namespace Intern\Command;
 
-class getDepartments {
+class GetDepartments {
     public function execute()
     {
         // Get list of departments for the current user

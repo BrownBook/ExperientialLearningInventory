@@ -102,9 +102,9 @@ class Student {
                 $limit = self::HOURS_LIMIT_GRADUATE_SUMMER;
             }
         }*/
-        if ($level == self::UNDERGRAD) {
+        if ($this->level == self::UNDERGRAD) {
             $limit = $term->getUndergradOverloadHours();
-        } else if ($level == self::GRADUATE){
+        } else if ($this->level == self::GRADUATE){
             $limit = $term->getGradOverloadHours();
         }
 

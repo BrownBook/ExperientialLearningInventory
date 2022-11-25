@@ -48,7 +48,7 @@ class AffiliationAgreementFactory {
         $result = $db->select('row');
 
         if(\PHPWS_Error::logIfError($result)){
-            throw new DatabaseException($result->toString());
+            throw new \Exception($result->toString());
         }
 
         if(count($result) == 0){

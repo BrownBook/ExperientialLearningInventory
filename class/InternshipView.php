@@ -106,22 +106,29 @@ class InternshipView {
     {
 
         // Show warning if no documents uploaded but workflow state suggests there should be documents
+        // TODO: This should be refactored into an option on any workflow state
+        /*
         if(($this->wfState instanceof WorkflowState\SigAuthReadyState || $this->wfState instanceof WorkflowState\SigAuthApprovedState || $this->wfState instanceof WorkflowState\DeanApprovedState || $this->wfState instanceof WorkflowState\RegisteredState) && (sizeof($this->docs) < 1) && (!$this->intern->isSecondaryPart()))
         {
             \NQ::simple('intern', UI\NotifyUI::WARNING, "No documents have been uploaded yet. Usually a copy of the signed contract document should be uploaded.");
         }
+        */
 
         // Show a warning if International certification required, internship is in SigAuthReadyState, is international, and not OIED approved
+        /*
         if($this->settings->getRequireIntlCertification()){
             if ($this->wfState instanceof WorkflowState\SigAuthReadyState && $this->intern->isInternational() && !$this->intern->isOiedCertified()) {
                 \NQ::simple('intern', UI\NotifyUI::WARNING, 'This internship can not be approved by the Signature Authority bearer until the internship is certified by the Office of International Education and Development.');
             }
         }
+        */
 
         // Show a warning if in DeanApproved state and is distance_ed campus
+        /*
         if ($this->wfState instanceof WorkflowState\DeanApprovedState && $this->intern->isDistanceEd()) {
             \NQ::simple('intern', UI\NotifyUI::WARNING, 'This internship must be registered by Distance Education.');
         }
+        */
 
         // Show warning & sanity check cource section #
         if ($this->intern->isDistanceEd() && ($this->intern->getCourseSection() < 300 || $this->intern->getCourseSection() > 399)) {

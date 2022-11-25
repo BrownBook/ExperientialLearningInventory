@@ -53,7 +53,7 @@ abstract class StudentDataProvider {
      *
      * @abstract
      * @param string facultyId
-     * @return stdClass
+     * @return \stdClass
      */
     public abstract function getFacultyMember($facultyId);
 }

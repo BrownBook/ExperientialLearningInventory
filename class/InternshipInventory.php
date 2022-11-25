@@ -169,7 +169,7 @@ class InternshipInventory {
                 break;
             case 'edit_states':
                 if (!\Current_User::allow('intern', 'edit_state')) {
-                    disallow();
+                    \Current_User::disallow();
                 }
                 $view = new UI\StateUI();
                 $this->content = $view->display();
@@ -180,14 +180,14 @@ class InternshipInventory {
                 break;
             case 'edit_level':
                 if (!\Current_User::allow('intern', 'edit_level')) {
-                    disallow();
+                    \Current_User::disallow();
                 }
                 $view = new UI\StudentLevelUI();
                 $this->content = $view->display();
                 break;
             case 'edit_terms':
                 if (!\Current_User::allow('intern', 'edit_terms')) {
-                    disallow();
+                    \Current_User::disallow();
                 }
                 $view = new UI\TermUI();
                 $this->content = $view->display();
@@ -198,14 +198,14 @@ class InternshipInventory {
                 break;
             case 'edit_courses':
                 if (!\Current_User::allow('intern', 'edit_courses')) {
-                    disallow();
+                    \Current_User::disallow();
                 }
                 $view = new UI\CoursesUI();
                 $this->content = $view->display();
                 break;
             case 'edit_terms':
                 if (!\Current_User::allow('intern', 'edit_terms')) {
-                    disallow();
+                    \Current_User::disallow();
                 }
                 $view = new UI\TermUI();
                 $this->content = $view->display();
@@ -232,14 +232,6 @@ class InternshipInventory {
                 \NQ::simple('intern', \Intern\UI\NotifyUI::SUCCESS, 'Document deleted.');
                 \NQ::close();
                 \PHPWS_Core::goBack();
-                break;
-            case 'addEmergencyContact':
-                $ctrl = new Command\AddEmergencyContact();
-                $ctrl->execute();
-                break;
-            case 'removeEmergencyContact':
-                $ctrl = new Command\RemoveEmergencyContact();
-                $ctrl->execute();
                 break;
             case 'edit_faculty':
                 $facultyUI = new UI\FacultyUI();

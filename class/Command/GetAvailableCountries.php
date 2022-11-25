@@ -22,7 +22,7 @@ namespace Intern\Command;
 
 use \Intern\CountryFactory as CountryFactory;
 
-class getAvailableCountries {
+class GetAvailableCountries {
 
     public function execute()
     {

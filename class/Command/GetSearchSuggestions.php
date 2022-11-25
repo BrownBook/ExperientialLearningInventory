@@ -40,6 +40,8 @@ class GetSearchSuggestions {
     const fuzzyTolerance    = 3;
     const resultLimit       = 10;
 
+    private $settings;
+
     public function __construct()
     {
 

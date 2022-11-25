@@ -47,7 +47,7 @@ class WorkflowController {
         }
 
         if(!$this->t->allowed($this->internship)){
-            throw new Exception("You do not have permission to set the internship to the requested status.");
+            throw new \Exception("You do not have permission to set the internship to the requested status.");
         }
 
         // Check that the fields required to take this transition have been filled in

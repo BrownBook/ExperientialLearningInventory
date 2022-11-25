@@ -58,7 +58,7 @@ class DeptRest {
 		$pdo = $db->getPDO();
 
 		$sql = "INSERT INTO intern_department (id, name, hidden, corequisite)
-				VALUES (nextval('intern_major_seq'), :grad, :hidden, :corequisite)";
+				VALUES (nextval('intern_department_seq'), :grad, :hidden, :corequisite)";
 
 		$sth = $pdo->prepare($sql);
 
