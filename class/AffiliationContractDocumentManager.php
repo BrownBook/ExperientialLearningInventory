@@ -66,7 +66,7 @@ class AffiliationContractDocumentManager extends \FC_Document_Manager {
 
         \PHPWS_Core::initCoreClass('File.php');
 
-        $form = new \PHPWS_FORM;
+        $form = new \PHPWS_Form;
         $form->addHidden('module', 'intern');
         $form->addHidden('affiliate', $_REQUEST['affiliate']);
         $form->addHidden('action', 'postAffiliationUpload');
@@ -157,7 +157,7 @@ class AffiliationContractDocumentManager extends \FC_Document_Manager {
         if (\PHPWS_Error::logIfError($result)) {
             $content = dgettext('filecabinet', '<p>Could not upload file to folder. Please check your directory permissions.</p>');
             $content .= sprintf('<a href="#" onclick="window.close(); return false">%s</a>', dgettext('filecabinet', 'Close this window'));
-            Layout::nakedDisplay($content);
+            \Layout::nakedDisplay($content);
             exit();
         }
 
@@ -178,7 +178,7 @@ class AffiliationContractDocumentManager extends \FC_Document_Manager {
             \NQ::simple('intern', \Intern\UI\NotifyUI::SUCCESS, "File saved.");
         } else if ($result) {
             \NQ::simple('intern', \Intern\UI\NotifyUI::SUCCESS, "File added.");
-        } else if (PHPWS_Error::logIfError($result)) {
+        } else if (\PHPWS_Error::logIfError($result)) {
             \NQ::simple('intern', \Intern\UI\NotifyUI::ERROR, $result->toString());
         }
         \NQ::close();

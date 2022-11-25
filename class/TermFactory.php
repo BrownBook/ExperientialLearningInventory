@@ -118,13 +118,13 @@ class TermFactory
      * Determine if a term exists in the database.
      * Useful for deciding if a future term is "ready" yet
      *
-     * @param $targetTerm Term to decide if exists or not
+     * @param $targetTermCode Term to decide if exists or not
      * @return bool True if the given term eixsts in the database, false otherwise
      */
     public static function termExists(string $targetTermCode)
     {
         $terms = self::getTermsAssoc();
 
-        return in_array($targetTerm, array_keys($terms));
+        return in_array($targetTermCode, array_keys($terms));
     }
 }

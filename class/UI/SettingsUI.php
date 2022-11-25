@@ -6,7 +6,7 @@ use \Intern\AssetResolver;
 /**
  * Class for handling UI for settings editing and creation
  **/
-class settingsUI implements UI {
+class SettingsUI implements UI {
 
     // Show a list of admins and a form to add a new one.
     public function display() {

@@ -47,7 +47,7 @@ class DepartmentFactory {
         $result = \PHPWS_DB::getRow($query);
 
         if (\PHPWS_Error::isError($result)) {
-            throw new DatabaseException($result->toString());
+            throw new \Exception($result->toString());
         }
 
         if (sizeof($result) == 0) {

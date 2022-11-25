@@ -442,30 +442,6 @@ class Internship {
         return false;
     }
 
-    /**
-    * Get a Major object for the major of this student.
-    */
-    public function getUgradMajor()
-    {
-        if(!is_null($this->ugrad_major) && $this->ugrad_major != 0){
-            return new Major($this->ugrad_major);
-        }else{
-            return null;
-        }
-    }
-
-    /**
-    * Get a GradProgram object for the graduate program of this student.
-    */
-    public function getGradProgram()
-    {
-        if(!is_null($this->grad_prog) && $this->grad_prog != 0){
-            return new GradProgram($this->grad_prog);
-        }else{
-            return null;
-        }
-    }
-
     public function getAgencyId() {
         return $this->agency_id;
     }

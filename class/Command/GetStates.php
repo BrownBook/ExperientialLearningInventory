@@ -22,7 +22,7 @@ namespace Intern\Command;
 
 use \Intern\State as State;
 
-class getStates {
+class GetStates {
 
     public function execute()
     {

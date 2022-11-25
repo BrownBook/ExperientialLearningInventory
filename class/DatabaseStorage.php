@@ -58,7 +58,7 @@ class DatabaseStorage {
      */
     public static function load($class, $id)
     {
-        \PHPWS_Core::initModClass($class . '.php');
+        \PHPWS_Core::initModClass('intern', $class . '.php');
 
         $table = $class::getTableName();
 

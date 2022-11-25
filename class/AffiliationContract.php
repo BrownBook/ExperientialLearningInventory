@@ -36,7 +36,7 @@ class AffiliationContract
      * @Override Model::getDb
      */
     public static function getDb(){
-        return new PHPWS_DB('intern_agreement_contract');
+        return new \PHPWS_DB('intern_agreement_contract');
     }
 
     /**

@@ -63,7 +63,7 @@ class ChangeHistory extends Model{
         }
     }
 
-    public function getDB(){
+    public static function getDB(){
         return new \PHPWS_DB('intern_change_history');
     }
 

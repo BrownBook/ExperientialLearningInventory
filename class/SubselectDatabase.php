@@ -23,6 +23,7 @@ use \PHPWS_Core;
 use \PHPWS_Error;
 use \PHPWS_DB;
 use \PHPWS_DB_Where;
+use \PHPWS_Text;
 
 PHPWS_Core::initCoreClass('PHPWS_DB.php');
 //PHPWS_Core::initCoreClass('DB/PHPWS_DB_Where.php');
@@ -1177,7 +1178,7 @@ class SubselectDatabase extends PHPWS_DB{
         $query = 'INSERT INTO ' . $table . ' (' . implode(', ', $columns) . ') VALUES (' . implode(', ', $set) . ')';
         $result = PHPWS_DB::query($query);
 
-        if (DB::isError($result)) {
+        if (PHPWS_Error::isError($result)) {
             return $result;
         } else {
             return $maxID;
@@ -1215,7 +1216,7 @@ class SubselectDatabase extends PHPWS_DB{
         $query = "UPDATE $table SET " . implode(', ', $columns) . " $where $order $limit";
         $result = PHPWS_DB::query($query);
 
-        if (DB::isError($result)) {
+        if (PHPWS_Error::isError($result)) {
             return $result;
         } else {
             if ($return_affected) {
@@ -1242,7 +1243,7 @@ class SubselectDatabase extends PHPWS_DB{
         $table = $this->getTable();
 
         if ($table == '') {
-            throw new Exception('No "from" tables available.');
+            throw new \Exception('No "from" tables available.');
             //return PHPWS_Error::get(PHPWS_DB_ERROR_TABLE, 'core', 'PHPWS_DB::select');
         }
 
@@ -1271,7 +1272,7 @@ class SubselectDatabase extends PHPWS_DB{
         $sql_array = $this->getSelectSQL($type);
 
         if (PHPWS_Error::isError($sql_array)) {
-            throw new Exception($sql_array);
+            throw new \Exception($sql_array);
         }
 
         // extract will get $columns, $table, $where, $group_by
@@ -1562,7 +1563,7 @@ class SubselectDatabase extends PHPWS_DB{
         $query = "UPDATE $table SET $column_name = $column_name $math $where";
         $result = PHPWS_DB::query($query);
 
-        if (DB::isError($result)) {
+        if (PHPWS_Error::isError($result)) {
             return $result;
         } else {
             return true;
@@ -1928,7 +1929,7 @@ class SubselectDatabase extends PHPWS_DB{
 
                 $result = PHPWS_DB::query($query);
 
-                if (DB::isError($result)) {
+                if (PHPWS_Error::isError($result)) {
                     if ($report_errors) {
                         return $result;
                     } else {
@@ -2285,7 +2286,7 @@ class SubselectDatabase extends PHPWS_DB{
             $isTblColumn = $this->isTableColumn($column);
 
             if (PHPWS_Error::isError($isTblColumn)) {
-                throw new Exception('Could not determine if column ' . $column . ' is a valid column in this table. Check table ownership.');
+                throw new \Exception('Could not determine if column ' . $column . ' is a valid column in this table. Check table ownership.');
             }
 
             if (!$isTblColumn) {

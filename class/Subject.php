@@ -27,7 +27,7 @@ class Subject extends Model {
     public $description;
     public $active;
 
-    public function getDB(){
+    public static function getDB(){
         return new \PHPWS_DB('intern_subject');
     }
 

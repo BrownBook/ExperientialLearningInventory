@@ -86,6 +86,13 @@ class Faculty extends Model implements DbStorable {
     }
 
     /**
+     * @Override Model::getDb
+     */
+    public static function getDb(){
+        return new \PHPWS_DB('intern_faculty');
+    }
+
+    /**
      * Returns the database table name for this class.
      * @see DbStorable::getTableName()
      */
@@ -221,7 +228,7 @@ class Faculty extends Model implements DbStorable {
      */
     public function getStreetAddress1()
     {
-        return $this->streetAddress1;
+        return $this->street_address1;
     }
 
     /**
@@ -230,7 +237,7 @@ class Faculty extends Model implements DbStorable {
      */
     public function setStreetAddress1($addr)
     {
-        $this->streetAddress1 = $addr;
+        $this->street_address1 = $addr;
     }
 
     /**
@@ -239,7 +246,7 @@ class Faculty extends Model implements DbStorable {
      */
     public function getStreetAddress2()
     {
-        return $this->streetAddress2;
+        return $this->street_address2;
     }
 
     /**
@@ -248,7 +255,7 @@ class Faculty extends Model implements DbStorable {
      */
     public function setStreetAddress2($addr)
     {
-        $this->streetAddress2 = $addr;
+        $this->street_address2 = $addr;
     }
 
     /**
