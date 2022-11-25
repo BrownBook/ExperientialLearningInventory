@@ -78,4 +78,4 @@ jobs:
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
       - name: Static Analysis using PHPStan
-        run: phpstan analyse --no-progress class/ --memory-limit 512M
+        run: vendir/bin/phpstan analyse --no-progress class/ --memory-limit 512M
