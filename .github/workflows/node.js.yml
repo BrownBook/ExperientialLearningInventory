@@ -4,8 +4,8 @@
 name: Build React Components
 on:
   workflow_call:
-  #push:
-  #  branches: '**'
+  push:
+    branches: ['main']
   pull_request:
     branches: ['main']
 
