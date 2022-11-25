@@ -77,23 +77,23 @@ class EmergencyContactRest {
 
         // Sanity checking
         if (is_null($internshipId) || !isset($internshipId)) {
-            throw new InvalidArgumentException('Missing internship ID.');
+            throw new \InvalidArgumentException('Missing internship ID.');
         }
 
         if (is_null($name) || !isset($name)) {
-            throw new InvalidArgumentException('Missing contact name.');
+            throw new \InvalidArgumentException('Missing contact name.');
         }
 
         if (is_null($relation) || !isset($relation)) {
-            throw new InvalidArgumentException('Missing contact relationship.');
+            throw new \InvalidArgumentException('Missing contact relationship.');
         }
 
         if (is_null($phone) || !isset($phone)) {
-            throw new InvalidArgumentException('Missing contact phone number.');
+            throw new \InvalidArgumentException('Missing contact phone number.');
         }
 
         if (is_null($email) || !isset($email)) {
-            throw new InvalidArgumentException('Missing contact email.');
+            throw new \InvalidArgumentException('Missing contact email.');
         }
 
         if ($_REQUEST['contactId'] != -1) {
@@ -135,11 +135,11 @@ class EmergencyContactRest {
 
         // Get the contactId parameter
         if(!isset($_REQUEST['contactId'])){
-            throw new InvalidArgumentException('Missing contact id.');
+            throw new \InvalidArgumentException('Missing contact id.');
         }
 
         if(!isset($_REQUEST['internshipId'])){
-            throw new InvalidArgumentException('Missing internship id.');
+            throw new \InvalidArgumentException('Missing internship id.');
         }
 
         $contactId = $_REQUEST['contactId'];

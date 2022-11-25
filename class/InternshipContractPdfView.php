@@ -20,6 +20,8 @@
 
 namespace Intern;
 
+use setasign\Fpdi\Fpdi;
+
 require_once PHPWS_SOURCE_DIR . 'mod/intern/vendor/autoload.php';
 
 /**
@@ -70,7 +72,8 @@ class InternshipContractPdfView {
      */
     private function generatePdf()
     {
-        $this->pdf = new \setasign\Fpdi\Fpdi('P', 'mm', 'Letter');
+        // @phpstan-ignore-next-line
+        $this->pdf = new Fpdi('P', 'mm', 'Letter');
         $a = $this->internship->getAgency();
         $d = $this->internship->getDepartment();
         $f = $this->internship->getFaculty();

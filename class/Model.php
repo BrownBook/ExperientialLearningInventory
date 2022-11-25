@@ -39,6 +39,8 @@ abstract class Model {
     /** Get an array that's ready to turn into CSV. * */
     abstract function getCSV();
 
+    abstract static function getDb();
+
     /**
      * Constructor. Load the model with given ID.
      */

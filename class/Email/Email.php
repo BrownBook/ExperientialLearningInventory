@@ -139,6 +139,7 @@ abstract class Email {
         }
 
         // Set up Swift Mailer message
+        // @phpstan-ignore-next-line
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
             ->setFrom(array($fromAddress => $fromName))
@@ -159,7 +160,9 @@ abstract class Email {
     protected static function sendSwiftMessage(\Swift_Message $message)
     {
         //Set up Swift Mailer delivery
+        // @phpstan-ignore-next-line
         $transport = \Swift_SmtpTransport::newInstance('localhost');
+        // @phpstan-ignore-next-line
         $mailer = \Swift_Mailer::newInstance($transport);
 
         // If we're not in test mode, actually send the message

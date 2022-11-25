@@ -1,0 +1,16 @@
+parameters:
+    level: 0
+    paths:
+        - index.php
+        - class/
+    bootstrapFiles:
+        - vendor/autoload.php
+    scanFiles:
+        - ../../core/class/PHPWS_Core.php
+    scanDirectories:
+        - ../../src
+        - ../../mod
+        - ../../lib
+        - ../../core/class
+        - ../../src-phpws2
+        - ../../src-phpws-legacy

@@ -41,14 +41,14 @@ class GetFacultyListForDept {
 
         if(is_null($department) || !isset($department))
         {
-          throw new Exceptiong('Department returned was null. Check department id.');
+          throw new \Exception('Department returned was null. Check department id.');
         }
 
         $faculty = FacultyFactory::getFacultyByDepartmentAssoc($department);
 
         if(is_null($faculty) || !isset($faculty))
         {
-          throw new Exceptiong('Faculty returned was null.');
+          throw new \Exception('Faculty returned was null.');
         }
 
         /*

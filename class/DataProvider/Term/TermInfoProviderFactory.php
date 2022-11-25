@@ -40,7 +40,7 @@ class TermInfoProviderFactory {
     public static function getProvider(): TermInfoProvider
     {
         if(STUDENT_DATA_TEST){
-            return new TestWebServiceTermProvider(\Current_User::getUsername());
+            return new TestWebServiceTermInfoProvider(\Current_User::getUsername());
         }
 
         $providerName = InternSettings::getInstance()->getStudentDataSource();

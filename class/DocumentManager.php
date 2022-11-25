@@ -66,7 +66,7 @@ class DocumentManager extends \FC_Document_Manager {
 
         \PHPWS_Core::initCoreClass('File.php');
 
-        $form = new \PHPWS_FORM;
+        $form = new \PHPWS_Form();
         $form->addHidden('module', 'intern');
         $form->addHidden('internship', $_REQUEST['internship']);
         $form->addHidden('action', 'post_document_upload');
@@ -98,7 +98,7 @@ class DocumentManager extends \FC_Document_Manager {
 
         $form->setExtra('upload', 'onclick="this.style.display=\'none\'"');
 
-        if ($this->document->id && Current_User::allow('filecabinet', 'edit_folders', $this->folder->id, 'folder', true)) {
+        if ($this->document->id && \Current_User::allow('filecabinet', 'edit_folders', $this->folder->id, 'folder', true)) {
             \Cabinet::moveToForm($form, $this->folder);
         }
 

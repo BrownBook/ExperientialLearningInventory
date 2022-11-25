@@ -134,6 +134,6 @@ class LocalDbStudentDataProvider extends StudentDataProvider {
 
     public function getFacultyMember($facultyId)
     {
-
+        return new \stdClass();
     }
 }
