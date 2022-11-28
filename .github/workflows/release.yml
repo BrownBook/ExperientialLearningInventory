@@ -7,7 +7,7 @@ on:
     tags: ['v*'] # Push events to matching v*, i.e. v1.0, v20.15.10
 
 jobs:
-  buildReact:
+  buildRelease:
     #uses: BrownBook/ExperientialLearningInventory/.github/workflows/node.js.yml@main
     runs-on: ubuntu-latest
 
@@ -26,17 +26,6 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm test
-
-  buildPhp:
-    #uses: BrownBook/ExperientialLearningInventory/.github/workflows/php.yml@main
-    strategy:
-      matrix:
-        php-versions: ['7.2']
-        #php-versions: ['7.1', '7.4', '8.0', '8.1']
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
 
       # Docs: https://github.com/shivammathur/setup-php
       - name: Setup PHP
@@ -66,14 +55,9 @@ jobs:
       - name: Test with phpunit
         run: vendor/bin/phpunit --coverage-text
 
-  release:
-    needs: [buildReact, buildPHP]
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Create Artifact
-        # run: rm -rf node_modules && tar -czf ExperientialLearningInventory-${{ github.ref_name }}.tar.gz boost class contrib img inc javascript/dist templates vendor assets.json cli.php entryPoints.js index.php LICENSE
-        run: rm -rf node_modules && tar -czf ExperientialLearningInventory-${{ github.ref_name }}.tar.gz boost class contrib img inc javascript/dist templates assets.json cli.php entryPoints.js index.php LICENSE
+        run: rm -rf node_modules && tar -czf ExperientialLearningInventory-${{ github.ref_name }}.tar.gz boost class contrib img inc javascript/dist templates vendor assets.json cli.php entryPoints.js index.php LICENSE
+        # run: rm -rf node_modules && tar -czf ExperientialLearningInventory-${{ github.ref_name }}.tar.gz boost class contrib img inc javascript/dist templates assets.json cli.php entryPoints.js index.php LICENSE
 
       - name: Create Release
         id: create_release
