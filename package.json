@@ -1,5 +1,5 @@
 {
-  "name": "InternshipInventory",
+  "name": "experientiallearninginventory",
   "version": "0.1.8",
   "description": "Web app for tracking and approving student internships.",
   "main": "index.php",
@@ -44,14 +44,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/AppStateESS/InternshipInventory.git"
+    "url": "git://github.com:BrownBook/ExperientialLearningInventory.git"
   },
   "keywords": [
-    "internship"
+    "internship ooslp highered stateauth"
   ],
   "author": "Jeremy Booker, et al.",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/AppStateESS/InternshipInventory/issues"
+    "url": "https://github.com/BrownBook/ExperientialLearningInventory/issues"
   }
 }
