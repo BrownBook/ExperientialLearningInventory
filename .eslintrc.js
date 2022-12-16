@@ -12,7 +12,8 @@ module.exports = {
         'spaced-comment': 'off',
         semi: 'off',
         'no-multiple-empty-lines': 'off',
-        'space-before-function-paren': 'off'
+        'space-before-function-paren': 'off',
+        'multiline-ternary': 'off'
       }
     }
   ],
