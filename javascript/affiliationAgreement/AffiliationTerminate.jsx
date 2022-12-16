@@ -1,94 +1,105 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-
+import PropTypes from 'prop-types';
 
 class TerminateButton extends React.Component {
-    constructor(props){
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.clicked = this.clicked.bind(this);
-    }
-    clicked() {
-        this.props.clicked();
-    }
-    render() {
-        var btnClass;
-        var btnText;
-        var btnAwesome;
+    this.clicked = this.clicked.bind(this);
+  }
 
-        if(this.props.terminated === 0){
-            btnClass = "btn btn-danger pull-right";
-            btnText = "Terminate ";
-            btnAwesome = "fa fa-times";
-        }else{
-            btnClass = "btn btn-info pull-right";
-            btnText = "Reinstate ";
-            btnAwesome = "fa fa-recycle";
-        }
+  clicked() {
+    this.props.clicked();
+  }
 
-        return(
-            <div className="terminateButton">
-                <a onClick={this.clicked} className={btnClass}>
-                    <i className={btnAwesome}></i> {btnText}
-                </a>
-            </div>
-        );
+  render() {
+    let btnClass;
+    let btnText;
+    let btnAwesome;
+
+    if (this.props.terminated === 0) {
+      btnClass = 'btn btn-danger pull-right';
+      btnText = 'Terminate ';
+      btnAwesome = 'fa fa-times';
+    } else {
+      btnClass = 'btn btn-info pull-right';
+      btnText = 'Reinstate ';
+      btnAwesome = 'fa fa-recycle';
     }
+
+    return (
+      <div className="terminateButton">
+        <a onClick={this.clicked} className={btnClass}>
+          <i className={btnAwesome}></i> {btnText}
+        </a>
+      </div>
+    );
+  }
 }
 
+TerminateButton.propTypes = {
+  clicked: PropTypes.func.isRequired,
+  terminated: PropTypes.bool.isRequired
+};
 
 class TerminateBox extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {agreement: null};
+  constructor(props) {
+    super(props);
+    this.state = { agreement: null };
 
-      this.getData = this.getData.bind(this);
-      this.clicked = this.clicked.bind(this);
-    }
-    componentDidMount(){
+    this.getData = this.getData.bind(this);
+    this.clicked = this.clicked.bind(this);
+  }
+
+  componentDidMount() {
+    this.getData();
+  }
+
+  getData() {
+    $.ajax({
+      url: 'index.php?module=intern&action=AffiliateRest&affiliation_agreement_id=' + this.props.affiliationId,
+      type: 'GET',
+      dataType: 'json',
+      success: function (data) {
+        this.setState({ agreement: data });
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  }
+
+  clicked() {
+    $.ajax({
+      url: 'index.php?module=intern&action=AffiliateRest&affiliation_agreement_id=' + this.props.affiliationId,
+      type: 'POST',
+      success: function () {
         this.getData();
-    }
-    getData(){
-        $.ajax({
-            url: 'index.php?module=intern&action=AffiliateRest&affiliation_agreement_id='+this.props.affiliationId,
-            type: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                this.setState({agreement: data});
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
-        });
-    }
-    clicked(){
-        $.ajax({
-            url:'index.php?module=intern&action=AffiliateRest&affiliation_agreement_id='+this.props.affiliationId,
-            type: 'POST',
-            success:function(){
-                this.getData();
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
-        });
-    }
-    render() {
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  }
 
-        if(this.state.agreement == null){
-            return (<div></div>);
-        }
-
-        return(
-            <div>
-                <TerminateButton clicked={this.clicked} terminated={this.state.agreement.terminated} />
-            </div>
-        );
+  render() {
+    if (this.state.agreement == null) {
+      return <div></div>;
     }
+
+    return (
+      <div>
+        <TerminateButton clicked={this.clicked} terminated={this.state.agreement.terminated} />
+      </div>
+    );
+  }
 }
 
+TerminateBox.propTypes = {
+  affiliationId: PropTypes.number.isRequired,
+  url: PropTypes.string
+};
 
-ReactDOM.render(<TerminateBox affiliationId={window.aaId}/>,
-    document.getElementById('terminate')
-);
+ReactDOM.render(<TerminateBox affiliationId={window.aaId} />, document.getElementById('terminate'));
