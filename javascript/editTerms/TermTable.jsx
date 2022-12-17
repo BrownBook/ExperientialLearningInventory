@@ -27,25 +27,23 @@ class TermTable extends React.Component {
   render() {
     let termRows = null;
     if (this.props.termData != null) {
-      termRows = this.props.termData.map(
-        function (data) {
-          return (
-            <TermRow
-              key={data.term}
-              tcode={data.term}
-              stype={data.semester_type}
-              descr={data.description}
-              census={data.census_date_timestamp}
-              available={data.available_on_timestamp}
-              start={data.start_timestamp}
-              end={data.end_timestamp}
-              ugradOver={data.undergrad_overload_hours}
-              gradOver={data.grad_overload_hours}
-              onTermSave={this.props.onTermSave}
-            />
-          );
-        }.bind(this)
-      );
+      termRows = this.props.termData.map(data => {
+        return (
+          <TermRow
+            key={data.term}
+            tcode={data.term}
+            stype={data.semester_type}
+            descr={data.description}
+            census={data.census_date_timestamp}
+            available={data.available_on_timestamp}
+            start={data.start_timestamp}
+            end={data.end_timestamp}
+            ugradOver={data.undergrad_overload_hours}
+            gradOver={data.grad_overload_hours}
+            onTermSave={this.props.onTermSave}
+          />
+        );
+      });
     } else {
       // TODO: loading spinner
       termRows = null;
