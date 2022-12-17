@@ -20,7 +20,7 @@ module.exports = {
     editExpectedCourses: JS_DIR + '/editCourses/courseEditor.jsx',
     majorSelector: JS_DIR + '/majorSelector/MajorSelector.jsx',
     adminSettings: JS_DIR + '/settings/settings.jsx',
-    editTerms: JS_DIR + '/editTerms/EditTerms.jsx',
+    editTerms: JS_DIR + '/editTerms/TermEditor.jsx',
     vendor: ['jquery', 'react', 'react-dom', 'react-bootstrap']
   }
 };

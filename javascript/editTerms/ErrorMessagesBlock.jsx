@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /**
  * This file is part of Internship Inventory.
@@ -20,35 +21,40 @@ import React from 'react';
  */
 
 class ErrorMessagesBlock extends React.Component {
-    render() {
-        if (this.props.errors === null) {
-            return '';
-        }
-
-        var errors = this.props.errors; // The error or success message.
-
-        // If this is an error notification.
-        if (this.props.messageType === "error") {
-            return (
-                <div className="row">
-                    <div className="alert alert-warning" role="alert">
-                        <strong>Warning! </strong> {errors}
-                    </div>
-                </div>
-            );
-        }
-        // If this is a succes notification.
-        else if (this.props.messageType === "success") {
-            return (
-                <div className="row">
-                    <div className="alert alert-success alert-dismissable" role="alert">
-                        <strong>Success! </strong> {errors}
-                        <button type="button" className="close close-alert" data-dismiss="alert" aria-hidden="true">x</button>
-                    </div>
-                </div>
-            );
-        }
+  render() {
+    if (this.props.errors === null) {
+      return '';
     }
+
+    // If this is an error notification.
+    if (this.props.messageType === 'error') {
+      return (
+        <div className="row">
+          <div className="alert alert-warning" role="alert">
+            <strong>Warning! </strong> {this.props.errors}
+          </div>
+        </div>
+      );
+
+      // If this is a succes notification.
+    } else if (this.props.messageType === 'success') {
+      return (
+        <div className="row">
+          <div className="alert alert-success alert-dismissable" role="alert">
+            <strong>Success! </strong> {this.props.errors}
+            <button type="button" className="close close-alert" data-dismiss="alert" aria-hidden="true">
+              x
+            </button>
+          </div>
+        </div>
+      );
+    }
+  }
 }
+
+ErrorMessagesBlock.propTypes = {
+  errors: PropTypes.string,
+  messageType: PropTypes.string
+};
 
 export default ErrorMessagesBlock;
