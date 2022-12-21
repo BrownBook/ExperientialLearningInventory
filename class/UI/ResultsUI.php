@@ -119,7 +119,7 @@ class ResultsUI implements UI
 
 
         // If there were no results, send the user back to the search interface
-        if (sizeof($pager->display_rows) == 0) {
+        if ($pager->display_rows === null) {
             \NQ::simple('intern', NotifyUI::WARNING, "There were no internships that matched your search criteria. If you're looking for a specific student double check the student's name, id number, or email address. Otherwise, try selecting fewer search criteria and then search again.");
             \NQ::close();
 
