@@ -243,7 +243,7 @@ class CreateInternshipInterface extends React.Component {
     }
 
     return (
-      <form role="form" id="newInternshipForm" className="form-protected" action="index.php" method="post" onSubmit={this.handleSubmit}>
+      <form id="newInternshipForm" className="form-protected" action="index.php" method="post" onSubmit={this.handleSubmit}>
         <input type="hidden" name="module" value="intern" />
         <input type="hidden" name="action" value="AddInternship" />
 
@@ -263,6 +263,11 @@ class CreateInternshipInterface extends React.Component {
       </form>
     );
   }
+}
+
+if (process.env.NODE_ENV !== 'production') {
+  const axe = require('@axe-core/react');
+  axe(React, ReactDOM, 1000);
 }
 
 ReactDOM.render(<CreateInternshipInterface />, document.getElementById('createInternshipInterface'));
