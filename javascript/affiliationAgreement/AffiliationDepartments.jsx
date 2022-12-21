@@ -107,7 +107,8 @@ class DepartmentDropdown extends React.Component {
     return (
       <div>
         <div className="form-group">
-          <select className="form-control" ref={this.deptChoices}>
+          <label htmlFor="departmentDropDown">Departments:</label>
+          <select id="departmentDropDown" className="form-control" ref={this.deptChoices}>
             <option value="-1">Select a Department</option>
             {selectOptions}
           </select>

@@ -41,7 +41,7 @@ class TerminateButton extends React.Component {
 
 TerminateButton.propTypes = {
   clicked: PropTypes.func.isRequired,
-  terminated: PropTypes.bool.isRequired
+  terminated: PropTypes.number.isRequired
 };
 
 class TerminateBox extends React.Component {
@@ -101,5 +101,10 @@ TerminateBox.propTypes = {
   affiliationId: PropTypes.number.isRequired,
   url: PropTypes.string
 };
+
+if (process.env.NODE_ENV !== 'production') {
+  const axe = require('@axe-core/react');
+  axe(React, ReactDOM, 1000);
+}
 
 ReactDOM.render(<TerminateBox affiliationId={window.aaId} />, document.getElementById('terminate'));
