@@ -34,7 +34,7 @@ class DepartmentList extends React.Component {
 }
 
 DepartmentList.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.any.isRequired,
   name: PropTypes.string.isRequired
 };
 
