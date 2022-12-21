@@ -74,7 +74,7 @@ CourseRow.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   abbr: PropTypes.string.isRequired,
-  cnum: PropTypes.string.isRequired,
+  cnum: PropTypes.number.isRequired,
   deleteCourse: PropTypes.func.isRequired
 };
 
@@ -107,7 +107,7 @@ class CourseList extends React.Component {
 }
 
 CourseList.propTypes = {
-  subjectData: PropTypes.array.isRequired,
+  subjectData: PropTypes.array,
   deleteCourse: PropTypes.func.isRequired
 };
 
@@ -156,8 +156,8 @@ class CreateCourse extends React.Component {
         <div className="panel-body">
           <div className="row">
             <div className="col-md-6">
-              <label>Subjects:</label>
-              <select className="form-control" onChange={this.handleDrop}>
+              <label htmlFor="subjectDropdown">Subjects:</label>
+              <select id="subjectDropdown" className="form-control" onChange={this.handleDrop}>
                 {Object.keys(this.props.subjects).map(
                   function (key) {
                     return (
@@ -190,7 +190,7 @@ class CreateCourse extends React.Component {
 }
 
 CreateCourse.propTypes = {
-  subjects: PropTypes.array.isRequired,
+  subjects: PropTypes.object.isRequired,
   saveCourse: PropTypes.func.isRequired
 };
 
@@ -222,8 +222,8 @@ class CourseSelector extends React.Component {
       }.bind(this),
       error: function (xhr, status, err) {
         alert('Failed to grab subject data.');
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
+        console.error(status, err.toString());
+      }
     });
   }
 
@@ -285,8 +285,12 @@ class CourseSelector extends React.Component {
 }
 
 CourseSelector.propTypes = {
-  url: PropTypes.string.isRequired,
-  subjects: PropTypes.array.isRequired
+  subjects: PropTypes.object.isRequired
 };
+
+if (process.env.NODE_ENV !== 'production') {
+  const axe = require('@axe-core/react');
+  axe(React, ReactDOM, 1000);
+}
 
 ReactDOM.render(<CourseSelector subjects={window.subjects} />, document.getElementById('edit_courses'));
