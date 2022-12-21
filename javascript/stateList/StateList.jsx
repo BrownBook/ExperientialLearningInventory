@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import PropTypes from 'prop-types';
 
-class StateList extends React.Component {
+class StateDropDownItem extends React.Component {
   // Disables/Enables the state in the dropdown
   render() {
     let optionSelect = null;
@@ -21,32 +21,33 @@ class StateList extends React.Component {
   }
 }
 
-StateList.propTypes = {
+StateDropDownItem.propTypes = {
   active: PropTypes.any,
   sAbbr: PropTypes.string,
   stateName: PropTypes.string
 };
 
-class TableStates extends React.Component {
+class StateTableRow extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick() {
-    this.props.onStateDelete(this.props.sAbbr);
+    this.props.onStateDelete(this.props.stateObj.sAbbr);
   }
 
   // If the state is active rendering the html elements otherwise do nothing.
   render() {
+    console.log('stateObj props', this.props.stateObj);
     let row1 = '';
     let row2 = '';
 
-    if (this.props.active === 1) {
-      row1 = <td>{this.props.stateName}</td>;
+    if (this.props.stateObj.active === 1) {
+      row1 = <td>{this.props.stateObj.full_name}</td>;
       row2 = (
         <td>
-          <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={this.handleClick}>
+          <button type="button" className="close" aria-label="Remove" onClick={this.handleClick}>
             <span aria-hidden="true">&times;</span>
           </button>
         </td>
@@ -62,11 +63,13 @@ class TableStates extends React.Component {
   }
 }
 
-TableStates.propTypes = {
+StateTableRow.propTypes = {
   onStateDelete: PropTypes.func,
-  active: PropTypes.any,
-  stateName: PropTypes.string,
-  sAbbr: PropTypes.string
+  stateObj: PropTypes.shape({
+    active: PropTypes.any,
+    full_name: PropTypes.string,
+    sAbbr: PropTypes.string
+  })
 };
 
 class States extends React.Component {
@@ -169,29 +172,25 @@ class States extends React.Component {
   }
 
   render() {
-    let states = null;
+    let dropDownOptions = null;
 
     if (this.state.dropData != null) {
-      states = this.state.dropData.map(function (data) {
-        return <StateList key={data.abbr} sAbbr={data.abbr} stateName={data.full_name} active={data.active} />;
+      dropDownOptions = this.state.dropData.map(function (data) {
+        return <StateDropDownItem key={data.abbr} sAbbr={data.abbr} stateName={data.full_name} active={data.active} />;
       });
     } else {
-      states = '';
+      dropDownOptions = '';
     }
 
-    let row = null;
-    if (this.state.dropData != null) {
-      const onStateDelete = this.onStateDelete;
-      row = this.state.dropData.map(function (data) {
-        return <TableStates key={data.abbr} sAbbr={data.abbr} stateName={data.full_name} active={data.active} onStateDelete={onStateDelete} />;
-      });
-    } else {
-      row = (
-        <tr>
-          <td></td>
-        </tr>
-      );
-    }
+    // Filter state list to just those enabled
+    const enabledStates = this.state.dropData?.filter(state => {
+      return state.active;
+    });
+
+    // Loop over enabled states to make the list
+    const rows = enabledStates?.map(stateObj => {
+      return <StateTableRow key={stateObj.abbr} stateObj={stateObj} onStateDelete={this.onStateDelete} />;
+    });
 
     return (
       <div className="State List">
@@ -200,7 +199,7 @@ class States extends React.Component {
             <div className="col-md-6">
               <label>States:</label>
               <select className="form-control" onChange={this.handleDrop}>
-                {states}
+                {dropDownOptions}
               </select>
               <br />
               <div className="panel panel-default">
@@ -212,7 +211,7 @@ class States extends React.Component {
                         <th />
                       </tr>
                     </thead>
-                    <tbody>{row}</tbody>
+                    <tbody>{rows}</tbody>
                   </table>
                 </div>
               </div>
