@@ -125,7 +125,7 @@ class AffiliateList extends React.Component {
       searchName: '',
       textData: '',
       sortBy: '',
-      showFilter: ''
+      showFilter: 'all' // Show all agreements by default
     };
 
     this.getData = this.getData.bind(this);
@@ -133,7 +133,7 @@ class AffiliateList extends React.Component {
     this.onSearchListChange = this.onSearchListChange.bind(this);
     this.searchListByDept = this.searchListByDept.bind(this);
     this.onSortByChange = this.onSortByChange.bind(this);
-    this.onShow = this.onShow.bind(this);
+    this.onFilterChange = this.onFilterChange.bind(this);
     this.updateDisplayData = this.updateDisplayData.bind(this);
   }
 
@@ -154,8 +154,8 @@ class AffiliateList extends React.Component {
       }.bind(this),
       error: function (xhr, status, err) {
         alert('Failed to grab displayed data.');
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
+        console.error(status, err.toString());
+      }
     });
   }
 
@@ -171,8 +171,8 @@ class AffiliateList extends React.Component {
       }.bind(this),
       error: function (xhr, status, err) {
         alert('Failed to grab deptartment data.');
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
+        console.error(status, err.toString());
+      }
     });
   }
 
@@ -224,8 +224,8 @@ class AffiliateList extends React.Component {
       }.bind(this),
       error: function (xhr, status, err) {
         alert('Failed to grab searched list.');
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
+        console.error(status, err.toString());
+      }
     });
   }
 
@@ -281,7 +281,7 @@ class AffiliateList extends React.Component {
     return sorted;
   }
 
-  onShow(e) {
+  onFilterChange(e) {
     // Saves filter option.
     const option = e.target.value;
     this.setState({ showFilter: option });
@@ -366,6 +366,26 @@ class AffiliateList extends React.Component {
       dData = '';
     }
 
+    console.log(this.state.showFilter);
+
+    const filterAllClassnames = classNames({
+      btn: true,
+      'btn-default': true,
+      active: this.state.showFilter === 'all'
+    });
+
+    const filterActiveClassnames = classNames({
+      btn: true,
+      'btn-default': true,
+      active: this.state.showFilter === 'active'
+    });
+
+    const filterExpiredClassnames = classNames({
+      btn: true,
+      'btn-default': true,
+      active: this.state.showFilter === 'expired'
+    });
+
     let errors;
     if (this.state.errorWarning == null) {
       errors = '';
@@ -397,22 +417,22 @@ class AffiliateList extends React.Component {
         <div className="row">
           <div className="col-md-3">
             <div className="input-group">
-              <label>Search by Name</label>
-              <input type="text" className="form-control" placeholder="Search for..." onChange={this.onSearchListChange} />
+              <label htmlFor="filterByName">Search by Name</label>
+              <input type="text" id="filterByName" className="form-control" placeholder="Search for..." onChange={this.onSearchListChange} />
             </div>
           </div>
           <div className="col-md-3">
             <div className="form-group">
-              <label>Search by Department</label>
-              <select className="form-control" onChange={this.searchListByDept}>
+              <label htmlFor="filterByDepartment">Search by Department</label>
+              <select id="filterByDepartment" className="form-control" onChange={this.searchListByDept}>
                 {dData}
               </select>
             </div>
           </div>
           <div className="col-md-3">
             <div className="form-group">
-              <label>Sort By</label>
-              <select className="form-control" onChange={this.onSortByChange} value={this.state.value}>
+              <label htmlFor="sortByDropdown">Sort By</label>
+              <select id="sortByDropdown" className="form-control" onChange={this.onSortByChange} value={this.state.value}>
                 <option value="-1">Select an option</option>
                 <option value="sortByAZ">Name: A-Z</option>
                 <option value="sortByZA">Name: Z-A</option>
@@ -423,17 +443,14 @@ class AffiliateList extends React.Component {
           </div>
           <div className="col-md-3">
             <label className="control-label">Filter</label> <br />
-            <div className="btn-group" data-toggle="buttons" onClick={this.onShow} value={this.state.value}>
-              <button className="btn btn-default" value="all">
-                <input type="radio" />
+            <div className="btn-group" onClick={this.onFilterChange} value={this.state.value} role="group" aria-label="agreement status filter">
+              <button className={filterAllClassnames} value="all">
                 All
               </button>
-              <button className="btn btn-default" value="active">
-                <input type="radio" />
+              <button className={filterActiveClassnames} value="active">
                 Active
               </button>
-              <button className="btn btn-default" value="expired">
-                <input type="radio" />
+              <button className={filterExpiredClassnames} value="expired">
                 Expired
               </button>
             </div>
@@ -458,8 +475,9 @@ class AffiliateList extends React.Component {
   }
 }
 
-AffiliateList.propTypes = {
-  url: PropTypes.string.isRequired
-};
+if (process.env.NODE_ENV !== 'production') {
+  const axe = require('@axe-core/react');
+  axe(React, ReactDOM, 1000);
+}
 
 ReactDOM.render(<AffiliateList />, document.getElementById('AffiliateList'));
