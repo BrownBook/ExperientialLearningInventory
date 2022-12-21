@@ -39,37 +39,29 @@ class StateTableRow extends React.Component {
 
   // If the state is active rendering the html elements otherwise do nothing.
   render() {
-    console.log('stateObj props', this.props.stateObj);
-    let row1 = '';
-    let row2 = '';
-
-    if (this.props.stateObj.active === 1) {
-      row1 = <td>{this.props.stateObj.full_name}</td>;
-      row2 = (
-        <td>
-          <button type="button" className="close" aria-label="Remove" onClick={this.handleClick}>
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </td>
-      );
-    }
-
     return (
       <tr>
-        {row1}
-        {row2}
+        <td>
+          {this.props.stateObj.full_name}
+          <span className="pull-right">
+            <button type="button" className="close" aria-label="Remove" onClick={this.handleClick}>
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </span>
+        </td>
+        <td></td>
       </tr>
     );
   }
 }
 
 StateTableRow.propTypes = {
-  onStateDelete: PropTypes.func,
   stateObj: PropTypes.shape({
-    active: PropTypes.any,
     full_name: PropTypes.string,
-    sAbbr: PropTypes.string
-  })
+    sAbbr: PropTypes.string,
+    active: PropTypes.any
+  }),
+  onStateDelete: PropTypes.func
 };
 
 class States extends React.Component {
@@ -197,8 +189,8 @@ class States extends React.Component {
         <div className="col-md-5 col-md-offset-1">
           <div className="row">
             <div className="col-md-6">
-              <label>States:</label>
-              <select className="form-control" onChange={this.handleDrop}>
+              <label htmlFor="stateDropDown">States:</label>
+              <select id="stateDropDown" className="form-control" onChange={this.handleDrop}>
                 {dropDownOptions}
               </select>
               <br />
@@ -208,7 +200,6 @@ class States extends React.Component {
                     <thead>
                       <tr>
                         <th>Allowed States:</th>
-                        <th />
                       </tr>
                     </thead>
                     <tbody>{rows}</tbody>
@@ -226,5 +217,10 @@ class States extends React.Component {
 States.propTypes = {
   url: PropTypes.string
 };
+
+if (process.env.NODE_ENV !== 'production') {
+  const axe = require('@axe-core/react');
+  axe(React, ReactDOM, 1000);
+}
 
 ReactDOM.render(<States />, document.getElementById('content'));
