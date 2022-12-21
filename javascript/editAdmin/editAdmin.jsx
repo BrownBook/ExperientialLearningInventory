@@ -319,8 +319,8 @@ class SearchAdmin extends React.Component {
               <div className="panel-body">
                 <div className="row">
                   <div className="col-md-6">
-                    <label>Department:</label>
-                    <select className="form-control" onChange={this.handleDrop}>
+                    <label htmlFor="departmentDropDown">Department:</label>
+                    <select id="departmentDropDown" className="form-control" onChange={this.handleDrop}>
                       {dData}
                     </select>
                   </div>
@@ -354,7 +354,7 @@ class SearchAdmin extends React.Component {
                   <th>Fullname</th>
                   <th>Username</th>
                   <th>Department</th>
-                  <th></th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>{AdminsData}</tbody>
@@ -369,5 +369,10 @@ class SearchAdmin extends React.Component {
 SearchAdmin.propTypes = {
   url: PropTypes.string
 };
+
+if (process.env.NODE_ENV !== 'production') {
+  const axe = require('@axe-core/react');
+  axe(React, ReactDOM, 1000);
+}
 
 ReactDOM.render(<SearchAdmin />, document.getElementById('content'));
