@@ -357,16 +357,14 @@ class AffiliateList extends React.Component {
       );
     }
 
-    let dData = null;
+    let departmentDropDownItems = null;
     if (this.state.deptData != null) {
-      dData = this.state.deptData.map(function (dept) {
+      departmentDropDownItems = this.state.deptData.map(function (dept) {
         return <DepartmentList key={dept.id} name={dept.name} id={dept.id} />;
       });
     } else {
-      dData = '';
+      departmentDropDownItems = '';
     }
-
-    console.log(this.state.showFilter);
 
     const filterAllClassnames = classNames({
       btn: true,
@@ -425,7 +423,7 @@ class AffiliateList extends React.Component {
             <div className="form-group">
               <label htmlFor="filterByDepartment">Search by Department</label>
               <select id="filterByDepartment" className="form-control" onChange={this.searchListByDept}>
-                {dData}
+                {departmentDropDownItems}
               </select>
             </div>
           </div>

@@ -97,7 +97,8 @@ class LocationDropdown extends React.Component {
     return (
       <div className="LocationDropdown">
         <div className="form-group">
-          <select className="form-control" ref={this.locChoices}>
+          <label htmlFor="locationDropDown">Locations:</label>
+          <select id="locationDropDown" className="form-control" ref={this.locChoices}>
             <option value="-1">Select a State</option>
             {selectOptions}
           </select>
