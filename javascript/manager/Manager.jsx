@@ -123,7 +123,7 @@ class DisplayData extends React.Component {
       //var eName = 'Save';
       text = (
         <div id={this.props.id}>
-          <input type="text" className="form-control" defaultValue={this.props.name} ref={this.savedDataRef} />
+          <input type="text" className="form-control" aria-label="Name" defaultValue={this.props.name} ref={this.savedDataRef} />
         </div>
       );
 
