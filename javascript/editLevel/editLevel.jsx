@@ -50,7 +50,7 @@ class AddData extends React.Component {
           <div className="panel-body">
             <div className="row">
               <div className="col-md-10">
-                <label>Code:</label>
+                <label htmlFor="codeName">Code:</label>
               </div>
             </div>
             <div className="row">
@@ -62,7 +62,7 @@ class AddData extends React.Component {
             </div>
             <div className="row">
               <div className="col-md-10">
-                <label>Description:</label>
+                <label htmlFor="desName">Description:</label>
               </div>
             </div>
             <div className="row">
@@ -74,7 +74,7 @@ class AddData extends React.Component {
             </div>
             <div className="row">
               <div className="col-md-10">
-                <label>Level:</label>
+                <label htmlFor="levName">Level:</label>
               </div>
             </div>
             <div className="row">
@@ -141,12 +141,12 @@ class DisplayData extends React.Component {
     if (this.state.editMode) {
       textDes = (
         <div id={this.props.description}>
-          <input type="text" className="form-control" defaultValue={this.props.description} ref={this.descriptionRef} />
+          <input type="text" className="form-control" aria-label="Level Description" defaultValue={this.props.description} ref={this.descriptionRef} />
         </div>
       );
       textLev = (
         <div id={this.props.level}>
-          <input type="text" className="form-control" defaultValue={this.props.level} ref={this.levelRef} />
+          <input type="text" className="form-control" aria-label="Level Code" defaultValue={this.props.level} ref={this.levelRef} />
         </div>
       );
       eButton = (
@@ -183,7 +183,7 @@ DisplayData.propTypes = {
   onSave: PropTypes.func.isRequired
 };
 
-class Manager extends React.Component {
+class StudentLevelManager extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = { mainData: null, errorWarning: '', success: '' };
@@ -207,8 +207,8 @@ class Manager extends React.Component {
       }.bind(this),
       error: function (xhr, status, err) {
         alert('There was a problem fetching data from the server.');
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
+        console.error(status, err.toString());
+      }
     });
   }
 
@@ -296,23 +296,21 @@ class Manager extends React.Component {
                   <th>Description</th>
                   <th>Level</th>
                   <th>Options</th>
-                  <th></th>
                 </tr>
               </thead>
               <tbody>{data}</tbody>
             </table>
           </div>
-          <AddData onCreate={this.onCreate} buttonTitle={this.props.buttonTitle} panelTitle={this.props.panelTitle} />
+          <AddData onCreate={this.onCreate} />
         </div>
       </div>
     );
   }
 }
 
-Manager.propTypes = {
-  url: PropTypes.string.isRequired,
-  buttonTitle: PropTypes.string.isRequired,
-  panelTitle: PropTypes.string.isRequired
-};
+ReactDOM.render(<StudentLevelManager />, document.getElementById('level'));
 
-ReactDOM.render(<Manager />, document.getElementById('level'));
+if (process.env.NODE_ENV !== 'production') {
+  const axe = require('@axe-core/react');
+  axe(React, ReactDOM, 1000);
+}
