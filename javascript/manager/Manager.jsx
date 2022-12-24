@@ -25,13 +25,13 @@ class AddData extends React.Component {
           <div className="panel-body">
             <div className="row">
               <div className="col-md-10">
-                <label>{this.props.panelTitle}</label>
+                <label htmlFor="addTextBox">{this.props.panelTitle}</label>
               </div>
             </div>
             <div className="row">
               <div className="col-md-8">
                 <div className="form-group">
-                  <input type="text" className="form-control" ref={this.addDataRef} />
+                  <input type="text" id="addTextBox" className="form-control" ref={this.addDataRef} />
                 </div>
               </div>
 
@@ -148,8 +148,9 @@ class DisplayData extends React.Component {
     return (
       <tr>
         <td>{text}</td>
-        <td>{eButton}</td>
-        <td>{hButton}</td>
+        <td>
+          {eButton} {hButton}
+        </td>
       </tr>
     );
   }
@@ -192,7 +193,7 @@ class Manager extends React.Component {
       }.bind(this),
       error: function (xhr, status, err) {
         alert('Sorry, there was a problem fetching data from the server.');
-        console.error(this.props.url, status, err.toString());
+        console.error(this.props.ajaxURL, status, err.toString());
       }.bind(this)
     });
   }
@@ -213,7 +214,7 @@ class Manager extends React.Component {
       }.bind(this),
       error: function (xhr, status, err) {
         alert('Sorry, there was a problem fetching data from the server.');
-        console.error(this.props.url, status, err.toString());
+        console.error(this.props.ajaxURL, status, err.toString());
       }.bind(this)
     });
   }
@@ -237,7 +238,7 @@ class Manager extends React.Component {
       }.bind(this),
       error: function (xhr, status, err) {
         alert('Sorry, there was a problem fetching data from the server.');
-        console.error(this.props.url, status, err.toString());
+        console.error(this.props.ajaxURL, status, err.toString());
       }.bind(this)
     });
   }
@@ -308,7 +309,6 @@ class Manager extends React.Component {
                 <tr>
                   <th>Name</th>
                   <th>Options</th>
-                  <th></th>
                 </tr>
               </thead>
               <tbody>{data}</tbody>
@@ -322,7 +322,6 @@ class Manager extends React.Component {
 }
 
 Manager.propTypes = {
-  url: PropTypes.string,
   buttonTitle: PropTypes.string,
   panelTitle: PropTypes.string,
   title: PropTypes.string,
