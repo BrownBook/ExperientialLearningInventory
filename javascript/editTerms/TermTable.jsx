@@ -77,7 +77,7 @@ class TermTable extends React.Component {
 }
 
 TermTable.propTypes = {
-  termData: PropTypes.array.isRequired,
+  termData: PropTypes.array,
   onTermSave: PropTypes.func.isRequired
 };
 

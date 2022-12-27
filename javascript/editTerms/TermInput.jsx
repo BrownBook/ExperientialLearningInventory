@@ -213,8 +213,8 @@ class TermInput extends React.Component {
 
           <div className="col-sm-6">
             <div className="form-group">
-              <label>Semester Type:</label>
-              <select className="form-control" ref={this.stypeRef}>
+              <label htmlFor="semesterType">Semester Type:</label>
+              <select id="semesterType" className="form-control" ref={this.stypeRef}>
                 <option value="">Semester Type</option>
                 <option value="1">Spring</option>
                 <option value="2">Summer</option>
