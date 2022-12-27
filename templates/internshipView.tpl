@@ -1,54 +1,61 @@
 <script type="text/javascript">
-    $(document).ready(function() {
-        // Setup date pickers
-        $("#internship_start_date").datepicker();
-        $("#internship_end_date").datepicker();
-    });
+  $(document).ready(function() {
+    // Setup date pickers
+    $("#internship_start_date").datepicker();
+    $("#internship_end_date").datepicker();
+  });
 </script>
 
 <script type="text/javascript">
-    var internship = {INTERNSHIP_JSON};
+  var internship = {INTERNSHIP_JSON};
 </script>
 
 <h1>
   <i class="fa fa-edit"></i> Edit Experiential Learning Activity
 </h1>
 
-<form class="form-horizontal {FORM_CLASS}" id="{FORM_ID}" action="{FORM_ACTION}" autocomplete="{FORM_AUTOCOMPLETE}" method="{FORM_METHOD}"{FORM_ENCODE}>
+<form class="form-horizontal {FORM_CLASS}" id="{FORM_ID}" action="{FORM_ACTION}" autocomplete="{FORM_AUTOCOMPLETE}"
+  method="{FORM_METHOD}" {FORM_ENCODE}>
   {HIDDEN_FIELDS}
 
   <div class="form-group">
     <div class="col-lg-1 col-lg-offset-6">
-      <button type="submit" class="btn btn-primary" id="{SUBMIT_ID}">{SUBMIT_VALUE}</button>
+      <button type="submit" class="btn btn-primary" id="{SUBMIT_ID}1">{SUBMIT_VALUE}</button>
     </div>
 
     <div class="col-lg-1">
       <!-- BEGIN delete_btn -->
-      <a href="{DELETE_URL}" class="btn btn-danger-hover" onclick="return confirm('Are you sure you want to delete this internship?');">Delete</a>
+      <a href="{DELETE_URL}" class="btn btn-danger-hover"
+        onclick="return confirm('Are you sure you want to delete this internship?');">Delete</a>
       <!-- END delete_btn -->
     </div>
 
     <div class="col-lg-2">
-        <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-copy"></i> Continue This Activity <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <!-- BEGIN CONTINUE_TERM_LIST -->
-                <li><a href="index.php?module=intern&action=copyInternshipToNextTerm&internshipId={INTERN_ID}&destinationTerm={DEST_TERM}"><i class="fa fa-fast-forward"></i> Continue in {DEST_TERM_TEXT}</a></li>
-                <!-- END CONTINUE_TERM_LIST -->
+      <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          <i class="fa fa-copy"></i> Continue This Activity <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <!-- BEGIN CONTINUE_TERM_LIST -->
+          <li><a
+              href="index.php?module=intern&action=copyInternshipToNextTerm&internshipId={INTERN_ID}&destinationTerm={DEST_TERM}"><i
+                class="fa fa-fast-forward"></i> Continue in {DEST_TERM_TEXT}</a></li>
+          <!-- END CONTINUE_TERM_LIST -->
 
-                <!-- BEGIN CONTINUE_TERM_NO_TERMS -->
-                <li><a href="" class="text-muted" style="color:#777; pointer-events: none" disabled>{CONTINUE_TERM_NO_TERMS}</a></li>
-                <!-- END CONTINUE_TERM_NO_TERMS -->
-            </ul>
-        </div>
+          <!-- BEGIN CONTINUE_TERM_NO_TERMS -->
+          <li><a href="" class="text-muted" style="color:#777; pointer-events: none"
+              disabled>{CONTINUE_TERM_NO_TERMS}</a></li>
+          <!-- END CONTINUE_TERM_NO_TERMS -->
+        </ul>
+      </div>
     </div>
 
     <!-- BEGIN generateContractButton -->
     {GENERATE_CONTACT_BUTTON_ENABLE}
     <div class="col-lg-1 col-lg-offset-1">
-      <button type="button" id="contract-button" class="btn btn-default pull-right generateContract"><i class="fa fa-file"></i> Generate Contract</button>
+      <button type="button" id="contract-button" class="btn btn-default pull-right generateContract"><i
+          class="fa fa-file"></i> Generate Contract</button>
     </div>
     <!-- END generateContractButton -->
   </div>
@@ -62,7 +69,9 @@
 
         <div class="form-group">
           <label class="col-lg-3 control-label" for="bannerid">Banner Id</label>
-          <div id="bannerid" class="col-lg-6"><p class="form-control-static">{BANNER}</p></div>
+          <div id="bannerid" class="col-lg-6">
+            <p class="form-control-static">{BANNER}</p>
+          </div>
         </div>
 
         <div class="form-group required">
@@ -121,26 +130,34 @@
 
         <div class="form-group">
           <label class="col-lg-3 control-label" for="{STUDENT_GPA_ID}">GPA</label>
-          <div class="col-lg-6"><p class="form-control-static">{STUDENT_GPA}</p></div>
+          <div class="col-lg-6">
+            <p class="form-control-static">{STUDENT_GPA}</p>
+          </div>
         </div>
 
         <!-- BEGIN campus -->
         <div class="form-group">
-          <label class="col-lg-3 control-label" for="campus">Campus</label>
-          <div id="campus" class="col-lg-6"><p class="form-control-static">{CAMPUS}</p></div>
+          <label class="col-lg-3 control-label" for="{CAMPUS_ID}">Campus</label>
+          <div id="campus" class="col-lg-6">
+            <p class="form-control-static">{CAMPUS}</p>
+          </div>
         </div>
         <!-- END campus -->
 
         <div class="form-group">
           <label class="col-lg-3 control-label" for="level">Level</label>
-          <div id="level" class="col-lg-6"><p class="form-control-static">{LEVEL}</p></div>
+          <div id="level" class="col-lg-6">
+            <p class="form-control-static">{LEVEL}</p>
+          </div>
         </div>
 
         <div class="form-group">
           <label class="col-lg-3 control-label" for="{UGRAD_MAJOR_ID}{GRAD_MAJOR_ID}">Major / Program</label>
 
           <!-- BEGIN oneMajor -->
-          <div class="col-lg-8"><p class="form-control-static">{MAJOR}</p></div>
+          <div class="col-lg-8">
+            <p class="form-control-static">{MAJOR}</p>
+          </div>
           <!-- END oneMajor -->
 
           <div class="col-lg-8">
@@ -156,12 +173,16 @@
 
         <div class="form-group">
           <label class="col-lg-3 control-label" for="gradDate">Graduation Date</label>
-          <div id="gradDate" class="col-lg-6"><p class="form-control-static">{GRAD_DATE}</p></div>
+          <div id="gradDate" class="col-lg-6">
+            <p class="form-control-static">{GRAD_DATE}</p>
+          </div>
         </div>
 
         <div class="form-group">
           <label class="col-lg-3 control-label" for="credit-hours">Credit Hours</label>
-          <div id="credit-hours" class="col-lg-6"><p class="form-control-static">{ENROLLED_CREDIT_HORUS}</p></div>
+          <div id="credit-hours" class="col-lg-6">
+            <p class="form-control-static">{ENROLLED_CREDIT_HORUS}</p>
+          </div>
         </div>
 
         <!-- BEGIN BACK_ACTIVE -->
@@ -169,15 +190,15 @@
           <label class="col-lg-3 control-label" for="backgroundCheck">Background Check Needed?</label>
           <div class="col-lg-6">
             <!-- BEGIN back_check -->
-              <button type="button" class="btn btn-default" name="background_code" id="back_check_id" value="0">
-                {BACK_CHECK_REQUEST_BTN}
-              </button>
-              <!-- END back_check -->
-              <!-- BEGIN back_check_req -->
-              <button type="button" class="btn btn-default" name="background_code" id="back_check_id" value="1" disabled>
-                {BACK_CHECK_REQUESTED_BTN}
-              </button>
-              <!-- END back_check_req -->
+            <button type="button" class="btn btn-default" name="background_code" id="back_check_id" value="0">
+              {BACK_CHECK_REQUEST_BTN}
+            </button>
+            <!-- END back_check -->
+            <!-- BEGIN back_check_req -->
+            <button type="button" class="btn btn-default" name="background_code" id="back_check_id" value="1" disabled>
+              {BACK_CHECK_REQUESTED_BTN}
+            </button>
+            <!-- END back_check_req -->
           </div>
         </div>
         <!-- END BACK_ACTIVE -->
@@ -186,32 +207,32 @@
         <div class="form-group">
           <label class="col-lg-3 control-label" for="drugCheck">Drug Test Needed?</label>
           <div class="col-lg-6">
-              <!-- BEGIN drug_check -->
-              <button type="button" class="btn btn-default" name="drug_code" id="drug_check_id" value="0">
-                {DRUG_CHECK_REQUEST_BTN}
-              </button>
-              <!-- END drug_check -->
-              <!-- BEGIN drug_check_req -->
-              <button type="button" class="btn btn-default" name="drug_code" id="drug_check_id" value="1" disabled>
-                {DRUG_CHECK_REQUESTED_BTN}
-              </button>
-              <!-- END drug_check_req -->
+            <!-- BEGIN drug_check -->
+            <button type="button" class="btn btn-default" name="drug_code" id="drug_check_id" value="0">
+              {DRUG_CHECK_REQUEST_BTN}
+            </button>
+            <!-- END drug_check -->
+            <!-- BEGIN drug_check_req -->
+            <button type="button" class="btn btn-default" name="drug_code" id="drug_check_id" value="1" disabled>
+              {DRUG_CHECK_REQUESTED_BTN}
+            </button>
+            <!-- END drug_check_req -->
           </div>
-      </div>
-      <!-- END DRUG_ACTIVE -->
+        </div>
+        <!-- END DRUG_ACTIVE -->
 
       </fieldset>
 
       <!-- Emergency Contact Info -->
       <fieldset>
-          <legend>Emergency Contacts</legend>
-          <div class="row">
-              <!-- React Emergency Contact -->
-              <div class="col-md-12">
-                  <div id="emergency-contact-list"></div>
-              </div>
-
+        <legend>Emergency Contacts</legend>
+        <div class="row">
+          <!-- React Emergency Contact -->
+          <div class="col-md-12">
+            <div id="emergency-contact-list"></div>
           </div>
+
+        </div>
       </fieldset>
 
       <fieldset>
@@ -261,14 +282,17 @@
       <!-- BEGIN loc_state -->
       <div class="form-group">
         <div class="col-lg-3 control-label">
-          <label>State</label>
+          <label for="{LOC_STATE_ID}">State</label>
         </div>
-        <div class="col-lg-6"><p class="form-control-static">{LOC_STATE}</p></div>
+        <div class="col-lg-6">
+          <p class="form-control-static">{LOC_STATE}</p>
+        </div>
       </div>
       <!-- END loc_state -->
 
       <div class="form-group">
-        <label class="col-lg-3 control-label" for="{LOC_ZIP_ID}" id="internship_loc_zip-label">{LOC_ZIP_LABEL_TEXT}</label>
+        <label class="col-lg-3 control-label" for="{LOC_ZIP_ID}"
+          id="internship_loc_zip-label">{LOC_ZIP_LABEL_TEXT}</label>
         <div class="col-lg-6">{LOC_ZIP}</div>
       </div>
 
@@ -282,22 +306,26 @@
         <div class="col-lg-3 control-label">
           <label>Country</label>
         </div>
-        <div class="col-lg-6"><p class="form-control-static">{LOC_COUNTRY}</p></div>
+        <div class="col-lg-6">
+          <p class="form-control-static">{LOC_COUNTRY}</p>
+        </div>
       </div>
       <!-- END loc_country -->
 
       <h4>Term Information</h4>
       <div class="form-group">
         <div class="col-lg-3 control-label">
-            <label>Term</label>
-          </div>
-          <div class="col-lg-6">
-            <p class="form-control-static">{TERM}</p>
-          </div>
+          <label for="{TERM_ID}">Term</label>
+        </div>
+        <div class="col-lg-6">
+          <p class="form-control-static">{TERM}</p>
+        </div>
       </div>
 
       <div class="form-group">
-          <div class="col-lg-6 col-lg-push-3"><p class="form-control-static">{TERM_DATES}</p></div>
+        <div class="col-lg-6 col-lg-push-3">
+          <p class="form-control-static">{TERM_DATES}</p>
+        </div>
       </div>
 
       <div class="form-group">
@@ -327,7 +355,7 @@
       </div>
 
       <div class="form-group">
-        <label class="col-lg-3 control-label" for="{COURSE_SUBJ_ID}">{COURSE_SUBJ_LABEL_TEXT}</label>
+        <label class="col-lg-3 control-label" for="{COURSE_SUBJ_ID}">Subject</label>
         <div class="col-lg-6">{COURSE_SUBJ}</div>
       </div>
 
@@ -349,7 +377,7 @@
       </div>
 
       <div class="form-group">
-        <label class="col-lg-3 control-label" for="{CREDITS_ID}">{COURSE_TITLE_LABEL_TEXT}</label>
+        <label class="col-lg-3 control-label" for="{COURSE_TITLE_ID}">{COURSE_TITLE_LABEL_TEXT}</label>
         <div class="col-lg-6">
           {COURSE_TITLE} <span class="help-block"><small class="text-muted">(Limit 28 characters; Banner)</small></span>
         </div>
@@ -376,30 +404,37 @@
 
         <!-- Link to Informational Modal -->
         <div class="col-lg-3">
-          <a href="#typeModal" id="internship-type-help-button" class="pull-right"  data-toggle="modal"><i class="fa fa-question-circle"></i> Type Definitions</a>
+          <a href="#typeModal" id="internship-type-help-button" class="pull-right" data-toggle="modal"><i
+              class="fa fa-question-circle"></i> Type Definitions</a>
         </div>
 
         <!-- Informational Modal -->
-        <div id ="typeModal" class="modal fade" role="dialog">
+        <div id="typeModal" class="modal fade" role="dialog">
           <div class="modal-dialog">
-            <div class = "modal-content">
-              <div class = "modal-header">
+            <div class="modal-content">
+              <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h2>Internship Type Definitions</h2>
               </div>
               <div class="modal-body">
                 <div id="internship-type-help">
                   <h3>Student Teaching</h3>
-                  <p>A course requiring students to instruct or teach at an entity external to the institution, generally as part of the culminating curriculum of a teacher education or certificate program.</p>
+                  <p>A course requiring students to instruct or teach at an entity external to the institution,
+                    generally as part of the culminating curriculum of a teacher education or certificate program.</p>
 
                   <h3>Practicum</h3>
-                  <p>A course requiring students to participate in an approved project or proposal that practically applies previously studied theory of the field or discipline under the supervision of an expert or qualified representative of the field or discipline.</p>
+                  <p>A course requiring students to participate in an approved project or proposal that practically
+                    applies previously studied theory of the field or discipline under the supervision of an expert or
+                    qualified representative of the field or discipline.</p>
 
                   <h3>Clinical</h3>
-                  <p>A course requiring medical- or healthcare-focused experiential work where students test, observe, experiment, or practice a field or discipline in a hands-on or simulated environment.</p>
+                  <p>A course requiring medical- or healthcare-focused experiential work where students test, observe,
+                    experiment, or practice a field or discipline in a hands-on or simulated environment.</p>
 
                   <h3>Internship</h3>
-                  <p>A course requiring students to participate in a partnership, professional employment, work experience or cooperative education with any entity external to the institution, generally under the supervision of an employee of the external entity.</p>
+                  <p>A course requiring students to participate in a partnership, professional employment, work
+                    experience or cooperative education with any entity external to the institution, generally under the
+                    supervision of an employee of the external entity.</p>
                 </div>
               </div>
               <div class="modal-footer">
@@ -476,7 +511,8 @@
               <div class="row">
                 <div class="col-lg-12">
                   <p>
-                    <abbr title="Email address"><i class="fa fa-envelope"></i></abbr> &nbsp;<span id="faculty_email"></span>
+                    <abbr title="Email address"><i class="fa fa-envelope"></i></abbr> &nbsp;<span
+                      id="faculty_email"></span>
                   </p>
                 </div>
               </div>
@@ -519,8 +555,10 @@
         <legend>Host Details</legend>
 
         <div class="form-group">
-          <label class="col-lg-3 control-label" for="{STUDENT_GPA_ID}">Host Name</label>
-          <div class="col-lg-6"><p class="form-control-static">{AGENCY_NAME}</p></div>
+          <label class="col-lg-3 control-label" for="{AGENCY_NAME_ID}">Host Name</label>
+          <div class="col-lg-6">
+            <p class="form-control-static">{AGENCY_NAME}</p>
+          </div>
         </div>
 
         <div class="form-group">
@@ -550,7 +588,8 @@
         <!-- END agency-state -->
 
         <div class="form-group">
-          <label class="col-lg-3 control-label" for="{AGENCY_ZIP_ID}" id="internship_agency_zip-label">{AGENCY_ZIP_LABEL_TEXT}</label>
+          <label class="col-lg-3 control-label" for="{AGENCY_ZIP_ID}"
+            id="internship_agency_zip-label">{AGENCY_ZIP_LABEL_TEXT}</label>
           <div class="col-lg-6">{AGENCY_ZIP}</div>
         </div>
 
@@ -572,12 +611,14 @@
         <legend>Supervisor Info</legend>
 
         <div class="form-group">
-          <label class="col-lg-3 control-label" for="{AGENCY_SUP_FIRST_NAME_ID}">{AGENCY_SUP_FIRST_NAME_LABEL_TEXT}</label>
+          <label class="col-lg-3 control-label"
+            for="{AGENCY_SUP_FIRST_NAME_ID}">{AGENCY_SUP_FIRST_NAME_LABEL_TEXT}</label>
           <div class="col-lg-6">{AGENCY_SUP_FIRST_NAME}</div>
         </div>
 
         <div class="form-group">
-          <label class="col-lg-3 control-label" for="{AGENCY_SUP_LAST_NAME_ID}">{AGENCY_SUP_LAST_NAME_LABEL_TEXT}</label>
+          <label class="col-lg-3 control-label"
+            for="{AGENCY_SUP_LAST_NAME_ID}">{AGENCY_SUP_LAST_NAME_LABEL_TEXT}</label>
           <div class="col-lg-6">{AGENCY_SUP_LAST_NAME}</div>
         </div>
 
@@ -618,7 +659,8 @@
         <!-- END agency sup-state -->
 
         <div class="form-group">
-          <label class="col-lg-3 control-label" for="{AGENCY_SUP_ZIP_ID}" id="internship_agency_sup_zip-label">{AGENCY_SUP_ZIP_LABEL_TEXT}</label>
+          <label class="col-lg-3 control-label" for="{AGENCY_SUP_ZIP_ID}"
+            id="internship_agency_sup_zip-label">{AGENCY_SUP_ZIP_LABEL_TEXT}</label>
           <div class="col-lg-6">{AGENCY_SUP_ZIP}</div>
         </div>
 
@@ -660,7 +702,8 @@
         </div>
 
         <div class="form-group">
-          <label class="col-lg-3 col-lg-offset-1control-label" for="{AVG_HOURS_WEEK_ID}">{AVG_HOURS_WEEK_LABEL_TEXT}</label>
+          <label class="col-lg-3 col-lg-offset-1control-label"
+            for="{AVG_HOURS_WEEK_ID}">{AVG_HOURS_WEEK_LABEL_TEXT}</label>
           <div class="col-lg-3">{AVG_HOURS_WEEK}</div>
         </div>
 
@@ -671,7 +714,7 @@
       </fieldset>
 
       <div class="form-group">
-        <button type="submit" class="btn btn-primary pull-right" id="{SUBMIT_ID}">{SUBMIT_VALUE}</button>
+        <button type="submit" class="btn btn-primary pull-right" id="{SUBMIT_ID}2">{SUBMIT_VALUE}</button>
       </div>
     </div> <!-- End of right column -->
   </div> <!-- End of main row -->
@@ -682,7 +725,7 @@
         <label for="{NOTES_ID}">Add a note</label> {NOTES}
       </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-primary pull-right" id="{SUBMIT_ID}">{SUBMIT_VALUE}</button>
+        <button type="submit" class="btn btn-primary pull-right" id="{SUBMIT_ID}3">{SUBMIT_VALUE}</button>
       </div>
     </div>
   </div>
@@ -693,11 +736,11 @@
     </div>
   </div>
 
-{END_FORM}
+  {END_FORM}
 
-<script type = "text/javascript">
+  <script type="text/javascript">
     window.internshipId = {INTERN_ID};
-</script>
+  </script>
 
-<script type="text/javascript" src="{vendor_bundle}"></script>
+  <script type="text/javascript" src="{vendor_bundle}"></script>
 <script type="text/javascript" src="{entry_bundle}"></script>
