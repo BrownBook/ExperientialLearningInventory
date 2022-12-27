@@ -27,7 +27,7 @@ class StateDropDown extends React.Component {
       output = (
         <div className="row">
           <div className="col-sm-12 col-md-4 col-md-push-3">
-            <div className={fgClasses} id="state">
+            <div className={fgClasses}>
               <label htmlFor="state" className="control-label">
                 State
               </label>
@@ -78,8 +78,8 @@ class StateDropDown extends React.Component {
 }
 
 StateDropDown.propTypes = {
-  formStyle: PropTypes.string.isRequired,
-  states: PropTypes.arrayOf(PropTypes.object).isRequired
+  states: PropTypes.object.isRequired,
+  formStyle: PropTypes.string
 };
 
 export default StateDropDown;
