@@ -94,10 +94,10 @@ class TermRow extends React.Component {
       newEndDate = this.timestampToDate(this.props.end);
     }
     if (newUgradOverload === '') {
-      newUgradOverload = this.props.ugradOverload;
+      newUgradOverload = this.props.ugradOver;
     }
     if (newGradOverload === '') {
-      newGradOverload = this.props.gradOverload;
+      newGradOverload = this.props.gradOver;
     }
 
     this.props.onTermSave(
@@ -140,20 +140,20 @@ class TermRow extends React.Component {
     if (this.state.editMode) {
       // Edit mode enabled
       mainButton = (
-        <a onClick={this.handleSave} data-toggle="tooltip" title="Save Changes">
+        <a onClick={this.handleSave} title="Save Changes">
           <i className="glyphicon glyphicon-floppy-save" />
         </a>
       );
       return (
         <tr>
           <td>
-            <input type="text" className="form-control" ref={this.termCodeRef} defaultValue={this.props.tcode} />
+            <input type="text" className="form-control" ref={this.termCodeRef} aria-label="Term Code" defaultValue={this.props.tcode} />
           </td>
           <td>
-            <input type="text" className="form-control" ref={this.descriptionRef} defaultValue={this.props.descr} />
+            <input type="text" className="form-control" ref={this.descriptionRef} aria-label="Term Description" defaultValue={this.props.descr} />
           </td>
           <td>
-            <select className="form-control" ref={this.semesterTypeRef} defaultValue={this.props.stype}>
+            <select className="form-control" ref={this.semesterTypeRef} aria-label="Semester Type" defaultValue={this.props.stype}>
               <option value="1">Spring</option>
               <option value="2">Summer 1</option>
               <option value="3">Summer 2</option>
@@ -161,22 +161,28 @@ class TermRow extends React.Component {
             </select>
           </td>
           <td>
-            <input type="text" className="form-control" ref={this.availableDateRef} defaultValue={availDate} />
+            <input type="text" className="form-control" ref={this.availableDateRef} aria-label="Available On Date" defaultValue={availDate} />
           </td>
           <td>
-            <input type="text" className="form-control" ref={this.censusDateRef} defaultValue={censusDate} />
+            <input type="text" className="form-control" ref={this.censusDateRef} aria-label="Census Date" defaultValue={censusDate} />
           </td>
           <td>
-            <input type="text" className="form-control" ref={this.startDateRef} defaultValue={startDate} />
+            <input type="text" className="form-control" ref={this.startDateRef} aria-label="Term Start Date" defaultValue={startDate} />
           </td>
           <td>
-            <input type="text" className="form-control" ref={this.endDateRef} defaultValue={endDate} />
+            <input type="text" className="form-control" ref={this.endDateRef} aria-label="Term End Date" defaultValue={endDate} />
           </td>
           <td>
-            <input type="text" className="form-control" ref={this.undergradOverloadRef} defaultValue={this.props.ugradOver} />
+            <input
+              type="text"
+              className="form-control"
+              ref={this.undergradOverloadRef}
+              aria-label="Undergradudate Overload Hours"
+              defaultValue={this.props.ugradOver}
+            />
           </td>
           <td>
-            <input type="text" className="form-control" ref={this.gradOverloadRef} defaultValue={this.props.gradOver} />
+            <input type="text" className="form-control" ref={this.gradOverloadRef} aria-label="Graduate Overload Hours" defaultValue={this.props.gradOver} />
           </td>
           <td style={{ verticalAlign: 'middle' }}>{mainButton}</td>
           <td style={{ verticalAlign: 'middle' }}>
@@ -232,17 +238,15 @@ class TermRow extends React.Component {
 
 TermRow.propTypes = {
   onTermSave: PropTypes.func.isRequired,
-  stype: PropTypes.string.isRequired,
+  stype: PropTypes.number.isRequired,
   tcode: PropTypes.string.isRequired,
   descr: PropTypes.string.isRequired,
-  available: PropTypes.string.isRequired,
-  census: PropTypes.string.isRequired,
-  start: PropTypes.string.isRequired,
-  end: PropTypes.string.isRequired,
-  ugradOverload: PropTypes.string.isRequired,
-  gradOverload: PropTypes.string.isRequired,
-  ugradOver: PropTypes.string.isRequired,
-  gradOver: PropTypes.string.isRequired
+  available: PropTypes.number.isRequired,
+  census: PropTypes.number.isRequired,
+  start: PropTypes.number.isRequired,
+  end: PropTypes.number.isRequired,
+  ugradOver: PropTypes.number.isRequired,
+  gradOver: PropTypes.number.isRequired
 };
 
 export default TermRow;

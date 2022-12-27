@@ -220,7 +220,7 @@ class TermEditor extends React.Component {
           <div className="col-sm-6">
             <div className="panel panel-default">
               <div className="panel-body">
-                <h4>Create a new Term: </h4>
+                <p className="lead">Create a new Term: </p>
                 <TermInput onTermCreate={this.onTermCreate} messageType={this.state.messageType} />
               </div>
             </div>
@@ -238,3 +238,8 @@ class TermEditor extends React.Component {
 }
 
 ReactDOM.render(<TermEditor />, document.getElementById('edit_terms'));
+
+if (process.env.NODE_ENV !== 'production') {
+  const axe = require('@axe-core/react');
+  axe(React, ReactDOM, 1000);
+}
