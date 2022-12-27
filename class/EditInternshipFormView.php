@@ -536,7 +536,7 @@ class EditInternshipFormView {
          */
         $subjects = array("-1" => "Select subject...") + Subject::getSubjects();
         $this->form->addSelect('course_subj', $subjects);
-        $this->form->setLabel('course_subj', 'Subject');
+        //$this->form->setLabel('course_subj', 'Subject'); // Bug: This doesn't work for some reason.
         $this->form->addCssClass('course_subj', 'form-control');
 
         $this->form->addText('course_no');

@@ -203,10 +203,10 @@ ModalForm.propTypes = {
   show: PropTypes.bool.isRequired,
   hide: PropTypes.func.isRequired,
   id: PropTypes.number,
-  name: PropTypes.string.isRequired,
-  relation: PropTypes.string.isRequired,
-  phone: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
+  name: PropTypes.string,
+  relation: PropTypes.string,
+  phone: PropTypes.string,
+  email: PropTypes.string,
   handleSaveContact: PropTypes.func.isRequired
 };
 
@@ -414,3 +414,8 @@ class EmergencyContactList extends React.Component {
 EmergencyContactList.propTypes = { internshipId: PropTypes.number.isRequired };
 
 ReactDOM.render(<EmergencyContactList internshipId={window.internshipId} />, document.getElementById('emergency-contact-list'));
+
+if (process.env.NODE_ENV !== 'production') {
+  const axe = require('@axe-core/react');
+  axe(React, ReactDOM, 1000);
+}
