@@ -116,7 +116,7 @@ class FacultyForm extends React.Component {
                 <input
                   type="text"
                   className="form-control"
-                  id="ffaculty-edit-username"
+                  id="faculty-edit-username"
                   ref={this.facultyEditUsernameRef}
                   defaultValue={this.props.facultyData.username}
                 />
@@ -326,6 +326,7 @@ class FacultyModal extends React.Component {
       onHideMethod = this.clearStateAndHide;
     }
 
+    // TODO: Modal needs proper ARIA tags. Not supported in react-bootstrap 0.33.1, likely fixed in a Bootstrap 4/5 version of react-bootstrap
     return (
       <Modal show={this.props.show} onHide={onHideMethod} animation={true} backdrop="static">
         <Modal.Header closeButton>
@@ -358,7 +359,7 @@ FacultyModal.propTypes = {
   url: PropTypes.string,
   getDeptFaculty: PropTypes.func,
   getFacultyDetails: PropTypes.func.isRequired,
-  deptNum: PropTypes.string.isRequired
+  deptNum: PropTypes.any.isRequired // Sometimes a number, sometimes considered a string
 };
 
 class FacultyTableRow extends React.Component {
@@ -457,14 +458,14 @@ FacultyTableRow.propTypes = {
   url: PropTypes.string
 };
 
-class DepartmentList extends React.Component {
+class DepartmentListItem extends React.Component {
   render() {
     // Creates each department in the dropdown
     return <option value={this.props.id}>{this.props.name}</option>;
   }
 }
 
-DepartmentList.propTypes = {
+DepartmentListItem.propTypes = {
   id: PropTypes.number,
   name: PropTypes.string
 };
@@ -475,7 +476,7 @@ class FacultyTable extends React.Component {
     if (this.props.tableData != null) {
       if (this.props.tableData.length > 0) {
         // Maps the table data so that it will create a row for each faculty member
-        faculty = this.props.tableData.map(function (faculty) {
+        faculty = this.props.tableData.map(faculty => {
           return (
             <FacultyTableRow
               key={faculty.id}
@@ -663,14 +664,14 @@ class EditFaculty extends React.Component {
   }
 
   render() {
-    let dData = null;
+    let departmentDropdown = null;
     if (this.state.dropData != null) {
-      // Maps the dropdown department data and calls the DepartmentList class
-      dData = this.state.dropData.map(function (dept) {
-        return <DepartmentList key={dept.id} name={dept.name} id={dept.id} />;
+      // Maps the dropdown department data and calls the DepartmentListItem class
+      departmentDropdown = this.state.dropData.map(function (dept) {
+        return <DepartmentListItem key={dept.id} name={dept.name} id={dept.id} />;
       });
     } else {
-      dData = '';
+      departmentDropdown = '';
     }
 
     let facultyTable = null;
@@ -710,9 +711,9 @@ class EditFaculty extends React.Component {
             <h2> Faculty Members </h2>
             <div className="row">
               <div className="col-md-8">
-                <label>Departments:</label>
-                <select className="form-control" onChange={this.handleDrop}>
-                  {dData}
+                <label htmlFor="departmentDropdown">Departments:</label>
+                <select id="departmentDropdown" className="form-control" onChange={this.handleDrop}>
+                  {departmentDropdown}
                 </select>
               </div>
             </div>
@@ -750,3 +751,8 @@ EditFaculty.propTypes = {
 };
 
 ReactDOM.render(<EditFaculty />, document.getElementById('content'));
+
+if (process.env.NODE_ENV !== 'production') {
+  const axe = require('@axe-core/react');
+  axe(React, ReactDOM, 1000);
+}
