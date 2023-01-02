@@ -151,7 +151,7 @@ class Settings extends Component {
             ></input>
           </div>
           <div className="form-group col-md-6">
-            <label>wsdlUri:</label>
+            <label htmlFor="wsdlUri">wsdlUri:</label>
             <input
               className="form-control"
               type="text"
@@ -166,7 +166,7 @@ class Settings extends Component {
             <br />
           </div>
           <div className="form-group col-md-6">
-            <label>Email Domain:</label>
+            <label htmlFor="emailDomain">Email Domain:</label>
             <input
               className="form-control"
               type="text"
@@ -177,7 +177,7 @@ class Settings extends Component {
             ></input>
           </div>
           <div className="form-group col-md-6">
-            <label>Registrar Email:</label>
+            <label htmlFor="registrarEmail">Registrar Email:</label>
             <input
               className="form-control"
               type="text"
@@ -188,7 +188,7 @@ class Settings extends Component {
             ></input>
           </div>
           <div className="form-group col-md-6">
-            <label>Grad School Email:</label>
+            <label htmlFor="gradSchoolEmail">Grad School Email:</label>
             <input
               className="form-control"
               type="text"
@@ -199,7 +199,7 @@ class Settings extends Component {
             ></input>
           </div>
           <div className="form-group col-md-6">
-            <label>Background Check Email:</label>
+            <label htmlFor="backgroundCheckEmail">Background Check Email:</label>
             <input
               className="form-control"
               type="text"
@@ -210,7 +210,7 @@ class Settings extends Component {
             ></input>
           </div>
           <div className="form-group col-md-6">
-            <label>Graduate Registrar Email:</label>
+            <label htmlFor="gradRegistrarEmail">Graduate Registrar Email:</label>
             <input
               className="form-control"
               type="text"
@@ -221,7 +221,7 @@ class Settings extends Component {
             ></input>
           </div>
           <div className="form-group col-md-6">
-            <label>International Registrar Email:</label>
+            <label htmlFor="internationalRegistrarEmail">International Registrar Email:</label>
             <input
               className="form-control"
               type="text"
@@ -232,7 +232,7 @@ class Settings extends Component {
             ></input>
           </div>
           <div className="form-group col-md-6">
-            <label>Distance Education Email:</label>
+            <label htmlFor="distanceEdEmail">Distance Education Email:</label>
             <input
               className="form-control"
               type="text"
@@ -243,7 +243,7 @@ class Settings extends Component {
             ></input>
           </div>
           <div className="form-group col-md-6">
-            <label>International Office Email:</label>
+            <label htmlFor="internationalOfficeEmail">International Office Email:</label>
             <input
               className="form-control"
               type="text"
@@ -254,7 +254,7 @@ class Settings extends Component {
             ></input>
           </div>
           <div className="form-group col-md-6">
-            <label>From Email:</label>
+            <label htmlFor="fromEmail">From Email:</label>
             <input
               className="form-control"
               type="text"
@@ -265,7 +265,7 @@ class Settings extends Component {
             ></input>
           </div>
           <div className="form-group col-md-6">
-            <label>Unusual Course Email:</label>
+            <label htmlFor="unusualCourseEmail">Unusual Course Email:</label>
             <input
               className="form-control"
               type="text"
@@ -276,7 +276,7 @@ class Settings extends Component {
             ></input>
           </div>
           <div className="form-group col-md-6">
-            <label>Uncaught Exception Email:</label>
+            <label htmlFor="uncaughtExceptionEmail">Uncaught Exception Email:</label>
             <input
               className="form-control"
               type="text"
@@ -301,3 +301,8 @@ Settings.propTypes = {
 };
 
 ReactDOM.render(<Settings />, document.getElementById('content'));
+
+if (process.env.NODE_ENV !== 'production') {
+  const axe = require('@axe-core/react');
+  axe(React, ReactDOM, 1000);
+}
