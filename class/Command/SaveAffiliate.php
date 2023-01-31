@@ -120,7 +120,7 @@ class SaveAffiliate {
         \PHPWS_DB::commit();
 
         // Show message if user edited internship
-        \NQ::simple('intern', \Intern\UI\NotifyUI::SUCCESS, 'Saved internship for ' . $affiliate_agreement->getName());
+        \NQ::simple('intern', \Intern\UI\NotifyUI::SUCCESS, 'Saved affiliation agreement for ' . $affiliate_agreement->getName());
         \NQ::close();
         return \PHPWS_Core::reroute('index.php?module=intern&action=showAffiliateAgreement');
     }
