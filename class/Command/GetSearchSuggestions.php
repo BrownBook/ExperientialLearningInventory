@@ -16,6 +16,7 @@
  * along with Internship Inventory.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Copyright 2011-2018 Appalachian State University
+ * Copyright 2023 Brown Book Software
  */
 
 namespace Intern\Command;
@@ -130,7 +131,7 @@ class GetSearchSuggestions {
         $students = array();
 
         try {
-            $students = $this->studentIdSearch($result['banner_id']);
+            $students = $this->studentIdSearch($result['student_id']);
         }catch(\Intern\Exception\StudentNotFoundException $e){
             // Skip any students that are returned from the database, but don't exist
             // in the student info web service
@@ -148,7 +149,7 @@ class GetSearchSuggestions {
 
         foreach($results as $result) {
             try {
-                $students[] = $this->studentIdSearch($result['banner_id']);
+                $students[] = $this->studentIdSearch($result['student_id']);
             }catch(\Intern\Exception\StudentNotFoundException $e){
                 // Skip any students that are returned from the database, but don't exist
                 // in the student info web service
@@ -196,7 +197,7 @@ class GetSearchSuggestions {
 
         $subQuery = "SELECT *, " . implode(", ", $columnList) . " FROM intern_student_autocomplete";
 
-        $sql = "SELECT banner_id, username, first_name, last_name, middle_name FROM ($subQuery) as fuzzy WHERE ((" . implode(' OR ', $whereGroups['lev_where']) . ") AND (" . implode(' OR ', $whereGroups['metaphone_where']) . ")) OR username ILIKE '%{$tokens[0]}%' ORDER BY " . implode(', ', $orderByList) . " LIMIT " . self::resultLimit;
+        $sql = "SELECT student_id, username, first_name, last_name, middle_name FROM ($subQuery) as fuzzy WHERE ((" . implode(' OR ', $whereGroups['lev_where']) . ") AND (" . implode(' OR ', $whereGroups['metaphone_where']) . ")) OR username ILIKE '%{$tokens[0]}%' ORDER BY " . implode(', ', $orderByList) . " LIMIT " . self::resultLimit;
 
         return $sql;
     }

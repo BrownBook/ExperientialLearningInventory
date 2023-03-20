@@ -278,7 +278,7 @@ function create_autocomplete_query($row)
 
     $query = <<<EOF
 insert into intern_student_autocomplete (
-    banner_id,
+    student_id,
     username,
     first_name,
     middle_name,
