@@ -1,0 +1,1 @@
+alter table intern_student_autocomplete alter column banner_id TYPE CHARACTER VARYING;
