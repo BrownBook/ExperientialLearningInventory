@@ -53,9 +53,9 @@ while(($line = fgetcsv($inputFile, 0, '|')) !== FALSE) {
         $line[$key] = pg_escape_string($element);
     }
 
-    $bannerId = $line[0];
+    $studentId = $line[0];
 
-    if($bannerId == ''){
+    if($studentId == ''){
         continue;
     }
 
@@ -71,7 +71,7 @@ while(($line = fgetcsv($inputFile, 0, '|')) !== FALSE) {
     $endTerm   = isset($line[5])&&!empty($line[5])?$line[5]:'NULL';
     $username = $line[6]; //TODO
 
-    $sql = "INSERT INTO intern_student_autocomplete (banner_id, username, first_name, middle_name, last_name, first_name_meta, middle_name_meta, last_name_meta, first_name_lower, middle_name_lower, last_name_lower, start_term, end_term) VALUES ($bannerId, '$username', '$firstName', '$middleName', '$lastName', METAPHONE('$firstName', 4), METAPHONE('$middleName', 4), METAPHONE('$lastName', 4), '$firstLower', '$middleLower', '$lastLower', $startTerm, $endTerm)";
+    $sql = "INSERT INTO intern_student_autocomplete (student_id, username, first_name, middle_name, last_name, first_name_meta, middle_name_meta, last_name_meta, first_name_lower, middle_name_lower, last_name_lower, start_term, end_term) VALUES ($studentId, '$username', '$firstName', '$middleName', '$lastName', METAPHONE('$firstName', 4), METAPHONE('$middleName', 4), METAPHONE('$lastName', 4), '$firstLower', '$middleLower', '$lastLower', $startTerm, $endTerm)";
 
 
     $result = pg_query($sql);
