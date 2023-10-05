@@ -1,20 +1,22 @@
 <script type="text/javascript">
-    $(document).ready(function() {
-        // Setup date pickers
-        $("#internship_start_date").datepicker();
-        $("#internship_end_date").datepicker();
-    });
+  $(document).ready(function() {
+    // Setup date pickers
+    $("#internship_start_date").datepicker();
+    $("#internship_end_date").datepicker();
+  });
 </script>
 
 <h2><i class="fa fa-search"></i> Search Inventory</h2>
 
-<form class="form-horizontal {FORM_CLASS}" id="{FORM_ID}" action="{FORM_ACTION}" autocomplete="{FORM_AUTOCOMPLETE}" method="{FORM_METHOD}" {FORM_ENCODE}>
+<form class="form-horizontal {FORM_CLASS}" id="{FORM_ID}" action="{FORM_ACTION}" autocomplete="{FORM_AUTOCOMPLETE}"
+  method="{FORM_METHOD}" {FORM_ENCODE}>
   {HIDDEN_FIELDS}
 
   <div class="row">
     <div class="col-md-4 col-md-offset-4">
       <div class="form-group">
-        <label class="control-label" for="{NAME_ID}" style="display: none;">{NAME_LABEL_TEXT}</label> <input type="text" id="{NAME_ID}" name="{NAME_NAME}" class="form-control input-lg" placeholder="Name or Student ID" autofocus>
+        <label class="control-label" for="{NAME_ID}" style="display: none;">{NAME_LABEL_TEXT}</label> <input type="text"
+          id="{NAME_ID}" name="{NAME_NAME}" class="form-control input-lg" placeholder="Name or Student ID" autofocus>
       </div>
     </div>
 
@@ -29,39 +31,39 @@
     <!-- Left Column -->
     <div class="col-md-6">
 
-        <fieldset class="search-fieldset">
-          <legend>Course</legend>
+      <fieldset class="search-fieldset">
+        <legend>Course</legend>
 
-          <div class="form-group">
-            <label class="col-md-3 control-label" for="{TERM_SELECT_ID}">{TERM_SELECT_LABEL_TEXT}</label>
-            <div class="col-md-5">{TERM_SELECT}</div>
-          </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label" for="{TERM_SELECT_ID}">{TERM_SELECT_LABEL_TEXT}</label>
+          <div class="col-md-5">{TERM_SELECT}</div>
+        </div>
 
-          <div class="form-group">
-            <label class="col-md-3 control-label" for="{COURSE_SUBJ_ID}">Subject</label>
-            <div class="col-md-8">{COURSE_SUBJ}</div>
-          </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label" for="{COURSE_SUBJ_ID}">Subject</label>
+          <div class="col-md-8">{COURSE_SUBJ}</div>
+        </div>
 
-          <div class="form-group">
-            <label class="col-md-3 control-label" for="{COURSE_NO_ID}">{COURSE_NO_LABEL_TEXT}</label>
-            <div class="col-md-3">{COURSE_NO}</div>
-          </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label" for="{COURSE_NO_ID}">{COURSE_NO_LABEL_TEXT}</label>
+          <div class="col-md-3">{COURSE_NO}</div>
+        </div>
 
-          <div class="form-group">
-            <label class="col-md-3 control-label" for="{COURSE_SECT_ID}">{COURSE_SECT_LABEL_TEXT}</label>
-            <div class="col-md-3">{COURSE_SECT}</div>
-          </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label" for="{COURSE_SECT_ID}">{COURSE_SECT_LABEL_TEXT}</label>
+          <div class="col-md-3">{COURSE_SECT}</div>
+        </div>
 
-          <div class="form-group">
-            <label class="col-md-3 control-label" for="{TYPE_ID}">{TYPE_LABEL_TEXT}</label>
-            <div class="col-md-8">{TYPE}</div>
-          </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label" for="{TYPE_ID}">{TYPE_LABEL_TEXT}</label>
+          <div class="col-md-8">{TYPE}</div>
+        </div>
 
-        </fieldset>
+      </fieldset>
 
-        <fieldset class="search-fieldset">
-            <legend>Faculty</legend>
-        </fieldset>
+      <fieldset class="search-fieldset">
+        <legend>Faculty</legend>
+      </fieldset>
 
       <div class="form-group">
         <label class="col-md-3 control-label" for="{DEPARTMENT_ID}">{DEPARTMENT_LABEL_TEXT}</label>
@@ -78,7 +80,7 @@
         <div id="MajorSelector"></div>
       </fieldset>
 
-  </div> <!-- End Left Column -->
+    </div> <!-- End Left Column -->
 
     <!-- Right Column -->
     <div class="col-md-6">
@@ -89,17 +91,17 @@
         <div class="form-group">
           <label class="col-md-3 control-label" for="campus">Campus</label>
           <div class="col-md-8">
-              <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-default active">Any Campus
-                  <input type="radio" name="campus" value="-1" checked>
-                </label>
-                <label class="btn btn-default">Main Campus
-                  <input type="radio" name="campus" value="main_campus">
-                </label>
-                <label class="btn btn-default">Distance Ed
-                  <input type="radio" name="campus" value="distance_ed">
-                </label>
-              </div>
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-default active">Any Campus
+                <input type="radio" name="campus" value="-1" checked>
+              </label>
+              <label class="btn btn-default">Main Campus
+                <input type="radio" name="campus" value="main_campus">
+              </label>
+              <label class="btn btn-default">Distance Ed
+                <input type="radio" name="campus" value="distance_ed">
+              </label>
+            </div>
           </div>
         </div>
 
@@ -138,19 +140,19 @@
         </div>
 
         <div class="form-group">
-          <label class="col-md-4 control-label" for="oied">OIED Certification</label>
+          <label class="col-md-4 control-label" for="oied">International Certification</label>
           <div class="col-md-8">
-              <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-default active">Any
-                  <input type="radio" name="oied" value="-1" checked>
-                </label>
-                <label class="btn btn-default">Non-Certified
-                  <input type="radio" name="oied" value="0">
-                </label>
-                <label class="btn btn-default">Certified
-                  <input type="radio" name="oied" value="1">
-                </label>
-              </div>
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-default active">Any
+                <input type="radio" name="oied" value="-1" checked>
+              </label>
+              <label class="btn btn-default">Non-Certified
+                <input type="radio" name="oied" value="0">
+              </label>
+              <label class="btn btn-default">Certified
+                <input type="radio" name="oied" value="1">
+              </label>
+            </div>
           </div>
         </div>
       </fieldset>

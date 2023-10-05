@@ -182,9 +182,9 @@ class EditInternshipFormView {
         // If enabled in settings, then add international office certification checkbox
         if($this->settings->getRequireIntlCertification()){
             $this->form->addCheck('oied_certified');
-            $this->form->setLabel('oied_certified', 'Certified by Office of International Education and Development');
+            $this->form->setLabel('oied_certified', 'International Certified');
 
-            // If the user is not allowed to do OIED certification, disable the checkbox
+            // If the user is not allowed to do International certification, disable the checkbox
             if(!\Current_User::allow('intern', 'oied_certify') || $this->intern->isDomestic()){
                 $this->form->setExtra('oied_certified', 'disabled="disabled" disabled');
             }
@@ -795,7 +795,7 @@ class EditInternshipFormView {
 
         $this->formVals['pay_rate'] = $this->intern->pay_rate;
 
-        // If OIED certification is enabled, check certification status
+        // If International certification is enabled, check certification status
         // and set the checkbox and hidden field accordingly
         if($this->settings->getRequireIntlCertification()){
             if ($this->intern->oied_certified) {
