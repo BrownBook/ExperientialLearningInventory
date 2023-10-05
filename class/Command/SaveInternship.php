@@ -332,7 +332,7 @@ class SaveInternship
         }
 
         /************
-         * OIED Certification
+         * International Certification
         */
         if($internSettings->getRequireIntlCertification()){
             // Check if this has changed from non-certified->certified so we can log it later
@@ -441,7 +441,7 @@ class SaveInternship
                 return \PHPWS_Core::reroute('index.php?module=intern&action=ShowInternship&internship_id=' . $i->id);
             }
 
-            // Create a ChangeHisotry for the OIED certification.
+            // Create a ChangeHisotry for the International certification.
             if ($oiedCertified) {
                 $currState = WorkflowStateFactory::getState($i->getStateName());
                 $ch = new ChangeHistory($i, \Current_User::getUserObj(), time(),
