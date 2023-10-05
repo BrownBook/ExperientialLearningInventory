@@ -328,7 +328,7 @@ class ResultsUI implements UI
             }
         }
 
-        // OIED Certification
+        // International Certification
         if (isset($oied) && $oied != '-1') {
             $pager->db->addWhere('oied_certified', $oied, '=');
         }
