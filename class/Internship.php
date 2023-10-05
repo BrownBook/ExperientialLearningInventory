@@ -180,7 +180,7 @@ class Internship {
         // Set initial state
         $this->setState(WorkflowStateFactory::getState('CreationState'));
 
-        // Set initial OIED certification
+        // Set initial International certification
         $this->setOiedCertified(false);
 
         // Set initial values
@@ -330,7 +330,7 @@ class Internship {
 
         // Status Info
         $csv['Status']                 = $this->getWorkflowState()->getFriendlyName();
-        $csv['OIED Certified']         = $this->isOiedCertified() == 1 ? 'Yes' : 'No';
+        $csv['International Certified']         = $this->isOiedCertified() == 1 ? 'Yes' : 'No';
 
         // Student Academic Info
         $csv['Phone #']     = $this->phone;
@@ -684,7 +684,7 @@ class Internship {
     }
 
     /**
-    * Sets whether or not this internship is OIED certified
+    * Sets whether or not this internship is International certified
     *
     * @param boolean $certified
     */
