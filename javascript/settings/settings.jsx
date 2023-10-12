@@ -4,10 +4,6 @@ import $ from 'jquery';
 import PropTypes from 'prop-types';
 
 class ErrorMessagesBlock extends Component {
-  // constructor(props) {
-  //     super(props);
-  // }
-
   render() {
     // if(this.props.errorSet == null){
     //     return '';
@@ -63,7 +59,8 @@ class Settings extends Component {
       wsdlUri: this.wsdlUriInput.value,
       fromEmail: this.fromEmailInput.value,
       unusualCourseEmail: this.unusualCourseEmailInput.value,
-      uncaughtExceptionEmail: this.uncaughtExceptionEmailInput.value
+      uncaughtExceptionEmail: this.uncaughtExceptionEmailInput.value,
+      helpEmailAddress: this.helpEmailAddress.value
     };
 
     this.setState({ submitted: true }, function () {
@@ -98,7 +95,7 @@ class Settings extends Component {
         this.setState({ data });
       }.bind(this),
       error: function (xhr, status, err) {
-        const message = 'Failed to grab settings data.';
+        const message = 'Failed to load settings.';
         const notifStatus = 'danger';
         this.setState({ errorMessage: message, notificationStatus: notifStatus });
         console.error(this.props.url, status, err.toString());
@@ -284,6 +281,17 @@ class Settings extends Component {
               id="uncaughtExceptionEmail"
               name="uncaughtExceptionEmail"
               ref={input => (this.uncaughtExceptionEmailInput = input)}
+            ></input>
+          </div>
+          <div className="form-group col-md-6">
+            <label htmlFor="helpEmail">Get Help Button Sends to:</label>
+            <input
+              className="form-control"
+              type="text"
+              defaultValue={this.state.data.helpEmailAddress}
+              id="uncaughtExceptionEmail"
+              name="uncaughtExceptionEmail"
+              ref={input => (this.helpEmailAddress = input)}
             ></input>
           </div>
         </form>
