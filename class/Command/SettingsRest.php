@@ -27,19 +27,20 @@ class SettingsRest {
     }
 
     public function post(){
-        \PHPWS_Settings::set('intern','systemName',$_REQUEST['systemName']);
-        \PHPWS_Settings::set('intern','registrarEmail',$_REQUEST['registrarEmail']);
-        \PHPWS_Settings::set('intern','distanceEdEmail',$_REQUEST['distanceEdEmail']);
-        \PHPWS_Settings::set('intern','internationalRegEmail',$_REQUEST['internationalRegEmail']);
-        \PHPWS_Settings::set('intern','graduateRegEmail',$_REQUEST['graduateRegEmail']);
-        \PHPWS_Settings::set('intern','gradSchoolEmail',$_REQUEST['gradSchoolEmail']);
-        \PHPWS_Settings::set('intern','internationalOfficeEmail',$_REQUEST['internationalOfficeEmail']);
-        \PHPWS_Settings::set('intern','fromEmail',$_REQUEST['fromEmail']);
-        \PHPWS_Settings::set('intern','emailDomain',$_REQUEST['emailDomain']);
-        \PHPWS_Settings::set('intern','backgroundCheckEmail',$_REQUEST['backgroundCheckEmail']);
-        \PHPWS_Settings::set('intern','wsdlUri',$_REQUEST['wsdlUri']);
-        \PHPWS_Settings::set('intern','unusualCourseEmail',$_REQUEST['unusualCourseEmail']);
-        \PHPWS_Settings::set('intern','uncaughtExceptionEmail',$_REQUEST['uncaughtExceptionEmail']);
+        \PHPWS_Settings::set('intern', 'systemName', $_REQUEST['systemName']);
+        \PHPWS_Settings::set('intern', 'registrarEmail', $_REQUEST['registrarEmail']);
+        \PHPWS_Settings::set('intern', 'distanceEdEmail', $_REQUEST['distanceEdEmail']);
+        \PHPWS_Settings::set('intern', 'internationalRegEmail', $_REQUEST['internationalRegEmail']);
+        \PHPWS_Settings::set('intern', 'graduateRegEmail', $_REQUEST['graduateRegEmail']);
+        \PHPWS_Settings::set('intern', 'gradSchoolEmail', $_REQUEST['gradSchoolEmail']);
+        \PHPWS_Settings::set('intern', 'internationalOfficeEmail', $_REQUEST['internationalOfficeEmail']);
+        \PHPWS_Settings::set('intern', 'fromEmail', $_REQUEST['fromEmail']);
+        \PHPWS_Settings::set('intern', 'emailDomain', $_REQUEST['emailDomain']);
+        \PHPWS_Settings::set('intern', 'backgroundCheckEmail', $_REQUEST['backgroundCheckEmail']);
+        \PHPWS_Settings::set('intern', 'wsdlUri', $_REQUEST['wsdlUri']);
+        \PHPWS_Settings::set('intern', 'unusualCourseEmail', $_REQUEST['unusualCourseEmail']);
+        \PHPWS_Settings::set('intern', 'uncaughtExceptionEmail', $_REQUEST['uncaughtExceptionEmail']);
+        \PHPWS_Settings::set('intern', 'helpEmailAddress', $_REQUEST['helpEmailAddress']);
 
         \PHPWS_Settings::save('intern');
     }
