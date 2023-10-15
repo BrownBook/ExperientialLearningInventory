@@ -25,6 +25,12 @@ class AdminRest {
 
 	public function execute()
 	{
+		/* Check if user should have access to Affiliate Agreement page */
+		if(!\Current_User::allow('intern', 'edit_dept')){
+			\NQ::simple('intern', \Intern\UI\NotifyUI::WARNING, 'You do not have permission to edit department admins.');
+			throw new \Intern\Exception\PermissionException('You do not have permission to edit department admins.');
+		}
+
 
 		switch($_SERVER['REQUEST_METHOD']) {
             case 'POST':
@@ -45,7 +51,7 @@ class AdminRest {
 
 	public function post()
 	{
-		$user = $_REQUEST['user'];
+	    $user = strtolower(trim($_REQUEST['user']));
         $dept = $_REQUEST['dept'];
 
         if ($user == '')
