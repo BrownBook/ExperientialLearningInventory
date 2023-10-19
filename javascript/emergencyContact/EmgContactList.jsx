@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import $ from 'jquery';
 import { Button, Modal } from 'react-bootstrap';
 import Message from './Message.jsx';
@@ -413,9 +413,10 @@ class EmergencyContactList extends React.Component {
 
 EmergencyContactList.propTypes = { internshipId: PropTypes.number.isRequired };
 
-ReactDOM.render(<EmergencyContactList internshipId={window.internshipId} />, document.getElementById('emergency-contact-list'));
+const root = createRoot(document.getElementById('emergency-contact-list'));
+root.render(<EmergencyContactList internshipId={window.internshipId} />);
 
-if (process.env.NODE_ENV !== 'production') {
-  const axe = require('@axe-core/react');
-  axe(React, ReactDOM, 1000);
-}
+// if (process.env.NODE_ENV !== 'production') {
+//   const axe = require('@axe-core/react');
+//   axe(React, ReactDOM, 1000);
+// }
