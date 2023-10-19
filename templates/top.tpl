@@ -8,12 +8,13 @@
     </button>
     <a class="navbar-brand" href="#">{SYSTEM_NAME}</a>
   </div>
-<!-- Collect the nav links, forms, and other content for toggling -->
+  <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse">
     <ul class="nav navbar-nav">
       <li><a href="index.php?module=intern&action=ShowAddInternship"><i class="fa fa-plus"></i> Add Activity</a></li>
       <li><a href="index.php?module=intern&action=search"><i class="fa fa-search"></i> Search</a></li>
-      <li><a href="mailto:{HELP_ADDRESS}?subject={SYSTEM_NAME} Help Request"><i class="fa fa-question"></i> Get Help</a></li>
+      <li><a href="mailto:{HELP_ADDRESS}?subject={SYSTEM_NAME} Help Request"><i class="fa fa-question"></i> Get Help</a>
+      </li>
     </ul>
 
 
@@ -21,48 +22,46 @@
       <!-- BEGIN admin_links -->
       {ADMIN_OPTIONS}
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i> Settings &nbsp;<b class="caret"></b></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i> Settings &nbsp;<b
+            class="caret"></b></a>
         <ul class="dropdown-menu">
-          <!-- BEGIN majors -->
-          <li>{EDIT_MAJORS_LINK}</li>
-          <!-- END majors -->
-          <!-- BEGIN grad -->
-          <li>{EDIT_GRAD_LINK}</li>
-          <!-- END grad -->
+          <!-- BEGIN terms -->
+          <li>{EDIT_TERMS_LINK}</li>
+          <!-- END terms -->
           <!-- BEGIN depts -->
           <li>{EDIT_DEPARTMENTS_LINK}</li>
           <!-- END depts -->
           <!-- BEGIN admins -->
           <li>{EDIT_ADMINS_LINK}</li>
           <!-- END admins -->
-          <!-- BEGIN faculty -->
-          <li>{EDIT_FACULTY}</li>
-          <!-- END faculty -->
+          <!-- BEGIN majors -->
+          <li>{EDIT_MAJORS_LINK}</li>
+          <!-- END majors -->
           <!-- BEGIN states -->
           <li>{EDIT_STATES_LINK}</li>
           <!-- END states -->
-          <!-- BEGIN level -->
-          <li>{EDIT_STUDENT_LEVEL}</li>
-          <!-- END level -->
-          <!-- BEGIN terms -->
-          <li>{EDIT_TERMS_LINK}</li>
-          <!-- END terms -->
           <!-- BEGIN affiliation_agreement -->
           <li>{AFFIL_AGREE_LINK}</li>
           <!-- END affiliation_agreement -->
+          <!-- BEGIN level -->
+          <li>{EDIT_STUDENT_LEVEL}</li>
+          <!-- END level -->
           <!-- BEGIN courses -->
           <li>{EDIT_COURSES_LINK}</li>
           <!-- END courses -->
+          <li role="separator" class="divider"></li>
           <!-- BEGIN student_import -->
           <li>{STUDENT_IMPORT}</li>
           <!-- END student_import -->
           <!-- BEGIN internship_import -->
           <li>{ACTIVITY_IMPORT}</li>
           <!-- END internship_import -->
+          <li role="separator" class="divider"></li>
           <!-- BEGIN settings -->
           <li>{ADMIN_SETTINGS}</li>
           <!-- END settings -->
           <!-- BEGIN ctrl_panel -->
+          <li role="separator" class="divider"></li>
           <li>{CONTROL_PANEL}</li>
           <!-- END ctrl_panel -->
         </ul>
@@ -91,4 +90,4 @@
 
     </ul>
 
-  </div><!-- /.navbar-collapse -->
+</div><!-- /.navbar-collapse -->

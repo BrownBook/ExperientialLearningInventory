@@ -60,39 +60,40 @@ class TopUI implements UI
 
         $adminOptions = array();
 
-        // Edit list of majors
-        if(\Current_User::allow('intern', 'edit_major')){
-            $adminOptions['EDIT_MAJORS_LINK'] = \PHPWS_Text::secureLink('Edit Majors','intern',array('action' => 'showEditMajors'));
+        // Edit terms
+        if(\Current_User::allow('intern', 'edit_terms')){
+            $adminOptions['EDIT_TERMS_LINK'] = \PHPWS_Text::secureLink('Terms','intern',array('action' => 'edit_terms'));
         }
 
         // Edit departments
         if(\Current_User::allow('intern', 'edit_dept')){
-            $adminOptions['EDIT_DEPARTMENTS_LINK'] = \PHPWS_Text::secureLink('Edit Departments','intern',array('action' => 'showEditDept'));
+            $adminOptions['EDIT_DEPARTMENTS_LINK'] = \PHPWS_Text::secureLink('Departments','intern',array('action' => 'showEditDept'));
+        }
+
+        // Edit list of majors and programs
+        if(\Current_User::allow('intern', 'edit_major')){
+            $adminOptions['EDIT_MAJORS_LINK'] = \PHPWS_Text::secureLink('Majors &amp; Programs','intern',array('action' => 'showEditMajors'));
         }
 
         // Edit list of states
         if(\Current_User::allow('intern', 'edit_states')){
-            $adminOptions['EDIT_STATES_LINK'] = \PHPWS_Text::secureLink('Edit States','intern',array('action' => 'edit_states'));
+            $adminOptions['EDIT_STATES_LINK'] = \PHPWS_Text::secureLink('States','intern',array('action' => 'edit_states'));
         }
 
         // Edit list of student levels
         if(\Current_User::allow('intern', 'edit_level')){
-            $adminOptions['EDIT_STUDENT_LEVEL'] = \PHPWS_Text::secureLink('Edit Student Levels','intern',array('action' => 'edit_level'));
+            $adminOptions['EDIT_STUDENT_LEVEL'] = \PHPWS_Text::secureLink('Student Levels','intern',array('action' => 'edit_level'));
 
         }
-        // Edit terms
-        if(\Current_User::allow('intern', 'edit_terms')){
-            $adminOptions['EDIT_TERMS_LINK'] = \PHPWS_Text::secureLink('Edit Terms','intern',array('action' => 'edit_terms'));
-        }
 
-        // Link to the Affiliation Agreements
+        // Affiliation Agreements
         if(\Current_User::allow('intern', 'affiliation_agreement')){
             $adminOptions['AFFIL_AGREE_LINK'] = \PHPWS_Text::secureLink('Affiliation Agreements','intern',array('action' => 'showAffiliateAgreement'));
         }
 
         // Edit list of 'normal' courses
         if(\Current_User::allow('intern', 'edit_courses')){
-            $adminOptions['EDIT_COURSES_LINK'] = \PHPWS_Text::secureLink('Edit Course List','intern',array('action' => 'edit_courses'));
+            $adminOptions['EDIT_COURSES_LINK'] = \PHPWS_Text::secureLink('Course List','intern',array('action' => 'edit_courses'));
         }
 
         if(\Current_User::allow('intern', 'student_import')){
@@ -105,8 +106,8 @@ class TopUI implements UI
 
         if(\Current_User::isDeity()){
             $adminOptions['CONTROL_PANEL']         = \PHPWS_Text::secureLink('Control Panel','controlpanel');
-            $adminOptions['ADMIN_SETTINGS']        = \PHPWS_Text::secureLink('Admin Settings','intern',array('action' => 'showAdminSettings'));
-            $adminOptions['EDIT_ADMINS_LINK']      = \PHPWS_Text::secureLink('Edit Administrators','intern',array('action' => 'showEditAdmins'));
+            $adminOptions['ADMIN_SETTINGS']        = \PHPWS_Text::secureLink('Settings','intern',array('action' => 'showAdminSettings'));
+            $adminOptions['EDIT_ADMINS_LINK']      = \PHPWS_Text::secureLink('Dept. Administrators','intern',array('action' => 'showEditAdmins'));
         }
 
         // If any admin options were added, them show the dropdown and merge those
