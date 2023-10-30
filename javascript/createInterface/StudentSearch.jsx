@@ -112,7 +112,7 @@ class SearchBox extends React.Component {
             type="search"
             name="studentId"
             id="studentSearch"
-            className="form-control typeahead input-lg"
+            className="form-control form-control-lg typeahead"
             placeholder="Student ID, User name, or Full Name"
             ref={this.typeAheadRef}
             autoComplete="off"
@@ -137,11 +137,11 @@ class StudentPreview extends React.Component {
       <div>
         <span className="lead"> {this.props.student.name}</span>
         <br />
-        <i className="fa fa-credit-card"></i> {this.props.student.studentId}
+        <i className="fa-solid fa-credit-card"></i> {this.props.student.studentId}
         <br />
-        <i className="fa fa-envelope"></i> {this.props.student.email}
+        <i className="fa-solid fa-envelope"></i> {this.props.student.email}
         <br />
-        <i className="fa fa-graduation-cap"></i> {this.props.student.major}
+        <i className="fa-solid fa-graduation-cap"></i> {this.props.student.major}
       </div>
     );
   }
@@ -201,15 +201,15 @@ class StudentSearch extends React.Component {
     });
 
     return (
-      <div className="row">
-        <div className="col-sm-12 col-md-6 col-md-push-3">
-          <div className="panel panel-default">
-            <div className="panel-body">
+      <div className="row mb-2">
+        <div className="col-sm-12 col-md-10">
+          <div className="card">
+            <div className="card-body">
               <h3 style={{ marginTop: '0' }}>
                 <i className="fa fa-user"></i> Student
               </h3>
               <div className="row">
-                <div className="col-sm-12 col-md-10 col-md-push-1">
+                <div className="col-sm-12">
                   <div className={fgClasses} id="studentId">
                     <label htmlFor="studentId2" className="sr-only">
                       Student ID, User name, or Full Name

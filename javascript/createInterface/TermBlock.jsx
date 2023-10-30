@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import $ from 'jquery';
 import classNames from 'classnames';
 
@@ -47,7 +47,7 @@ class TermBlock extends React.Component {
   }
 
   handleChange(clickEvent) {
-    this.setState({ selectedTerm: clickEvent.target.childNodes[0].value });
+    this.setState({ selectedTerm: clickEvent.target.previousElementSibling.value });
   }
 
   render() {
@@ -73,6 +73,7 @@ class TermBlock extends React.Component {
 
     let termDates = null;
     if (this.state.selectedTerm !== null) {
+      console.log('selectedTerm', this.state.selectedTerm);
       const startDate = new Date(this.state.terms[this.state.selectedTerm].start_timestamp * 1000);
       const endDate = new Date(this.state.terms[this.state.selectedTerm].end_timestamp * 1000);
 
@@ -86,10 +87,13 @@ class TermBlock extends React.Component {
       termList = Object.keys(this.state.terms).map(
         function (key) {
           return (
-            <label className="btn btn-default" key={key} onClick={this.handleChange}>
-              <input type="radio" ref={this.termRef} name="term" key={key} value={key} />
-              {this.state.terms[key].description}
-            </label>
+            <Fragment key={`ter-${key}`}>
+              <input type="radio" className="btn-check" id={`term-${key}`} ref={this.termRef} name="term" key={`radio-${key}`} value={key} autoComplete="off" />
+
+              <label className="btn btn-outline-primary" htmlFor={`term-${key}`} key={`label-${key}`} onClick={this.handleChange} value={key}>
+                {this.state.terms[key].description}
+              </label>
+            </Fragment>
           );
         }.bind(this)
       );
@@ -97,23 +101,22 @@ class TermBlock extends React.Component {
 
     return (
       <div>
-        <div className="row">
+        <div className="row mb-2">
           {errorNotice}
-          <div className="col-sm-12 col-md-5 col-md-push-3">
+          <div className="col-sm-12 col-md-8">
             <div className={fgClasses} id="term">
-              <label htmlFor="term" className="control-label">
-                Term
-              </label>
+              <label className="form-label">Term</label>
               <br />
-              <div className="btn-group" data-toggle="buttons">
+
+              <div className="btn-group" role="group" aria-label="term semester/year selection">
                 {termList}
               </div>
             </div>
           </div>
         </div>
         <div className="row">
-          <div className="col-md-4 col-md-push-3">
-            <span id="helpBlock" className="help-block" style={{ marginTop: '.5em' }}>
+          <div className="col-md-6">
+            <span id="helpBlock" className="form-text">
               {termDates}
             </span>
           </div>

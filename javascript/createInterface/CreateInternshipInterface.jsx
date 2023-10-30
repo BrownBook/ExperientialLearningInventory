@@ -31,10 +31,10 @@ class HostAgency extends React.Component {
     });
 
     return (
-      <div className="row">
-        <div className="col-sm-12 col-md-4 col-md-push-3">
+      <div className="row mb-4">
+        <div className="col-sm-12 col-md-8">
           <div className={fgClasses} id="agency">
-            <label htmlFor="agency2" className="control-label">
+            <label htmlFor="agency2" className="form-label">
               Experiential Learning Host
             </label>
             <input type="text" id="agency2" name="agency" className="form-control" placeholder="Acme, Inc." />
@@ -53,20 +53,20 @@ class CreateInternshipButton extends React.Component {
     let button = null;
     if (this.props.submitted) {
       button = (
-        <button type="submit" className="btn btn-lg btn-primary pull-right" id="create-btn" disabled>
+        <button type="submit" className="btn btn-lg btn-primary float-end" id="create-btn" disabled>
           <i className="fa fa-spinner fa-spin"></i> Saving...
         </button>
       );
     } else {
       button = (
-        <button type="submit" className="btn btn-lg btn-primary pull-right" id="create-btn" onClick={this.handleClick}>
+        <button type="submit" className="btn btn-lg btn-primary float-end" id="create-btn" onClick={this.handleClick}>
           Create Activity
         </button>
       );
     }
     return (
       <div className="row">
-        <div className="col-sm-12 col-md-6 col-md-push-3">{button}</div>
+        <div className="col-sm-12 col-md-10">{button}</div>
       </div>
     );
   }
@@ -91,7 +91,7 @@ class ErrorMessagesBlock extends React.Component {
         <div className="col-sm-12 col-md-6 col-md-push-3">
           <div className="alert alert-danger" role="alert">
             <p>
-              <i className="fa fa-exclamation-circle fa-2x"></i> Please select values for the following fields:{' '}
+              <i className="fa-solid fa-exclamation-circle fa-2x"></i> Please select values for the following fields:{' '}
             </p>
             <ul>{errors}</ul>
           </div>
@@ -243,24 +243,28 @@ class CreateInternshipInterface extends React.Component {
     }
 
     return (
-      <form id="newInternshipForm" className="form-protected" action="index.php" method="post" onSubmit={this.handleSubmit}>
-        <input type="hidden" name="module" value="intern" />
-        <input type="hidden" name="action" value="AddInternship" />
+      <div className="row">
+        <div className="col-md-6 offset-md-3">
+          <form id="newInternshipForm" className="form-protected" action="index.php" method="post" onSubmit={this.handleSubmit}>
+            <input type="hidden" name="module" value="intern" />
+            <input type="hidden" name="action" value="AddInternship" />
 
-        <TransitionGroup>{errors}</TransitionGroup>
+            <TransitionGroup>{errors}</TransitionGroup>
 
-        <StudentSearch ref={this.studentSearchRef} />
+            <StudentSearch ref={this.studentSearchRef} />
 
-        <TermBlock ref={this.termBlockRef} />
+            <TermBlock ref={this.termBlockRef} />
 
-        <LocationBlock ref={this.locationBlockRef} />
+            <LocationBlock ref={this.locationBlockRef} />
 
-        <Department ref={this.departmentRef} />
+            <Department ref={this.departmentRef} />
 
-        <HostAgency ref={this.hostAgencyRef} />
+            <HostAgency ref={this.hostAgencyRef} />
 
-        <CreateInternshipButton submitted={this.state.submitted} />
-      </form>
+            <CreateInternshipButton submitted={this.state.submitted} />
+          </form>
+        </div>
+      </div>
     );
   }
 }
