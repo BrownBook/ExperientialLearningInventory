@@ -88,10 +88,10 @@ class ErrorMessagesBlock extends React.Component {
 
     return (
       <div className="row">
-        <div className="col-sm-12 col-md-6 col-md-push-3">
+        <div className="col-sm-12 col-md-10">
           <div className="alert alert-danger" role="alert">
             <p>
-              <i className="fa-solid fa-exclamation-circle fa-2x"></i> Please select values for the following fields:{' '}
+              <i className="fa-solid fa-exclamation-circle"></i> Please select values for the following fields:{' '}
             </p>
             <ul>{errors}</ul>
           </div>

@@ -109,12 +109,20 @@ class LocationBlock extends React.Component {
               </label>{' '}
               <br />
               <div className="btn-group" role="group" aria-label="internship location">
-                <input type="radio" className="btn-check" name="location" id="location-domestic" autoComplete="off" onClick={this.domestic} />
+                <input type="radio" className="btn-check" name="location" value="domestic" id="location-domestic" autoComplete="off" onClick={this.domestic} />
                 <label className="btn btn-outline-primary" htmlFor="location-domestic">
                   Domestic
                 </label>
 
-                <input type="radio" className="btn-check" name="location" id="location-intl" autoComplete="off" onClick={this.international} />
+                <input
+                  type="radio"
+                  className="btn-check"
+                  name="location"
+                  value="international"
+                  id="location-intl"
+                  autoComplete="off"
+                  onClick={this.international}
+                />
                 <label className="btn btn-outline-primary" htmlFor="location-intl">
                   International
                 </label>

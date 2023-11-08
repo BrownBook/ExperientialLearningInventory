@@ -72,8 +72,8 @@ class InternationalDropDown extends React.Component {
 }
 
 InternationalDropDown.propTypes = {
-  formStyle: PropTypes.string.isRequired,
-  countries: PropTypes.array.isRequired
+  formStyle: PropTypes.string,
+  countries: PropTypes.object.isRequired
 };
 
 export default InternationalDropDown;
