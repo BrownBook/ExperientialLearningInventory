@@ -272,7 +272,7 @@ class EditInternshipFormView {
         }
         $this->form->addSelect('department', $depts);
         $this->form->setLabel('department', 'Department');
-        $this->form->addCssClass('department', 'form-control');
+        $this->form->addCssClass('department', 'form-select');
 
         // If the user only has one department, select it for them
         // sizeof($depts) == 2 because of the 'Select Deparmtnet' option
@@ -325,7 +325,7 @@ class EditInternshipFormView {
         if($this->intern->domestic) {
             $this->form->addSelect('agency_state', State::$UNITED_STATES);
             $this->form->setLabel('agency_state', 'State');
-            $this->form->addCssClass('agency_state', 'form-control');
+            $this->form->addCssClass('agency_state', 'form-select');
 
             $this->form->setLabel('agency_zip', 'Zip Code');
         } else {
@@ -335,7 +335,7 @@ class EditInternshipFormView {
 
             $this->form->addSelect('agency_country', $countries);
             $this->form->setLabel('agency_country', 'Country');
-            $this->form->addCssClass('agency_country', 'form-control');
+            $this->form->addCssClass('agency_country', 'form-select');
 
             $this->form->setLabel('agency_zip', 'Postal Code');
         }
@@ -384,7 +384,7 @@ class EditInternshipFormView {
         if($this->intern->domestic) {
             $this->form->addSelect('agency_sup_state', State::$UNITED_STATES);
             $this->form->setLabel('agency_sup_state', 'State');
-            $this->form->addCssClass('agency_sup_state', 'form-control');
+            $this->form->addCssClass('agency_sup_state', 'form-select');
 
             $this->form->setLabel('agency_sup_zip', 'Zip Code');
         } else {
@@ -394,7 +394,7 @@ class EditInternshipFormView {
 
             $this->form->addSelect('agency_sup_country', $countries);
             $this->form->setLabel('agency_sup_country', 'Country');
-            $this->form->addCssClass('agency_sup_country', 'form-control');
+            $this->form->addCssClass('agency_sup_country', 'form-select');
 
             $this->form->setLabel('agency_sup_zip', 'Postal Code');
         }
@@ -455,7 +455,7 @@ class EditInternshipFormView {
                 $states = State::getAllowedStates();
                 $this->form->addSelect('loc_state', $states);
                 $this->form->setMatch('loc_state', $this->intern->loc_state);
-                $this->form->addCssClass('loc_state', 'form-control');
+                $this->form->addCssClass('loc_state', 'form-select');
             }else{
                 $this->tpl['LOC_STATE'] = $states[$locationState]->full_name;
             }
@@ -476,7 +476,7 @@ class EditInternshipFormView {
                 unset($countries['US']);
                 $this->form->addSelect('loc_country', $countries);
                 $this->form->setMatch('loc_country', $this->intern->loc_country);
-                $this->form->addCssClass('loc_country', 'form-control');
+                $this->form->addCssClass('loc_country', 'form-select');
             }else{
                 $this->tpl['LOC_COUNTRY'] = $countries[$locationCountry];
             }
@@ -498,7 +498,7 @@ class EditInternshipFormView {
             $terms = TermFactory::getTermsAssoc();
             $this->form->addSelect('term', $terms);
             $this->form->setMatch('term', $this->intern->term);
-            $this->form->addCssClass('term', 'form-control');
+            $this->form->addCssClass('term', 'form-select');
         }else{
             $this->tpl['TERM'] = $this->term->getDescription();
         }
@@ -537,7 +537,7 @@ class EditInternshipFormView {
         $subjects = array("-1" => "Select subject...") + Subject::getSubjects();
         $this->form->addSelect('course_subj', $subjects);
         //$this->form->setLabel('course_subj', 'Subject'); // Bug: This doesn't work for some reason.
-        $this->form->addCssClass('course_subj', 'form-control');
+        $this->form->addCssClass('course_subj', 'form-select');
 
         $this->form->addText('course_no');
         $this->form->setLabel('course_no', 'Number');
@@ -586,7 +586,7 @@ class EditInternshipFormView {
         //$this->form->addRadioAssoc('experience_type', ExperienceTypeFactory::getExperienceTypesKeyPair());
         $this->form->addSelect('experience_type', ExperienceTypeFactory::getExperienceTypesKeyPair());
         $this->form->setLabel('experience_type', 'Experience Type');
-        $this->form->addCssClass('experience_type', 'form-control');
+        $this->form->addCssClass('experience_type', 'form-select');
         $this->form->setMatch('experience_type', 'internship');
 
         /*********
@@ -641,7 +641,7 @@ class EditInternshipFormView {
                 $campus = Internship::getCampusAssoc();
                 $this->form->addSelect('campus', $campus);
                 $this->form->setMatch('campus', $this->intern->campus);
-                $this->form->addCssClass('campus', 'form-control');
+                $this->form->addCssClass('campus', 'form-select');
             } else {
                 $this->tpl['CAMPUS'] = $this->intern->getCampusFormatted();
             }
@@ -814,7 +814,7 @@ class EditInternshipFormView {
         // Remove the subject field and re-add it
         $this->form->dropElement('course_subj');
         $this->form->addSelect('course_subj', array('-1' => 'Select Subject...') + Subject::getSubjects($this->intern->course_subj));
-        $this->form->addCssClass('course_subj', 'form-control');
+        $this->form->addCssClass('course_subj', 'form-select');
         $this->form->setMatch('course_subj', $this->intern->course_subj);
         $this->formVals['course_no'] = $this->intern->course_no;
         $this->formVals['course_sect'] = $this->intern->course_sect;
