@@ -66,8 +66,8 @@
 
         <div class="row mb-2">
           <label class="col-lg-3 col-form-label" for="bannerid">Student Id</label>
-          <div id="bannerid" class="col-lg-6">
-            <p class="form-control-plaintext">{BANNER}</p>
+          <div class="col-lg-6">
+            <p id="bannerid" class="form-control-plaintext">{BANNER}</p>
           </div>
         </div>
 
@@ -244,10 +244,10 @@
 
         <div class="row mb-3">
           <div class="col-lg-3 col-form-label">
-            <label>Location</label>
+            <label for="location-label">Location</label>
           </div>
           <div class="col-lg-6">
-            <p class="form-control-plaintext">{LOCATION}</p>
+            <p id="location-label" class="form-control-plaintext">{LOCATION}</p>
           </div>
         </div>
 
@@ -410,6 +410,7 @@
         </div>
 
         <!-- Informational Modal -->
+        <!-- TODO -->
         <div id="typeModal" class="modal fade" role="dialog">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -457,7 +458,7 @@
         <p>
           Current Status: <strong>{WORKFLOW_STATE}</strong>
         </p>
-        <div class="card">
+        <div class="card mb-3">
           <div class="card-body">
             <h4 class="panel-title">Next status</h4>
 
@@ -469,7 +470,7 @@
           </div>
         </div>
         <!-- BEGIN international_certification -->
-        <div class="form-group">
+        <div class="mb-3">
           <div class="col-lg-10">
             <div class="checkbox">
               <label>{OIED_CERTIFIED} {OIED_CERTIFIED_LABEL}</label>
@@ -484,12 +485,12 @@
       <fieldset>
         <legend>Faculty Supervisor</legend>
         <div id="faculty_selector">
-          <div class="form-group required">
-            <label class="col-lg-3 form-label" for="{DEPARTMENT_ID}">{DEPARTMENT_LABEL_TEXT}</label>
+          <div class="row mb-2 required">
+            <label class="col-lg-3 col-form-label" for="{DEPARTMENT_ID}">{DEPARTMENT_LABEL_TEXT}</label>
             <div class="col-lg-8">{DEPARTMENT}</div>
           </div>
-          <div class="form-group">
-            <label class="col-lg-3 form-label" for="{FACULTY_ID}">{FACULTY_LABEL_TEXT}</label>
+          <div class="row mb-2">
+            <label class="col-lg-3 col-form-label" for="{FACULTY_ID}">{FACULTY_LABEL_TEXT}</label>
             <div class="col-lg-8">{FACULTY}</div>
           </div>
         </div>
@@ -497,36 +498,28 @@
 
           <div class="row">
             <div id="faculty_change" class="col-lg-2">
-              <button type="button" id="faculty-change" class="btn btn-default btn-xs">
-                <i class="fa fa-chevron-left"></i> change
+              <button type="button" id="faculty-change" class="btn btn-outline-secondary btn-sm">
+                <i class="fa-solid fa-chevron-left"></i> change
               </button>
             </div>
             <div id="faculty_name" class="col-lg-10 lead"></div>
           </div>
 
           <div class="row">
-            <div class="col-lg-5 col-lg-offset-2">
+            <div class="col-lg-5 offset-lg-2">
 
-              <div class="row">
-                <div class="col-lg-12">
-                  <p>
-                    <abbr title="Email address"><i class="fa fa-envelope"></i></abbr> &nbsp;<span
-                      id="faculty_email"></span>
-                  </p>
-                </div>
-              </div>
+              <p>
+                <abbr title="Email address"><i class="fa fa-envelope"></i></abbr> &nbsp;<span id="faculty_email"></span>
+              </p>
 
-              <div class="row">
-                <div class="col-lg-12">
-                  <p>
-                    <abbr title="Phone"><i class="fa fa-phone"></i></abbr> &nbsp;<span id="faculty_phone"></span>
-                  </p>
-                </div>
-              </div>
+              <p>
+                <abbr title="Phone"><i class="fa fa-phone"></i></abbr> &nbsp;<span id="faculty_phone"></span>
+              </p>
+
             </div>
 
             <div class="col-lg-5">
-              <abbr title="Address"><i class="fa fa-map-marker"></i></abbr> &nbsp;
+              <i class="fa fa-map-marker"></i> &nbsp;
               <address id="faculty_address"></address>
             </div>
           </div>
@@ -538,14 +531,14 @@
       <fieldset>
         <legend>Contract &amp; Documents</legend>
         <div class="row">
-          <div class="col-lg-9">
+          <div class="col-lg-8">
             <ul class="list-group">
               <!-- BEGIN docs -->
               <li class="list-group-item"><i class="fa fa-file"></i> {DOWNLOAD} &nbsp;{DELETE}</li>
               <!-- END docs -->
             </ul>
           </div>
-          <div class="col-lg-2">{UPLOAD_DOC}</div>
+          <div class="col-lg-3">{UPLOAD_DOC}</div>
         </div>
       </fieldset>
 
@@ -553,53 +546,54 @@
       <fieldset>
         <legend>Host Details</legend>
 
-        <div class="form-group">
-          <label class="col-lg-3 form-label" for="{AGENCY_NAME_ID}">Host Name</label>
+        <div class="row mb-2">
+          <label class="col-lg-3 col-form-label" for="{AGENCY_NAME_ID}">Host Name</label>
           <div class="col-lg-6">
             <p class="form-control-plaintext">{AGENCY_NAME}</p>
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="col-lg-3 form-label" for="{AGENCY_PHONE_ID}">{AGENCY_PHONE_LABEL_TEXT}</label>
+        <div class="row mb-3">
+          <label class="col-lg-3 col-form-label" for="{AGENCY_PHONE_ID}">{AGENCY_PHONE_LABEL_TEXT}</label>
           <div class="col-lg-6">{AGENCY_PHONE}</div>
         </div>
 
-        <div class="checkbox">
-          <label> {COPY_ADDRESS_AGENCY} {COPY_ADDRESS_AGENCY_LABEL_TEXT} </label>
+        <div class="form-check">
+          {COPY_ADDRESS_AGENCY}
+          <label for="internship_copy_address_agency" class="form-check-label">{COPY_ADDRESS_AGENCY_LABEL_TEXT}</label>
         </div>
 
-        <div class="form-group">
-          <label class="col-lg-3 form-label" for="{AGENCY_ADDRESS_ID}">{AGENCY_ADDRESS_LABEL_TEXT}</label>
+        <div class="row mb-2">
+          <label class="col-lg-3 col-form-label" for="{AGENCY_ADDRESS_ID}">{AGENCY_ADDRESS_LABEL_TEXT}</label>
           <div class="col-lg-6">{AGENCY_ADDRESS}</div>
         </div>
 
-        <div class="form-group">
-          <label class="col-lg-3 form-label" for="{AGENCY_CITY_ID}">{AGENCY_CITY_LABEL_TEXT}</label>
+        <div class="row mb-2">
+          <label class="col-lg-3 col-form-label" for="{AGENCY_CITY_ID}">{AGENCY_CITY_LABEL_TEXT}</label>
           <div class="col-lg-6">{AGENCY_CITY}</div>
         </div>
 
         <!-- BEGIN agency-state -->
-        <div class="form-group">
-          <label class="col-lg-3 form-label" for="{AGENCY_STATE_ID}">{AGENCY_STATE_LABEL_TEXT}</label>
+        <div class="row mb-2">
+          <label class="col-lg-3 col-form-label" for="{AGENCY_STATE_ID}">{AGENCY_STATE_LABEL_TEXT}</label>
           <div class="col-lg-6">{AGENCY_STATE}</div>
         </div>
         <!-- END agency-state -->
 
-        <div class="form-group">
-          <label class="col-lg-3 form-label" for="{AGENCY_ZIP_ID}"
+        <div class="row mb-3">
+          <label class="col-lg-3 col-form-label" for="{AGENCY_ZIP_ID}"
             id="internship_agency_zip-label">{AGENCY_ZIP_LABEL_TEXT}</label>
           <div class="col-lg-6">{AGENCY_ZIP}</div>
         </div>
 
         <!-- BEGIN agency-intl -->
-        <div class="form-group">
-          <label class="col-lg-3 form-label" for="{AGENCY_PROVINCE_ID}">{AGENCY_PROVINCE_LABEL_TEXT}</label>
+        <div class="row mb-2">
+          <label class="col-lg-3 col-form-label" for="{AGENCY_PROVINCE_ID}">{AGENCY_PROVINCE_LABEL_TEXT}</label>
           <div class="col-lg-6">{AGENCY_PROVINCE}</div>
         </div>
 
-        <div class="form-group">
-          <label class="col-lg-3 form-label" for="{AGENCY_COUNTRY_ID}">{AGENCY_COUNTRY_LABEL_TEXT}</label>
+        <div class="row mb-3">
+          <label class="col-lg-3 col-form-label" for="{AGENCY_COUNTRY_ID}">{AGENCY_COUNTRY_LABEL_TEXT}</label>
           <div class="col-lg-6">{AGENCY_COUNTRY}</div>
         </div>
         <!-- END agency-intl -->
@@ -609,67 +603,70 @@
       <fieldset>
         <legend>Supervisor Info</legend>
 
-        <div class="form-group">
-          <label class="col-lg-3 form-label" for="{AGENCY_SUP_FIRST_NAME_ID}">{AGENCY_SUP_FIRST_NAME_LABEL_TEXT}</label>
+        <div class="row mb-2">
+          <label class="col-lg-3 col-form-label"
+            for="{AGENCY_SUP_FIRST_NAME_ID}">{AGENCY_SUP_FIRST_NAME_LABEL_TEXT}</label>
           <div class="col-lg-6">{AGENCY_SUP_FIRST_NAME}</div>
         </div>
 
-        <div class="form-group">
-          <label class="col-lg-3 form-label" for="{AGENCY_SUP_LAST_NAME_ID}">{AGENCY_SUP_LAST_NAME_LABEL_TEXT}</label>
+        <div class="row mb-2">
+          <label class="col-lg-3 col-form-label"
+            for="{AGENCY_SUP_LAST_NAME_ID}">{AGENCY_SUP_LAST_NAME_LABEL_TEXT}</label>
           <div class="col-lg-6">{AGENCY_SUP_LAST_NAME}</div>
         </div>
 
-        <div class="form-group">
-          <label class="col-lg-3 form-label" for="{AGENCY_SUP_TITLE_ID}">{AGENCY_SUP_TITLE_LABEL_TEXT}</label>
+        <div class="row mb-2">
+          <label class="col-lg-3 col-form-label" for="{AGENCY_SUP_TITLE_ID}">{AGENCY_SUP_TITLE_LABEL_TEXT}</label>
           <div class="col-lg-6">{AGENCY_SUP_TITLE}</div>
         </div>
 
-        <div class="form-group">
-          <label class="col-lg-3 form-label" for="{AGENCY_SUP_EMAIL_ID}">{AGENCY_SUP_EMAIL_LABEL_TEXT}</label>
+        <div class="row mb-2">
+          <label class="col-lg-3 col-form-label" for="{AGENCY_SUP_EMAIL_ID}">{AGENCY_SUP_EMAIL_LABEL_TEXT}</label>
           <div class="col-lg-6">{AGENCY_SUP_EMAIL}</div>
         </div>
 
-        <div class="checkbox">
-          <label> {COPY_ADDRESS} {COPY_ADDRESS_LABEL_TEXT} </label>
+        <div class="form-check">
+          {COPY_ADDRESS}
+          <label for="internship_copy_address" class="form-check-label">{COPY_ADDRESS_LABEL_TEXT}</label>
         </div>
 
-        <div class="form-group">
-          <label class="col-lg-3 form-label" for="{AGENCY_SUP_PHONE_ID}">{AGENCY_SUP_PHONE_LABEL_TEXT}</label>
+        <div class="row mb-2">
+          <label class="col-lg-3 col-form-label" for="{AGENCY_SUP_PHONE_ID}">{AGENCY_SUP_PHONE_LABEL_TEXT}</label>
           <div class="col-lg-6">{AGENCY_SUP_PHONE}</div>
         </div>
 
-        <div class="form-group">
-          <label class="col-lg-3 form-label" for="{AGENCY_SUP_ADDRESS_ID}">{AGENCY_SUP_ADDRESS_LABEL_TEXT}</label>
+        <div class="row mb-2">
+          <label class="col-lg-3 col-form-label" for="{AGENCY_SUP_ADDRESS_ID}">{AGENCY_SUP_ADDRESS_LABEL_TEXT}</label>
           <div class="col-lg-6">{AGENCY_SUP_ADDRESS}</div>
         </div>
 
-        <div class="form-group">
-          <label class="col-lg-3 form-label" for="{AGENCY_SUP_CITY_ID}">{AGENCY_SUP_CITY_LABEL_TEXT}</label>
+        <div class="row mb-2">
+          <label class="col-lg-3 col-form-label" for="{AGENCY_SUP_CITY_ID}">{AGENCY_SUP_CITY_LABEL_TEXT}</label>
           <div class="col-lg-6">{AGENCY_SUP_CITY}</div>
         </div>
 
         <!-- BEGIN agency sup-state -->
-        <div class="form-group">
-          <label class="col-lg-3 form-label" for="{AGENCY_SUP_STATE_ID}">{AGENCY_SUP_STATE_LABEL_TEXT}</label>
+        <div class="row mb-2">
+          <label class="col-lg-3 col-form-label" for="{AGENCY_SUP_STATE_ID}">{AGENCY_SUP_STATE_LABEL_TEXT}</label>
           <div class="col-lg-6">{AGENCY_SUP_STATE}</div>
         </div>
         <!-- END agency sup-state -->
 
-        <div class="form-group">
-          <label class="col-lg-3 form-label" for="{AGENCY_SUP_ZIP_ID}"
+        <div class="row mb-2">
+          <label class="col-lg-3 col-form-label" for="{AGENCY_SUP_ZIP_ID}"
             id="internship_agency_sup_zip-label">{AGENCY_SUP_ZIP_LABEL_TEXT}</label>
           <div class="col-lg-6">{AGENCY_SUP_ZIP}</div>
         </div>
 
         <!-- BEGIN agency-sup-intl -->
-        <div class="form-group">
-          <label class="col-lg-3 form-label" for="{AGENCY_SUP_PROVINCE_ID}">{AGENCY_SUP_PROVINCE_LABEL_TEXT}</label>
+        <div class="row mb-2">
+          <label class="col-lg-3 col-form-label" for="{AGENCY_SUP_PROVINCE_ID}">{AGENCY_SUP_PROVINCE_LABEL_TEXT}</label>
           <div class="col-lg-6">{AGENCY_SUP_PROVINCE}</div>
         </div>
         <!-- END agency-sup-intl -->
 
-        <div class="form-group">
-          <label class="col-lg-3 form-label" for="{AGENCY_SUP_COUNTRY_ID}">{AGENCY_SUP_COUNTRY_LABEL_TEXT}</label>
+        <div class="row mb-2">
+          <label class="col-lg-3 col-form-label" for="{AGENCY_SUP_COUNTRY_ID}">{AGENCY_SUP_COUNTRY_LABEL_TEXT}</label>
           <div class="col-lg-6">{AGENCY_SUP_COUNTRY}</div>
         </div>
       </fieldset>
@@ -677,52 +674,56 @@
       <fieldset>
         <legend>Compensation</legend>
 
-        <div class="form-group">
-          <div class="col-lg-6 col-lg-offset-3">
+        <div class="row mb-3">
+          <div class="col-lg-6 offset-lg-3">
             <!-- BEGIN payment_repeat -->
-            <label class="radio-inline"> {PAYMENT}{PAYMENT_LABEL_TEXT}</label>
+            <div class="form-check form-check-inline">
+              {PAYMENT}
+              <label for="{PAYMENT_ID}" class="form-check-label">{PAYMENT_LABEL_TEXT}</label>
+            </div>
             <!-- END payment_repeat -->
 
-            <div class="checkbox">
-              <label>{STIPEND}&nbsp;{STIPEND_LABEL_TEXT}</label>
+            <div class="form-check">
+              {STIPEND}
+              <label for="{STIPEND_ID}" class="form-check-label">&nbsp;{STIPEND_LABEL_TEXT}</label>
             </div>
 
-            <div class="checkbox">
-              <label>{CO_OP}&nbsp;{CO_OP_LABEL_TEXT}</label>
+            <div class="form-check">
+              {CO_OP}
+              <label for="{CO_OP_ID}" class="form-check-label">&nbsp;{CO_OP_LABEL_TEXT}</label>
             </div>
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="col-lg-3 form-label" for="{PAY_RATE_ID}">Pay rate</label>
+        <div class="row mb-2">
+          <label class="col-lg-3 col-form-label" for="{PAY_RATE_ID}">Pay rate</label>
           <div class="col-lg-3">{PAY_RATE}</div>
         </div>
 
-        <div class="form-group">
-          <label class="col-lg-3 col-lg-offset-1 form-label"
-            for="{AVG_HOURS_WEEK_ID}">{AVG_HOURS_WEEK_LABEL_TEXT}</label>
+        <div class="row mb-2">
+          <label class="col-lg-3 col-form-label" for="{AVG_HOURS_WEEK_ID}">{AVG_HOURS_WEEK_LABEL_TEXT}</label>
           <div class="col-lg-3">{AVG_HOURS_WEEK}</div>
         </div>
 
-        <div class="form-group">
-          <label class="col-lg-3 col-lg-offset-1 form-label" for="{TOTAL_HOURS_ID}">{TOTAL_HOURS_LABEL_TEXT}</label>
+        <div class="row mb-2">
+          <label class="col-lg-3 col-form-label" for="{TOTAL_HOURS_ID}">{TOTAL_HOURS_LABEL_TEXT}</label>
           <div class="col-lg-3">{TOTAL_HOURS}</div>
         </div>
       </fieldset>
 
       <div class="form-group">
-        <button type="submit" class="btn btn-primary pull-right" id="{SUBMIT_ID}2">{SUBMIT_VALUE}</button>
+        <button type="submit" class="btn btn-primary float-end" id="{SUBMIT_ID}2">{SUBMIT_VALUE}</button>
       </div>
     </div> <!-- End of right column -->
   </div> <!-- End of main row -->
 
-  <div class="row">
+  <div class="row mt-4 mb-4">
     <div class="col-lg-6">
-      <div class="form-group print-hide">
+      <div class="row mb-4 print-hide">
         <label for="{NOTES_ID}">Add a note</label> {NOTES}
       </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-primary pull-right" id="{SUBMIT_ID}3">{SUBMIT_VALUE}</button>
+        <button type="submit" class="btn btn-primary float-end" id="{SUBMIT_ID}3">{SUBMIT_VALUE}</button>
       </div>
     </div>
   </div>

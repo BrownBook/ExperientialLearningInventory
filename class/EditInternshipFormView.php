@@ -183,6 +183,7 @@ class EditInternshipFormView {
         if($this->settings->getRequireIntlCertification()){
             $this->form->addCheck('oied_certified');
             $this->form->setLabel('oied_certified', 'International Certified');
+            $this->form->addCssClass('oied_certified', 'form-check-input');
 
             // If the user is not allowed to do International certification, disable the checkbox
             if(!\Current_User::allow('intern', 'oied_certify') || $this->intern->isDomestic()){
@@ -291,7 +292,7 @@ class EditInternshipFormView {
         $this->form->addSelect('faculty', array(-1=>'Select Faculty Supervisor'));
         $this->form->setExtra('faculty', 'disabled');
         $this->form->setLabel('faculty', 'Faculty Supervisor / Instructor of Record');
-        $this->form->addCssClass('faculty', 'form-control');
+        $this->form->addCssClass('faculty', 'form-select');
 
         // Hidden field for selected faculty member
         $this->form->addHidden('faculty_id');
@@ -306,6 +307,7 @@ class EditInternshipFormView {
 
         $this->form->addCheck('copy_address_agency');
         $this->form->setLabel('copy_address_agency', "Agency's address is same as Activity's");
+        $this->form->addCssClass('copy_address_agency', 'form-check-input');
 
         $this->form->addText('agency_address');
         $this->form->setLabel('agency_address', 'Address');
@@ -369,6 +371,7 @@ class EditInternshipFormView {
 
         $this->form->addCheck('copy_address');
         $this->form->setLabel('copy_address', "Supervisor's information is same as agency's");
+        $this->form->addCssClass('copy_address', 'form-check-input');
 
         $this->form->addText('agency_sup_address');
         $this->form->setLabel('agency_sup_address', 'Address');
@@ -527,9 +530,11 @@ class EditInternshipFormView {
 
         $this->form->addCheck('multipart');
         $this->form->setLabel('multipart', 'This activity is part of a multi-part experience.');
+        $this->form->addCssClass('multipart', 'form-check-input');
 
         $this->form->addCheck('secondary_part');
         $this->form->setLabel('secondary_part', 'This is a secondary part (enrollment complete through primary part).');
+        $this->form->addCssClass('secondary_part', 'form-check-input');
 
         /***************
          * Course Info *
@@ -571,6 +576,7 @@ class EditInternshipFormView {
         $this->form->addRadioAssoc('payment', $pay);
         $this->form->setMatch('payment', 'unpaid'); // Default to unpaid
         $this->form->addCheck('stipend');
+        $this->form->addCssClass('stipend', 'form-check-input');
         $this->form->setLabel('stipend', 'Stipend');
 
         $this->form->addText('pay_rate');
@@ -578,6 +584,7 @@ class EditInternshipFormView {
         $this->form->addCssClass('pay_rate', 'form-control');
 
         $this->form->addCheck('co_op');
+        $this->form->addCssClass('co_op', 'form-check-input');
         $this->form->setLabel('co_op', 'Co-op');
 
         /*******************
