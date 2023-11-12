@@ -6,17 +6,18 @@
   });
 </script>
 
-<h2><i class="fa fa-search"></i> Search Inventory</h2>
+<h2><i class="fa-solid fa-search"></i> Search Activities</h2>
 
-<form class="form-horizontal {FORM_CLASS}" id="{FORM_ID}" action="{FORM_ACTION}" autocomplete="{FORM_AUTOCOMPLETE}"
+<form class="{FORM_CLASS}" id="{FORM_ID}" action="{FORM_ACTION}" autocomplete="{FORM_AUTOCOMPLETE}"
   method="{FORM_METHOD}" {FORM_ENCODE}>
   {HIDDEN_FIELDS}
 
   <div class="row">
-    <div class="col-md-4 col-md-offset-4">
-      <div class="form-group">
-        <label class="control-label" for="{NAME_ID}" style="display: none;">{NAME_LABEL_TEXT}</label> <input type="text"
-          id="{NAME_ID}" name="{NAME_NAME}" class="form-control input-lg" placeholder="Name or Student ID" autofocus>
+    <div class="col-md-4 offset-md-4">
+      <div class="row mb-3">
+        <label class="form-label" for="{NAME_ID}" style="display: none;">{NAME_LABEL_TEXT}</label> <input type="text"
+          id="{NAME_ID}" name="{NAME_NAME}" class="form-control form-control-lg" placeholder="Name or Student ID"
+          autofocus>
       </div>
     </div>
 
@@ -34,28 +35,28 @@
       <fieldset class="search-fieldset">
         <legend>Course</legend>
 
-        <div class="form-group">
-          <label class="col-md-3 control-label" for="{TERM_SELECT_ID}">{TERM_SELECT_LABEL_TEXT}</label>
+        <div class="row mb-3">
+          <label class="col-md-3 col-form-label" for="{TERM_SELECT_ID}">{TERM_SELECT_LABEL_TEXT}</label>
           <div class="col-md-5">{TERM_SELECT}</div>
         </div>
 
-        <div class="form-group">
-          <label class="col-md-3 control-label" for="{COURSE_SUBJ_ID}">Subject</label>
+        <div class="row mb-3">
+          <label class="col-md-3 col-form-label" for="{COURSE_SUBJ_ID}">Subject</label>
           <div class="col-md-8">{COURSE_SUBJ}</div>
         </div>
 
-        <div class="form-group">
-          <label class="col-md-3 control-label" for="{COURSE_NO_ID}">{COURSE_NO_LABEL_TEXT}</label>
+        <div class="row mb-3">
+          <label class="col-md-3 col-form-label" for="{COURSE_NO_ID}">{COURSE_NO_LABEL_TEXT}</label>
           <div class="col-md-3">{COURSE_NO}</div>
         </div>
 
-        <div class="form-group">
-          <label class="col-md-3 control-label" for="{COURSE_SECT_ID}">{COURSE_SECT_LABEL_TEXT}</label>
+        <div class="row mb-3">
+          <label class="col-md-3 col-form-label" for="{COURSE_SECT_ID}">{COURSE_SECT_LABEL_TEXT}</label>
           <div class="col-md-3">{COURSE_SECT}</div>
         </div>
 
-        <div class="form-group">
-          <label class="col-md-3 control-label" for="{TYPE_ID}">{TYPE_LABEL_TEXT}</label>
+        <div class="row mb-3">
+          <label class="col-md-3 col-form-label" for="{TYPE_ID}">{TYPE_LABEL_TEXT}</label>
           <div class="col-md-8">{TYPE}</div>
         </div>
 
@@ -65,13 +66,13 @@
         <legend>Faculty</legend>
       </fieldset>
 
-      <div class="form-group">
-        <label class="col-md-3 control-label" for="{DEPARTMENT_ID}">{DEPARTMENT_LABEL_TEXT}</label>
+      <div class="row mb-3">
+        <label class="col-md-3 col-form-label" for="{DEPARTMENT_ID}">{DEPARTMENT_LABEL_TEXT}</label>
         <div class="col-md-8">{DEPARTMENT}</div>
       </div>
 
-      <div class="form-group">
-        <label class="col-md-3 control-label" for="{FACULTY_ID}">{FACULTY_LABEL_TEXT}</label>
+      <div class="row mb-3">
+        <label class="col-md-3 col-form-label" for="{FACULTY_ID}">{FACULTY_LABEL_TEXT}</label>
         <div class="col-md-8">{FACULTY}</div>
       </div>
 
@@ -88,8 +89,8 @@
       <fieldset class="search-fieldset">
         <legend>Location</legend>
 
-        <div class="form-group">
-          <label class="col-md-3 control-label" for="campus">Campus</label>
+        <div class="row mb-3">
+          <label class="col-md-3 form-label" for="campus">Campus</label>
           <div class="col-md-8">
             <div class="btn-group" data-toggle="buttons">
               <label class="btn btn-default active">Any Campus
@@ -111,13 +112,13 @@
 
       <fieldset>
         <legend>Date Range</legend>
-        <div class="form-group">
-          <label class="col-md-3 control-label" for="{START_DATE_ID}">{START_DATE_LABEL_TEXT}</label>
+        <div class="row mb-3">
+          <label class="col-md-3 form-label" for="{START_DATE_ID}">{START_DATE_LABEL_TEXT}</label>
           <div class="col-md-6">{START_DATE}</div>
         </div>
 
-        <div class="form-group">
-          <label class="col-md-3 control-label" for="{END_DATE_ID}">{END_DATE_LABEL_TEXT}</label>
+        <div class="row mb-3">
+          <label class="col-md-3 form-label" for="{END_DATE_ID}">{END_DATE_LABEL_TEXT}</label>
           <div class="col-md-6">{END_DATE}</div>
         </div>
       </fieldset>
@@ -125,8 +126,8 @@
 
       <fieldset>
         <legend>Status</legend>
-        <div class="form-group">
-          <div class="col-md-10 col-md-offset-2">
+        <div class="row mb-3">
+          <div class="col-md-10 offset-md-2">
             <div class="panel panel-default">
               <div class="panel-body">
                 <!-- BEGIN workflow_state_repeat -->
@@ -139,8 +140,8 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="col-md-4 control-label" for="oied">International Certification</label>
+        <div class="row mb-3">
+          <label class="col-md-4 form-label" for="oied">International Certification</label>
           <div class="col-md-8">
             <div class="btn-group" data-toggle="buttons">
               <label class="btn btn-default active">Any
@@ -160,8 +161,8 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-4 col-md-offset-8">
-      <div class="form-group">
+    <div class="col-md-4 offset-md-8">
+      <div class="row mb-3">
         <button type="submit" class="btn btn-primary" name="{SUBMIT_NAME}" value="Search">Search</button>
         <button type="button" name="reset" class="btn btn-default">Clear Fields</button>
       </div>
