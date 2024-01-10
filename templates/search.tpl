@@ -22,7 +22,7 @@
     </div>
 
     <div class="col-md-4">
-      <button type="submit" class="btn btn-primary pull-right btn-lg" id="{SUBMIT_ID}">Search</button>
+      <button type="submit" class="btn btn-primary float-end btn-lg" id="{SUBMIT_ID}">Search</button>
     </div>
   </div>
 
@@ -92,16 +92,15 @@
         <div class="row mb-3">
           <label class="col-md-3 form-label" for="campus">Campus</label>
           <div class="col-md-8">
-            <div class="btn-group" data-toggle="buttons">
-              <label class="btn btn-default active">Any Campus
-                <input type="radio" name="campus" value="-1" checked>
-              </label>
-              <label class="btn btn-default">Main Campus
-                <input type="radio" name="campus" value="main_campus">
-              </label>
-              <label class="btn btn-default">Distance Ed
-                <input type="radio" name="campus" value="distance_ed">
-              </label>
+            <div class="btn-group" role="group" aria-label="Campus selection">
+              <input type="radio" class="btn-check" name="campus" value="-1" id="campus-any-radio" checked>
+              <label class="btn btn-outline-secondary" for="campus-any-radio">Any Campus</label>
+
+              <input type="radio" class="btn-check" name="campus" value="main_campus" id="campus-main-radio">
+              <label class="btn btn-outline-secondary" for="campus-main-radio">Main Campus</label>
+
+              <input type="radio" class="btn-check" name="campus" value="distance_ed" id="campus-distance-radio">
+              <label class="btn btn-outline-secondary" for="campus-distance-radio">Distance Ed</label>
             </div>
           </div>
         </div>
@@ -127,12 +126,13 @@
       <fieldset>
         <legend>Status</legend>
         <div class="row mb-3">
-          <div class="col-md-10 offset-md-2">
-            <div class="panel panel-default">
-              <div class="panel-body">
+          <div class="col-md-10">
+            <div class="card">
+              <div class="card-body">
                 <!-- BEGIN workflow_state_repeat -->
-                <div class="checkbox">
-                  <label> {WORKFLOW_STATE} {WORKFLOW_STATE_LABEL_TEXT}</label>
+                <div class="form-check">
+                  {WORKFLOW_STATE}
+                  <label for="{WORKFLOW_STATE_ID}">{WORKFLOW_STATE_LABEL_TEXT}</label>
                 </div>
                 <!-- END workflow_state_repeat -->
               </div>
@@ -143,16 +143,15 @@
         <div class="row mb-3">
           <label class="col-md-4 form-label" for="oied">International Certification</label>
           <div class="col-md-8">
-            <div class="btn-group" data-toggle="buttons">
-              <label class="btn btn-default active">Any
-                <input type="radio" name="oied" value="-1" checked>
-              </label>
-              <label class="btn btn-default">Non-Certified
-                <input type="radio" name="oied" value="0">
-              </label>
-              <label class="btn btn-default">Certified
-                <input type="radio" name="oied" value="1">
-              </label>
+            <div class="btn-group">
+              <input type="radio" class="btn-check" name="oied" value="-1" id="btn-oied-any" checked>
+              <label for="btn-oied-any" class="btn btn-outline-secondary">Any</label>
+
+              <input type="radio" class="btn-check" name="oied" value="0" id="btn-oied-no">
+              <label for="btn-oied-no" class="btn btn-outline-secondary">Non-Certified</label>
+
+              <input type="radio" class="btn-check" name="oied" value="1" id="btn-oied-yes">
+              <label for="btn-oied-yes" class="btn btn-outline-secondary">Certified</label>
             </div>
           </div>
         </div>
@@ -162,9 +161,9 @@
   </div>
   <div class="row">
     <div class="col-md-4 offset-md-8">
-      <div class="row mb-3">
+      <div class="mb-3">
         <button type="submit" class="btn btn-primary" name="{SUBMIT_NAME}" value="Search">Search</button>
-        <button type="button" name="reset" class="btn btn-default">Clear Fields</button>
+        <button type="button" name="reset" class="btn btn-outline-secondary">Clear Fields</button>
       </div>
     </div>
   </div>
