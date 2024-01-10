@@ -31,7 +31,7 @@ class ErrorMessagesBlock extends React.Component {
       return (
         <div className="row">
           <div className="alert alert-warning" role="alert">
-            <strong>Warning! </strong> {this.props.errors}
+            {this.props.errors}
           </div>
         </div>
       );
