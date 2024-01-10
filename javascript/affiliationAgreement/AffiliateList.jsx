@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import $ from 'jquery';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
@@ -86,9 +86,9 @@ class ShowAffiliate extends React.Component {
     }
 
     const alertClass = classNames({
-      'alert-danger': red,
-      'alert-success': green,
-      'alert-warning': yellow
+      'table-danger': red,
+      'table-success': green,
+      'table-warning': yellow
     });
 
     return (
@@ -368,19 +368,19 @@ class AffiliateList extends React.Component {
 
     const filterAllClassnames = classNames({
       btn: true,
-      'btn-default': true,
+      'btn-light': true,
       active: this.state.showFilter === 'all'
     });
 
     const filterActiveClassnames = classNames({
       btn: true,
-      'btn-default': true,
+      'btn-light': true,
       active: this.state.showFilter === 'active'
     });
 
     const filterExpiredClassnames = classNames({
       btn: true,
-      'btn-default': true,
+      'btn-light': true,
       active: this.state.showFilter === 'expired'
     });
 
@@ -405,39 +405,39 @@ class AffiliateList extends React.Component {
           </div>
         </div>
         <div className="row">
-          <div className="col-md-3">
-            <a href="index.php?module=intern&action=addAgreementView" className="btn btn-md btn-success">
-              <i className="fa fa-plus"></i> Add New Agreement{' '}
+          <div className="col-md-12">
+            <a href="index.php?module=intern&action=addAgreementView" className="btn btn-md btn-primary float-end">
+              <i className="fa-solid fa-plus"></i> Add New Agreement
             </a>
           </div>
         </div>
         <br></br>
-        <div className="row">
+        <div className="row mb-2">
           <div className="col-md-3">
-            <div className="input-group">
-              <label htmlFor="filterByName">Search by Name</label>
-              <input type="text" id="filterByName" className="form-control" placeholder="Search for..." onChange={this.onSearchListChange} />
-            </div>
+            <label htmlFor="filterByName" className="form-label">
+              Search by Name
+            </label>
+            <input type="text" id="filterByName" className="form-control" placeholder="Search for..." onChange={this.onSearchListChange} />
           </div>
           <div className="col-md-3">
-            <div className="form-group">
-              <label htmlFor="filterByDepartment">Search by Department</label>
-              <select id="filterByDepartment" className="form-control" onChange={this.searchListByDept}>
-                {departmentDropDownItems}
-              </select>
-            </div>
+            <label htmlFor="filterByDepartment" className="form-label">
+              Search by Department
+            </label>
+            <select id="filterByDepartment" className="form-select" onChange={this.searchListByDept}>
+              {departmentDropDownItems}
+            </select>
           </div>
           <div className="col-md-3">
-            <div className="form-group">
-              <label htmlFor="sortByDropdown">Sort By</label>
-              <select id="sortByDropdown" className="form-control" onChange={this.onSortByChange} value={this.state.value}>
-                <option value="-1">Select an option</option>
-                <option value="sortByAZ">Name: A-Z</option>
-                <option value="sortByZA">Name: Z-A</option>
-                <option value="SoonerToLater">Expiration Date: Sooner to Later</option>
-                <option value="LaterToSooner">Expiration Date: Later to Sooner</option>
-              </select>
-            </div>
+            <label htmlFor="sortByDropdown" className="form-label">
+              Sort By
+            </label>
+            <select id="sortByDropdown" className="form-select" onChange={this.onSortByChange} value={this.state.value}>
+              <option value="-1">Select an option</option>
+              <option value="sortByAZ">Name: A-Z</option>
+              <option value="sortByZA">Name: Z-A</option>
+              <option value="SoonerToLater">Expiration Date: Sooner to Later</option>
+              <option value="LaterToSooner">Expiration Date: Later to Sooner</option>
+            </select>
           </div>
           <div className="col-md-3">
             <label className="control-label">Filter</label> <br />
@@ -473,9 +473,10 @@ class AffiliateList extends React.Component {
   }
 }
 
+const root = createRoot(document.getElementById('AffiliateList'));
+root.render(<AffiliateList />);
+
 if (process.env.NODE_ENV !== 'production') {
   const axe = require('@axe-core/react');
-  axe(React, ReactDOM, 1000);
+  axe(React, root, 1000);
 }
-
-ReactDOM.render(<AffiliateList />, document.getElementById('AffiliateList'));
