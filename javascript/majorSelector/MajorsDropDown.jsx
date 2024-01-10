@@ -30,12 +30,12 @@ class MajorsDropDown extends React.Component {
     }
 
     return (
-      <div className="form-group">
-        <label htmlFor={`majors-${level}`} className="col-lg-3 control-label">
+      <div className="row mb-3">
+        <label htmlFor={`majors-${level}`} className="col-lg-3 col-form-label">
           Major/Program
         </label>
         <div className="col-lg-8">
-          <select id={`majors-${level}`} name={level} className="form-control">
+          <select id={`majors-${level}`} name={level} className="form-select">
             {options}
           </select>
         </div>
