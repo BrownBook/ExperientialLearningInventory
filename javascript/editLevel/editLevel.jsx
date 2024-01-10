@@ -42,12 +42,12 @@ class AddData extends React.Component {
 
   render() {
     return (
-      <div className="col-md-5 col-md-offset-1">
+      <div className="col-md-4">
         <br />
         <br />
         <br />
-        <div className="panel panel-default">
-          <div className="panel-body">
+        <div className="card">
+          <div className="card-body">
             <div className="row">
               <div className="col-md-10">
                 <label htmlFor="codeName">Code:</label>
@@ -55,9 +55,7 @@ class AddData extends React.Component {
             </div>
             <div className="row">
               <div className="col-md-8">
-                <div className="form-group">
-                  <input id="codeName" type="text" className="form-control" ref={this.newCodeRef} />
-                </div>
+                <input id="codeName" type="text" className="form-control" ref={this.newCodeRef} />
               </div>
             </div>
             <div className="row">
@@ -67,9 +65,7 @@ class AddData extends React.Component {
             </div>
             <div className="row">
               <div className="col-md-8">
-                <div className="form-group">
-                  <input id="desName" type="text" className="form-control" ref={this.newDescRef} />
-                </div>
+                <input id="desName" type="text" className="form-control" ref={this.newDescRef} />
               </div>
             </div>
             <div className="row">
@@ -83,10 +79,12 @@ class AddData extends React.Component {
                   <input id="levName" type="text" className="form-control" ref={this.newLevelRef} />
                 </div>
               </div>
-              <div className="col-md-4">
+            </div>
+            <div className="row mt-3">
+              <div className="col-md-6">
                 <div className="form-group">
-                  <button className="btn btn-default btn-md" onClick={this.handleClick}>
-                    Create Code
+                  <button className="btn btn-secondary" onClick={this.handleClick}>
+                    Create Student Level
                   </button>
                 </div>
               </div>
@@ -150,7 +148,7 @@ class DisplayData extends React.Component {
         </div>
       );
       eButton = (
-        <button className="btn btn-default btn-xs" type="submit" onClick={this.handleSave}>
+        <button className="btn btn-secondary btn-sm" type="submit" onClick={this.handleSave}>
           {' '}
           Save{' '}
         </button>
@@ -159,7 +157,7 @@ class DisplayData extends React.Component {
       textDes = desName;
       textLev = levelName;
       eButton = (
-        <button className="btn btn-default btn-xs" type="submit" onClick={this.handleEdit}>
+        <button className="btn btn-secondary btn-sm" type="submit" onClick={this.handleEdit}>
           {' '}
           Edit{' '}
         </button>

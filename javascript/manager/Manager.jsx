@@ -17,12 +17,9 @@ class AddData extends React.Component {
 
   render() {
     return (
-      <div className="col-md-5 col-md-offset-1">
-        <br />
-        <br />
-        <br />
-        <div className="panel panel-default">
-          <div className="panel-body">
+      <div className="mt-3 col-md-5 offset-md-1">
+        <div className="card">
+          <div className="card-body">
             <div className="row">
               <div className="col-md-10">
                 <label htmlFor="addTextBox">{this.props.panelTitle}</label>
@@ -30,17 +27,13 @@ class AddData extends React.Component {
             </div>
             <div className="row">
               <div className="col-md-8">
-                <div className="form-group">
-                  <input type="text" id="addTextBox" className="form-control" ref={this.addDataRef} />
-                </div>
+                <input type="text" id="addTextBox" className="form-control" ref={this.addDataRef} />
               </div>
 
               <div className="col-md-4">
-                <div className="form-group">
-                  <button className="btn btn-default btn-md" onClick={this.handleClick}>
-                    {this.props.buttonTitle}
-                  </button>
-                </div>
+                <button className="btn btn-primary btn-md" onClick={this.handleClick}>
+                  {this.props.buttonTitle}
+                </button>
               </div>
             </div>
           </div>
@@ -98,7 +91,7 @@ class DisplayData extends React.Component {
     if (this.props.hidden === 0) {
       name = this.props.name;
       hButton = (
-        <button className="btn btn-default btn-xs" type="submit" onClick={this.handleHide}>
+        <button className="btn btn-secondary btn-xs" type="submit" onClick={this.handleHide}>
           {' '}
           Hide{' '}
         </button>
@@ -110,7 +103,7 @@ class DisplayData extends React.Component {
         </span>
       );
       hButton = (
-        <button className="btn btn-default btn-xs" type="submit" onClick={this.handleHide}>
+        <button className="btn btn-secondary btn-xs" type="submit" onClick={this.handleHide}>
           {' '}
           Show{' '}
         </button>
@@ -128,7 +121,7 @@ class DisplayData extends React.Component {
       );
 
       eButton = (
-        <button className="btn btn-default btn-xs" type="submit" onClick={this.handleSave}>
+        <button className="btn btn-secondary btn-xs" type="submit" onClick={this.handleSave}>
           {' '}
           Save{' '}
         </button>
@@ -138,7 +131,7 @@ class DisplayData extends React.Component {
       text = name;
 
       eButton = (
-        <button className="btn btn-default btn-xs" type="submit" onClick={this.handleEdit}>
+        <button className="btn btn-secondary btn-xs" type="submit" onClick={this.handleEdit}>
           {' '}
           Edit{' '}
         </button>
@@ -287,6 +280,10 @@ class Manager extends React.Component {
 
     return (
       <div className="data">
+        <div className="row">
+          <h1> {this.props.title} </h1>
+        </div>
+
         <div id="success" className="alert alert-success alert-dismissible" role="alert" hidden>
           <button type="button" className="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -302,8 +299,7 @@ class Manager extends React.Component {
         </div>
 
         <div className="row">
-          <div className="col-md-5">
-            <h1> {this.props.title} </h1>
+          <div className="col-md-6">
             <table className="table table-condensed table-striped">
               <thead>
                 <tr>
