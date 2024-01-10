@@ -54,8 +54,8 @@ class StateDropDown extends React.Component {
       );
     } else if (this.props.formStyle === 'horizontal') {
       output = (
-        <div className="form-group">
-          <label htmlFor="state" className="col-lg-3 form-label">
+        <div className="row mb-3">
+          <label htmlFor="state" className="col-lg-3 col-form-label">
             State
           </label>
           <div className="col-md-8">

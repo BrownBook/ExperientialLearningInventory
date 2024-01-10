@@ -48,8 +48,8 @@ class InternationalDropDown extends React.Component {
     } else if (this.props.formStyle === 'horizontal') {
       // Optional form style with label to the left of the control
       output = (
-        <div className="form-group">
-          <label htmlFor="country" className="col-lg-3 form-label">
+        <div className="row mb-3">
+          <label htmlFor="country" className="col-lg-3 col-form-label">
             Country
           </label>
           <div className="col-lg-8">
