@@ -44,6 +44,7 @@ class AddAgreementUI implements UI
 
         $form->addCheck('auto_renew');
         $form->setLabel('auto_renew', 'Auto-Renew');
+        $form->addCssClass('auto_renew', 'form-check-label');
 
         $tpl = array();
 
