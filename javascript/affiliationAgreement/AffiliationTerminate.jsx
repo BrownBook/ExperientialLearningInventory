@@ -20,13 +20,13 @@ class TerminateButton extends React.Component {
     let btnAwesome;
 
     if (this.props.terminated === 0) {
-      btnClass = 'btn btn-danger pull-right';
+      btnClass = 'btn btn-outline-danger float-end';
       btnText = 'Terminate ';
-      btnAwesome = 'fa fa-times';
+      btnAwesome = 'fa-solid fa-times';
     } else {
-      btnClass = 'btn btn-info pull-right';
+      btnClass = 'btn btn-outline-info float-end';
       btnText = 'Reinstate ';
-      btnAwesome = 'fa fa-recycle';
+      btnAwesome = 'fa-solid fa-recycle';
     }
 
     return (

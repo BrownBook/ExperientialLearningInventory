@@ -21,9 +21,7 @@ class LocationItem extends React.Component {
     return (
       <li className="list-group-item">
         {this.props.location.full_name}
-        <button onClick={this.remove} className="close">
-          &times;
-        </button>
+        <button onClick={this.remove} className="btn-close float-end" aria-label="Remove"></button>
       </li>
     );
   }
@@ -95,19 +93,19 @@ class LocationDropdown extends React.Component {
     );
 
     return (
-      <div className="LocationDropdown">
-        <div className="form-group">
-          <label htmlFor="locationDropDown">Locations:</label>
-          <select id="locationDropDown" className="form-control" ref={this.locChoices}>
+      <div className="LocationDropdown mb-3">
+        <div className="mb-2">
+          <label className="form-label" htmlFor="locationDropDown">
+            Locations:
+          </label>
+          <select id="locationDropDown" className="form-select" ref={this.locChoices}>
             <option value="-1">Select a State</option>
             {selectOptions}
           </select>
         </div>
-        <div className="form-group">
-          <button onClick={this.add} className="btn btn-success btn-md">
-            Add
-          </button>
-        </div>
+        <button onClick={this.add} className="btn btn-primary">
+          Add
+        </button>
       </div>
     );
   }
