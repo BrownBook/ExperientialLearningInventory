@@ -1,13 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import Manager from '../manager/Manager.jsx';
 
-ReactDOM.render(
-  <Manager ajaxURL="majorRest" title="Undergraduate Majors" panelTitle="Add An Undergraduate Major:" buttonTitle="Add Major" />,
-  document.getElementById('content')
-);
+const root = createRoot(document.getElementById('content'));
+root.render(<Manager ajaxURL="majorRest" title="Undergraduate Majors" panelTitle="Add An Undergraduate Major:" buttonTitle="Add Major" />);
 
 if (process.env.NODE_ENV !== 'production') {
   const axe = require('@axe-core/react');
-  axe(React, ReactDOM, 1000);
+  axe(React, root, 1000);
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import classNames from 'classnames';
 
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
@@ -269,9 +269,10 @@ class CreateInternshipInterface extends React.Component {
   }
 }
 
+const root = createRoot(document.getElementById('createInternshipInterface'));
+root.render(<CreateInternshipInterface />);
+
 if (process.env.NODE_ENV !== 'production') {
   const axe = require('@axe-core/react');
-  axe(React, ReactDOM, 1000);
+  axe(React, root, 1000);
 }
-
-ReactDOM.render(<CreateInternshipInterface />, document.getElementById('createInternshipInterface'));

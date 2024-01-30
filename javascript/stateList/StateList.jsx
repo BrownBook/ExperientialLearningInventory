@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import $ from 'jquery';
 import PropTypes from 'prop-types';
 
@@ -216,9 +216,10 @@ States.propTypes = {
   url: PropTypes.string
 };
 
+const root = createRoot(document.getElementById('content'));
+root.render(<States />);
+
 if (process.env.NODE_ENV !== 'production') {
   const axe = require('@axe-core/react');
-  axe(React, ReactDOM, 1000);
+  axe(React, root, 1000);
 }
-
-ReactDOM.render(<States />, document.getElementById('content'));

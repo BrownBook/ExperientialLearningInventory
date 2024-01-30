@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import $ from 'jquery';
 import classNames from 'classnames';
 
@@ -168,4 +168,10 @@ class LocationSelector extends React.Component {
   }
 }
 
-ReactDOM.render(<LocationSelector />, document.getElementById('LocationSelector'));
+const root = createRoot(document.getElementById('LocationSelector'));
+root.render(<LocationSelector />);
+
+if (process.env.NODE_ENV !== 'production') {
+  const axe = require('@axe-core/react');
+  axe(React, root, 1000);
+}

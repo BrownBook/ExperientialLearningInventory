@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import $ from 'jquery';
 import PropTypes from 'prop-types';
 
@@ -750,9 +750,10 @@ EditFaculty.propTypes = {
   url: PropTypes.string
 };
 
-ReactDOM.render(<EditFaculty />, document.getElementById('content'));
+const root = createRoot(document.getElementById('content'));
+root.render(<EditFaculty />);
 
 if (process.env.NODE_ENV !== 'production') {
   const axe = require('@axe-core/react');
-  axe(React, ReactDOM, 1000);
+  axe(React, root, 1000);
 }

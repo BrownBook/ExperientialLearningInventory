@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import $ from 'jquery';
 import PropTypes from 'prop-types';
 
@@ -220,4 +220,10 @@ LocationBox.propTypes = {
   affiliationId: PropTypes.number.isRequired
 };
 
-ReactDOM.render(<LocationBox affiliationId={window.aaId} />, document.getElementById('locations'));
+const root = createRoot(document.getElementById('locations'));
+root.render(<LocationBox affiliationId={window.aaId} />);
+
+if (process.env.NODE_ENV !== 'production') {
+  const axe = require('@axe-core/react');
+  axe(React, root, 1000);
+}

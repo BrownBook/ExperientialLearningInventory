@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import $ from 'jquery';
 import PropTypes from 'prop-types';
 
@@ -306,9 +306,10 @@ class StudentLevelManager extends React.Component {
   }
 }
 
-ReactDOM.render(<StudentLevelManager />, document.getElementById('level'));
+const root = createRoot(document.getElementById('level'));
+root.render(<StudentLevelManager />);
 
 if (process.env.NODE_ENV !== 'production') {
   const axe = require('@axe-core/react');
-  axe(React, ReactDOM, 1000);
+  axe(React, root, 1000);
 }

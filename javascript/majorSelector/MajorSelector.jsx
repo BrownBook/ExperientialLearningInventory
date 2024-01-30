@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import $ from 'jquery';
 import classNames from 'classnames';
 
@@ -144,9 +144,10 @@ class MajorSelector extends React.Component {
   }
 }
 
-ReactDOM.render(<MajorSelector />, document.getElementById('MajorSelector'));
+const root = createRoot(document.getElementById('MajorSelector'));
+root.render(<MajorSelector />);
 
 if (process.env.NODE_ENV !== 'production') {
   const axe = require('@axe-core/react');
-  axe(React, ReactDOM, 1000);
+  axe(React, root, 1000);
 }

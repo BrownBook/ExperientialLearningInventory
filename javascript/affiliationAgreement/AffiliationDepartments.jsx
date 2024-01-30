@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import $ from 'jquery';
 import PropTypes from 'prop-types';
 
@@ -228,4 +228,10 @@ DepartmentBox.propTypes = {
   affiliationId: PropTypes.number
 };
 
-ReactDOM.render(<DepartmentBox affiliationId={window.aaId} />, document.getElementById('departments'));
+const root = createRoot(document.getElementById('departments'));
+root.render(<DepartmentBox affiliationId={window.aaId} />);
+
+if (process.env.NODE_ENV !== 'production') {
+  const axe = require('@axe-core/react');
+  axe(React, root, 1000);
+}

@@ -1,15 +1,15 @@
 import React, { StrictMode } from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import Manager from '../manager/Manager.jsx';
 
-ReactDOM.render(
+const root = createRoot(document.getElementById('content'));
+root.render(
   <StrictMode>
     <Manager ajaxURL="deptRest" title="Departments" panelTitle="Add A Department " buttonTitle="Add Department" />
-  </StrictMode>,
-  document.getElementById('content')
+  </StrictMode>
 );
 
 if (process.env.NODE_ENV !== 'production') {
   const axe = require('@axe-core/react');
-  axe(React, ReactDOM, 1000);
+  axe(React, root, 1000);
 }

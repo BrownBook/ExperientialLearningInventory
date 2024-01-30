@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import $ from 'jquery';
 import PropTypes from 'prop-types';
@@ -295,9 +295,10 @@ CourseSelector.propTypes = {
   subjects: PropTypes.object.isRequired
 };
 
+const root = createRoot(document.getElementById('edit_courses'));
+root.render(<CourseSelector subjects={window.subjects} />);
+
 if (process.env.NODE_ENV !== 'production') {
   const axe = require('@axe-core/react');
-  axe(React, ReactDOM, 1000);
+  axe(React, root, 1000);
 }
-
-ReactDOM.render(<CourseSelector subjects={window.subjects} />, document.getElementById('edit_courses'));
