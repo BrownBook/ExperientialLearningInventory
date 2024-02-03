@@ -562,7 +562,7 @@ create table intern_student_autocomplete (
     last_name_meta      character varying,
     start_term          integer,
     end_term            integer,
-    PRIMARY KEY(banner_id)
+    PRIMARY KEY(student_id)
 );
 
 CREATE TABLE intern_import (
