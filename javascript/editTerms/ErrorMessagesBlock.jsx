@@ -30,7 +30,7 @@ class ErrorMessagesBlock extends React.Component {
     if (this.props.messageType === 'error') {
       return (
         <div className="row">
-          <div className="alert alert-warning" role="alert">
+          <div className="alert alert-warning alert-dismissible" role="alert">
             {this.props.errors}
           </div>
         </div>
@@ -40,11 +40,9 @@ class ErrorMessagesBlock extends React.Component {
     } else if (this.props.messageType === 'success') {
       return (
         <div className="row">
-          <div className="alert alert-success alert-dismissable" role="alert">
+          <div className="alert alert-success alert-dismissible" role="alert">
             <strong>Success! </strong> {this.props.errors}
-            <button type="button" className="close close-alert" data-dismiss="alert" aria-hidden="true">
-              x
-            </button>
+            <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
         </div>
       );
