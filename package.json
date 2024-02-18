@@ -12,11 +12,7 @@
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.0",
     "corejs-typeahead": "^1.3.3",
-<<<<<<< HEAD
-=======
-    "react": "^18.2.0",
     "react-bootstrap": "^2.9.0",
->>>>>>> 36b0bcf (WIP on update to React 18, EmergencyContact component)
     "react-calendar": "^2.15.2",
     "react-dom": "^18.2.0",
     "react-dropzone": "~3.13.3",
