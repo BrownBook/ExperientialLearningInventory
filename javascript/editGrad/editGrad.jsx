@@ -1,8 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import Manager from '../manager/Manager.jsx';
 
-ReactDOM.render(
-  <Manager ajaxURL="gradRest" title="Graduate Programs" panelTitle="Add A Graduate Program:" buttonTitle="Add Program" />,
-  document.getElementById('content')
-);
+const root = createRoot(document.getElementById('content'));
+root.render(<Manager ajaxURL="gradRest" title="Graduate Programs" panelTitle="Add A Graduate Program:" buttonTitle="Add Program" />);

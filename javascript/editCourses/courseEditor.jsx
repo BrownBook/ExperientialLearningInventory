@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import $ from 'jquery';
 import PropTypes from 'prop-types';
@@ -55,15 +55,12 @@ class CourseRow extends React.Component {
     return (
       <tr>
         <td>
-          {' '}
           {this.props.abbr} - {this.props.name} {this.props.cnum}
         </td>
-        <td>
-          {' '}
+        <td className="text-center">
           <a onClick={this.handleChange}>
-            {' '}
-            <i className="fa fa-trash-o" />{' '}
-          </a>{' '}
+            <i className="fa-solid fa-trash-can" aria-label="Delete this course" />
+          </a>
         </td>
       </tr>
     );
@@ -97,7 +94,7 @@ class CourseList extends React.Component {
         <thead>
           <tr>
             <th>Course</th>
-            <th>Delete</th>
+            <th className="text-center">Delete</th>
           </tr>
         </thead>
         <tbody>{cRow}</tbody>
@@ -152,12 +149,14 @@ class CreateCourse extends React.Component {
 
   render() {
     return (
-      <div className="panel panel-default">
-        <div className="panel-body">
-          <div className="row">
+      <div className="card">
+        <div className="card-body">
+          <div className="row mb-3">
             <div className="col-md-6">
-              <label htmlFor="subjectDropdown">Subjects:</label>
-              <select id="subjectDropdown" className="form-control" onChange={this.handleDrop}>
+              <label className="form-label" htmlFor="subjectDropdown">
+                Subjects:
+              </label>
+              <select id="subjectDropdown" className="form-select" onChange={this.handleDrop}>
                 {Object.keys(this.props.subjects).map(
                   function (key) {
                     return (
@@ -170,16 +169,24 @@ class CreateCourse extends React.Component {
               </select>
             </div>
             <div className="col-md-6">
-              <label>Course Number:</label>
-              <input type="text" className="form-control" placeholder="0000" ref={this.courseNum} onKeyPress={this.handleKeyPress} />
+              <label className="form-label" htmlFor="new-course-number-field">
+                Course Number:
+              </label>
+              <input
+                type="text"
+                id="new-course-number-field"
+                className="form-control"
+                placeholder="0000"
+                ref={this.courseNum}
+                onKeyPress={this.handleKeyPress}
+              />
             </div>
           </div>
           <div className="row">
             <br />
-            <div className="col-md-3 col-md-offset-6">
-              <button type="button" className="btn btn-default" onClick={this.handleSubmit}>
-                {' '}
-                Create Course{' '}
+            <div className="col-md-12">
+              <button type="button" className="btn btn-primary float-end" onClick={this.handleSubmit}>
+                Create Course
               </button>
             </div>
           </div>
@@ -288,9 +295,10 @@ CourseSelector.propTypes = {
   subjects: PropTypes.object.isRequired
 };
 
+const root = createRoot(document.getElementById('edit_courses'));
+root.render(<CourseSelector subjects={window.subjects} />);
+
 if (process.env.NODE_ENV !== 'production') {
   const axe = require('@axe-core/react');
-  axe(React, ReactDOM, 1000);
+  axe(React, root, 1000);
 }
-
-ReactDOM.render(<CourseSelector subjects={window.subjects} />, document.getElementById('edit_courses'));

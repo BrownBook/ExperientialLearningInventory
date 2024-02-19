@@ -65,12 +65,12 @@ class SearchUI implements UI
         $terms = TermFactory::getTermsAssoc();
         $form->addSelect('term_select', array(-1 => 'All') + $terms);
         $form->setLabel('term_select', 'Term');
-        $form->setClass('term_select', 'form-control');
+        $form->setClass('term_select', 'form-select');
 
         $subjects = array('-1' => 'Select subject ') + Subject::getSubjects();
         $form->addSelect('course_subj', $subjects);
         $form->setLabel('course_subj', 'Subject');
-        $form->setClass('course_subj', 'form-control');
+        $form->setClass('course_subj', 'form-select');
 
         $form->addText('course_no');
         $form->setLabel('course_no', 'Course Number');
@@ -99,8 +99,7 @@ class SearchUI implements UI
 
         $form->addSelect('department', $depts);
         $form->setLabel('department', 'Department');
-        //$form->setClass('', 'form-control');
-        $form->setClass('department', 'form-control');
+        $form->setClass('department', 'form-select');
 
         // If the user only has one department, select it for them
         // sizeof($depts) == 2 because of the 'Select Deparmtnet' option
@@ -118,7 +117,7 @@ class SearchUI implements UI
         $form->addSelect('faculty', array(-1=>'Select Faculty Supervisor'));
         $form->setExtra('faculty', 'disabled');
         $form->setLabel('faculty', 'Faculty Supervisor / Instructor of Record');
-        $form->addCssClass('faculty', 'form-control');
+        $form->addCssClass('faculty', 'form-select');
 
         // Hidden field for selected faculty member
         $form->addHidden('faculty_id');
@@ -158,7 +157,7 @@ class SearchUI implements UI
         $types = array('-1' => 'All Experience Types') + $types;
         $form->addSelect('type', $types);
         $form->setLabel('type', 'Experience Type');
-        $form->addCssClass('type', 'form-control');
+        $form->addCssClass('type', 'form-select');
 
         /************************
          * Certification Status *

@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import $ from 'jquery';
 import PropTypes from 'prop-types';
 
@@ -20,13 +20,13 @@ class TerminateButton extends React.Component {
     let btnAwesome;
 
     if (this.props.terminated === 0) {
-      btnClass = 'btn btn-danger pull-right';
+      btnClass = 'btn btn-outline-danger float-end';
       btnText = 'Terminate ';
-      btnAwesome = 'fa fa-times';
+      btnAwesome = 'fa-solid fa-times';
     } else {
-      btnClass = 'btn btn-info pull-right';
+      btnClass = 'btn btn-outline-info float-end';
       btnText = 'Reinstate ';
-      btnAwesome = 'fa fa-recycle';
+      btnAwesome = 'fa-solid fa-recycle';
     }
 
     return (
@@ -102,9 +102,10 @@ TerminateBox.propTypes = {
   url: PropTypes.string
 };
 
+const root = createRoot(document.getElementById('terminate'));
+root.render(<TerminateBox affiliationId={window.aaId} />);
+
 if (process.env.NODE_ENV !== 'production') {
   const axe = require('@axe-core/react');
-  axe(React, ReactDOM, 1000);
+  axe(React, root, 1000);
 }
-
-ReactDOM.render(<TerminateBox affiliationId={window.aaId} />, document.getElementById('terminate'));

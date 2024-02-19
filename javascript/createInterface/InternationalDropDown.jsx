@@ -23,15 +23,16 @@ class InternationalDropDown extends React.Component {
 
     let output = null;
 
+    // Default form style with label on top
     if (this.props.formStyle === 'vertical' || this.props.formStyle === undefined) {
       output = (
         <div className="row">
-          <div className="col-sm-12 col-md-4 col-md-push-3">
+          <div className="col-sm-12 col-md-8 mb-2">
             <div className={fgClasses} id="country">
-              <label htmlFor="country" className="control-label">
+              <label htmlFor="country" className="form-label">
                 Country
               </label>
-              <select id="country" name="country" className="form-control">
+              <select id="country" name="country" className="form-select">
                 {Object.keys(countries).map(function (key) {
                   return (
                     <option key={key} value={key}>
@@ -45,13 +46,14 @@ class InternationalDropDown extends React.Component {
         </div>
       );
     } else if (this.props.formStyle === 'horizontal') {
+      // Optional form style with label to the left of the control
       output = (
-        <div className="form-group">
-          <label htmlFor="country" className="col-lg-3 control-label">
+        <div className="row mb-3">
+          <label htmlFor="country" className="col-lg-3 col-form-label">
             Country
           </label>
           <div className="col-lg-8">
-            <select id="country" name="country" className="form-control">
+            <select id="country" name="country" className="form-select">
               {Object.keys(countries).map(function (key) {
                 return (
                   <option key={key} value={key}>
@@ -70,8 +72,8 @@ class InternationalDropDown extends React.Component {
 }
 
 InternationalDropDown.propTypes = {
-  formStyle: PropTypes.string.isRequired,
-  countries: PropTypes.array.isRequired
+  formStyle: PropTypes.string,
+  countries: PropTypes.object.isRequired
 };
 
 export default InternationalDropDown;

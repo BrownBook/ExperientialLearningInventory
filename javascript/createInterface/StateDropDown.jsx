@@ -26,12 +26,12 @@ class StateDropDown extends React.Component {
     if (this.props.formStyle === undefined || this.props.formStyle === 'vertical') {
       output = (
         <div className="row">
-          <div className="col-sm-12 col-md-4 col-md-push-3">
+          <div className="col-sm-12 col-md-8 mb-2">
             <div className={fgClasses}>
-              <label htmlFor="state" className="control-label">
+              <label htmlFor="state" className="form-label">
                 State
               </label>
-              <select id="state" name="state" className="form-control">
+              <select id="state" name="state" className="form-select">
                 {Object.keys(states).map(function (key) {
                   if (states[key].active === 1) {
                     return (
@@ -54,12 +54,12 @@ class StateDropDown extends React.Component {
       );
     } else if (this.props.formStyle === 'horizontal') {
       output = (
-        <div className="form-group">
-          <label htmlFor="state" className="col-lg-3 control-label">
+        <div className="row mb-3">
+          <label htmlFor="state" className="col-lg-3 col-form-label">
             State
           </label>
-          <div className="col-lg-8">
-            <select id="state" name="state" className="form-control">
+          <div className="col-md-8">
+            <select id="state" name="state" className="form-select">
               {Object.keys(states).map(function (key) {
                 return (
                   <option key={key} value={key}>

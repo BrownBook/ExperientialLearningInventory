@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import $ from 'jquery';
 import classNames from 'classnames';
 
@@ -96,41 +96,67 @@ class LocationSelector extends React.Component {
 
     const anyLabelClass = classNames({
       btn: true,
-      'btn-default': true,
+      'btn-outline-secondary': true,
       active: !this.state.domestic && !this.state.international
     });
 
     const domesticLabelClass = classNames({
       btn: true,
-      'btn-default': true,
+      'btn-outline-secondary': true,
       active: this.state.domestic
     });
 
     const internationalLabelClass = classNames({
       btn: true,
-      'btn-default': true,
+      'btn-outline-secondary': true,
       active: this.state.international
     });
 
     return (
       <div>
-        <div className="form-group">
-          <label className="col-lg-3 control-label" htmlFor="location">
+        <div className="row mb-3">
+          <label className="col-lg-3 form-label" htmlFor="location">
             Location
           </label>
           <div className="col-lg-8">
-            <div className="btn-group">
-              <label className={anyLabelClass}>
+            <div className="btn-group" role="group" aria-label="Location selector button group">
+              <input
+                type="radio"
+                id="location-radio-any"
+                name="location"
+                value="-1"
+                className="btn-check"
+                style={{ position: 'absolute', clip: 'rect(0, 0, 0, 0)' }}
+                onClick={this.anyLocation}
+              />
+              <label htmlFor="location-radio-any" className={anyLabelClass}>
                 Any Location
-                <input type="radio" name="location" value="-1" style={{ position: 'absolute', clip: 'rect(0, 0, 0, 0)' }} onClick={this.anyLocation} />
               </label>
-              <label className={domesticLabelClass}>
+
+              <input
+                type="radio"
+                id="location-radio-domestic"
+                name="location"
+                value="domestic"
+                className="btn-check"
+                style={{ position: 'absolute', clip: 'rect(0, 0, 0, 0)' }}
+                onClick={this.domestic}
+              />
+              <label htmlFor="location-radio-domestic" className={domesticLabelClass}>
                 Domestic
-                <input type="radio" name="location" value="domestic" style={{ position: 'absolute', clip: 'rect(0, 0, 0, 0)' }} onClick={this.domestic} />
               </label>
-              <label className={internationalLabelClass}>
+
+              <input
+                type="radio"
+                id="location-radio-intl"
+                name="location"
+                value="internat"
+                className="btn-check"
+                style={{ position: 'absolute', clip: 'rect(0, 0, 0, 0)' }}
+                onClick={this.international}
+              />
+              <label htmlFor="location-radio-intl" className={internationalLabelClass}>
                 International
-                <input type="radio" name="location" value="internat" style={{ position: 'absolute', clip: 'rect(0, 0, 0, 0)' }} onClick={this.international} />
               </label>
             </div>
           </div>
@@ -142,4 +168,10 @@ class LocationSelector extends React.Component {
   }
 }
 
-ReactDOM.render(<LocationSelector />, document.getElementById('LocationSelector'));
+const root = createRoot(document.getElementById('LocationSelector'));
+root.render(<LocationSelector />);
+
+if (process.env.NODE_ENV !== 'production') {
+  const axe = require('@axe-core/react');
+  axe(React, root, 1000);
+}

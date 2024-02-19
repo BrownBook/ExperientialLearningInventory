@@ -4,7 +4,7 @@ const JS_DIR = path.resolve(__dirname, 'javascript');
 module.exports = {
   entryPoints: {
     createInterface: JS_DIR + '/createInterface/CreateInternshipInterface.jsx',
-    searchInterface: JS_DIR + '/searchInterface/SearchInterface.jsx',
+    searchInterface: JS_DIR + '/searchInterface/LocationSelector.jsx',
     editAdmin: JS_DIR + '/editAdmin/editAdmin.jsx',
     editDepartment: JS_DIR + '/editDepartment/deptEditor.jsx',
     stateList: JS_DIR + '/stateList/StateList.jsx',

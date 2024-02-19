@@ -1,27 +1,33 @@
+<div class="container-fluid">
   <!-- Brand and toggle get grouped for better mobile display -->
-  <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-    <a class="navbar-brand" href="#">{SYSTEM_NAME}</a>
-  </div>
-<!-- Collect the nav links, forms, and other content for toggling -->
-  <div class="collapse navbar-collapse">
-    <ul class="nav navbar-nav">
-      <li><a href="index.php?module=intern&action=ShowAddInternship"><i class="fa fa-plus"></i> Add Activity</a></li>
-      <li><a href="index.php?module=intern&action=search"><i class="fa fa-search"></i> Search</a></li>
-      <li><a href="mailto:{HELP_ADDRESS}?subject={SYSTEM_NAME} Help Request"><i class="fa fa-question"></i> Get Help</a></li>
+  <a class="navbar-brand" href="#">{SYSTEM_NAME}</a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="index.php?module=intern&action=ShowAddInternship"><i class="fa-solid fa-plus"></i> Add
+          Activity</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="index.php?module=intern&action=search"><i class="fa-solid fa-magnifying-glass"></i>
+          Search</a>
+      </li>
+      <li class="nav-item"><a class="nav-link" href="mailto:{HELP_ADDRESS}?subject={SYSTEM_NAME} Help Request"><i
+            class="fa fa-question"></i> Get Help</a></li>
     </ul>
 
-
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="navbar-nav">
       <!-- BEGIN admin_links -->
       {ADMIN_OPTIONS}
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i> Settings &nbsp;<b class="caret"></b></a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa fa-cog"></i> Settings
+        </a>
         <ul class="dropdown-menu">
           <!-- BEGIN majors -->
           <li>{EDIT_MAJORS_LINK}</li>
@@ -70,25 +76,21 @@
       <!-- END admin_links -->
 
       <!-- BEGIN user_full_name -->
-      <li>
+      <li class="nav-item">
         <a href="#">{USER_FULL_NAME}</a>
       </li>
-      <!-- END user_full_name -->
+      <!-- BEGIN user_full_name -->
 
       <!-- BEGIN password_dropdown -->
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{PASSWORD_DROPDOWN_NAME} <b class="caret"></b></a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          {PASSWORD_DROPDOWN_NAME}
+        </a>
         <ul class="dropdown-menu">
-          <li>
-            <a href="index.php?module=users&action=user&tab=my_page">Change Password</a>
-          </li>
-        </ul>
+          <li><a class="dropdown-item" href="index.php?module=users&action=user&tab=my_page">Change Password</a></li>
       </li>
       <!-- END password_dropdown -->
-      <li>
-        <a href="{LOGOUT_URI}"><i class="fa fa-sign-out"></i> Sign out</a>
-      </li>
 
     </ul>
-
-  </div><!-- /.navbar-collapse -->
+  </div>
+</div>

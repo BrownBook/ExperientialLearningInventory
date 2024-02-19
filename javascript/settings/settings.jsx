@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import $ from 'jquery';
 import PropTypes from 'prop-types';
 
 class ErrorMessagesBlock extends Component {
   render() {
-    // if(this.props.errorSet == null){
-    //     return '';
-    // }
-
-    //var errors = this.props.errorSet;
-
     return (
       <div className="row">
         <div className="col-sm-12 col-md-6 col-md-push-3">
@@ -111,13 +105,13 @@ class Settings extends Component {
     let button = null;
     if (this.state.submitted) {
       button = (
-        <button type="submit" className="btn btn-lg btn-primary pull-right" id="create-btn" disabled>
+        <button type="submit" className="btn btn-primary float-end" id="create-btn" disabled>
           <i className="fa fa-spinner fa-spin"></i> Saving...
         </button>
       );
     } else {
       button = (
-        <button type="submit" className="btn btn-lg btn-primary pull-right" id="create-btn" onClick={this.handleSubmit}>
+        <button type="submit" className="btn btn-primary float-end" id="create-btn" onClick={this.handleSubmit}>
           Save Settings
         </button>
       );
@@ -131,174 +125,206 @@ class Settings extends Component {
     }
 
     return (
-      <div className="container">
+      <div>
         {errorSet}
         <h1> Admin Settings </h1>
         <br />
         <form onSubmit={this.handleSubmit}>
-          <div className="form-group col-md-6">
-            <label htmlFor="systemName">System Name:</label>
-            <input
-              className="form-control"
-              type="text"
-              defaultValue={this.state.data.systemName}
-              id="systemName"
-              name="systemName"
-              ref={input => (this.systemNameInput = input)}
-            ></input>
+          <div className="row mb-4">
+            <div className="col-md-6">
+              <label className="form-label" htmlFor="systemName">
+                System Name:
+              </label>
+              <input
+                className="form-control"
+                type="text"
+                defaultValue={this.state.data.systemName}
+                id="systemName"
+                name="systemName"
+                ref={input => (this.systemNameInput = input)}
+              ></input>
+            </div>
+
+            <div className="col-md-6">
+              <label className="form-label" htmlFor="wsdlUri">
+                Student Info Web Service wsdlUri:
+              </label>
+              <input
+                className="form-control"
+                type="text"
+                defaultValue={this.state.data.wsdlUri}
+                id="wsdlUri"
+                name="wsdlUri"
+                ref={input => (this.wsdlUriInput = input)}
+              ></input>
+            </div>
           </div>
-          <div className="form-group col-md-6">
-            <label htmlFor="wsdlUri">wsdlUri:</label>
-            <input
-              className="form-control"
-              type="text"
-              defaultValue={this.state.data.wsdlUri}
-              id="wsdlUri"
-              name="wsdlUri"
-              ref={input => (this.wsdlUriInput = input)}
-            ></input>
-          </div>
-          <div className="col-md-12">
-            <h2>Email Settings</h2>
-            <br />
-          </div>
-          <div className="form-group col-md-6">
-            <label htmlFor="emailDomain">Email Domain:</label>
-            <input
-              className="form-control"
-              type="text"
-              defaultValue={this.state.data.emailDomain}
-              id="emailDomain"
-              name="emailDomain"
-              ref={input => (this.emailDomainInput = input)}
-            ></input>
-          </div>
-          <div className="form-group col-md-6">
-            <label htmlFor="registrarEmail">Registrar Email:</label>
-            <input
-              className="form-control"
-              type="text"
-              defaultValue={this.state.data.registrarEmail}
-              id="registrarEmail"
-              name="registrarEmail"
-              ref={input => (this.registrarEmailInput = input)}
-            ></input>
-          </div>
-          <div className="form-group col-md-6">
-            <label htmlFor="gradSchoolEmail">Grad School Email:</label>
-            <input
-              className="form-control"
-              type="text"
-              defaultValue={this.state.data.gradSchoolEmail}
-              id="gradSchoolEmail"
-              name="gradSchoolEmail"
-              ref={input => (this.gradSchoolEmailInput = input)}
-            ></input>
-          </div>
-          <div className="form-group col-md-6">
-            <label htmlFor="backgroundCheckEmail">Background Check Email:</label>
-            <input
-              className="form-control"
-              type="text"
-              defaultValue={this.state.data.backgroundCheckEmail}
-              id="backgroundCheckEmail"
-              name="backgroundCheckEmail"
-              ref={input => (this.backgroundCheckEmailInput = input)}
-            ></input>
-          </div>
-          <div className="form-group col-md-6">
-            <label htmlFor="gradRegistrarEmail">Graduate Registrar Email:</label>
-            <input
-              className="form-control"
-              type="text"
-              defaultValue={this.state.data.graduateRegEmail}
-              id="gradRegistrarEmail"
-              name="gradRegistrarEmail"
-              ref={input => (this.gradRegistrarEmailInput = input)}
-            ></input>
-          </div>
-          <div className="form-group col-md-6">
-            <label htmlFor="internationalRegistrarEmail">International Registrar Email:</label>
-            <input
-              className="form-control"
-              type="text"
-              defaultValue={this.state.data.internationalRegEmail}
-              id="internationalRegistrarEmail"
-              name="internationalRegistrarEmail"
-              ref={input => (this.internationalRegistrarEmailInput = input)}
-            ></input>
-          </div>
-          <div className="form-group col-md-6">
-            <label htmlFor="distanceEdEmail">Distance Education Email:</label>
-            <input
-              className="form-control"
-              type="text"
-              defaultValue={this.state.data.distanceEdEmail}
-              id="distanceEdEmail"
-              name="distanceEdEmail"
-              ref={input => (this.distanceEdEmailInput = input)}
-            ></input>
-          </div>
-          <div className="form-group col-md-6">
-            <label htmlFor="internationalOfficeEmail">International Office Email:</label>
-            <input
-              className="form-control"
-              type="text"
-              defaultValue={this.state.data.internationalOfficeEmail}
-              id="internationalOfficeEmail"
-              name="internationalOfficeEmail"
-              ref={input => (this.internationalOfficeEmailInput = input)}
-            ></input>
-          </div>
-          <div className="form-group col-md-6">
-            <label htmlFor="fromEmail">From Email:</label>
-            <input
-              className="form-control"
-              type="text"
-              defaultValue={this.state.data.fromEmail}
-              id="fromEmail"
-              name="fromEmail"
-              ref={input => (this.fromEmailInput = input)}
-            ></input>
-          </div>
-          <div className="form-group col-md-6">
-            <label htmlFor="unusualCourseEmail">Unusual Course Email:</label>
-            <input
-              className="form-control"
-              type="text"
-              defaultValue={this.state.data.unusualCourseEmail}
-              id="unusualCourseEmail"
-              name="unusualCourseEmail"
-              ref={input => (this.unusualCourseEmailInput = input)}
-            ></input>
-          </div>
-          <div className="form-group col-md-6">
-            <label htmlFor="uncaughtExceptionEmail">Uncaught Exception Email:</label>
-            <input
-              className="form-control"
-              type="text"
-              defaultValue={this.state.data.uncaughtExceptionEmail}
-              id="uncaughtExceptionEmail"
-              name="uncaughtExceptionEmail"
-              ref={input => (this.uncaughtExceptionEmailInput = input)}
-            ></input>
-          </div>
-          <div className="form-group col-md-6">
-            <label htmlFor="helpEmail">Get Help Button Sends to:</label>
-            <input
-              className="form-control"
-              type="text"
-              defaultValue={this.state.data.helpEmailAddress}
-              id="uncaughtExceptionEmail"
-              name="uncaughtExceptionEmail"
-              ref={input => (this.helpEmailAddress = input)}
-            ></input>
+
+          <div className="row">
+            <div className="col-md-12">
+              <h2>Email Settings</h2>
+              <br />
+            </div>
+            <div className="mb-3 col-md-6">
+              <label className="form-label" htmlFor="emailDomain">
+                Email Domain:
+              </label>
+              <input
+                className="form-control"
+                type="text"
+                defaultValue={this.state.data.emailDomain}
+                id="emailDomain"
+                name="emailDomain"
+                ref={input => (this.emailDomainInput = input)}
+              ></input>
+            </div>
+            <div className="mb-3 col-md-6">
+              <label className="form-label" htmlFor="registrarEmail">
+                Registrar Email:
+              </label>
+              <input
+                className="form-control"
+                type="text"
+                defaultValue={this.state.data.registrarEmail}
+                id="registrarEmail"
+                name="registrarEmail"
+                ref={input => (this.registrarEmailInput = input)}
+              ></input>
+            </div>
+            <div className="mb-3 col-md-6">
+              <label className="form-label" htmlFor="gradSchoolEmail">
+                Grad School Email:
+              </label>
+              <input
+                className="form-control"
+                type="text"
+                defaultValue={this.state.data.gradSchoolEmail}
+                id="gradSchoolEmail"
+                name="gradSchoolEmail"
+                ref={input => (this.gradSchoolEmailInput = input)}
+              ></input>
+            </div>
+            <div className="mb-3 col-md-6">
+              <label className="form-label" htmlFor="backgroundCheckEmail">
+                Background Check Email:
+              </label>
+              <input
+                className="form-control"
+                type="text"
+                defaultValue={this.state.data.backgroundCheckEmail}
+                id="backgroundCheckEmail"
+                name="backgroundCheckEmail"
+                ref={input => (this.backgroundCheckEmailInput = input)}
+              ></input>
+            </div>
+            <div className="mb-3 col-md-6">
+              <label className="form-label" htmlFor="gradRegistrarEmail">
+                Graduate Registrar Email:
+              </label>
+              <input
+                className="form-control"
+                type="text"
+                defaultValue={this.state.data.graduateRegEmail}
+                id="gradRegistrarEmail"
+                name="gradRegistrarEmail"
+                ref={input => (this.gradRegistrarEmailInput = input)}
+              ></input>
+            </div>
+            <div className="mb-3 col-md-6">
+              <label className="form-label" htmlFor="internationalRegistrarEmail">
+                International Registrar Email:
+              </label>
+              <input
+                className="form-control"
+                type="text"
+                defaultValue={this.state.data.internationalRegEmail}
+                id="internationalRegistrarEmail"
+                name="internationalRegistrarEmail"
+                ref={input => (this.internationalRegistrarEmailInput = input)}
+              ></input>
+            </div>
+            <div className="mb-3 col-md-6">
+              <label className="form-label" htmlFor="distanceEdEmail">
+                Distance Education Email:
+              </label>
+              <input
+                className="form-control"
+                type="text"
+                defaultValue={this.state.data.distanceEdEmail}
+                id="distanceEdEmail"
+                name="distanceEdEmail"
+                ref={input => (this.distanceEdEmailInput = input)}
+              ></input>
+            </div>
+            <div className="mb-3 col-md-6">
+              <label className="form-label" htmlFor="internationalOfficeEmail">
+                International Office Email:
+              </label>
+              <input
+                className="form-control"
+                type="text"
+                defaultValue={this.state.data.internationalOfficeEmail}
+                id="internationalOfficeEmail"
+                name="internationalOfficeEmail"
+                ref={input => (this.internationalOfficeEmailInput = input)}
+              ></input>
+            </div>
+            <div className="mb-3 col-md-6">
+              <label className="form-label" htmlFor="fromEmail">
+                From Email:
+              </label>
+              <input
+                className="form-control"
+                type="text"
+                defaultValue={this.state.data.fromEmail}
+                id="fromEmail"
+                name="fromEmail"
+                ref={input => (this.fromEmailInput = input)}
+              ></input>
+            </div>
+            <div className="mb-3 col-md-6">
+              <label className="form-label" htmlFor="unusualCourseEmail">
+                Unusual Course Email:
+              </label>
+              <input
+                className="form-control"
+                type="text"
+                defaultValue={this.state.data.unusualCourseEmail}
+                id="unusualCourseEmail"
+                name="unusualCourseEmail"
+                ref={input => (this.unusualCourseEmailInput = input)}
+              ></input>
+            </div>
+            <div className="mb-3 col-md-6">
+              <label className="form-label" htmlFor="uncaughtExceptionEmail">
+                Uncaught Exception Email:
+              </label>
+              <input
+                className="form-control"
+                type="text"
+                defaultValue={this.state.data.uncaughtExceptionEmail}
+                id="uncaughtExceptionEmail"
+                name="uncaughtExceptionEmail"
+                ref={input => (this.uncaughtExceptionEmailInput = input)}
+              ></input>
+            </div>
+            <div className="mb-3 col-md-6">
+              <label className="form-label" htmlFor="helpEmail">
+                Get Help Button Sends to:
+              </label>
+              <input
+                className="form-control"
+                type="text"
+                defaultValue={this.state.data.helpEmailAddress}
+                id="uncaughtExceptionEmail"
+                name="uncaughtExceptionEmail"
+                ref={input => (this.helpEmailAddress = input)}
+              ></input>
+            </div>
           </div>
         </form>
 
-        <div className="row">
-          <div className="col-sm-12 col-md-2 ">{button}</div>
-        </div>
+        <div className="mb-3">{button}</div>
       </div>
     );
   }
@@ -308,9 +334,10 @@ Settings.propTypes = {
   url: PropTypes.string
 };
 
-ReactDOM.render(<Settings />, document.getElementById('content'));
+const root = createRoot(document.getElementById('content'));
+root.render(<Settings />);
 
 if (process.env.NODE_ENV !== 'production') {
   const axe = require('@axe-core/react');
-  axe(React, ReactDOM, 1000);
+  axe(React, root, 1000);
 }

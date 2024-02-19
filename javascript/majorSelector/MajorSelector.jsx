@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import $ from 'jquery';
 import classNames from 'classnames';
 
@@ -72,41 +72,67 @@ class MajorSelector extends React.Component {
 
     const anyLevelClass = classNames({
       btn: true,
-      'btn-default': true,
+      'btn-outline-secondary': true,
       active: !this.state.undergrad && !this.state.graduate
     });
 
     const undergradLevelClass = classNames({
       btn: true,
-      'btn-default': true,
+      'btn-outline-secondary': true,
       active: this.state.undergrad
     });
 
     const graduateLevelClass = classNames({
       btn: true,
-      'btn-default': true,
+      'btn-outline-secondary': true,
       active: this.state.graduate
     });
 
     return (
       <div>
-        <div className="form-group">
-          <label className="col-lg-3 control-label" htmlFor="level">
+        <div className="row mb-3">
+          <label className="col-lg-3 col-form-label" htmlFor="level">
             Level
           </label>
           <div className="col-lg-8">
             <div className="btn-group">
-              <label className={anyLevelClass}>
+              <input
+                type="radio"
+                name="level"
+                value="-1"
+                style={{ position: 'absolute', clip: 'rect(0, 0, 0, 0)' }}
+                onClick={this.anyLevel}
+                id="level-btn-any"
+                className="btn-check"
+              />
+              <label htmlFor="level-btn-any" className={anyLevelClass}>
                 Any Level
-                <input type="radio" name="level" value="-1" style={{ position: 'absolute', clip: 'rect(0, 0, 0, 0)' }} onClick={this.anyLevel} />
               </label>
-              <label className={undergradLevelClass}>
+
+              <input
+                type="radio"
+                name="level"
+                value="ugrad"
+                style={{ position: 'absolute', clip: 'rect(0, 0, 0, 0)' }}
+                onClick={this.undergrad}
+                id="level-btn-ugrad"
+                className="btn-check"
+              />
+              <label htmlFor="level-btn-ugrad" className={undergradLevelClass}>
                 Undergraduate
-                <input type="radio" name="level" value="ugrad" style={{ position: 'absolute', clip: 'rect(0, 0, 0, 0)' }} onClick={this.undergrad} />
               </label>
-              <label className={graduateLevelClass}>
+
+              <input
+                type="radio"
+                name="level"
+                value="grad"
+                style={{ position: 'absolute', clip: 'rect(0, 0, 0, 0)' }}
+                onClick={this.graduate}
+                id="level-btn-grad"
+                className="btn-check"
+              />
+              <label htmlFor="level-btn-grad" className={graduateLevelClass}>
                 Graduate
-                <input type="radio" name="level" value="grad" style={{ position: 'absolute', clip: 'rect(0, 0, 0, 0)' }} onClick={this.graduate} />
               </label>
             </div>
           </div>
@@ -118,9 +144,10 @@ class MajorSelector extends React.Component {
   }
 }
 
-ReactDOM.render(<MajorSelector />, document.getElementById('MajorSelector'));
+const root = createRoot(document.getElementById('MajorSelector'));
+root.render(<MajorSelector />);
 
 if (process.env.NODE_ENV !== 'production') {
   const axe = require('@axe-core/react');
-  axe(React, ReactDOM, 1000);
+  axe(React, root, 1000);
 }

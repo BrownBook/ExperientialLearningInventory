@@ -68,6 +68,7 @@ class EditAgreementUI implements UI
 
         $form->addCheck('auto_renew', 'yes');
         $form->setLabel('auto_renew', 'Auto-Renew');
+        $form->addCssClass('auto_renew', 'form-check-input');
 
         $form->addTextArea('notes', $affiliate_agreement->getNotes());
         $form->setLabel('notes', 'Notes');

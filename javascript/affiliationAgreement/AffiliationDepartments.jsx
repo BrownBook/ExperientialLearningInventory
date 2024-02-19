@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import $ from 'jquery';
 import PropTypes from 'prop-types';
 
@@ -21,9 +21,7 @@ class DepartmentItem extends React.Component {
     return (
       <li className="list-group-item">
         {this.props.dept.name}
-        <button onClick={this.remove} className="close">
-          &times;
-        </button>
+        <button onClick={this.remove} className="btn-close float-end" aria-label="Remove"></button>
       </li>
     );
   }
@@ -105,19 +103,19 @@ class DepartmentDropdown extends React.Component {
     );
 
     return (
-      <div>
-        <div className="form-group">
-          <label htmlFor="departmentDropDown">Departments:</label>
-          <select id="departmentDropDown" className="form-control" ref={this.deptChoices}>
+      <div className="mb-3">
+        <div className="mb-2">
+          <label className="form-label" htmlFor="departmentDropDown">
+            Departments:
+          </label>
+          <select id="departmentDropDown" className="form-select" ref={this.deptChoices}>
             <option value="-1">Select a Department</option>
             {selectOptions}
           </select>
         </div>
-        <div className="form-group">
-          <button onClick={this.add} className="btn btn-md btn-success">
-            Add
-          </button>
-        </div>
+        <button onClick={this.add} className="btn btn-primary">
+          Add
+        </button>
       </div>
     );
   }
@@ -218,7 +216,7 @@ class DepartmentBox extends React.Component {
     }
 
     return (
-      <div className="form-group">
+      <div>
         <DepartmentDropdown onAdd={this.addDept} departments={this.state.depts} usedDepartments={this.state.usedDepts} />
         <DepartmentList removeClick={this.removeClick} departments={this.state.usedDepts} />
       </div>
@@ -230,4 +228,10 @@ DepartmentBox.propTypes = {
   affiliationId: PropTypes.number
 };
 
-ReactDOM.render(<DepartmentBox affiliationId={window.aaId} />, document.getElementById('departments'));
+const root = createRoot(document.getElementById('departments'));
+root.render(<DepartmentBox affiliationId={window.aaId} />);
+
+if (process.env.NODE_ENV !== 'production') {
+  const axe = require('@axe-core/react');
+  axe(React, root, 1000);
+}

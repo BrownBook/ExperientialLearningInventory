@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import $ from 'jquery';
 import PropTypes from 'prop-types';
 
@@ -34,7 +34,7 @@ class StateTableRow extends React.Component {
   }
 
   handleClick() {
-    this.props.onStateDelete(this.props.stateObj.sAbbr);
+    this.props.onStateDelete(this.props.stateObj.abbr);
   }
 
   // If the state is active rendering the html elements otherwise do nothing.
@@ -43,10 +43,8 @@ class StateTableRow extends React.Component {
       <tr>
         <td>
           {this.props.stateObj.full_name}
-          <span className="pull-right">
-            <button type="button" className="close" aria-label="Remove" onClick={this.handleClick}>
-              <span aria-hidden="true">&times;</span>
-            </button>
+          <span className="float-end">
+            <button type="button" className="btn-close" aria-label="Remove State" onClick={this.handleClick}></button>
           </span>
         </td>
         <td></td>
@@ -58,7 +56,7 @@ class StateTableRow extends React.Component {
 StateTableRow.propTypes = {
   stateObj: PropTypes.shape({
     full_name: PropTypes.string,
-    sAbbr: PropTypes.string,
+    abbr: PropTypes.string,
     active: PropTypes.any
   }),
   onStateDelete: PropTypes.func
@@ -190,7 +188,7 @@ class States extends React.Component {
           <div className="row">
             <div className="col-md-6">
               <label htmlFor="stateDropDown">States:</label>
-              <select id="stateDropDown" className="form-control" onChange={this.handleDrop}>
+              <select id="stateDropDown" className="form-select" onChange={this.handleDrop}>
                 {dropDownOptions}
               </select>
               <br />
@@ -218,9 +216,10 @@ States.propTypes = {
   url: PropTypes.string
 };
 
+const root = createRoot(document.getElementById('content'));
+root.render(<States />);
+
 if (process.env.NODE_ENV !== 'production') {
   const axe = require('@axe-core/react');
-  axe(React, ReactDOM, 1000);
+  axe(React, root, 1000);
 }
-
-ReactDOM.render(<States />, document.getElementById('content'));

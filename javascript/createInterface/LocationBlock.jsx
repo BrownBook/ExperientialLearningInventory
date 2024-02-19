@@ -101,20 +101,29 @@ class LocationBlock extends React.Component {
 
     return (
       <div>
-        <div className="row">
-          <div className="col-sm-12 col-md-6 col-md-push-3">
+        <div className="row mb-2">
+          <div className="col-sm-12 col-md-6">
             <div className={fgClasses} id="location">
-              <label htmlFor="location" className="control-label">
+              <label htmlFor="location" className="form-label">
                 Location
               </label>{' '}
               <br />
-              <div className="btn-group" data-toggle="buttons">
-                <label className="btn btn-default" onClick={this.domestic}>
-                  <input type="radio" name="location" defaultValue="domestic" />
+              <div className="btn-group" role="group" aria-label="internship location">
+                <input type="radio" className="btn-check" name="location" value="domestic" id="location-domestic" autoComplete="off" onClick={this.domestic} />
+                <label className="btn btn-outline-primary" htmlFor="location-domestic">
                   Domestic
                 </label>
-                <label className="btn btn-default" onClick={this.international}>
-                  <input type="radio" name="location" defaultValue="international" />
+
+                <input
+                  type="radio"
+                  className="btn-check"
+                  name="location"
+                  value="international"
+                  id="location-intl"
+                  autoComplete="off"
+                  onClick={this.international}
+                />
+                <label className="btn btn-outline-primary" htmlFor="location-intl">
                   International
                 </label>
               </div>

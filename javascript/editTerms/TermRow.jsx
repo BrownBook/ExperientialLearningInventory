@@ -133,7 +133,7 @@ class TermRow extends React.Component {
     const active = availDateObj < today && today < censusDateObj;
 
     const rowClasses = classNames({
-      info: active
+      'table-primary': active
     });
 
     // if you are not editing
@@ -141,7 +141,7 @@ class TermRow extends React.Component {
       // Edit mode enabled
       mainButton = (
         <a onClick={this.handleSave} title="Save Changes">
-          <i className="glyphicon glyphicon-floppy-save" />
+          <i className="fa-solid fa-floppy-disk" />
         </a>
       );
       return (
@@ -153,7 +153,7 @@ class TermRow extends React.Component {
             <input type="text" className="form-control" ref={this.descriptionRef} aria-label="Term Description" defaultValue={this.props.descr} />
           </td>
           <td>
-            <select className="form-control" ref={this.semesterTypeRef} aria-label="Semester Type" defaultValue={this.props.stype}>
+            <select className="form-select" ref={this.semesterTypeRef} aria-label="Semester Type" defaultValue={this.props.stype}>
               <option value="1">Spring</option>
               <option value="2">Summer 1</option>
               <option value="3">Summer 2</option>
@@ -196,7 +196,7 @@ class TermRow extends React.Component {
       // Not editing
       mainButton = (
         <a onClick={this.handleEdit} data-toggle="tooltip" title="Edit">
-          <i className="glyphicon glyphicon-pencil" />
+          <i className="fa-solid fa-pencil" />
         </a>
       );
 

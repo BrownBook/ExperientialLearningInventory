@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import $ from 'jquery';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import PropTypes from 'prop-types';
@@ -14,7 +14,7 @@ class ErrorMessagesBlock extends React.Component {
         <div className="col-sm-12 col-md-6 col-md-push-3">
           <div className="alert alert-warning" role="alert">
             <p>
-              <i className="fa fa-exclamation-circle fa-2x"></i> Warning: {this.props.errors}
+              <i className="fa-solid fa-exclamation-circle fa-2x"></i> Warning: {this.props.errors}
             </p>
           </div>
         </div>
@@ -314,36 +314,36 @@ class SearchAdmin extends React.Component {
         <TransitionGroup>{errors}</TransitionGroup>
         <h1> Administrators </h1>
         <div className="row" style={{ marginTop: '2em' }}>
-          <div className="col-md-5 col-md-push-6">
-            <div className="panel panel-default">
-              <div className="panel-body">
-                <div className="row">
+          <div className="col-md-6 order-2">
+            <div className="card">
+              <div className="card-body">
+                <div className="row mb-2">
                   <div className="col-md-6">
-                    <label htmlFor="departmentDropDown">Department:</label>
-                    <select id="departmentDropDown" className="form-control" onChange={this.handleDrop}>
+                    <label className="form-label" htmlFor="departmentDropDown">
+                      Department:
+                    </label>
+                    <select id="departmentDropDown" className="form-select" onChange={this.handleDrop}>
                       {dData}
                     </select>
                   </div>
                   <div className="col-md-6">
-                    <div className="form-group" style={{ marginTop: '1em' }}>
-                      <label>Username:</label>
+                    <div className="mt-1">
+                      <label className="form-label">Username:</label>
                       <input type="text" className="form-control" placeholder="Username" ref={this.usernameRef} />
                     </div>
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-md-3 col-md-offset-6">
-                    <div className="form-group">
-                      <button className="btn btn-default" onClick={this.handleSubmit}>
-                        Create Admin
-                      </button>
-                    </div>
+                  <div className="col-md-12">
+                    <button className="btn btn-secondary float-end" onClick={this.handleSubmit}>
+                      Create Admin
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="col-md-5 col-md-pull-5">
+          <div className="col-md-5 order-1">
             <div className="form-group">
               <input type="text" className="form-control" placeholder="Search for..." onChange={this.searchList} />
             </div>
@@ -370,9 +370,10 @@ SearchAdmin.propTypes = {
   url: PropTypes.string
 };
 
+const root = createRoot(document.getElementById('content'));
+root.render(<SearchAdmin />);
+
 if (process.env.NODE_ENV !== 'production') {
   const axe = require('@axe-core/react');
-  axe(React, ReactDOM, 1000);
+  axe(React, root, 1000);
 }
-
-ReactDOM.render(<SearchAdmin />, document.getElementById('content'));

@@ -42,13 +42,13 @@ class Department extends React.Component {
     });
 
     return (
-      <div className="row">
-        <div className="col-sm-12 col-md-4 col-md-push-3">
+      <div className="row mb-2">
+        <div className="col-sm-12 col-md-8">
           <div className={fgClasses} id="department">
-            <label htmlFor="department2" className="control-label">
+            <label htmlFor="department2" className="form-label">
               Department
             </label>
-            <select id="department2" name="department" className="form-control" defaultValue="-1">
+            <select id="department2" name="department" className="form-select" defaultValue="-1">
               {Object.keys(departments).map(function (key) {
                 return (
                   <option key={key} value={key}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import $ from 'jquery';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
@@ -218,8 +218,8 @@ class TermEditor extends React.Component {
 
         <div className="row">
           <div className="col-sm-6">
-            <div className="panel panel-default">
-              <div className="panel-body">
+            <div className="card">
+              <div className="card-body">
                 <p className="lead">Create a new Term: </p>
                 <TermInput onTermCreate={this.onTermCreate} messageType={this.state.messageType} />
               </div>
@@ -237,9 +237,10 @@ class TermEditor extends React.Component {
   }
 }
 
-ReactDOM.render(<TermEditor />, document.getElementById('edit_terms'));
+const root = createRoot(document.getElementById('edit_terms'));
+root.render(<TermEditor />);
 
 if (process.env.NODE_ENV !== 'production') {
   const axe = require('@axe-core/react');
-  axe(React, ReactDOM, 1000);
+  axe(React, root, 1000);
 }

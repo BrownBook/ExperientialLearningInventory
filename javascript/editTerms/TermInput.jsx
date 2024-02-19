@@ -203,39 +203,41 @@ class TermInput extends React.Component {
 
     return (
       <div>
-        <div className="row">
+        <div className="row mb-2">
           <div className="col-sm-6">
-            <div className="form-group">
-              <label>Term Code: </label>
-              <input type="text" className="form-control" placeholder="YYYYSS" ref={this.tcodeRef} />
-            </div>
+            <label htmlFor="term-code" className="form-label">
+              Term Code:
+            </label>
+            <input type="text" id="term-code" className="form-control" placeholder="YYYYSS" ref={this.tcodeRef} />
           </div>
 
           <div className="col-sm-6">
-            <div className="form-group">
-              <label htmlFor="semesterType">Semester Type:</label>
-              <select id="semesterType" className="form-control" ref={this.stypeRef}>
-                <option value="">Semester Type</option>
-                <option value="1">Spring</option>
-                <option value="2">Summer</option>
-                <option value="2">Summer 2</option>
-                <option value="4">Fall</option>
-              </select>
-            </div>
+            <label htmlFor="semesterType" className="form-label">
+              Semester Type:
+            </label>
+            <select id="semesterType" className="form-select" ref={this.stypeRef}>
+              <option value="">Semester Type</option>
+              <option value="1">Spring</option>
+              <option value="2">Summer</option>
+              <option value="2">Summer 2</option>
+              <option value="4">Fall</option>
+            </select>
           </div>
         </div>
-        <div className="row">
+
+        <div className="row mb-2">
           <div className="col-sm-12">
             <div className="form-group">
-              <label>Description: </label>
+              <label className="form-label">Description: </label>
               <input type="text" className="form-control" placeholder="Season YYYY" ref={this.descRef} />
             </div>
           </div>
         </div>
-        <div className="row">
+
+        <div className="row mb-2">
           <div className="col-sm-6">
             <div className="form-group" ref={this.availableCalendarRef}>
-              <label onClick={this.showCalendarAvailable}>
+              <label className="form-label" onClick={this.showCalendarAvailable}>
                 Available On:
                 <i className="fa fa-calendar" aria-hidden="true" style={{ paddingLeft: '5px' }} title="Click for Calendar View"></i>
               </label>
@@ -246,7 +248,7 @@ class TermInput extends React.Component {
 
           <div className="col-sm-6">
             <div className="form-group" ref={this.censusCalendarRef}>
-              <label onClick={this.showCalendarCensus}>
+              <label className="form-label" onClick={this.showCalendarCensus}>
                 Drop/Add Date:
                 <i className="fa fa-calendar" aria-hidden="true" style={{ paddingLeft: '5px' }} title="Click for Calendar View"></i>
               </label>
@@ -256,10 +258,10 @@ class TermInput extends React.Component {
           </div>
         </div>
 
-        <div className="row">
+        <div className="row mb-2">
           <div className="col-sm-6">
             <div className="form-group" ref={this.startCalendarRef}>
-              <label onClick={this.showCalendarStart}>
+              <label className="form-label" onClick={this.showCalendarStart}>
                 Term Start Date:
                 <i className="fa fa-calendar" aria-hidden="true" style={{ paddingLeft: '5px' }} title="Click for Calendar View"></i>
               </label>
@@ -270,7 +272,7 @@ class TermInput extends React.Component {
 
           <div className="col-sm-6">
             <div className="form-group" ref={this.endCalendarRef}>
-              <label onClick={this.showCalendarEnd}>
+              <label className="form-label" onClick={this.showCalendarEnd}>
                 Term End Date:
                 <i className="fa fa-calendar" aria-hidden="true" style={{ paddingLeft: '5px' }} title="Click for Calendar View"></i>
               </label>
@@ -280,22 +282,23 @@ class TermInput extends React.Component {
           </div>
         </div>
 
-        <div className="row">
+        <div className="row mb-2">
           <div className="col-sm-6">
             <div className="form-group">
-              <label>Undergraduate Overload Hours: </label>
+              <label className="form-label">Undergraduate Overload Hours: </label>
               <input type="text" className="form-control" placeholder="0" ref={this.ugradOverRef} />
             </div>
           </div>
 
           <div className="col-sm-6">
             <div className="form-group">
-              <label>Graduate Overload Hours: </label>
+              <label className="form-label">Graduate Overload Hours: </label>
               <input type="text" className="form-control" placeholder="0" ref={this.gradOverRef} />
             </div>
           </div>
         </div>
-        <div className="row">
+
+        <div className="row mb-2">
           <div className="col-sm-12">
             <button type="button" className="btn btn-primary btn-block" onClick={this.handleSubmit}>
               Create Term

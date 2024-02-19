@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import $ from 'jquery';
 import { Button, Modal } from 'react-bootstrap';
 import Message from './Message.jsx';
@@ -116,7 +116,7 @@ class ModalForm extends React.Component {
 
   handleExit(e) {
     //resets state so any warnings previously are reset.
-    e.stopPropagation();
+    // e.stopPropagation();
     this.setState({
       showError: false,
       warningMsg: ''
@@ -146,43 +146,51 @@ class ModalForm extends React.Component {
             {this.state.showError ? <Message type="warning">{this.state.warningMsg}</Message> : null}
           </Modal.Header>
           <Modal.Body>
-            <form className="form-horizontal">
-              <div className="form-group">
-                <label className="col-lg-3 control-label">Name</label>
+            <form>
+              <div className="row mb-2">
+                <label className="col-lg-3 col-form-label" htmlFor="emg-name">
+                  Name
+                </label>
                 <div className="col-lg-9">
                   <input type="text" className="form-control" id="emg-name" ref={this.emg_name} defaultValue={this.props.name} />
                 </div>
               </div>
-              <div className="form-group">
-                <label className="col-lg-3 control-label">Relation</label>
+
+              <div className="row mb-2">
+                <label className="col-lg-3 col-form-label" htmlFor="emg-relation">
+                  Relation
+                </label>
                 <div className="col-lg-9">
                   <input type="text" className="form-control" id="emg-relation" ref={this.emg_relation} defaultValue={this.props.relation} />
                 </div>
               </div>
-              <div className="form-group">
-                <div className="col-sm-offset-3 col-sm-10">
-                  <div className="checkbox">
-                    <label>
-                      <input
-                        type="checkbox"
-                        id="emg-international"
-                        ref={this.emg_international}
-                        checked={this.state.isInternational}
-                        onChange={this.handleChange}
-                      />{' '}
+
+              <div className="row mb-2">
+                <div className="offset-sm-3 col-sm-10">
+                  <div className="form-check">
+                    <input
+                      type="checkbox"
+                      className="form-check-input"
+                      id="emg-international"
+                      ref={this.emg_international}
+                      checked={this.state.isInternational}
+                      onChange={this.handleChange}
+                    />
+                    <label htmlFor="emg-international" className="form-check-label">
                       International Number
                     </label>
                   </div>
                 </div>
               </div>
-              <div className="form-group">
-                <label className="col-lg-3 control-label">Phone</label>
+
+              <div className="row mb-2">
+                <label className="col-lg-3 col-form-label">Phone</label>
                 <div className="col-lg-9">
                   <input type="text" className="form-control" id="emg-phone" ref={this.emg_phone} defaultValue={this.props.phone} onChange={this.formatPhone} />
                 </div>
               </div>
-              <div className="form-group">
-                <label className="col-lg-3 control-label">Email</label>
+              <div className="row mb-2">
+                <label className="col-lg-3 col-form-label">Email</label>
                 <div className="col-lg-9">
                   <input type="text" className="form-control" id="emg-email" ref={this.emg_email} defaultValue={this.props.email} />
                 </div>
@@ -253,9 +261,13 @@ class EmergencyContact extends React.Component {
     return (
       <li className="list-group-item" onClick={this.openModal} style={{ cursor: 'pointer' }}>
         {contactInfo}
-        <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={this.handleRemove}>
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <button
+          type="button"
+          className="btn-close float-end"
+          style={{ width: '0.5em', height: '0.5em', marginTop: '0.25em' }}
+          aria-label="Remove"
+          onClick={this.handleRemove}
+        ></button>
 
         <ModalForm show={this.state.showModal} hide={this.closeModal} edit={true} handleSaveContact={this.handleSaveContact} {...this.props} />
       </li>
@@ -394,12 +406,13 @@ class EmergencyContactList extends React.Component {
 
     return (
       <div>
-        <ul className="list-group">{eData}</ul>
-        <div className="row">
-          <div className="col-lg-12 col-lg-offset-9">
+        <ul className="list-group mb-2">{eData}</ul>
+
+        <div className="row mb-2">
+          <div className="col-lg-12 offset-lg-9">
             <div className="form-group">
-              <button type="button" className="btn btn-default" onClick={this.openAddModal}>
-                <i className="fa fa-plus"></i> Add Contact
+              <button type="button" className="btn btn-secondary" onClick={this.openAddModal}>
+                <i className="fa-solid fa-plus"></i> Add Contact
               </button>
 
               <ModalForm show={this.state.showAddModal} hide={this.closeAddModal} edit={false} handleSaveContact={this.handleNewContact} id={-1} />
@@ -413,9 +426,10 @@ class EmergencyContactList extends React.Component {
 
 EmergencyContactList.propTypes = { internshipId: PropTypes.number.isRequired };
 
-ReactDOM.render(<EmergencyContactList internshipId={window.internshipId} />, document.getElementById('emergency-contact-list'));
+const root = createRoot(document.getElementById('emergency-contact-list'));
+root.render(<EmergencyContactList internshipId={window.internshipId} />);
 
-if (process.env.NODE_ENV !== 'production') {
-  const axe = require('@axe-core/react');
-  axe(React, ReactDOM, 1000);
-}
+// if (process.env.NODE_ENV !== 'production') {
+//   const axe = require('@axe-core/react');
+//   axe(React, ReactDOM, 1000);
+// }
