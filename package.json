@@ -15,7 +15,6 @@
     "react-calendar": "^2.15.2",
     "react-dom": "^18.2.0",
     "react-dropzone": "~3.13.3",
-    "react-input-calendar": "^0.5.4",
     "react-transition-group": "^4.4.5"
   },
   "devDependencies": {
