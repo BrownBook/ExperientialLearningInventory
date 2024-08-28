@@ -69,8 +69,8 @@ if(DEBUG){
         try{
             \NQ::simple('intern', \Intern\UI\NotifyUI::ERROR, 'The Intern Inventory has experienced an error. The software engineers have been notified about this problem. We apologize for the inconvenience.');
 
-            $email = new \Intern\Email\ExceptionEmail(\Intern\InternSettings::getInstance(), $e);
-            $email->send();
+            // $email = new \Intern\Email\ExceptionEmail(\Intern\InternSettings::getInstance(), $e);
+            // $email->send();
 
             \NQ::close();
 
@@ -81,7 +81,7 @@ if(DEBUG){
         }catch(\Exception $e){
             echo "The Intern Inventory has experienced a major internal error.  Attempting to email an admin and then exit.";
             $message = "Something terrible has happened, and the exception catch-all threw an exception.\n\n";
-            $message += $e;
+            $message . print_r($e, true);
             mail('jeremy.booker@brownbooksoftware.com', 'A Major Intern Inventory Error Has Occurred', $message);
             exit();
         }
