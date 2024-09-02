@@ -40,11 +40,11 @@ class BannerSearch extends React.Component {
   render() {
     return (
       <div>
-        <div className="form-group">
+        <div className="mb-3">
           <label htmlFor="bannerId-search">Faculty Member&apos;s ID Number</label>
           <input type="text" id="bannerId-search" className="form-control" ref={this.bannerIdRef} placeholder="Banner ID" onKeyPress={this.onKeyPress} />
         </div>
-        <div className="form-group pull-right">
+        <div className="mb-2 pull-right">
           <Button onClick={this.handleSearch}>Search</Button>
         </div>
         <br />
@@ -103,13 +103,13 @@ class FacultyForm extends React.Component {
         <div className="col-md-offset-1 col-md-10">
           <div className="row">
             <div className="col-md-6">
-              <div className="form-group">
+              <div className="mb-2">
                 <label htmlFor="faculty-edit-id">Banner ID:&nbsp;</label>
                 <input type="text" className="form-control" id="faculty-edit-id" ref={this.facultyEditIdRef} defaultValue={this.props.facultyData.id} />
               </div>
             </div>
             <div className="col-md-6">
-              <div className="form-group">
+              <div className="mb-2">
                 <label className="control-label" htmlFor="faculty-edit-username">
                   Username:&nbsp;
                 </label>
@@ -154,7 +154,7 @@ class FacultyForm extends React.Component {
             </div>
           </div>
 
-          <div className="form-group">
+          <div className="mb-2">
             <label htmlFor="faculty-edit-street_address1">Address</label>
             <input
               type="text"
@@ -165,7 +165,7 @@ class FacultyForm extends React.Component {
             />
           </div>
 
-          <div className="form-group">
+          <div className="mb-2">
             <label htmlFor="faculty-edit-street_address2">Address Line 2</label>
             <input
               type="text"
@@ -176,17 +176,17 @@ class FacultyForm extends React.Component {
             />
           </div>
 
-          <div className="form-group">
+          <div className="mb-2">
             <label htmlFor="faculty-edit-city">City</label>
             <input type="text" className="form-control" id="faculty-edit-city" ref={this.facultyEditCityRef} defaultValue={this.props.facultyData.city} />
           </div>
 
-          <div className="form-group">
+          <div className="mb-2">
             <label htmlFor="faculty-edit-state">State</label>
             <input type="text" className="form-control" id="faculty-edit-state" ref={this.facultyEditStateRef} defaultValue={this.props.facultyData.state} />
           </div>
 
-          <div className="form-group">
+          <div className="mb-2 mb-3">
             <label htmlFor="faculty-edit-zip">Zip</label>
             <input type="text" className="form-control" id="faculty-edit-zip" ref={this.facultyEditZipRef} defaultValue={this.props.facultyData.zip} />
           </div>
@@ -495,7 +495,7 @@ class FacultyTable extends React.Component {
           <tr>
             <td colSpan="4">
               <span className="text-muted">
-                <em>No department data exists for this department</em>
+                <em>No faculty members have been added to this department.</em>
               </span>
             </td>
           </tr>
@@ -712,7 +712,7 @@ class EditFaculty extends React.Component {
             <div className="row">
               <div className="col-md-8">
                 <label htmlFor="departmentDropdown">Departments:</label>
-                <select id="departmentDropdown" className="form-control" onChange={this.handleDrop}>
+                <select id="departmentDropdown" className="form-select" onChange={this.handleDrop}>
                   {departmentDropdown}
                 </select>
               </div>

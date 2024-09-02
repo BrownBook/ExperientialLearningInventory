@@ -410,7 +410,7 @@ class EmergencyContactList extends React.Component {
 
         <div className="row mb-2">
           <div className="col-lg-12 offset-lg-9">
-            <div className="form-group">
+            <div className="mb-3">
               <button type="button" className="btn btn-secondary" onClick={this.openAddModal}>
                 <i className="fa-solid fa-plus"></i> Add Contact
               </button>

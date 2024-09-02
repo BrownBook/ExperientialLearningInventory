@@ -711,7 +711,7 @@
         </div>
       </fieldset>
 
-      <div class="form-group">
+      <div class="mb-3">
         <button type="submit" class="btn btn-primary float-end" id="{SUBMIT_ID}2">{SUBMIT_VALUE}</button>
       </div>
     </div> <!-- End of right column -->
@@ -722,7 +722,7 @@
       <div class="row mb-4 print-hide">
         <label for="{NOTES_ID}">Add a note</label> {NOTES}
       </div>
-      <div class="form-group">
+      <div class="mb-3">
         <button type="submit" class="btn btn-primary float-end" id="{SUBMIT_ID}3">{SUBMIT_VALUE}</button>
       </div>
     </div>
@@ -730,7 +730,7 @@
 
   <div class="row">
     <div class="col-lg-8">
-      <div class="form-group">{CHANGE_LOG}</div>
+      <div class="mb-3">{CHANGE_LOG}</div>
     </div>
   </div>
 

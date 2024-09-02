@@ -82,7 +82,7 @@ class AddData extends React.Component {
             </div>
             <div className="row mt-3">
               <div className="col-md-6">
-                <div className="form-group">
+                <div className="mb-3">
                   <button className="btn btn-secondary" onClick={this.handleClick}>
                     Create Student Level
                   </button>

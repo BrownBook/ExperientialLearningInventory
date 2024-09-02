@@ -227,16 +227,14 @@ class TermInput extends React.Component {
 
         <div className="row mb-2">
           <div className="col-sm-12">
-            <div className="form-group">
-              <label className="form-label">Description: </label>
-              <input type="text" className="form-control" placeholder="Season YYYY" ref={this.descRef} />
-            </div>
+            <label className="form-label">Description: </label>
+            <input type="text" className="form-control" placeholder="Season YYYY" ref={this.descRef} />
           </div>
         </div>
 
         <div className="row mb-2">
           <div className="col-sm-6">
-            <div className="form-group" ref={this.availableCalendarRef}>
+            <div ref={this.availableCalendarRef}>
               <label className="form-label" onClick={this.showCalendarAvailable}>
                 Available On:
                 <i className="fa fa-calendar" aria-hidden="true" style={{ paddingLeft: '5px' }} title="Click for Calendar View"></i>
@@ -247,7 +245,7 @@ class TermInput extends React.Component {
           </div>
 
           <div className="col-sm-6">
-            <div className="form-group" ref={this.censusCalendarRef}>
+            <div ref={this.censusCalendarRef}>
               <label className="form-label" onClick={this.showCalendarCensus}>
                 Drop/Add Date:
                 <i className="fa fa-calendar" aria-hidden="true" style={{ paddingLeft: '5px' }} title="Click for Calendar View"></i>
@@ -260,7 +258,7 @@ class TermInput extends React.Component {
 
         <div className="row mb-2">
           <div className="col-sm-6">
-            <div className="form-group" ref={this.startCalendarRef}>
+            <div ref={this.startCalendarRef}>
               <label className="form-label" onClick={this.showCalendarStart}>
                 Term Start Date:
                 <i className="fa fa-calendar" aria-hidden="true" style={{ paddingLeft: '5px' }} title="Click for Calendar View"></i>
@@ -271,7 +269,7 @@ class TermInput extends React.Component {
           </div>
 
           <div className="col-sm-6">
-            <div className="form-group" ref={this.endCalendarRef}>
+            <div ref={this.endCalendarRef}>
               <label className="form-label" onClick={this.showCalendarEnd}>
                 Term End Date:
                 <i className="fa fa-calendar" aria-hidden="true" style={{ paddingLeft: '5px' }} title="Click for Calendar View"></i>
@@ -284,14 +282,14 @@ class TermInput extends React.Component {
 
         <div className="row mb-2">
           <div className="col-sm-6">
-            <div className="form-group">
+            <div>
               <label className="form-label">Undergraduate Overload Hours: </label>
               <input type="text" className="form-control" placeholder="0" ref={this.ugradOverRef} />
             </div>
           </div>
 
           <div className="col-sm-6">
-            <div className="form-group">
+            <div>
               <label className="form-label">Graduate Overload Hours: </label>
               <input type="text" className="form-control" placeholder="0" ref={this.gradOverRef} />
             </div>

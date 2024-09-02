@@ -194,7 +194,6 @@ class StudentSearch extends React.Component {
 
   render() {
     const fgClasses = classNames({
-      'form-group': true,
       'has-success': this.state.studentFound || this.state.hasError,
       'has-feedback': this.state.studentFound,
       'has-error': this.state.hasError
