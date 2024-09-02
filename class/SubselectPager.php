@@ -1016,8 +1016,8 @@ class SubselectPager extends \DBPager {
             $preg = '/[^\w\s]/u';
         }
 
-        $search_val = preg_replace($preg, '', $search_val);
-        $search_val = preg_replace('/\s/', '+', $search_val);
+        $search_val = preg_replace($preg, '', is_null($search_val) ? '' : $search_val);
+        $search_val = preg_replace('/\s/', '+', is_null($search_val) ? '' : $search_val);
 
         // if extra values exist, add them to the values array
         // ignore matches in the output and other values
