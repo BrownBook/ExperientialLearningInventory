@@ -26,7 +26,6 @@ class HostAgency extends React.Component {
 
   render() {
     const fgClasses = classNames({
-      'form-group': true,
       'has-error': this.state.hasError
     });
 

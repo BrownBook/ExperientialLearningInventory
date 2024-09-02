@@ -37,7 +37,6 @@ class Department extends React.Component {
     }
 
     const fgClasses = classNames({
-      'form-group': true,
       'has-error': this.state.hasError
     });
 

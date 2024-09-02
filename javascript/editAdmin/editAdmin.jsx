@@ -344,7 +344,7 @@ class SearchAdmin extends React.Component {
             </div>
           </div>
           <div className="col-md-5 order-1">
-            <div className="form-group">
+            <div className="mb-3">
               <input type="text" className="form-control" placeholder="Search for..." onChange={this.searchList} />
             </div>
 
