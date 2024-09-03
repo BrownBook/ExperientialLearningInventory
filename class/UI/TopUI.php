@@ -62,7 +62,7 @@ class TopUI implements UI
 
         // Edit list of majors
         if(\Current_User::allow('intern', 'edit_major')){
-            $adminOptions['EDIT_MAJORS_LINK'] = \PHPWS_Text::secureLink('Edit Majors','intern',array('action' => 'showEditMajors'), null, null, 'dropdown-item');
+            $adminOptions['EDIT_MAJORS_LINK'] = \PHPWS_Text::secureLink('Edit Programs &amp; Majors','intern',array('action' => 'showEditMajors'), null, null, 'dropdown-item');
         }
 
         // Edit departments
@@ -80,6 +80,7 @@ class TopUI implements UI
             $adminOptions['EDIT_STUDENT_LEVEL'] = \PHPWS_Text::secureLink('Edit Student Levels','intern',array('action' => 'edit_level'), null, null, 'dropdown-item');
 
         }
+
         // Edit terms
         if(\Current_User::allow('intern', 'edit_terms')){
             $adminOptions['EDIT_TERMS_LINK'] = \PHPWS_Text::secureLink('Edit Terms','intern',array('action' => 'edit_terms'), null, null, 'dropdown-item');
