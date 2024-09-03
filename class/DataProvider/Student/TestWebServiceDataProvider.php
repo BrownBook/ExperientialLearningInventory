@@ -56,8 +56,8 @@ class TestWebServiceDataProvider extends WebServiceDataProvider {
 
         // ID & email
         $obj->banner_id = '900123456';
-        $obj->user_name = 'jb67803';
-        $obj->email     = 'jb67803@appstate.edu';
+        $obj->user_name = 'jeremy.booker';
+        $obj->email     = 'jeremy.booker@brownbooksoftware.com';
 
         // Person type
         $obj->isstaff   = '';
