@@ -29,42 +29,42 @@
           <i class="fa fa-cog"></i> Settings
         </a>
         <ul class="dropdown-menu">
-          <!-- BEGIN majors -->
-          <li>{EDIT_MAJORS_LINK}</li>
-          <!-- END majors -->
-          <!-- BEGIN grad -->
-          <li>{EDIT_GRAD_LINK}</li>
-          <!-- END grad -->
-          <!-- BEGIN depts -->
-          <li>{EDIT_DEPARTMENTS_LINK}</li>
-          <!-- END depts -->
-          <!-- BEGIN admins -->
-          <li>{EDIT_ADMINS_LINK}</li>
-          <!-- END admins -->
-          <!-- BEGIN faculty -->
-          <li>{EDIT_FACULTY}</li>
-          <!-- END faculty -->
-          <!-- BEGIN states -->
-          <li>{EDIT_STATES_LINK}</li>
-          <!-- END states -->
-          <!-- BEGIN level -->
-          <li>{EDIT_STUDENT_LEVEL}</li>
-          <!-- END level -->
           <!-- BEGIN terms -->
           <li>{EDIT_TERMS_LINK}</li>
           <!-- END terms -->
-          <!-- BEGIN affiliation_agreement -->
-          <li>{AFFIL_AGREE_LINK}</li>
-          <!-- END affiliation_agreement -->
+          <!-- BEGIN admins -->
+          <li>{EDIT_ADMINS_LINK}</li>
+          <!-- END admins -->
+          <!-- BEGIN depts -->
+          <li>{EDIT_DEPARTMENTS_LINK}</li>
+          <!-- END depts -->
+          <!-- BEGIN majors -->
+          <li>{EDIT_MAJORS_LINK}</li>
+          <!-- END majors -->
+          <!-- BEGIN level -->
+          <li>{EDIT_STUDENT_LEVEL}</li>
+          <!-- END level -->
           <!-- BEGIN courses -->
           <li>{EDIT_COURSES_LINK}</li>
           <!-- END courses -->
+          <!-- BEGIN states -->
+          <li>{EDIT_STATES_LINK}</li>
+          <!-- END states -->
+          <!-- BEGIN affiliation_agreement -->
+          <li>{AFFIL_AGREE_LINK}</li>
+          <!-- END affiliation_agreement -->
+          <li>
+            <hr class="dropdown-divider">
+          </li>
           <!-- BEGIN student_import -->
           <li>{STUDENT_IMPORT}</li>
           <!-- END student_import -->
           <!-- BEGIN internship_import -->
           <li>{ACTIVITY_IMPORT}</li>
           <!-- END internship_import -->
+          <li>
+            <hr class="dropdown-divider">
+          </li>
           <!-- BEGIN settings -->
           <li>{ADMIN_SETTINGS}</li>
           <!-- END settings -->
