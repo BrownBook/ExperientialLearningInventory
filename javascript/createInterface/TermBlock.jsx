@@ -56,12 +56,30 @@ class TermBlock extends React.Component {
       return <div></div>;
     }
 
+    // If there was a problem loading the term data, show an error alert
     let errorNotice = null;
     if (this.state.dataError !== false) {
-      console.log('Showing error notice!');
       errorNotice = (
         <div style={{ marginTop: '1em' }} className="alert alert-danger">
           <p>{this.state.dataError}</p>
+        </div>
+      );
+    }
+
+    // If there are no terms yet, display a zero-state warning w/ link to Edit Terms UI
+    if (this.state.dataLoading === false && this.state.dataError === false && this.state.terms.length === 0) {
+      return (
+        <div className="row mb-2">
+          <div className="col-sm-12 col-md-9">
+            <div id="term">
+              <label className="form-label">Term</label>
+              <p>
+                <small className="text-secondary">
+                  (There are no Terms configured yet. Maybe you want to <a href="index.php?module=intern&action=edit_terms"> create one</a>?)
+                </small>
+              </p>
+            </div>
+          </div>
         </div>
       );
     }
