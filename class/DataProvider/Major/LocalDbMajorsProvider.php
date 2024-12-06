@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of Internship Inventory.
  *
@@ -19,25 +20,24 @@
  */
 
 namespace Intern\DataProvider\Major;
+
 use Intern\AcademicMajorList;
 use Intern\AcademicMajor;
 use Intern\PdoFactory;
 
-class LocalDbMajorsProvider extends MajorsProvider {
+class LocalDbMajorsProvider extends MajorsProvider
+{
 
     /**
      * Returns an array of AcademicMajor objects for the given term.
      *
-     * NB: The $term param is unused in this provider.
-     *
-     * @param string $term
      * @return AcademicMajorList
      */
-    public function getMajors($term): AcademicMajorList
+    public function getMajors(): AcademicMajorList
     {
         $db = PdoFactory::getPdoInstance();
 
-        $stmt = $db->prepare('SELECT * from intern_major');
+        $stmt = $db->prepare('SELECT * FROM intern_major LEFT OUTER JOIN intern_cip_codes ON intern_major.cip_code = intern_cip_codes.cip_code ORDER BY description ASC');
         $stmt->execute();
         $stmt->setFetchMode(\PDO::FETCH_ASSOC);
 
@@ -45,8 +45,8 @@ class LocalDbMajorsProvider extends MajorsProvider {
 
         $majorsList = new AcademicMajorList();
 
-        foreach ($results as $row){
-            $majorsList->addMajor(new AcademicMajor($row['code'], $row['description'], $row['level']));
+        foreach ($results as $row) {
+            $majorsList->addMajor(new AcademicMajor($row['code'], $row['description'], $row['level'], $row['cip_code'], $row['cip_title'], $row['hidden']));
         }
 
         return $majorsList;

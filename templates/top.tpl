@@ -32,9 +32,6 @@
           <!-- BEGIN terms -->
           <li>{EDIT_TERMS_LINK}</li>
           <!-- END terms -->
-          <!-- BEGIN admins -->
-          <li>{EDIT_ADMINS_LINK}</li>
-          <!-- END admins -->
           <!-- BEGIN depts -->
           <li>{EDIT_DEPARTMENTS_LINK}</li>
           <!-- END depts -->
@@ -47,6 +44,9 @@
           <!-- BEGIN courses -->
           <li>{EDIT_COURSES_LINK}</li>
           <!-- END courses -->
+          <!-- BEGIN admins -->
+          <li>{EDIT_ADMINS_LINK}</li>
+          <!-- END admins -->
           <!-- BEGIN states -->
           <li>{EDIT_STATES_LINK}</li>
           <!-- END states -->

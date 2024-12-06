@@ -38,19 +38,20 @@ class MajorsProviderFactory {
      */
     public static function getProvider()
     {
-        if(STUDENT_DATA_TEST){
-            return new TestMajorsProvider(\Current_User::getUsername());
-        }
+        // if(STUDENT_DATA_TEST){
+        //     return new TestMajorsProvider(\Current_User::getUsername());
+        // }
 
         $providerName = InternSettings::getInstance()->getStudentDataSource();
 
         switch($providerName){
             case 'localDataProvider':
                 return new LocalDbMajorsProvider();
-            case 'webServiceDataProvider':
-                return new BannerMajorsProvider(\Current_User::getUsername());
-            case 'webServiceTestProvider':
-                return new TestMajorsProvider(\Current_User::getUsername());
+            // Unused
+            // case 'webServiceDataProvider':
+            //     return new BannerMajorsProvider(\Current_User::getUsername());
+            // case 'webServiceTestProvider':
+            //     return new TestMajorsProvider(\Current_User::getUsername());
             default:
                 throw new \UnexpectedValueException('No majors provider configured.');
         }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of Internship Inventory.
  *
@@ -22,14 +23,12 @@ namespace Intern;
 
 use Intern\UI\NotifyUI;
 
-class InternshipInventory {
+class InternshipInventory
+{
 
     private $content;
 
-    public function __construct()
-    {
-
-    }
+    public function __construct() {}
 
     public function getContent()
     {
@@ -40,7 +39,7 @@ class InternshipInventory {
     {
         // Check if it is time to add more term. If so, show a warning to admins.
         $futureTerms = TermFactory::getFutureTermsAssoc();
-        if(sizeof($futureTerms) < 3 && \Current_User::isDeity()){
+        if (sizeof($futureTerms) < 3 && \Current_User::isDeity()) {
             \NQ::simple('intern', \Intern\UI\NotifyUI::WARNING, "There are fewer than three future terms available. It's probably time to <a class=\"alert-link\" href=\"index.php?module=intern&action=edit_terms\">add a new term</a>.");
         }
 
@@ -289,10 +288,6 @@ class InternshipInventory {
                 $ctrl = new Command\TermRest();
                 $ctrl->execute();
                 break;
-            case 'majorRest':
-                $ctrl = new Command\MajorRest();
-                $ctrl->execute();
-                break;
             case 'gradRest':
                 $ctrl = new Command\GradRest();
                 $ctrl->execute();
@@ -360,11 +355,18 @@ class InternshipInventory {
                 $ctrl = new Command\DownloadImportValidationErrors();
                 $ctrl->execute();
                 break;
+            case 'MajorsProgramsRest':
+                $ctrl = new Command\MajorsProgramsRest();
+                $ctrl->execute();
+                break;
+            case 'CipCodeRest':
+                $ctrl = new Command\CipCodeRest();
+                $ctrl->execute();
+                break;
             default:
                 $menu = new UI\InternMenu();
                 $this->content = $menu->display();
                 break;
         }
     }
-
 }

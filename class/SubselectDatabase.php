@@ -461,7 +461,7 @@ class SubselectDatabase extends PHPWS_DB{
 
         $where = new PHPWS_DB_Where;
         $where->setJoin($join);
-        $operator = strtoupper($operator);
+        $operator = strtoupper(is_null($operator) ? '' : $operator);
 
         // If passed in value was an array, loop over the array and call this method once for each column name
         if (is_array($column)) {

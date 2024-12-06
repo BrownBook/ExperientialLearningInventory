@@ -11,6 +11,9 @@ module.exports = {
   mode: 'development',
   devtool: 'eval-source-map',
   entry: entryPointList.entryPoints,
+  resolve: {
+    extensions: ['.js', '.jsx', '.json', '.wasm']
+  },
   output: {
     path: path.join(JS_DIR, 'dist'),
     filename: '[name].dev.js',

@@ -13,7 +13,8 @@ module.exports = {
         semi: 'off',
         'no-multiple-empty-lines': 'off',
         'space-before-function-paren': 'off',
-        'multiline-ternary': 'off'
+        'multiline-ternary': 'off',
+        'no-unused-vars': 'Warn'
       }
     }
   ],

@@ -11,6 +11,9 @@ module.exports = {
   bail: true, // Don't attempt to continue if there are any errors
   devtool: 'source-map',
   entry: entryPointList.entryPoints,
+  resolve: {
+    extensions: ['.js', '.jsx', '.json', '.wasm']
+  },
   output: {
     path: path.join(JS_DIR, 'dist'),
     filename: '[name].[chunkhash:8].min.js',

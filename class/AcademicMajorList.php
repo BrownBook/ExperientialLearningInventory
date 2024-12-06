@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of Internship Inventory.
  *
@@ -20,7 +21,8 @@
 
 namespace Intern;
 
-class AcademicMajorList {
+class AcademicMajorList
+{
 
     private $majors;
 
@@ -35,10 +37,10 @@ class AcademicMajorList {
         $this->majors = array();
     }
 
-    public function addMajorsArray(Array $majorsArray)
+    public function addMajorsArray(array $majorsArray)
     {
         // Add each of the given majors to list, checking for duplicates
-        foreach($majorsArray as $major){
+        foreach ($majorsArray as $major) {
             $this->addIfNotDuplicate($major);
         }
     }
@@ -48,12 +50,17 @@ class AcademicMajorList {
         $this->majors[] = $major;
     }
 
+    public function getAllMajors(): array
+    {
+        return $this->majors;
+    }
+
     public function getMajorsByLevel(string $level): array
     {
         $filteredMajors = array();
 
-        foreach($this->majors as $m){
-            if($m->getLevel() === $level){
+        foreach ($this->majors as $m) {
+            if ($m->getLevel() === $level) {
                 $filteredMajors[] = $m;
             }
         }
@@ -67,16 +74,18 @@ class AcademicMajorList {
      * Adds the array represnting a major to the set of majors if it is not already in the list.
      * Prevents duplciate major arrays from being added to the list.
      *
-     * @param Array $major The array holding a single major
+     * @param AcademicMajor $major The array holding a single major
      */
     public function addIfNotDuplicate(AcademicMajor $major)
     {
         // Look through each sub-array in the set of majors
-        foreach($this->majors as $m){
+        foreach ($this->majors as $m) {
             // If the sub-array we're looking at matches the single major we were given, then we've
             // found a duplicate and we can stop looking any further
-            if($m->getLevel() === $major->getLevel()
-                && $m->getDescription() === $major->getDescription()){
+            if (
+                $m->getLevel() === $major->getLevel()
+                && $m->getDescription() === $major->getDescription()
+            ) {
                 return;
             }
         }
