@@ -17,6 +17,7 @@
  * along with Internship Inventory.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Copyright 2011-2018 Appalachian State University
+ * Copyright 2025 Brown Book Software
  */
 
 namespace Intern\DataProvider\Major;
@@ -50,5 +51,57 @@ class LocalDbMajorsProvider extends MajorsProvider
         }
 
         return $majorsList;
+    }
+
+    /**
+     * Creates a new major
+     */
+    public function createMajor(AcademicMajor $major)
+    {
+        $db = PdoFactory::getPdoInstance();
+
+        $stmt = $db->prepare("INSERT INTO intern_major VALUES (
+                                            nextval('intern_major_seq'),
+                                            :code,
+                                            :description,
+                                            :level,
+                                            :isHidden,
+                                            :cipCode
+                                        )");
+
+        $values = array(
+            "code" => $major->getCode(),
+            "description" => $major->getDescription(),
+            "level" => $major->getLevel(),
+            "isHidden" => $major->isHidden() ? 1 : 0,
+            "cipCode" => $major->getCipCode()
+        );
+
+        $stmt->execute($values);
+    }
+
+    /**
+     * Updates an existing major
+     */
+    public function updateMajor(AcademicMajor $major)
+    {
+        $db = PdoFactory::getPdoInstance();
+
+        $stmt = $db->prepare("UPDATE intern_major SET
+                                        description = :description,
+                                        level = :level,
+                                        hidden = :isHidden,
+                                        cip_code = :cipCode
+                                    where code = :code");
+
+        $values = array(
+            "code" => $major->getCode(),
+            "description" => $major->getDescription(),
+            "level" => $major->getLevel(),
+            "isHidden" => $major->isHidden(),
+            "cipCode" => $major->getCipCode()
+        );
+
+        $stmt->execute($values);
     }
 }

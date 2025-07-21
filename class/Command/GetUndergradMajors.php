@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of Internship Inventory.
  *
@@ -16,6 +17,7 @@
  * along with Internship Inventory.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Copyright 2011-2018 Appalachian State University
+ * Copyright 2025 Brown Book Software
  */
 
 namespace Intern\Command;
@@ -24,7 +26,17 @@ use Intern\DataProvider\Major\MajorsProviderFactory;
 use Intern\TermFactory;
 use Intern\AcademicMajor;
 
-class GetUndergradMajors {
+/**
+ * GetUndergradMajors - DEPRECATED
+ *
+ * This class is responsible for fetching the list of undergraduate majors from the database.
+ * It uses the MajorsProviderFactory to get the available majors and returns them in JSON format.
+ *
+ * @package Intern\Command
+ * @deprecated This class is deprecated and should not be used in new code.
+ */
+class GetUndergradMajors
+{
 
     public function execute()
     {

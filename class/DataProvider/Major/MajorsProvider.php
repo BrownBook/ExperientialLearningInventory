@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of Internship Inventory.
  *
@@ -16,13 +17,16 @@
  * along with Internship Inventory.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Copyright 2011-2018 Appalachian State University
+ * Copyright 2025 Brown Book Software
  */
 
 namespace Intern\DataProvider\Major;
 
 use Intern\AcademicMajorList;
+use Intern\AcademicMajor;
 
-abstract class MajorsProvider {
+abstract class MajorsProvider
+{
 
     /**
      * Returns an array of AcademicMajor objects for the "current" term
@@ -30,4 +34,7 @@ abstract class MajorsProvider {
      */
     public abstract function getMajors(): AcademicMajorList;
 
+    public abstract function createMajor(AcademicMajor $major);
+
+    public abstract function updateMajor(AcademicMajor $major);
 }

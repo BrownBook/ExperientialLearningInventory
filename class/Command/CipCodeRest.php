@@ -46,7 +46,7 @@ class CipCodeRest
     {
         $db = PdoFactory::getPdoInstance();
 
-        $cipQuery = 'SELECT cip_family, cip_code, cip_title FROM intern_cip_codes';
+        $cipQuery = 'SELECT cip_family, cip_code, cip_title FROM intern_cip_codes ORDER BY cip_code ASC';
         $cipStmt = $db->prepare($cipQuery);
         $cipStmt->execute();
 
@@ -56,8 +56,6 @@ class CipCodeRest
     }
 
     public function post() {}
-
-    public function patch() {}
 
     public function delete() {}
 }

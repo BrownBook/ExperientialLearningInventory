@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of Internship Inventory.
  *
@@ -17,28 +18,33 @@
  *
  * Copyright 2011-2018 Appalachian State University
  */
- 
+
 namespace Intern\Command;
+
 use \phpws2\Database;
 
-class LevelRest {
+class LevelRest
+{
+	////////////////////////////////////
+	// TODO: Check permissions on POST/PUT !!!!
+	////////////////////////////////////
 
 	public function execute()
 	{
-		switch($_SERVER['REQUEST_METHOD']) {
+		switch ($_SERVER['REQUEST_METHOD']) {
 			case 'PUT':
-			$this->put();
-			exit;
+				$this->put();
+				exit;
 			case 'POST':
-			$this->post();
-			exit;
+				$this->post();
+				exit;
 			case 'GET':
-			$data = $this->get();
-			echo (json_encode($data));
-			exit;
+				$data = $this->get();
+				echo (json_encode($data));
+				exit;
 			default:
-			header('HTTP/1.1 405 Method Not Allowed');
-			exit;
+				header('HTTP/1.1 405 Method Not Allowed');
+				exit;
 		}
 	}
 
@@ -49,9 +55,9 @@ class LevelRest {
 		$descri = $_REQUEST['descr'];
 		$lev = $_REQUEST['level'];
 
-		if ($lev == ''){
+		if ($lev == '') {
 			header('HTTP/1.1 500 Internal Server Error');
-			echo("Edit was missing a level. No changes saved.");
+			echo ("Edit was missing a level. No changes saved.");
 			exit;
 		}
 
@@ -63,7 +69,7 @@ class LevelRest {
 		WHERE code=:cod";
 
 		$sth = $pdo->prepare($sql);
-		$sth->execute(array('cod'=>$cod, 'descri'=>$descri, 'lev'=>$lev));
+		$sth->execute(array('cod' => $cod, 'descri' => $descri, 'lev' => $lev));
 	}
 
 	// New code
@@ -73,15 +79,15 @@ class LevelRest {
 		$descri = $_REQUEST['descr'];
 		$lev = $_REQUEST['level'];
 
-		if ($cod == ''){
+		if ($cod == '') {
 			header('HTTP/1.1 500 Internal Server Error');
-			echo("Missing a code.");
+			echo ("Missing a code.");
 			exit;
 		}
 
-		if ($lev == ''){
+		if ($lev == '') {
 			header('HTTP/1.1 500 Internal Server Error');
-			echo("Missing a level.");
+			echo ("Missing a level.");
 			exit;
 		}
 		$db = Database::newDB();
@@ -92,19 +98,19 @@ class LevelRest {
 		WHERE code=:cod";
 
 		$sth = $pdo->prepare($sql);
-		$sth->execute(array('cod'=>$cod));
+		$sth->execute(array('cod' => $cod));
 		$result = $sth->fetchAll(\PDO::FETCH_ASSOC);
 
-		if (sizeof($result) > 0){
+		if (sizeof($result) > 0) {
 			header('HTTP/1.1 500 Internal Server Error');
-			echo("Code already exist.");
+			echo ("Code already exist.");
 			exit;
 		}
 
 		$sql = "INSERT INTO intern_student_level (code, description, level)
 		VALUES (:cod, :descri, :lev)";
 		$sth = $pdo->prepare($sql);
-		$sth->execute(array('cod'=>$cod, 'descri'=>$descri, 'lev'=>$lev));
+		$sth->execute(array('cod' => $cod, 'descri' => $descri, 'lev' => $lev));
 	}
 
 	// Get code information
@@ -114,8 +120,7 @@ class LevelRest {
 		$pdo = $db->getPDO();
 
 		$sql = "SELECT *
-		FROM intern_student_level
-		ORDER BY code ASC";
+		FROM intern_student_level";
 
 		$sth = $pdo->prepare($sql);
 		$sth->execute();

@@ -1,48 +1,45 @@
-import React, { useMemo } from 'react';
+/* eslint-disable react/prop-types */
+import React, { forwardRef, useCallback } from 'react';
 
-import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { getCipCodes } from '../api/api';
-import DownshiftCombobox from '../DownshiftCombobox/DownshiftCombobox';
+import Select from 'react-select';
 
-export default function CipComboBox() {
+const CipComboBox = forwardRef(function CipComboBox({ id, classNames, onChange }, ref) {
   const cipQuery = useQuery({ queryKey: ['cipCodes'], queryFn: getCipCodes });
 
+  const handleChange = useCallback((value, actionType) => {
+    onChange(value, actionType);
+  }, []);
+
+  function getOptionLabel(item) {
+    return `${item.cip_code} - ${item.cip_title}`;
+  }
+
+  function getOptionValue(item) {
+    return item.cip_code;
+  }
+
   if (cipQuery.isPending) {
-    return 'Loading...';
+    return (
+      <div className="spinner-border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </div>
+    );
   }
 
   if (cipQuery.error) {
     return 'An error has occurred: ' + cipQuery.error.message;
   }
 
-  const filterFunction = useMemo(inputValue => {
-    const lowerCasedInputValue = inputValue.toLowerCase();
-
-    return function booksFilter(book) {
-      return !inputValue || book.title.toLowerCase().includes(lowerCasedInputValue) || book.author.toLowerCase().includes(lowerCasedInputValue);
-    };
-  });
-
-  const books = [
-    { id: 'book-1', author: 'Harper Lee', title: 'To Kill a Mockingbird' },
-    { id: 'book-2', author: 'Lev Tolstoy', title: 'War and Peace' },
-    { id: 'book-3', author: 'Fyodor Dostoyevsy', title: 'The Idiot' },
-    { id: 'book-4', author: 'Oscar Wilde', title: 'A Picture of Dorian Gray' },
-    { id: 'book-5', author: 'George Orwell', title: '1984' },
-    { id: 'book-6', author: 'Jane Austen', title: 'Pride and Prejudice' },
-    { id: 'book-7', author: 'Marcus Aurelius', title: 'Meditations' },
-    {
-      id: 'book-8',
-      author: 'Fyodor Dostoevsky',
-      title: 'The Brothers Karamazov'
-    },
-    { id: 'book-9', author: 'Lev Tolstoy', title: 'Anna Karenina' },
-    { id: 'book-10', author: 'Fyodor Dostoevsky', title: 'Crime and Punishment' }
-  ];
-
+  // TODO: This needs to use styles/classes from Bootstrap
+  // Providing the 'form-select' classname doesn't work, since Bootstrap adds a second drop-down/carrot icon
+  // Also affects form validation with the passed in classNames prop
   return (
     <div>
-      <DownshiftCombobox items={books} getFilterFunc={filterFunction} />
+      <Select options={cipQuery.data} getOptionLabel={getOptionLabel} getOptionValue={getOptionValue} inputId={id} onChange={handleChange} ref={ref} />
     </div>
   );
-}
+});
+
+export default CipComboBox;

@@ -5,6 +5,9 @@ import classNames from 'classnames';
 
 import MajorsDropDown from './MajorsDropDown.jsx';
 
+// TODO: This should be a functional component and use the
+// 'levelRest' endpoint to get the list of student levels.
+// We support more than just 'ugrad' and 'grad' levels now.
 class MajorSelector extends React.Component {
   constructor(props) {
     super(props);

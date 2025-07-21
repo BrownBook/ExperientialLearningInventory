@@ -17,7 +17,7 @@
  * along with Internship Inventory.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Copyright 2011-2018 Appalachian State University
- * Copyright 2024 Brown Book Software
+ * Copyright 2024-2025 Brown Book Software
  */
 
 namespace Intern;
@@ -38,10 +38,12 @@ class AcademicMajor
     public $cip_code;
     public $cip_title;
 
+    // TODO: Deprecate these. They're stored in the separate DB table
+    // Still used in the MajorSelector react component on the search UI
     const LEVEL_UNDERGRAD   = 'U';
     const LEVEL_GRADUATE    = 'G';
 
-    public function __construct(string $code, string $description, string $level, string|null $cip_code, string|null $cip_title, string $hidden)
+    public function __construct(string $code, string $description, string $level, string|null $cip_code, string|null $cip_title, int $hidden)
     {
         $this->code = $code;
         $this->description = $description;
@@ -73,5 +75,10 @@ class AcademicMajor
         }
 
         return true;
+    }
+
+    public function getCipCode(): string
+    {
+        return $this->cip_code;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of Internship Inventory.
  *
@@ -20,7 +21,8 @@
 
 namespace Intern;
 
-class AffiliationAgreementFactory {
+class AffiliationAgreementFactory
+{
 
     /**
      * Generates an AffiliationAgreement object by attempting to load the
@@ -34,11 +36,11 @@ class AffiliationAgreementFactory {
      */
     public static function getAffiliationById($id)
     {
-        if(is_null($id) || !isset($id)){
+        if (is_null($id) || !isset($id)) {
             throw new \InvalidArgumentException('AffiliationAgreement ID is required.');
         }
 
-        if($id <= 0){
+        if ($id <= 0) {
             throw new \InvalidArgumentException('AffiliationAgreement ID must be greater than zero.');
         }
 
@@ -47,11 +49,11 @@ class AffiliationAgreementFactory {
 
         $result = $db->select('row');
 
-        if(\PHPWS_Error::logIfError($result)){
+        if (\PHPWS_Error::logIfError($result)) {
             throw new \Exception($result->toString());
         }
 
-        if(count($result) == 0){
+        if (count($result) == 0) {
             return null;
         }
 
@@ -71,14 +73,14 @@ class AffiliationAgreementFactory {
      * Saves an AffiliationAgreement into the database
      *
      * @param AffiliationAgreement
-     * @returns AffiliationAgreement
+     * @return AffiliationAgreement
      * @throws InvalidArgumentException
      * @throws Exception
      * @throws InternshipNotFoundException
      */
     public static function save(AffiliationAgreement $agreement)
     {
-        if(!isset($agreement) || is_null($agreement)){
+        if (!isset($agreement) || is_null($agreement)) {
             throw new \InvalidArgumentException('Missing agreement object');
         }
 
@@ -86,26 +88,28 @@ class AffiliationAgreementFactory {
 
         $id = $agreement->getId();
 
-        if(is_null($id)) {
+        if (is_null($id)) {
             $values = array(
-                        'saveName' => $agreement->getName(),
-                        'saveBeginDate' => $agreement->getBeginDate(),
-                        'saveEndDate' => $agreement->getEndDate(),
-                        'saveAutoRenew' => (int)$agreement->getAutoRenew());
+                'saveName' => $agreement->getName(),
+                'saveBeginDate' => $agreement->getBeginDate(),
+                'saveEndDate' => $agreement->getEndDate(),
+                'saveAutoRenew' => (int)$agreement->getAutoRenew()
+            );
 
             $query = "INSERT INTO intern_affiliation_agreement
                     (id, name, begin_date, end_date, auto_renew)
                     VALUES (nextval('intern_affiliation_agreement_seq'),
                     :saveName, :saveBeginDate, :saveEndDate, :saveAutoRenew)";
-
         } else {
-            $values = array('id' => $id,
-                        'name' => $agreement->getName(),
-                        'beginDate' => $agreement->getBeginDate(),
-                        'endDate' => $agreement->getEndDate(),
-                        'autoRenew' => (int)$agreement->getAutoRenew(),
-                        'notes' => $agreement->getNotes(),
-                        'terminated' => $agreement->getTerminated());
+            $values = array(
+                'id' => $id,
+                'name' => $agreement->getName(),
+                'beginDate' => $agreement->getBeginDate(),
+                'endDate' => $agreement->getEndDate(),
+                'autoRenew' => (int)$agreement->getAutoRenew(),
+                'notes' => $agreement->getNotes(),
+                'terminated' => $agreement->getTerminated()
+            );
 
             $query = "UPDATE intern_affiliation_agreement
                         SET name = :name, begin_date = :beginDate,
@@ -118,5 +122,4 @@ class AffiliationAgreementFactory {
 
         $stmt->execute($values);
     }
-
 }
