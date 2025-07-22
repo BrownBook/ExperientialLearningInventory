@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of Internship Inventory.
  *
@@ -20,7 +21,8 @@
 
 namespace Intern;
 
-class ChangeHistory extends Model{
+class ChangeHistory extends Model
+{
 
     public $internship_id;
     public $username;
@@ -39,23 +41,23 @@ class ChangeHistory extends Model{
      */
     public function __construct(Internship $i = null, \PHPWS_User $phpwsUser = null, $timestamp = null, WorkflowState $fromState = null, WorkflowState $toState = null, $note = null)
     {
-        if(!is_null($i)){
+        if (!is_null($i)) {
             $this->id = 0;
             $this->internship_id = $i->getId();
             $this->timestamp = $timestamp;
 
-            if(is_null($phpwsUser)) {
+            if (is_null($phpwsUser)) {
                 $this->username = 'InternshipInventory';
             } else {
                 $this->username = $phpwsUser->getUsername();
             }
 
             // Strip namespace from start of from and to states, all four backspaces are required to escaping backslash
-            if($fromState !== null){
+            if ($fromState !== null) {
                 $this->from_state   = preg_replace("/Intern\\\\WorkflowState\\\\/", '', $fromState->getName());
             }
 
-            if($toState !== null){
+            if ($toState !== null) {
                 $this->to_state     = preg_replace("/Intern\\\\WorkflowState\\\\/", '', $toState->getName());
             }
 
@@ -63,7 +65,8 @@ class ChangeHistory extends Model{
         }
     }
 
-    public static function getDB(){
+    public static function getDB()
+    {
         return new \PHPWS_DB('intern_change_history');
     }
 
@@ -78,28 +81,34 @@ class ChangeHistory extends Model{
         $curr = !is_null($now) ? $now : time();
         $shift = $curr - $time;
 
-        if ($shift < 45){
+        if ($shift < 45) {
             $diff = $shift;
             $term = "second";
-        }elseif ($shift < 2700){
+        } elseif ($shift < 2700) {
             $diff = round($shift / 60);
             $term = "minute";
-        }elseif ($shift < 64800){
+        } elseif ($shift < 64800) {
             $diff = round($shift / 60 / 60);
             $term = "hour";
-        }else{
+        } else {
             $diff = round($shift / 60 / 60 / 24);
             $term = "day";
         }
 
-        if ($diff > 1){
+        if ($diff > 1) {
             $term .= "s";
         }
 
         return "$diff $term";
     }
 
-    public function getFormattedDate(){
+    public function getTimestamp(): int
+    {
+        return $this->timestamp;
+    }
+
+    public function getFormattedDate()
+    {
         return date("M j, Y h:ia", $this->timestamp);
     }
 

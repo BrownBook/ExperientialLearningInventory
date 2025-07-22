@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of Internship Inventory.
  *
@@ -20,7 +21,10 @@
 
 namespace Intern;
 
-class ChangeHistoryFactory {
+use \Intern\PdoFactory;
+
+class ChangeHistoryFactory
+{
 
     public static function getChangesForInternship(Internship $internship)
     {
@@ -29,10 +33,41 @@ class ChangeHistoryFactory {
         $db->addOrder('timestamp ASC');
         $results = $db->getObjects('\Intern\ChangeHistory');
 
-        if(\PHPWS_Error::logIfError($results)){
+        if (\PHPWS_Error::logIfError($results)) {
             throw new \Exception($results->toString());
         }
 
         return $results;
+    }
+
+    public static function getCreationChangeForInternship(Internship $internship): ?ChangeHistory
+    {
+        $pdo = PdoFactory::getPdoInstance();
+
+        $query = "SELECT * FROM intern_change_history WHERE
+                    internship_id = :internship_id AND
+                    from_state = 'CreationState' AND
+                    to_state = 'NewState' LIMIT 1";
+
+        $stmt = $pdo->prepare($query);
+        $stmt->execute(array('internship_id' => $internship->getId()));
+
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        if ($result === false) {
+            return null; // No result found
+        }
+
+        $change = new ChangeHistory();
+
+        $change->id = $result['id'];
+        $change->internship_id = $result['internship_id'];
+        $change->username = $result['username'];
+        $change->timestamp = $result['timestamp'];
+        $change->from_state = $result['from_state'];
+        $change->to_state = $result['to_state'];
+        $change->note = $result['note'];
+
+        return $change;
     }
 }
