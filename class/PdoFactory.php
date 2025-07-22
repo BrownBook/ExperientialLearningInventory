@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of Internship Inventory.
  *
@@ -30,7 +31,8 @@ use \PDO;
  * @author jbooker
  * @package homestead
  */
-class PdoFactory {
+class PdoFactory
+{
 
     static $factory;
 
@@ -51,9 +53,9 @@ class PdoFactory {
 
     /**
      * Returns a PDO object which is connected to the current database
-     * @return $pdo A PDO instance, connected to the current DB
+     * @return PDO A PDO instance, connected to the current DB
      */
-    public static function getPdoInstance()
+    public static function getPdoInstance(): PDO
     {
         $pdoFactory = self::getInstance();
 

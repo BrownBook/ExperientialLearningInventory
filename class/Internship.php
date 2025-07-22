@@ -17,6 +17,7 @@
  * along with Internship Inventory.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Copyright 2011-2018 Appalachian State University
+ * Copyright 2025 Brown Book Software
  */
 
 namespace Intern;
@@ -415,6 +416,8 @@ class Internship
 
         $csv = array_merge($csv, $d->getCSV());
 
+        $csv['Created Date'] = date('Y-m-d', $this->getCreationTimestamp());
+
         return $csv;
     }
 
@@ -765,6 +768,17 @@ class Internship
             return 'United States';
         }
         return $this->loc_country;
+    }
+
+    public function getCreationTimestamp(): ?int
+    {
+        $creationChange = ChangeHistoryFactory::getCreationChangeForInternship($this);
+
+        if ($creationChange !== null) {
+            return $creationChange->getTimestamp();
+        } else {
+            return null; // If no creation change, return null
+        }
     }
 
     /*****************************
