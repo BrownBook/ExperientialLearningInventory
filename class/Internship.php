@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of Internship Inventory.
  *
@@ -16,6 +17,7 @@
  * along with Internship Inventory.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Copyright 2011-2018 Appalachian State University
+ * Copyright 2025 Brown Book Software
  */
 
 namespace Intern;
@@ -25,15 +27,16 @@ use \Intern\Student;
 use \PHPWS_Text;
 
 /**
-* Internship
-*
-* Forms relationship between a student, department, and agency.
-*
-* @author Robert Bost <bostrt at tux dot appstate dot edu>
-* @author Jeremy Booker <jbooker at tux dot appstate dot edu>
-* @package Intern
-*/
-class Internship {
+ * Internship
+ *
+ * Forms relationship between a student, department, and agency.
+ *
+ * @author Robert Bost <bostrt at tux dot appstate dot edu>
+ * @author Jeremy Booker <jbooker at tux dot appstate dot edu>
+ * @package Intern
+ */
+class Internship
+{
 
     public $id;
 
@@ -75,9 +78,9 @@ class Internship {
     public $grad_prog;
 
     /**
-    * @deprecated
-    * @see $major_code
-    */
+     * @deprecated
+     * @see $major_code
+     */
     public $ugrad_major;
 
     // Contact Info
@@ -145,9 +148,10 @@ class Internship {
     private static $termDescriptionList;
 
     /**
-    * Constructs a new Internship object.
-    */
-    public function __construct(Student $student, $term, $location, $state, $country, Department $department, Agency $agency){
+     * Constructs a new Internship object.
+     */
+    public function __construct(Student $student, $term, $location, $state, $country, Department $department, Agency $agency)
+    {
 
         // Initialize student data
         $this->initalizeStudentData($student);
@@ -157,12 +161,12 @@ class Internship {
 
         // Set basic location data
         $this->setLocationType('onsite'); // Default to onsite location
-        if($location == 'domestic') {
+        if ($location == 'domestic') {
             $this->setDomestic(true);
             $this->setInternational(false);
 
             $this->setLocationState($state);
-        } else if($location == 'international') {
+        } else if ($location == 'international') {
             $this->setDomestic(false);
             $this->setInternational(true);
 
@@ -193,9 +197,9 @@ class Internship {
     }
 
     /**
-    * Copies student data from Student object to this Internship.
-    * @param Student $student
-    */
+     * Copies student data from Student object to this Internship.
+     * @param Student $student
+     */
     private function initalizeStudentData(Student $student)
     {
         // Basic student demographics
@@ -216,7 +220,7 @@ class Internship {
 
         // Majors - If double major, just take index 0
         $majors = $student->getMajors();
-        if(is_array($majors) && sizeof($majors) > 0) {
+        if (is_array($majors) && sizeof($majors) > 0) {
             $this->major_code = $majors[0]->getCode();
             $this->major_description = $majors[0]->getDescription();
         } else if (is_object($majors)) {
@@ -236,22 +240,22 @@ class Internship {
     }
 
     /**
-    * @Override Model::getDb
-    */
+     * @Override Model::getDb
+     */
     public function getDb()
     {
         return new \PHPWS_DB('intern_internship');
     }
 
     /**
-    * Save model to database
-    * @return new ID of model.
-    */
+     * Save model to database
+     * @return new ID of model.
+     */
     public function save()
     {
-	if($this->faculty_id === ''){
-	    $this->faculty_id = null;
-	}
+        if ($this->faculty_id === '') {
+            $this->faculty_id = null;
+        }
 
         $db = $this->getDb();
         try {
@@ -268,12 +272,12 @@ class Internship {
     }
 
     /**
-    * Delete model from database.
-    */
+     * Delete model from database.
+     */
     public function delete()
     {
         if (is_null($this->id) || !is_numeric($this->id))
-        return false;
+            return false;
 
         $db = $this->getDb();
         $db->addWhere('id', $this->id);
@@ -294,7 +298,7 @@ class Internship {
     {
         // Initalize term description list, if needed
         // Store term list in a static var, so hopefully we only do this once per export
-        if(!isset(self::$termDescriptionList)){
+        if (!isset(self::$termDescriptionList)) {
             self::$termDescriptionList = TermFactory::getTermsAssoc();
         }
 
@@ -311,7 +315,7 @@ class Internship {
         $csv['Major Description']   = $this->getMajorDescription();
         $csv['Major Code']          = $this->getMajorCode();
 
-/***
+        /***
         $csv['Level'] = $this->getLevel();
         $level = LevelFactory::getLevelObjectById($this->getLevel());
         if($level->getLevel() == Level::UNDERGRAD){
@@ -324,7 +328,7 @@ class Internship {
             $csv['Undergrad Major'] = '';
             $csv['Graduate Program'] = '';
         }
-***/
+         ***/
         $csv['GPA']             = $this->getGpa();
         $csv['Campus']          = $this->getCampus();
 
@@ -376,9 +380,9 @@ class Internship {
         $csv['Multi-part']             = $this->isMultipart() ? 'Yes' : 'No';
         $csv['Secondary Part']         = $this->isSecondaryPart() ? 'Yes' : 'No';
 
-        if($this->getSubject() !== null){
+        if ($this->getSubject() !== null) {
             $csv['Course Subject']     = $this->getSubject()->getName();
-        }else {
+        } else {
             $csv['Course Subject']     = '';
         }
 
@@ -395,11 +399,11 @@ class Internship {
         // Merge data from other objects.
         $csv = array_merge($csv, $a->getCSV());
 
-		if(count($c) > 0) {
-			$csv['Document Uploaded']  = 'Yes';
-		} else {
-			$csv['Document Uploaded']  = 'No';
-		}
+        if (!is_null($c) && count($c) > 0) {
+            $csv['Document Uploaded']  = 'Yes';
+        } else {
+            $csv['Document Uploaded']  = 'No';
+        }
 
         if ($f instanceof Faculty) {
             $csv = array_merge($csv, $f->getCSV());
@@ -412,55 +416,58 @@ class Internship {
 
         $csv = array_merge($csv, $d->getCSV());
 
+        $csv['Created Date'] = date('Y-m-d', $this->getCreationTimestamp());
+
         return $csv;
     }
 
     /**
-    * Returns true if this internship is at the undergraduate level, false otherwise.
-    *
-    * @return boolean
-    */
+     * Returns true if this internship is at the undergraduate level, false otherwise.
+     *
+     * @return boolean
+     */
     public function isUndergraduate()
     {
         $level = LevelFactory::getLevelObjectById($this->getLevel());
-        if($level->getLevel() == Level::UNDERGRAD) {
+        if ($level->getLevel() == Level::UNDERGRAD) {
             return true;
         }
         return false;
     }
 
     /**
-    * Returns true if this internship is at the graduate level, false otherwise.
-    * @return boolean
-    */
+     * Returns true if this internship is at the graduate level, false otherwise.
+     * @return boolean
+     */
     public function isGraduate()
     {
         $level = LevelFactory::getLevelObjectById($this->getLevel());
-        if($level->getLevel() == Level::GRADUATE) {
+        if ($level->getLevel() == Level::GRADUATE) {
             return true;
         }
         return false;
     }
 
-    public function getAgencyId() {
+    public function getAgencyId()
+    {
         return $this->agency_id;
     }
 
     /**
-    * Get the Agency object associated with this internship.
-    */
+     * Get the Agency object associated with this internship.
+     */
     public function getAgency()
     {
         return AgencyFactory::getAgencyById($this->getAgencyId());
     }
 
     /**
-    * Get the Faculty Supervisor object associated with this internship.
-    *
-    */
+     * Get the Faculty Supervisor object associated with this internship.
+     *
+     */
     public function getFaculty()
     {
-        if(!isset($this->faculty_id)){
+        if (!isset($this->faculty_id)) {
             return null;
         }
 
@@ -468,44 +475,41 @@ class Internship {
     }
 
     /**
-    * Get the Emergency Contact's First Name
-    */
+     * Get the Emergency Contact's First Name
+     */
     public function getEmergencyContactName()
     {
         $name = EmergencyContactFactory::getContactsForInternship($this);
-        if(!empty($name))
-        {
+        if (!empty($name)) {
             return $name[0]->getName();
         }
     }
 
     /**
-    * Get the Emergency Contact's Relationship
-    */
+     * Get the Emergency Contact's Relationship
+     */
     public function getEmergencyContactRelation()
     {
         $relationship = EmergencyContactFactory::getContactsForInternship($this);
-        if(!empty($relationship))
-        {
+        if (!empty($relationship)) {
             return $relationship[0]->getRelation();
         }
     }
 
     /**
-    * Get the Emergency Contact's Phone Number
-    */
+     * Get the Emergency Contact's Phone Number
+     */
     public function getEmergencyContactPhoneNumber()
     {
         $phone = EmergencyContactFactory::getContactsForInternship($this);
-        if(!empty($phone))
-        {
+        if (!empty($phone)) {
             return $phone[0]->getPhone();
         }
     }
 
     /**
-    * Get the Department object associated with this internship.
-    */
+     * Get the Department object associated with this internship.
+     */
     public function getDepartment()
     {
         return new Department($this->department_id);
@@ -513,7 +517,7 @@ class Internship {
 
     public function getSubject()
     {
-        if($this->course_subj === null || $this->course_subj === 0){
+        if ($this->course_subj === null || $this->course_subj === 0) {
             return null;
         }
 
@@ -521,8 +525,8 @@ class Internship {
     }
 
     /**
-    * Get Document objects associated with this internship.
-    */
+     * Get Document objects associated with this internship.
+     */
     public function getDocuments()
     {
         $db = InternDocument::getDB();
@@ -531,14 +535,14 @@ class Internship {
     }
 
     /**
-    * Get the concatenated first name, middle name/initial, and last name.
-    */
+     * Get the concatenated first name, middle name/initial, and last name.
+     */
     public function getFullName()
     {
         $name = $this->first_name . ' ';
         // Middle name is not required. If no middle name as input then
         // this will not show the extra space for padding between middle and last name.
-        $name .= (isset($this->middle_name) && $this->middle_name != '') ? $this->middle_name . ' ': null;
+        $name .= (isset($this->middle_name) && $this->middle_name != '') ? $this->middle_name . ' ' : null;
         $name .= $this->last_name;
         return $name;
     }
@@ -560,9 +564,9 @@ class Internship {
     }
 
     /**
-    * Get formatted dates.
-    */
-    public function getStartDate($formatted=false)
+     * Get formatted dates.
+     */
+    public function getStartDate($formatted = false)
     {
         if (!$this->start_date) {
             return null;
@@ -574,11 +578,12 @@ class Internship {
         }
     }
 
-    public function setStartDate($startDate) {
+    public function setStartDate($startDate)
+    {
         $this->start_date = $startDate;
     }
 
-    public function getEndDate($formatted=false)
+    public function getEndDate($formatted = false)
     {
         if (!$this->end_date) {
             return null;
@@ -590,45 +595,46 @@ class Internship {
         }
     }
 
-    public function setEndDate($endDate) {
+    public function setEndDate($endDate)
+    {
         $this->end_date = $endDate;
     }
 
     /**
-    * Is this internship domestic?
-    *
-    * @return bool True if this is a domestic internship, false otherwise.
-    */
+     * Is this internship domestic?
+     *
+     * @return bool True if this is a domestic internship, false otherwise.
+     */
     public function isDomestic()
     {
         return $this->domestic;
     }
 
     /**
-    * Sets the domestic location flag.
-    *
-    * @param bool $domestic
-    */
+     * Sets the domestic location flag.
+     *
+     * @param bool $domestic
+     */
     public function setDomestic($domestic)
     {
         $this->domestic = $domestic;
     }
 
     /**
-    * Is this internship International?
-    *
-    * @return bool True if this is an international internship, false otherwise.
-    */
+     * Is this internship International?
+     *
+     * @return bool True if this is an international internship, false otherwise.
+     */
     public function isInternational()
     {
         return $this->international;
     }
 
     /**
-    * Sets the international flag.
-    *
-    * @param bool $international
-    */
+     * Sets the international flag.
+     *
+     * @param bool $international
+     */
     public function setInternational($international)
     {
         $this->international = $international;
@@ -645,15 +651,15 @@ class Internship {
     }
 
     /**
-    * Sets the country code for this internship. Should be a two letter abbreviation.
-    */
+     * Sets the country code for this internship. Should be a two letter abbreviation.
+     */
     public function setLocationCountry($country)
     {
-        if(!isset($country) || $country == '') {
+        if (!isset($country) || $country == '') {
             throw new \InvalidArgumentException('Empty country code');
         }
 
-        if(strlen($country) > 2) {
+        if (strlen($country) > 2) {
             throw new \InvalidArgumentException('Country code is too long');
         }
 
@@ -665,58 +671,61 @@ class Internship {
         return $this->loc_province;
     }
 
-    public function getLocationType() {
+    public function getLocationType()
+    {
         return $this->location_type;
     }
 
     // Sets the location type. Should be one of: 'onsite', 'virtual', 'hybrid'
-    public function setLocationType($type) {
+    public function setLocationType($type)
+    {
         $this->location_type = $type;
     }
 
     public function isOiedCertified()
     {
-        if($this->oied_certified == 1){
+        if ($this->oied_certified == 1) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
     /**
-    * Sets whether or not this internship is International certified
-    *
-    * @param boolean $certified
-    */
-    public function setOiedCertified($certified) {
-        if($certified){
+     * Sets whether or not this internship is International certified
+     *
+     * @param boolean $certified
+     */
+    public function setOiedCertified($certified)
+    {
+        if ($certified) {
             $this->oied_certified = 1;
-        }else{
+        } else {
             $this->oied_certified = 0;
         }
     }
 
     public function isMultipart()
     {
-        if($this->multi_part == 1){
+        if ($this->multi_part == 1) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
     public function isSecondaryPart()
     {
-        if($this->secondary_part == 1){
+        if ($this->secondary_part == 1) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
     /**
-    * Row tags for DBPager
-    */
+     * Row tags for DBPager
+     */
     public function getRowTags()
     {
         $tags = array();
@@ -734,10 +743,10 @@ class Internship {
         $tags['DEPT_NAME'] = PHPWS_Text::moduleLink($d->name, 'intern', array('action' => 'ShowInternship', 'internship_id' => $this->id));
 
         // Faculty info.
-        if(isset($this->faculty_id) && $this->faculty_id != ''){
+        if (isset($this->faculty_id) && $this->faculty_id != '') {
             $f = $this->getFaculty();
             $tags['FACULTY_NAME'] = PHPWS_Text::moduleLink($f->getFullName(), 'intern', array('action' => 'ShowInternship', 'internship_id' => $this->id));
-        }else{
+        } else {
             // Makes this cell in the table a clickable link, even if there's no faculty name
             $tags['FACULTY_NAME'] = PHPWS_Text::moduleLink('&nbsp;', 'intern', array('action' => 'ShowInternship', 'internship_id' => $this->id));
         }
@@ -761,36 +770,51 @@ class Internship {
         return $this->loc_country;
     }
 
+    public function getCreationTimestamp(): ?int
+    {
+        $creationChange = ChangeHistoryFactory::getCreationChangeForInternship($this);
+
+        if ($creationChange !== null) {
+            return $creationChange->getTimestamp();
+        } else {
+            return null; // If no creation change, return null
+        }
+    }
+
     /*****************************
-    * Accessor / Mutator Methods
-    */
+     * Accessor / Mutator Methods
+     */
 
     /**
-    * Returns the database id of this internship.
-    *
-    * @return int
-    */
-    public function getId(){
+     * Returns the database id of this internship.
+     *
+     * @return int
+     */
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function setId($id){
+    public function setId($id)
+    {
         $this->id = $id;
     }
 
     /**
-    * Returns the Student ID of this student.
-    *
-    * @return string Student ID
-    */
-    public function getBannerId(){
+     * Returns the Student ID of this student.
+     *
+     * @return string Student ID
+     */
+    public function getBannerId()
+    {
         return $this->banner;
     }
 
     /**
-    * NB: Returns the username part of the email, without a domain name
-    */
-    public function getEmailAddress(){
+     * NB: Returns the username part of the email, without a domain name
+     */
+    public function getEmailAddress()
+    {
         return $this->email;
     }
 
@@ -799,13 +823,14 @@ class Internship {
         return $this->faculty_id;
     }
 
-    public function getStreetAddress(){
+    public function getStreetAddress()
+    {
         return $this->loc_address;
     }
 
     /**
-    * Get the domestic looking address of agency.
-    */
+     * Get the domestic looking address of agency.
+     */
     public function getLocationAddress()
     {
         $add = array();
@@ -816,18 +841,18 @@ class Internship {
         if (!empty($this->loc_city)) {
             $add[] = $this->loc_city . ',';
         }
-        if(!empty($this->loc_state)){
+        if (!empty($this->loc_state)) {
             $add[] = $this->loc_state;
         }
         if (!empty($this->loc_zip)) {
             $add[] = $this->loc_zip;
         }
 
-        if(!empty($this->loc_province)){
+        if (!empty($this->loc_province)) {
             $add[] = $this->loc_province . ', ';
         }
 
-        if(!empty($this->loc_country)){
+        if (!empty($this->loc_country)) {
             $add[] = $this->loc_country;
         }
 
@@ -837,50 +862,52 @@ class Internship {
     /**
      * Set the internship location's zip code
      */
-    public function setLocationZipCode($zipCode){
+    public function setLocationZipCode($zipCode)
+    {
         $this->loc_zip = $zipCode;
     }
 
     /**
-    * Returns the Department's database id
-    * @return integer department id
-    */
+     * Returns the Department's database id
+     * @return integer department id
+     */
     public function getDepartmentId()
     {
         return $this->department_id;
     }
 
     /**
-    * Returns the WorkflowState name for this internshio's current state/status.
-    * Can be null if no state has been set yet.
-    *
-    * @return string
-    */
+     * Returns the WorkflowState name for this internshio's current state/status.
+     * Can be null if no state has been set yet.
+     *
+     * @return string
+     */
     public function getStateName()
     {
         return $this->state;
     }
 
     /**
-    * Sets the WorkflowState of this internship.
-    *
-    * @param WorkflowState $state
-    */
-    public function setState(WorkflowState $state){
+     * Sets the WorkflowState of this internship.
+     *
+     * @param WorkflowState $state
+     */
+    public function setState(WorkflowState $state)
+    {
         $this->state = $state->getClassName();
     }
 
     /**
-    * Returns the WorkflowState object represeting this internship's current state/status.
-    * Returns null if no state has been set yet.
-    *
-    * @return WorkflowState
-    */
+     * Returns the WorkflowState object represeting this internship's current state/status.
+     * Returns null if no state has been set yet.
+     *
+     * @return WorkflowState
+     */
     public function getWorkflowState()
     {
         $stateName = $this->getStateName();
 
-        if(is_null($stateName)){
+        if (is_null($stateName)) {
             return null;
         }
 
@@ -888,10 +915,10 @@ class Internship {
     }
 
     /**
-    * Returns array of campus names
-    *
-    * @return Array campus names
-    */
+     * Returns array of campus names
+     *
+     * @return Array campus names
+     */
     public static function getCampusAssoc()
     {
         $campusNames = array("main_campus" => "Main campus", "distance_ed" => "Distance Ed");
@@ -899,12 +926,12 @@ class Internship {
     }
 
     /**
-    * Returns the campus on which this internship is based
-    *
-    * Valid values are: 'main_campus', 'distance_ed'
-    *
-    * @return String campus name
-    */
+     * Returns the campus on which this internship is based
+     *
+     * Valid values are: 'main_campus', 'distance_ed'
+     *
+     * @return String campus name
+     */
     public function getCampus()
     {
         return $this->campus;
@@ -913,7 +940,7 @@ class Internship {
     // TODO - Get rid of the magic values, use constants
     public function getCampusFormatted()
     {
-        if($this->getCampus() == 'main_campus') {
+        if ($this->getCampus() == 'main_campus') {
             return 'Main campus';
         } else if ($this->getCampus() == 'distance_ed') {
             return 'Distance Ed';
@@ -923,13 +950,13 @@ class Internship {
     }
 
     /**
-    * Returns true if this is a Distance Ed internship, false otherwise.
-    *
-    * @return boolean
-    */
+     * Returns true if this is a Distance Ed internship, false otherwise.
+     *
+     * @return boolean
+     */
     public function isDistanceEd()
     {
-        if($this->getCampus() == 'distance_ed'){
+        if ($this->getCampus() == 'distance_ed') {
             return true;
         }
 
@@ -938,81 +965,89 @@ class Internship {
 
 
     /**
-    * Calculates and sets the metaphone value for this student's first name.
-    *
-    * @param string $firstName
-    */
-    public function setFirstNameMetaphone($firstName){
+     * Calculates and sets the metaphone value for this student's first name.
+     *
+     * @param string $firstName
+     */
+    public function setFirstNameMetaphone($firstName)
+    {
         $this->first_name_meta = metaphone($firstName);
     }
 
     /**
-    * Calculates and sets the metaphone value for this student's middle name.
-    *
-    * @param string $middleName
-    */
-    public function setMiddleNameMetaphone($middleName){
+     * Calculates and sets the metaphone value for this student's middle name.
+     *
+     * @param string $middleName
+     */
+    public function setMiddleNameMetaphone($middleName)
+    {
         $this->middle_name_meta = metaphone($middleName);
     }
 
     /**
-    * Calculates and sets the metaphone value for this student's last name.
-    *
-    * @param string $lastName
-    */
-    public function setLastNameMetaphone($lastName){
+     * Calculates and sets the metaphone value for this student's last name.
+     *
+     * @param string $lastName
+     */
+    public function setLastNameMetaphone($lastName)
+    {
         $this->last_name_meta = metaphone($lastName);
     }
 
     /**
-    * Returns this student's level code ('U' or 'G' ...)
-    *
-    * @return string
-    */
-    public function getLevel(){
+     * Returns this student's level code ('U' or 'G' ...)
+     *
+     * @return string
+     */
+    public function getLevel()
+    {
         return $this->level;
     }
 
     public function getLevelFormatted()
     {
         $levelE = LevelFactory::checkLevelExist($this->level);
-        if($levelE){
+        if ($levelE) {
             $levelD = LevelFactory::getLevelObjectById($this->level);
             return $levelD->getDesc();
-        } else{
+        } else {
             return 'Unknown level';
         }
     }
 
-    public function getMajorCode() {
+    public function getMajorCode()
+    {
         return $this->major_code;
     }
 
-    public function getMajorDescription() {
+    public function getMajorDescription()
+    {
         return $this->major_description;
     }
 
-    public function getGpa(){
+    public function getGpa()
+    {
         return $this->gpa;
     }
 
-    public function getPhoneNumber(){
+    public function getPhoneNumber()
+    {
         return $this->phone;
     }
 
     public function getStudentAddress()
     {
         $studentAddress = "";
-        if(!empty($this->student_address)){
+        if (!empty($this->student_address)) {
             $studentAddress .= ($this->student_address . ", ");
         }
-        if(!empty($this->student_city)){
+        if (!empty($this->student_city)) {
             $studentAddress .= ($this->student_city . ", ");
         }
-        if(!empty($this->student_state) && $this->student_state != '-1'){
+        if (!empty($this->student_state) && $this->student_state != '-1') {
             $studentAddress .= ($this->student_state . " ");
         }
-        if(!empty($this->student_zip)){
+        if (!empty($this->student_zip)) {
             $studentAddress .= $this->student_zip;
         }
 
@@ -1020,109 +1055,130 @@ class Internship {
     }
 
     /**
-    * Returns this internship's term
-    *
-    * @return int
-    */
-    public function getTerm(){
+     * Returns this internship's term
+     *
+     * @return int
+     */
+    public function getTerm()
+    {
         return $this->term;
     }
 
-    public function setTerm($term){
+    public function setTerm($term)
+    {
         $this->term = $term;
     }
 
-    public function getCourseNumber(){
+    public function getCourseNumber()
+    {
         return $this->course_no;
     }
 
-    public function getCourseSection(){
+    public function getCourseSection()
+    {
         return $this->course_sect;
     }
 
-    public function getCourseTitle(){
+    public function getCourseTitle()
+    {
         return $this->course_title;
     }
 
-    public function getCreditHours(){
+    public function getCreditHours()
+    {
         return $this->credits;
     }
 
-    public function getCorequisiteNum(){
+    public function getCorequisiteNum()
+    {
         return $this->corequisite_number;
     }
 
-    public function getCorequisiteSection(){
+    public function getCorequisiteSection()
+    {
         return $this->corequisite_section;
     }
 
-    public function getAvgHoursPerWeek(){
+    public function getAvgHoursPerWeek()
+    {
         return $this->avg_hours_week;
     }
 
-    public function isPaid(){
-        if($this->paid == 1){
+    public function isPaid()
+    {
+        if ($this->paid == 1) {
             return true;
         }
 
         return false;
     }
 
-    public function hasStipend() {
-        if($this->stipend == 1){
+    public function hasStipend()
+    {
+        if ($this->stipend == 1) {
             return true;
         }
 
         return false;
     }
 
-    public function isCoOp(){
-        if($this->co_op == 1){
+    public function isCoOp()
+    {
+        if ($this->co_op == 1) {
             return true;
         }
 
         return false;
     }
 
-    public function setCoOp($status){
-    	$this->co_op = $status;
+    public function setCoOp($status)
+    {
+        $this->co_op = $status;
     }
 
-    public function getTotalHours(){
+    public function getTotalHours()
+    {
         return $this->total_hours;
     }
 
-    public function setTotalHours($hours){
+    public function setTotalHours($hours)
+    {
         $this->total_hours = $hours;
     }
 
-    public function getExperienceType(){
+    public function getExperienceType()
+    {
         return $this->experience_type;
     }
 
-    public function setExperienceType($type){
+    public function setExperienceType($type)
+    {
         $this->experience_type = $type;
     }
 
-    public function getBackgroundCheck(){
+    public function getBackgroundCheck()
+    {
         return $this->background_check;
     }
 
-    public function setBackgroundCheck($check){
+    public function setBackgroundCheck($check)
+    {
         $this->background_check = $check;
     }
 
-    public function getDrugCheck(){
+    public function getDrugCheck()
+    {
         return $this->drug_check;
     }
 
-    public function setDrugCheck($check){
+    public function setDrugCheck($check)
+    {
         $this->drug_check = $check;
     }
 
     /**
-    * Sets the location state (i.e. One of the 50 states of the USA, not the approval status)
-    */
+     * Sets the location state (i.e. One of the 50 states of the USA, not the approval status)
+     */
     public function setLocationState($state)
     {
         $this->loc_state = $state;

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of Internship Inventory.
  *
@@ -16,9 +17,11 @@
  * along with Internship Inventory.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Copyright 2011-2018 Appalachian State University
+ * Copyright 2025 Brown Book Software
  */
 
 namespace Intern;
+
 use \PHPWS_Core;
 use \PHPWS_Error;
 use \PHPWS_DB;
@@ -40,7 +43,8 @@ require_once PHPWS_SOURCE_DIR . 'core/class/DB/PHPWS_DB_Where.php';
 
 // Defines set in parent class
 
-class SubselectDatabase extends PHPWS_DB{
+class SubselectDatabase extends PHPWS_DB
+{
 
     public function __construct($table = null)
     {
@@ -50,10 +54,10 @@ class SubselectDatabase extends PHPWS_DB{
     public static function _updateCurrent($key)
     {
         $GLOBALS['PHPWS_DB']['lib'] = $GLOBALS['PHPWS_DB']['dbs'][$key]['lib'];
-        $GLOBALS['PHPWS_DB']['dsn'] = & $GLOBALS['PHPWS_DB']['dbs'][$key]['dsn'];
+        $GLOBALS['PHPWS_DB']['dsn'] = &$GLOBALS['PHPWS_DB']['dbs'][$key]['dsn'];
         $GLOBALS['PHPWS_DB']['connection'] = $GLOBALS['PHPWS_DB']['dbs'][$key]['connection'];
-        $GLOBALS['PHPWS_DB']['tbl_prefix'] = & $GLOBALS['PHPWS_DB']['dbs'][$key]['tbl_prefix'];
-        $GLOBALS['PHPWS_DB']['type'] = & $GLOBALS['PHPWS_DB']['dbs'][$key]['type'];
+        $GLOBALS['PHPWS_DB']['tbl_prefix'] = &$GLOBALS['PHPWS_DB']['dbs'][$key]['tbl_prefix'];
+        $GLOBALS['PHPWS_DB']['type'] = &$GLOBALS['PHPWS_DB']['dbs'][$key]['type'];
     }
 
     public static function query($sql, $prefix = true)
@@ -119,7 +123,7 @@ class SubselectDatabase extends PHPWS_DB{
             }
 
             foreach ($columns as $colInfo) {
-                $col_name = & $colInfo['name'];
+                $col_name = &$colInfo['name'];
                 $this->_columnInfo[$col_name] = $colInfo;
                 $this->_allColumns[$col_name] = $col_name;
             }
@@ -189,12 +193,14 @@ class SubselectDatabase extends PHPWS_DB{
 
     public function addJoin($join_type, $join_from, $join_to, $join_on_1 = null, $join_on_2 = null, $ignore_tables = false)
     {
-        $this->_join_tables[] = array('join_type' => $join_type,
+        $this->_join_tables[] = array(
+            'join_type' => $join_type,
             'join_from' => $join_from,
             'join_to' => $join_to,
             'join_on_1' => $join_on_1,
             'join_on_2' => $join_on_2,
-            'ignore_tables' => $ignore_tables);
+            'ignore_tables' => $ignore_tables
+        );
     }
 
     public function addTable($table, $as = null)
@@ -226,7 +232,7 @@ class SubselectDatabase extends PHPWS_DB{
         return $this->addTable($table);
     }
 
-    public function addSubSelect(PHPWS_DB $db, $as, $type='select')
+    public function addSubSelect(PHPWS_DB $db, $as, $type = 'select')
     {
         $this->tables = array(); // reset table list
         $this->table_as = array();
@@ -274,13 +280,13 @@ class SubselectDatabase extends PHPWS_DB{
         if (is_array($join_on_1) && is_array($join_on_2)) {
             foreach ($join_on_1 as $key => $value) {
                 if ($ignore_tables || preg_match('/\w\.\w/', $value)) {
-                    $value1 = & $value;
+                    $value1 = &$value;
                 } else {
                     $value1 = $table1 . '.' . $value;
                 }
 
                 if ($ignore_tables || preg_match('/\w\.\w/', $join_on_2[$key])) {
-                    $value2 = & $join_on_2[$key];
+                    $value2 = &$join_on_2[$key];
                 } else {
                     $value2 = $table2 . '.' . $join_on_2[$key];
                 }
@@ -368,18 +374,18 @@ class SubselectDatabase extends PHPWS_DB{
             return PHPWS_Error::get(PHPWS_DB_ERROR_TABLE, 'core', 'PHPWS_DB::getTable');
         }
 
-        if($format === false){
+        if ($format === false) {
             return $this->getSourceTable(true);
         }
 
         $tableList = array();
 
-        foreach($this->tables as $table){
+        foreach ($this->tables as $table) {
             $tableList[] = $table;
         }
 
         // Add aliased tables
-        foreach($this->table_as as $alias=>$table){
+        foreach ($this->table_as as $alias => $table) {
             $tableList[] = "$table AS $alias";
         }
 
@@ -481,8 +487,10 @@ class SubselectDatabase extends PHPWS_DB{
 
         // If non-empty array of values passed in for this column name
         if (is_array($value) && !empty($value)) {
-            if (!empty($operator) && $operator != 'IN' && $operator != 'NOT IN' &&
-                    $operator != 'BETWEEN' && $operator != 'NOT BETWEEN') {
+            if (
+                !empty($operator) && $operator != 'IN' && $operator != 'NOT IN' &&
+                $operator != 'BETWEEN' && $operator != 'NOT BETWEEN'
+            ) {
                 $search_in = true;
             } else {
                 if (empty($operator)) {
@@ -513,7 +521,7 @@ class SubselectDatabase extends PHPWS_DB{
         } else {
             // Single value passed in
             if (is_null($value) || (is_string($value) && strtoupper($value) == 'NULL')) {
-                if (empty($operator) || ( $operator != 'IS NOT' && $operator != '!=')) {
+                if (empty($operator) || ($operator != 'IS NOT' && $operator != '!=')) {
                     $operator = 'IS';
                 } else {
                     $operator = 'IS NOT';
@@ -532,7 +540,7 @@ class SubselectDatabase extends PHPWS_DB{
 
                 if (isset($this->table_as[$join_table])) {
                     $source_table = $join_table;
-                    $column = & $join_column;
+                    $column = &$join_column;
                 } elseif (PHPWS_DB::inDatabase($join_table, $join_column)) {
                     $source_table = $join_table;
                     /***
@@ -544,7 +552,7 @@ class SubselectDatabase extends PHPWS_DB{
                     //$this->addTable($join_table);
                 }
             }
-        }//TODO what do we do if $column isn't a string?
+        } //TODO what do we do if $column isn't a string?
 
         $where->setColumn($column);
         $where->setTable($source_table);
@@ -589,7 +597,8 @@ class SubselectDatabase extends PHPWS_DB{
 
     public static function checkOperator($operator)
     {
-        $allowed = array('>',
+        $allowed = array(
+            '>',
             '>=',
             '<',
             '<=',
@@ -609,7 +618,8 @@ class SubselectDatabase extends PHPWS_DB{
             'NOT BETWEEN',
             'IS',
             'IS NOT',
-            '~');
+            '~'
+        );
 
         return in_array(strtoupper($operator), $allowed);
     }
@@ -754,7 +764,7 @@ class SubselectDatabase extends PHPWS_DB{
             return false;
             // Just return false isn't helpful
         }
-        */
+         */
 
         if (!in_array(strtolower($max_min), array('max', 'min'))) {
             $max_min = null;
@@ -812,13 +822,15 @@ class SubselectDatabase extends PHPWS_DB{
      */
     public function addColumnRaw($columnName)
     {
-        $this->columns[] = array('table'=>'',
-                'name'=>$columnName,
-                'max_min' => null,
-                'count' => false,
-                'distinct' => false,
-                'coalesce' => null,
-                'as' => null);
+        $this->columns[] = array(
+            'table' => '',
+            'name' => $columnName,
+            'max_min' => null,
+            'count' => false,
+            'distinct' => false,
+            'coalesce' => null,
+            'as' => null
+        );
     }
 
     public function getAllColumns()
@@ -868,9 +880,9 @@ class SubselectDatabase extends PHPWS_DB{
                             $table_name = sprintf('distinct(%s.%s)', $table, $name);
                         } else {
                             // If it looks like a valid table name, then prefix the column with the table name
-                            if($this->inDatabase($table)){
+                            if ($this->inDatabase($table)) {
                                 $table_name = "$table.$name";
-                            }else{
+                            } else {
                                 // Otherwise, just use the column name given... It's probably an expression
                                 $table_name = $name;
                             }
@@ -1252,12 +1264,12 @@ class SubselectDatabase extends PHPWS_DB{
         $limit = $this->getLimit(true);
         $group_by = $this->getGroupBy(true);
 
-        $sql_array['columns'] = & $columns;
-        $sql_array['table'] = & $table;
-        $sql_array['where'] = & $where;
-        $sql_array['group_by'] = & $group_by;
-        $sql_array['order'] = & $order;
-        $sql_array['limit'] = & $limit;
+        $sql_array['columns'] = &$columns;
+        $sql_array['table'] = &$table;
+        $sql_array['where'] = &$where;
+        $sql_array['group_by'] = &$group_by;
+        $sql_array['order'] = &$order;
+        $sql_array['limit'] = &$limit;
 
         return $sql_array;
     }
@@ -1268,7 +1280,8 @@ class SubselectDatabase extends PHPWS_DB{
      * @param String $type
      * @return String string
      */
-    public function getTheQuery($type){
+    public function getTheQuery($type)
+    {
         $sql_array = $this->getSelectSQL($type);
 
         if (PHPWS_Error::isError($sql_array)) {
@@ -1327,7 +1340,7 @@ class SubselectDatabase extends PHPWS_DB{
     {
         if (empty($sql)) {
             if (!empty($this->sql)) {
-                $sql = & $this->sql;
+                $sql = &$this->sql;
             }
         }
         PHPWS_DB::touchDB();
@@ -1578,7 +1591,7 @@ class SubselectDatabase extends PHPWS_DB{
         return $this->incrementColumn($column_name, ($amount * -1));
     }
 
-/*
+    /*
     public function delete($return_affected = false)
     {
         $table = $this->getTable(false);
@@ -1920,8 +1933,10 @@ class SubselectDatabase extends PHPWS_DB{
                 $query = implode(' ', $sqlCommand);
                 $sqlCommand = array();
 
-                if (!DB_ALLOW_TABLE_INDEX &&
-                        preg_match('/^create index/i', $query)) {
+                if (
+                    !DB_ALLOW_TABLE_INDEX &&
+                    preg_match('/^create index/i', $query)
+                ) {
                     continue;
                 }
 
@@ -1964,8 +1979,10 @@ class SubselectDatabase extends PHPWS_DB{
         $from[] = '/int\(\d+\)/iU';
         $to[] = 'int';
 
-        if (PHPWS_DB::getDBType() != 'mysql' &&
-                PHPWS_DB::getDBType() != 'mysqli') {
+        if (
+            PHPWS_DB::getDBType() != 'mysql' &&
+            PHPWS_DB::getDBType() != 'mysqli'
+        ) {
             $from[] = '/mediumtext|longtext/i';
             $to[] = 'text';
         }
@@ -2006,7 +2023,7 @@ class SubselectDatabase extends PHPWS_DB{
             if (stristr($info['flags'], 'multiple_key')) {
                 if (DB_ALLOW_TABLE_INDEX) {
                     $column_info['index'] = 'CREATE INDEX ' . $info['name'] . ' on ' . $info['table']
-                            . '(' . $info['name'] . ');';
+                        . '(' . $info['name'] . ');';
                 }
                 $info['flags'] = str_replace(' multiple_key', '', $info['flags']);
             }
@@ -2058,7 +2075,7 @@ class SubselectDatabase extends PHPWS_DB{
         return $column_info;
     }
 
-	public function quote($text)
+    public function quote($text)
     {
         return $GLOBALS['PHPWS_DB']['connection']->quote($text);
     }
@@ -2105,7 +2122,7 @@ class SubselectDatabase extends PHPWS_DB{
         }
     }
 
-// END FUNC extractTableName
+    // END FUNC extractTableName
 
     /**
      * Prepares a value for database writing or reading
@@ -2115,7 +2132,7 @@ class SubselectDatabase extends PHPWS_DB{
      * @return mixed $value The prepared value
      * @access public
      */
-     /*
+    /*
     public function dbReady($value = null)
     {
         if (is_array($value) || is_object($value)) {
@@ -2132,7 +2149,7 @@ class SubselectDatabase extends PHPWS_DB{
     }
     */
 
-// END FUNC dbReady()
+    // END FUNC dbReady()
 
     /**
      * Adds module title and class name to the load_class variable.
@@ -2195,7 +2212,7 @@ class SubselectDatabase extends PHPWS_DB{
         return PHPWS_Core::plugObject($object, $variables);
     }
 
-// END FUNC loadObject
+    // END FUNC loadObject
 
     /**
      * Creates an array of objects constructed from the submitted
@@ -2325,28 +2342,191 @@ class SubselectDatabase extends PHPWS_DB{
             return false;
         }
 
-        $reserved = array('ADD', 'ALL', 'ALTER', 'ANALYZE', 'AND', 'AS', 'ASC', 'AUTO_INCREMENT', 'BDB',
-            'BERKELEYDB', 'BETWEEN', 'BIGINT', 'BINARY', 'BLOB', 'BOTH', 'BTREE', 'BY', 'CASCADE',
-            'CASE', 'CHANGE', 'CHAR', 'CHARACTER', 'COLLATE', 'COLUMN', 'COLUMNS', 'CONSTRAINT', 'CREATE',
-            'CROSS', 'CURRENT_DATE', 'CURRENT_TIME', 'CURRENT_TIMESTAMP', 'DATABASE', 'DATABASES', 'DATE',
-            'DAY_HOUR', 'DAY_MINUTE', 'DAY_SECOND', 'DEC', 'DECIMAL', 'DEFAULT',
-            'DELAYED', 'DELETE', 'DESC', 'DESCRIBE', 'DISTINCT', 'DISTINCTROW',
-            'DOUBLE', 'DROP', 'ELSE', 'ENCLOSED', 'ERRORS', 'ESCAPED', 'EXISTS', 'EXPLAIN', 'false', 'FIELDS',
-            'FLOAT', 'FOR', 'FOREIGN', 'FROM', 'FULLTEXT', 'FUNCTION', 'GEOMETRY', 'GRANT', 'GROUP',
-            'HASH', 'HAVING', 'HELP', 'HIGH_PRIORITY', 'HOUR_MINUTE', 'HOUR_SECOND',
-            'IF', 'IGNORE', 'IN', 'INDEX', 'INFILE', 'INNER', 'INNODB', 'INSERT', 'INT',
-            'INTEGER', 'INTERVAL', 'INTO', 'IS', 'JOIN', 'KEY', 'KEYS', 'KILL', 'LEADING',
-            'LEFT', 'LIKE', 'LIMIT', 'LINES', 'LOAD', 'LOCK', 'LONG', 'LONGBLOB', 'LONGTEXT',
-            'LOW_PRIORITY', 'MASTER_SERVER_ID', 'MATCH', 'MEDIUMBLOB', 'MEDIUMINT', 'MEDIUMTEXT',
-            'MIDDLEINT', 'MINUTE_SECOND', 'MRG_MYISAM', 'NATURAL', 'NOT', 'NULL', 'NUMERIC', 'ON', 'OPTIMIZE',
-            'OPTION', 'OPTIONALLY', 'OR', 'ORDER', 'OUTER', 'OUTFILE', 'PRECISION', 'PRIMARY', 'PRIVILEGES',
-            'PROCEDURE', 'PURGE', 'READ', 'REAL', 'REFERENCES', 'REGEXP', 'RELEASE', 'RENAME', 'REPLACE', 'REQUIRE',
-            'RESTRICT', 'RETURNS', 'REVOKE', 'RIGHT', 'RLIKE', 'RTREE', 'SELECT', 'SET', 'SHOW',
-            'SMALLINT', 'SONAME', 'SPATIAL', 'SQL_BIG_RESULT', 'SQL_CALC_FOUND_ROWS', 'SQL_SMALL_RESULT',
-            'SSL', 'STARTING', 'STRAIGHT_JOIN', 'STRIPED', 'TABLE', 'TABLES', 'TERMINATED', 'THEN', 'TINYBLOB',
-            'TINYINT', 'TINYTEXT', 'TO', 'TRAILING', 'true', 'TYPES', 'UNION', 'UNIQUE', 'UNLOCK', 'UNSIGNED',
-            'UPDATE', 'USAGE', 'USE', 'USER_RESOURCES', 'USING', 'VALUES', 'VARBINARY', 'VARCHAR', 'VARYING',
-            'WARNINGS', 'WHEN', 'WHERE', 'WITH', 'WRITE', 'XOR', 'YEAR_MONTH', 'ZEROFILL');
+        $reserved = array(
+            'ADD',
+            'ALL',
+            'ALTER',
+            'ANALYZE',
+            'AND',
+            'AS',
+            'ASC',
+            'AUTO_INCREMENT',
+            'BDB',
+            'BERKELEYDB',
+            'BETWEEN',
+            'BIGINT',
+            'BINARY',
+            'BLOB',
+            'BOTH',
+            'BTREE',
+            'BY',
+            'CASCADE',
+            'CASE',
+            'CHANGE',
+            'CHAR',
+            'CHARACTER',
+            'COLLATE',
+            'COLUMN',
+            'COLUMNS',
+            'CONSTRAINT',
+            'CREATE',
+            'CROSS',
+            'CURRENT_DATE',
+            'CURRENT_TIME',
+            'CURRENT_TIMESTAMP',
+            'DATABASE',
+            'DATABASES',
+            'DATE',
+            'DAY_HOUR',
+            'DAY_MINUTE',
+            'DAY_SECOND',
+            'DEC',
+            'DECIMAL',
+            'DEFAULT',
+            'DELAYED',
+            'DELETE',
+            'DESC',
+            'DESCRIBE',
+            'DISTINCT',
+            'DISTINCTROW',
+            'DOUBLE',
+            'DROP',
+            'ELSE',
+            'ENCLOSED',
+            'ERRORS',
+            'ESCAPED',
+            'EXISTS',
+            'EXPLAIN',
+            'false',
+            'FIELDS',
+            'FLOAT',
+            'FOR',
+            'FOREIGN',
+            'FROM',
+            'FULLTEXT',
+            'FUNCTION',
+            'GEOMETRY',
+            'GRANT',
+            'GROUP',
+            'HASH',
+            'HAVING',
+            'HELP',
+            'HIGH_PRIORITY',
+            'HOUR_MINUTE',
+            'HOUR_SECOND',
+            'IF',
+            'IGNORE',
+            'IN',
+            'INDEX',
+            'INFILE',
+            'INNER',
+            'INNODB',
+            'INSERT',
+            'INT',
+            'INTEGER',
+            'INTERVAL',
+            'INTO',
+            'IS',
+            'JOIN',
+            'KEY',
+            'KEYS',
+            'KILL',
+            'LEADING',
+            'LEFT',
+            'LIKE',
+            'LIMIT',
+            'LINES',
+            'LOAD',
+            'LOCK',
+            'LONG',
+            'LONGBLOB',
+            'LONGTEXT',
+            'LOW_PRIORITY',
+            'MASTER_SERVER_ID',
+            'MATCH',
+            'MEDIUMBLOB',
+            'MEDIUMINT',
+            'MEDIUMTEXT',
+            'MIDDLEINT',
+            'MINUTE_SECOND',
+            'MRG_MYISAM',
+            'NATURAL',
+            'NOT',
+            'NULL',
+            'NUMERIC',
+            'ON',
+            'OPTIMIZE',
+            'OPTION',
+            'OPTIONALLY',
+            'OR',
+            'ORDER',
+            'OUTER',
+            'OUTFILE',
+            'PRECISION',
+            'PRIMARY',
+            'PRIVILEGES',
+            'PROCEDURE',
+            'PURGE',
+            'READ',
+            'REAL',
+            'REFERENCES',
+            'REGEXP',
+            'RELEASE',
+            'RENAME',
+            'REPLACE',
+            'REQUIRE',
+            'RESTRICT',
+            'RETURNS',
+            'REVOKE',
+            'RIGHT',
+            'RLIKE',
+            'RTREE',
+            'SELECT',
+            'SET',
+            'SHOW',
+            'SMALLINT',
+            'SONAME',
+            'SPATIAL',
+            'SQL_BIG_RESULT',
+            'SQL_CALC_FOUND_ROWS',
+            'SQL_SMALL_RESULT',
+            'SSL',
+            'STARTING',
+            'STRAIGHT_JOIN',
+            'STRIPED',
+            'TABLE',
+            'TABLES',
+            'TERMINATED',
+            'THEN',
+            'TINYBLOB',
+            'TINYINT',
+            'TINYTEXT',
+            'TO',
+            'TRAILING',
+            'true',
+            'TYPES',
+            'UNION',
+            'UNIQUE',
+            'UNLOCK',
+            'UNSIGNED',
+            'UPDATE',
+            'USAGE',
+            'USE',
+            'USER_RESOURCES',
+            'USING',
+            'VALUES',
+            'VARBINARY',
+            'VARCHAR',
+            'VARYING',
+            'WARNINGS',
+            'WHEN',
+            'WHERE',
+            'WITH',
+            'WRITE',
+            'XOR',
+            'YEAR_MONTH',
+            'ZEROFILL'
+        );
 
         if (in_array(strtoupper($value), $reserved)) {
             return false;
@@ -2611,8 +2791,10 @@ class SubselectDatabase extends PHPWS_DB{
         }
 
         if (in_array($table, $this->tables)) {
-            $this->locked[] = array('table' => $table,
-                'status' => $status);
+            $this->locked[] = array(
+                'table' => $table,
+                'status' => $status
+            );
         }
     }
 
@@ -2666,7 +2848,7 @@ class SubselectDatabase extends PHPWS_DB{
             return;
         }
 
-        $db = clone($this);
+        $db = clone ($this);
         $db->reset();
         $db->addWhere($id_column, $id);
         $db->addColumn($order_column);
@@ -2711,7 +2893,7 @@ class SubselectDatabase extends PHPWS_DB{
             return true;
         } else {
             PHPWS_DB::begin();
-            $db = clone($this);
+            $db = clone ($this);
             $db->addWhere($order_column, $current_order + $direction);
             $db->addValue($order_column, $current_order);
             if (PHPWS_Error::logIfError($db->update())) {
@@ -2719,7 +2901,7 @@ class SubselectDatabase extends PHPWS_DB{
                 return false;
             }
 
-            $db = clone($this);
+            $db = clone ($this);
             $db->addWhere($id_column, $id);
             $db->addValue($order_column, $current_order + $direction);
             if (PHPWS_Error::logIfError($db->update())) {
