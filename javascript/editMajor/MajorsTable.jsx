@@ -40,9 +40,18 @@ export default function MajorsTable({ majorsList, studentLevels, isLoading, rowE
     return cell.value.description;
   };
 
+  // Cell renderer for the status column
+  const statusCellRenderer = cell => {
+    if (cell.value === 0) {
+      return '';
+    } else {
+      return <span className="badge text-bg-secondary">Inactive</span>;
+    }
+  };
+
   // TODO: Provide a cell editor for the CipCode column with a CipComboBox
   const colDefs = [
-    { field: 'description', width: 300, editable: true },
+    { field: 'description', width: 300, editable: true, headerName: 'Major Name' },
     {
       field: 'level',
       width: 140,
@@ -54,7 +63,8 @@ export default function MajorsTable({ majorsList, studentLevels, isLoading, rowE
     },
     { field: 'code', width: 110, headerName: 'Major Code' },
     { field: 'cip_code', width: 100, headerName: 'CIP Code', editable: true },
-    { field: 'cip_title', width: 310, headerName: 'CIP Title' }
+    { field: 'cip_title', width: 240, headerName: 'CIP Title' },
+    { field: 'hidden', width: 80, headerName: 'Status', cellRenderer: statusCellRenderer, editable: true }
   ];
 
   const gridOptions = {

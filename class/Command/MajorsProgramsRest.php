@@ -23,6 +23,7 @@ namespace Intern\Command;
 
 use Intern\DataProvider\Major\MajorsProviderFactory;
 use Intern\AcademicMajor;
+use Intern\CipCodeProvider;
 use \Intern\PdoFactory;
 
 class MajorsProgramsRest
@@ -70,42 +71,74 @@ class MajorsProgramsRest
 
         $major = new AcademicMajor($inputJSON['code'], $inputJSON['name'], $inputJSON['level'], $inputJSON['cipCode'], null, 0);
 
-        $majorsProvider->createMajor($major);
+        try {
+            $majorsProvider->createMajor($major);
+        } catch (\PDOException $e) {
+            header('HTTP/1.1 500 Internal Server Error');
+            echo json_encode(array('errorMessage' => 'Database error: ' . $e->getMessage()));
+            exit;
+        } catch (\Exception $e) {
+            header('HTTP/1.1 400 Bad Request');
+            echo json_encode(array('errorMessage' => $e->getMessage()));
+            exit;
+        }
 
         return json_encode($major);
     }
 
     // NB: Does not support updating the 'code' field, as this is the primary key
-    // TODO: Maybe this should be in the MajorsProvider class instead?
+    // TODO: Check for invalid CIP codes and handle appropriately since we don't (yet) use a dropdown menu
     public function patch()
     {
         if (!\Current_User::isDeity()) {
             header('HTTP/1.1 403 Forbidden');
-            echo json_encode(array('error' => 'You do not have permission to update majors.'));
+            echo json_encode(array('errorMessage' => 'You do not have permission to update majors.'));
             exit;
         }
 
-        $db = PdoFactory::getPdoInstance();
+        $inputJSON = json_decode(file_get_contents('php://input'), true);
 
-        $data = json_decode(file_get_contents('php://input'), true);
+        $majorsProvider = MajorsProviderFactory::getProvider();
 
-        $values = array(
-            'description' => $data['description'],
-            'level' => $data['level']['code'],
-            'cipCode' => $data['cip_code'],
-            'code' => $data['code'],
+        // Fetch the existing major to ensure it exists
+        $existingMajor = $majorsProvider->getMajorByCode($inputJSON['code']);
+
+        if ($existingMajor === null) {
+            header('HTTP/1.1 404 Not Found');
+            echo json_encode(array('errorMessage' => 'No major found with that code.'));
+            exit;
+        }
+
+        // Check that the CIP code exists
+        $cipCode = CipCodeProvider::getCipCodeByCode($inputJSON['cip_code']);
+        if ($cipCode === null && !empty($inputJSON['cip_code'])) {
+            header('HTTP/1.1 400 Bad Request');
+            echo json_encode(array('errorMessage' => 'Invalid CIP code.'));
+            exit;
+        }
+
+        $updatedMajor = new AcademicMajor(
+            $inputJSON['code'],
+            $inputJSON['description'],
+            $inputJSON['level'],
+            $inputJSON['cip_code'],
+            null,
+            $inputJSON['hidden']
         );
 
-        $updateQuery = 'UPDATE intern_major SET description = :description, level = :level, cip_code = :cipCode WHERE code = :code';
-        $updateStmt = $db->prepare($updateQuery);
-
         try {
-            $updateStmt->execute($values);
+            $majorsProvider->updateMajor($updatedMajor);
         } catch (\PDOException $e) {
             header('HTTP/1.1 500 Internal Server Error');
-            echo json_encode(array('error' => 'Database error: ' . $e->getMessage()));
+            echo json_encode(array('errorMessage' => 'Database error: ' . $e->getMessage()));
+            exit;
+        } catch (\Exception $e) {
+            header('HTTP/1.1 400 Bad Request');
+            echo json_encode(array('errorMessage' => $e->getMessage()));
             exit;
         }
+
+        return json_encode($updatedMajor);
     }
 
     public function delete() {}

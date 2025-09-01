@@ -54,11 +54,48 @@ class LocalDbMajorsProvider extends MajorsProvider
     }
 
     /**
+     * Returns a single AcademicMajor object for the given major code, or null if not found
+     * @return AcademicMajor|null
+     */
+    public function getMajorByCode(string $code): ?AcademicMajor
+    {
+        $db = PdoFactory::getPdoInstance();
+
+        $stmt = $db->prepare('SELECT * FROM intern_major LEFT OUTER JOIN intern_cip_codes ON intern_major.cip_code = intern_cip_codes.cip_code WHERE code = :code');
+        $stmt->execute(['code' => $code]);
+        $stmt->setFetchMode(\PDO::FETCH_ASSOC);
+
+        $row = $stmt->fetch();
+
+        if ($row) {
+            return new AcademicMajor($row['code'], $row['description'], $row['level'], $row['cip_code'], $row['cip_title'], $row['hidden']);
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * Creates a new major
      */
     public function createMajor(AcademicMajor $major)
     {
         $db = PdoFactory::getPdoInstance();
+
+        // Check for existing major with same code
+        $stmt = $db->prepare("SELECT count(*) FROM intern_major WHERE code = :code");
+        $stmt->execute(array('code' => $major->getCode()));
+        $count = $stmt->fetchColumn();
+        if ($count > 0) {
+            throw new \Exception('A major with that code already exists.');
+        }
+
+        // Check for existing major with same description and level
+        $stmt = $db->prepare("SELECT count(*) FROM intern_major WHERE description = :description AND level = :level");
+        $stmt->execute(array('description' => $major->getDescription(), 'level' => $major->getLevel()));
+        $count = $stmt->fetchColumn();
+        if ($count > 0) {
+            throw new \Exception('A major with that description and level already exists.');
+        }
 
         $stmt = $db->prepare("INSERT INTO intern_major VALUES (
                                             nextval('intern_major_seq'),
@@ -82,10 +119,21 @@ class LocalDbMajorsProvider extends MajorsProvider
 
     /**
      * Updates an existing major
+     * NB: Does not allow updating the major code
+     * TODO: Check that the major code exists before trying to update
+     * @throws \Exception if a major with the same description and level already exists
      */
     public function updateMajor(AcademicMajor $major)
     {
         $db = PdoFactory::getPdoInstance();
+
+        // Check for existing major with same description and level, but *not* a matching code
+        $stmt = $db->prepare("SELECT count(*) FROM intern_major WHERE code != :code AND description = :description AND level = :level");
+        $stmt->execute(array('code' => $major->getCode(), 'description' => $major->getDescription(), 'level' => $major->getLevel()));
+        $count = $stmt->fetchColumn();
+        if ($count > 0) {
+            throw new \Exception('A major with that description and level already exists.');
+        }
 
         $stmt = $db->prepare("UPDATE intern_major SET
                                         description = :description,
@@ -98,10 +146,15 @@ class LocalDbMajorsProvider extends MajorsProvider
             "code" => $major->getCode(),
             "description" => $major->getDescription(),
             "level" => $major->getLevel(),
-            "isHidden" => $major->isHidden(),
+            "isHidden" => $major->isHidden() ? 1 : 0,
             "cipCode" => $major->getCipCode()
         );
 
+        // var_dump($values);
+        // exit;
+
         $stmt->execute($values);
+
+        return $major;
     }
 }

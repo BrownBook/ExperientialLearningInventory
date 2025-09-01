@@ -16,12 +16,12 @@
  * You should have received a copy of the GNU General Public License version 3
  * along with Internship Inventory.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2024 Brown Book Software
+ * Copyright 2025 Brown Book Software
  */
 
 namespace Intern\Command;
 
-use \Intern\PdoFactory;
+use Intern\CipCodeProvider;
 
 /** REST Controller for handling requests for CIP Codes (Classification of
  * Instruction Programs ).
@@ -44,13 +44,8 @@ class CipCodeRest
 
     public function get()
     {
-        $db = PdoFactory::getPdoInstance();
-
-        $cipQuery = 'SELECT cip_family, cip_code, cip_title FROM intern_cip_codes ORDER BY cip_code ASC';
-        $cipStmt = $db->prepare($cipQuery);
-        $cipStmt->execute();
-
-        $cipCodes = $cipStmt->fetchAll(\PDO::FETCH_ASSOC);
+        $provider = new CipCodeProvider();
+        $cipCodes = $provider->getCipCodes();
 
         return json_encode($cipCodes);
     }

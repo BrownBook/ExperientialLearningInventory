@@ -8,12 +8,31 @@ export function getMajors() {
   return fetch('index.php?module=intern&action=MajorsProgramsRest').then(res => res.json());
 }
 
-export function postMajor(major) {
-  return fetch('index.php?module=intern&action=MajorsProgramsRest', { method: 'POST', body: JSON.stringify(major) }).then(res => res.json());
+export async function postMajor(major) {
+  const response = await fetch('index.php?module=intern&action=MajorsProgramsRest', { method: 'POST', body: JSON.stringify(major) });
+
+  if (!response.ok) {
+    const responseJson = await response.json();
+    console.error('postMajor error response', responseJson);
+    throw new Error(responseJson.errorMessage);
+  }
+
+  return response.json();
 }
 
-export function patchMajor(major) {
-  return fetch('index.php?module=intern&action=MajorsProgramsRest', { method: 'PATCH', body: JSON.stringify(major) }).then(res => res.json());
+export async function patchMajor(major) {
+  const response = await fetch('index.php?module=intern&action=MajorsProgramsRest', {
+    method: 'PATCH',
+    body: JSON.stringify(major)
+  });
+
+  if (!response.ok) {
+    const responseJson = await response.json();
+    console.error('patchMajor error response', responseJson);
+    throw new Error(responseJson.errorMessage);
+  }
+
+  return response.json();
 }
 
 // CIP Codes API

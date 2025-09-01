@@ -44,7 +44,7 @@ function MajorsAndPrograms() {
       console.error('Error creating major:', error);
       toastRef.current.show(
         <span>
-          Failed to add the <strong>{variables.name}</strong> major. Please try again.
+          The <strong>{variables.name}</strong> major could not be created. {error.message}
         </span>,
         'danger'
       );
@@ -61,10 +61,32 @@ function MajorsAndPrograms() {
 
   // Mutation for updating an existing Major
   const majorsEditMutation = useMutation({
-    mutationFn: patchMajor,
+    mutationFn: data => {
+      const updatedMajor = { ...data };
+      updatedMajor.level = data.level.code; // Backend expects just the level code, not the entire object
+      return patchMajor(updatedMajor);
+    },
     onSuccess: (data, variables, context) => {
+      // TODO: Maybe don't invalidate the entire query, but update the cache with the new data
+      // queryClient.setQueryData(['majors'], oldData => [...oldData, data]);
       queryClient.invalidateQueries({ queryKey: ['majors'] });
-      // TODO: Show a toast message
+      toastRef.current.show(
+        <span>
+          Successfully updated the <strong>{variables.name}</strong> major.
+        </span>,
+        'success'
+      );
+    },
+    onError: (error, variables, context) => {
+      queryClient.invalidateQueries({ queryKey: ['majors'] });
+      // Handle error case, e.g., show a toast message
+      console.error('Error updating major:', error);
+      toastRef.current.show(
+        <span>
+          The <strong>{variables.name}</strong> major could not be updated. {error.message}
+        </span>,
+        'danger'
+      );
     }
   });
 
@@ -91,19 +113,6 @@ function MajorsAndPrograms() {
     <div>
       <EliToast ref={toastRef} />
       <h1>Majors &amp; Programs</h1>
-      <button
-        className="btn btn-primary"
-        onClick={() => {
-          toastRef.current.show(
-            <span>
-              Successfully added the <strong>toast</strong> major.
-            </span>,
-            'success'
-          );
-        }}
-      >
-        Show a Toast
-      </button>
       <div className="row">
         <div className="col-md-9">
           <ErrorBoundary fallback={<div>Something went wrong.</div>}>
