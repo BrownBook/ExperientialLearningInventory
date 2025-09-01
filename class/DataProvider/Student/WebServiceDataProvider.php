@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of Internship Inventory.
  *
@@ -34,7 +35,8 @@ use \SoapFault;
  * @author Jeremy Booker
  * @package Intern
  */
-class WebServiceDataProvider extends StudentDataProvider {
+class WebServiceDataProvider extends StudentDataProvider
+{
 
     protected $currentUserName;
 
@@ -44,8 +46,8 @@ class WebServiceDataProvider extends StudentDataProvider {
     const MAIN_CAMPUS = 'Main Campus';
 
     /**
-    * @param string $currentUserName - Username of the user currently logged in. Will be sent to web service
-    */
+     * @param string $currentUserName - Username of the user currently logged in. Will be sent to web service
+     */
     public function __construct($currentUserName)
     {
         $this->currentUserName = $currentUserName;
@@ -63,21 +65,23 @@ class WebServiceDataProvider extends StudentDataProvider {
      */
     public function getStudent($studentId)
     {
-        if($studentId === null || $studentId == ''){
+        if ($studentId === null || $studentId == '') {
             throw new \InvalidArgumentException('Missing student ID.');
         }
 
-        $params = array('BannerID' => $studentId,
-        'UserName' => $this->currentUserName);
+        $params = array(
+            'BannerID' => $studentId,
+            'UserName' => $this->currentUserName
+        );
 
         try {
             $response = $this->sendRequest($params);
-        } catch (SoapFault $e){
+        } catch (SoapFault $e) {
             throw $e;
         }
 
         // Check for an empty response
-        if(isset($response->GetInternInfoResult->DirectoryInfo)) {
+        if (isset($response->GetInternInfoResult->DirectoryInfo)) {
             $response = $response->GetInternInfoResult->DirectoryInfo;
         } else {
             throw new \Intern\Exception\StudentNotFoundException("Could not locate student: $studentId");
@@ -86,27 +90,26 @@ class WebServiceDataProvider extends StudentDataProvider {
         // Response may have multiple records (faculty/staff + student), so
         // just take the first one
         // TODO: Maybe be smarter about which result we use?
-        if(is_array($response)){
+        if (is_array($response)) {
             $response = $response[0];
         }
 
         // Check for an InvalidUsername error (i.e. the user doesn't have banner permissions)
-        if($response->error_num == 1002 && $response->error_desc == 'InvalidUserName'){
+        if ($response->error_num == 1002 && $response->error_desc == 'InvalidUserName') {
             throw new \Intern\Exception\BannerPermissionException("No banner permissions for {$this->currentUserName}");
         }
 
         // Check for a web service system error
-        if($response->error_num == 1 && $response->error_desc == 'SYSTEM'){
+        if ($response->error_num == 1 && $response->error_desc == 'SYSTEM') {
             throw new \Intern\Exception\WebServiceException("Web service system error while looking up {$studentId}");
         }
 
-        if($response->error_num == 1101 && $response->error_desc == 'LookupBannerID'){
+        if ($response->error_num == 1101 && $response->error_desc == 'LookupBannerID') {
             throw new \Intern\Exception\StudentNotFoundException("Invalid banner id: {$studentId}");
         }
 
-        if($response->error_num == 1001 && $response->error_desc == 'InvalidBannerID'){
+        if ($response->error_num == 1001 && $response->error_desc == 'InvalidBannerID') {
             throw new \Intern\Exception\StudentNotFoundException("Invalid banner id: {$studentId}");
-
         }
 
         // Log the request
@@ -122,88 +125,91 @@ class WebServiceDataProvider extends StudentDataProvider {
         return $student;
     }
 
-    protected function sendRequest(Array $params)
+    protected function sendRequest(array $params)
     {
         return $this->client->GetInternInfo($params);
     }
 
     public function getCreditHours(string $studentId, string $term)
     {
-        if($studentId === null || $studentId == ''){
+        if ($studentId === null || $studentId == '') {
             throw new \InvalidArgumentException('Missing student ID.');
         }
 
-        if($term === null || $term == ''){
+        if ($term === null || $term == '') {
             throw new \InvalidArgumentException('Missing student term.');
         }
 
-        $params = array('BannerID'  => $studentId,
-        'Term'      => $term,
-        'UserName'  => $this->currentUserName);
+        $params = array(
+            'BannerID'  => $studentId,
+            'Term'      => $term,
+            'UserName'  => $this->currentUserName
+        );
 
         try {
             $response = $this->client->GetCreditHours($params);
-        } catch (SoapFault $e){
+        } catch (SoapFault $e) {
             throw $e;
         }
 
         // Log the request
         $this->logRequest('getCreditHours', 'success', $params);
 
-        if(isset($response->GetCreditHoursResult)){
+        if (isset($response->GetCreditHoursResult)) {
             return $response->GetCreditHoursResult;
-        }else{
+        } else {
             return null;
         }
     }
 
     public function getFacultyMember($facultyId)
     {
-        if($facultyId === null || $facultyId == ''){
+        if ($facultyId === null || $facultyId == '') {
             throw new \InvalidArgumentException('Missing student ID.');
         }
 
-        $params = array('BannerID' => $facultyId,
-        'UserName' => $this->currentUserName);
+        $params = array(
+            'BannerID' => $facultyId,
+            'UserName' => $this->currentUserName
+        );
 
         try {
             $response = $this->client->getInternInfo($params);
-        } catch (SoapFault $e){
+        } catch (SoapFault $e) {
             throw $e;
         }
 
         // Check for an empty response
-        if(isset($response->GetInternInfoResult->DirectoryInfo)) {
+        if (isset($response->GetInternInfoResult->DirectoryInfo)) {
             $response = $response->GetInternInfoResult->DirectoryInfo;
         } else {
             throw new \Intern\Exception\StudentNotFoundException("Could not locate faculty member with id: $facultyId");
         }
 
         // Check for an arry of results
-        if(is_array($response)){
+        if (is_array($response)) {
             $response = $response[0];
         }
 
         // Check for an InvalidUsername error (i.e. the user doesn't have banner permissions)
-        if($response->error_num == 1002 && $response->error_desc == 'InvalidUserName'){
+        if ($response->error_num == 1002 && $response->error_desc == 'InvalidUserName') {
             throw new \Intern\Exception\BannerPermissionException("No banner permissions for {$this->currentUserName}");
         }
 
         // Check for a web service system error
-        if($response->error_num == 1 && $response->error_desc == 'SYSTEM'){
+        if ($response->error_num == 1 && $response->error_desc == 'SYSTEM') {
             throw new \Intern\Exception\WebServiceException("Web service system error while looking up {$facultyId}");
         }
 
-        if($response->error_num == 1101 && $response->error_desc == 'LookupBannerID'){
+        if ($response->error_num == 1101 && $response->error_desc == 'LookupBannerID') {
             throw new \Intern\Exception\StudentNotFoundException("Invalid banner id: {$facultyId}");
         }
 
-        if($response->error_num == 1001 && $response->error_desc == 'InvalidBannerID'){
+        if ($response->error_num == 1001 && $response->error_desc == 'InvalidBannerID') {
             throw new \Intern\Exception\StudentNotFoundException("Invalid banner id: {$facultyId}");
-
         }
 
-        if(is_array($response)){
+        if (is_array($response)) {
             $response = $response[0];
         }
 
@@ -211,17 +217,17 @@ class WebServiceDataProvider extends StudentDataProvider {
     }
 
     /**
-    * Takes a reference to a Student object and a SOAP response,
-    * Plugs the SOAP values into Student object.
-    *
-    * @param Student $student
-    * @param stdClass $data
-    */
+     * Takes a reference to a Student object and a SOAP response,
+     * Plugs the SOAP values into Student object.
+     *
+     * @param Student $student
+     * @param stdClass $data
+     */
     protected function plugValues(&$student, \stdClass $data)
     {
         /**********************
-        * Basic Demographics *
-        **********************/
+         * Basic Demographics *
+         **********************/
         $student->setStudentId($data->banner_id);
         $student->setUsername($data->user_name);
 
@@ -231,31 +237,31 @@ class WebServiceDataProvider extends StudentDataProvider {
         $student->setPreferredName($data->preferred_name);
         $student->setGender($data->gender);
 
-        if($data->confid === 'N') {
+        if ($data->confid === 'N') {
             $student->setConfidentialFlag(false);
         } else {
             $student->setConfidentialFlag(true);
         }
 
         // Person type flags
-        if($data->isstudent == 1){
+        if ($data->isstudent == 1) {
             $student->setStudentFlag(true);
         } else {
             $student->setStudentFlag(false);
         }
 
-        if($data->isstaff == 1){
+        if ($data->isstaff == 1) {
             $student->setStaffFlag(true);
         } else {
             $student->setStaffFlag(false);
         }
 
         /*****************
-        * Academic Info *
-        *****************/
+         * Academic Info *
+         *****************/
 
         // Campus
-        if($data->campus == WebServiceDataProvider::MAIN_CAMPUS) {
+        if ($data->campus == WebServiceDataProvider::MAIN_CAMPUS) {
             // If campus is 'Main Campus', then we know it's a main campus student
             $student->setCampus(Student::MAIN_CAMPUS);
         } else if ($data->campus != '') {
@@ -268,7 +274,7 @@ class WebServiceDataProvider extends StudentDataProvider {
         }
 
         // Check if level exist, if not add it
-        if(LevelFactory::checkLevelExist($data->level)){
+        if (LevelFactory::checkLevelExist($data->level)) {
             $student->setLevel($data->level);
         } else {
             $newLevel = LevelFactory::saveNewCode($data->level);
@@ -281,19 +287,20 @@ class WebServiceDataProvider extends StudentDataProvider {
 
         // Majors - Can be an array of objects, or just a single object, or not set at all
         // TODO: Fix hard-coded 'U' level passed to AcademicMajor
-        if(isset($data->majors) && is_array($data->majors)) {
-            foreach($data->majors as $major){
-                $student->addMajor(new AcademicMajor($major->major_code, $major->major_desc, 'U'));
+        // TODO: Fix hard-coded null CIP code and title passed to AcademicMajor
+        if (isset($data->majors) && is_array($data->majors)) {
+            foreach ($data->majors as $major) {
+                $student->addMajor(new AcademicMajor($major->major_code, $major->major_desc, 'U', null, null, 0));
             }
-        } else if(isset($data->majors) &&  is_object($data->majors)){
-            $student->addMajor(new AcademicMajor($data->majors->major_code, $data->majors->major_desc, 'U'));
+        } else if (isset($data->majors) &&  is_object($data->majors)) {
+            $student->addMajor(new AcademicMajor($data->majors->major_code, $data->majors->major_desc, 'U', null, null, 0));
         }
 
         // GPA - Rounded to 4 decimial places
         $student->setGpa(round($data->gpa, 4));
 
         // Grad date, if available
-        if(isset($data->grad_date) && $data->grad_date != '') {
+        if (isset($data->grad_date) && $data->grad_date != '') {
             $student->setGradDateFromString($data->grad_date);
         }
 
@@ -312,9 +319,9 @@ class WebServiceDataProvider extends StudentDataProvider {
     }
 
     /**
-    * Logs this request to PHPWS' soap.log file
-    */
-    private function logRequest($functionName, $result, Array $params)
+     * Logs this request to PHPWS' soap.log file
+     */
+    private function logRequest($functionName, $result, array $params)
     {
         $args = implode(', ', $params);
         $msg = "$functionName($args) result: $result";
