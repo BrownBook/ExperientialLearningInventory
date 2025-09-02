@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of Internship Inventory.
  *
@@ -60,8 +61,8 @@ class InternshipTest extends TestCase
         $student->setLevel('U');
         $student->setCampus(Student::MAIN_CAMPUS);
         $student->setGpa(3.55);
-        $student->addMajor(new \Intern\AcademicMajor('355*', 'Management', 'U'));
-        $student->addMajor(new \Intern\AcademicMajor('224A', 'Computer Science', 'U'));
+        $student->addMajor(new \Intern\AcademicMajor('355*', 'Management', 'U', '52.0201', 'Business Administration and Management, General', 0));
+        $student->addMajor(new \Intern\AcademicMajor('224A', 'Computer Science', 'U', '11.0701', 'Computer Science', 0));
 
         $student->setPhone('828-262-1234');
 
