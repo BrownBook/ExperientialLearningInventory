@@ -416,7 +416,32 @@ class Internship
 
         $csv = array_merge($csv, $d->getCSV());
 
-        $csv['Created Date'] = date('Y-m-d', $this->getCreationTimestamp());
+        $creationChange = $this->getCreationChange();
+
+        if ($creationChange !== null) {
+            $csv['Created Date'] = date('Y-m-d', $creationChange->getTimestamp());
+            $csv['Created By'] = $this->getCreationChange()->getUsername();
+            $csv['Imported'] = 'No';
+        } else if ($this->import_id !== null) {
+            // If there was no creation change, but this internship was imported, use the import date and user
+            $import = ActivityImportFactory::getActivityImport($this->import_id);
+            if ($import !== null) {
+                $csv['Created Date'] = date('Y-m-d', $import[0]['imported_timestamp']);
+                $csv['Created By'] = $import[0]['uploaded_by'];
+                $csv['Imported'] = 'Yes';
+            } else {
+                // If we can't find the import record, return empty fields
+                $csv['Created Date'] = '';
+                $csv['Created By'] = '';
+                $csv['Imported'] = 'Yes';
+            }
+        } else {
+            // If no creation change, return empty fields
+            $csv['Created Date'] = '';
+            $csv['Created By'] = '';
+            $csv['Imported'] = '';
+        }
+
 
         return $csv;
     }
@@ -768,6 +793,11 @@ class Internship
             return 'United States';
         }
         return $this->loc_country;
+    }
+
+    public function getCreationChange(): ?ChangeHistory
+    {
+        return ChangeHistoryFactory::getCreationChangeForInternship($this);
     }
 
     public function getCreationTimestamp(): ?int
