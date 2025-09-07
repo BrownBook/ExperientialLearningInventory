@@ -50,6 +50,9 @@ export default function MajorsTable({ majorsList, studentLevels, isLoading, rowE
   };
 
   // TODO: Provide a cell editor for the CipCode column with a CipComboBox
+  // TODO: Provide a cell editor for the Status column with an Active/Inactive dropdown
+
+  // Column definitions
   const colDefs = [
     { field: 'description', width: 300, editable: true, headerName: 'Major Name' },
     {
@@ -71,6 +74,8 @@ export default function MajorsTable({ majorsList, studentLevels, isLoading, rowE
     domLayout: 'autoHeight',
     editType: 'fullRow',
     onRowValueChanged: event => {
+      // TODO: Check if anything actually changed before sending the request
+      // The change event doesn't contain any old data, so this will have to be refactored to use cell editing
       rowEditCallback(event.data); // Call the rowEditCallback with the new data
     }
   };
