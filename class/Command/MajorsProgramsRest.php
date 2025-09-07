@@ -110,6 +110,12 @@ class MajorsProgramsRest
         }
 
         // Check that the CIP code exists
+        if (!isset($inputJSON['cip_code'])) {
+            header('HTTP/1.1 400 Bad Request');
+            echo json_encode(array('errorMessage' => 'The CIP code field is required.'));
+            exit;
+        }
+
         $cipCode = CipCodeProvider::getCipCodeByCode($inputJSON['cip_code']);
         if ($cipCode === null && !empty($inputJSON['cip_code'])) {
             header('HTTP/1.1 400 Bad Request');
@@ -122,7 +128,7 @@ class MajorsProgramsRest
             $inputJSON['description'],
             $inputJSON['level'],
             $inputJSON['cip_code'],
-            null,
+            '',
             $inputJSON['hidden']
         );
 

@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
 import { QueryClient, QueryClientProvider, useQuery, useMutation } from '@tanstack/react-query';
 import { getMajors, postMajor, patchMajor, getStudentLevels } from '../api/api';
