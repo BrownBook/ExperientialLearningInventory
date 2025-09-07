@@ -1,1 +1,1 @@
-alter table intern_student_autocomplete alter column banner_id TYPE CHARACTER VARYING;
+alter table intern_student_autocomplete alter column student_id TYPE CHARACTER VARYING;
