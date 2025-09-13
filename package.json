@@ -19,7 +19,7 @@
     "react-dom": "^18.3.1",
     "react-dropzone": "~3.13.3",
     "react-error-boundary": "^4.1.2",
-    "react-select": "^5.9.0",
+    "react-select": "^5.10.2",
     "react-transition-group": "^4.4.5",
     "zod": "^3.24.4"
   },
