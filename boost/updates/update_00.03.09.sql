@@ -1,0 +1,1 @@
+insert into intern_exp_type values ('apprenticeship', 'Apprenticeship', '');
