@@ -253,16 +253,8 @@ class Internship
      */
     public function save()
     {
-        if ($this->faculty_id === '') {
-            $this->faculty_id = null;
-        }
-
         $db = $this->getDb();
-        try {
-            $result = $db->saveObject($this);
-        } catch (\Exception $e) {
-            exit($e->getMessage());
-        }
+        $result = $db->saveObject($this);
 
         if (\PHPWS_Error::logIfError($result)) {
             throw new \Exception($result->toString());

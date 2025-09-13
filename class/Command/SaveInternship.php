@@ -40,10 +40,7 @@ use \Intern\InternSettings;
 class SaveInternship
 {
 
-    public function __construct()
-    {
-
-    }
+    public function __construct() {}
 
     private function rerouteWithError($url, $errorMessage)
     {
@@ -64,7 +61,7 @@ class SaveInternship
 
         // We don't want to do certain things like state change or error checks if this is an ajax request.
         $isAjax = false;
-        if(\Canopy\Request::isAjax()){
+        if (\Canopy\Request::isAjax()) {
             $isAjax = true;
         }
 
@@ -79,24 +76,34 @@ class SaveInternship
             $url = 'index.php?module=intern&action=ShowInternship';
             $url .= '&missing=' . implode('+', $missing);
 
-            $this->rerouteWithError($url,
-                    'Please fill in the highlighted fields.');
+            $this->rerouteWithError(
+                $url,
+                'Please fill in the highlighted fields.'
+            );
         }
 
         // Sanity check student email
-        if (isset($_REQUEST['student_email']) && preg_match("/@/",
-                        $_REQUEST['student_email'])) {
+        if (isset($_REQUEST['student_email']) && preg_match(
+            "/@/",
+            $_REQUEST['student_email']
+        )) {
             $url = 'index.php?module=intern&action=ShowInternship&missing=student_email';
-            $this->rerouteWithError($url,
-                    "The student's email address is invalid. No changes were saved. Enter only the username portion of the student's email address. The '@appstate.edu' portion is not necessary.");
+            $this->rerouteWithError(
+                $url,
+                "The student's email address is invalid. No changes were saved. Enter only the username portion of the student's email address. The '@appstate.edu' portion is not necessary."
+            );
         }
 
         // Sanity check student zip
-        if (isset($_REQUEST['student_zip']) && $_REQUEST['student_zip'] != "" && !preg_match('/^[\d]{5}$|^[\d]{5}-[\d]{4}$/',
-                        $_REQUEST['student_zip'])) {
+        if (isset($_REQUEST['student_zip']) && $_REQUEST['student_zip'] != "" && !preg_match(
+            '/^[\d]{5}$|^[\d]{5}-[\d]{4}$/',
+            $_REQUEST['student_zip']
+        )) {
             $url = 'index.php?module=intern&action=ShowInternship&missing=student_zip';
-            $this->rerouteWithError($url,
-                    "The student's zip code is invalid. No changes were saved. The zip code should be 5 digits (no letters, spaces, or punctuation), OR use the extended nine digit form (e.g. 28608-1234).");
+            $this->rerouteWithError(
+                $url,
+                "The student's zip code is invalid. No changes were saved. The zip code should be 5 digits (no letters, spaces, or punctuation), OR use the extended nine digit form (e.g. 28608-1234)."
+            );
         }
 
         // Course start date must be before end date
@@ -105,52 +112,68 @@ class SaveInternship
             $end = strtotime($_REQUEST['end_date']);
 
             if ($start >= $end) {
-                if(!$isAjax){
+                if (!$isAjax) {
                     $url = 'index.php?module=intern&action=ShowInternship&missing=start_date+end_date';
                     // Restore the values in the fields the user already entered
                     unset($_POST['start_date']);
                     unset($_POST['end_date']);
-                    $this->rerouteWithError($url,
-                            'The internship start date must be before the end date.');
+                    $this->rerouteWithError(
+                        $url,
+                        'The internship start date must be before the end date.'
+                    );
                 }
             }
         }
 
         // Sanity check internship location zip, allows a-z or A-Z if international
         if ((isset($_REQUEST['loc_zip']) && $_REQUEST['loc_zip'] != "") && !is_numeric($_REQUEST['loc_zip'])) {
-            if (!($_REQUEST['location'] == 'international' && preg_match('/[\w]/',
-                            $_REQUEST['loc_zip']))) {
+            if (!($_REQUEST['location'] == 'international' && preg_match(
+                '/[\w]/',
+                $_REQUEST['loc_zip']
+            ))) {
                 $url = 'index.php?module=intern&action=ShowInternship&missing=loc_zip';
-                $this->rerouteWithError($url,
-                        "The internship location's zip code is invalid. No changes were saved. Zip codes should be 5 digits only (no letters, spaces, or punctuation).");
+                $this->rerouteWithError(
+                    $url,
+                    "The internship location's zip code is invalid. No changes were saved. Zip codes should be 5 digits only (no letters, spaces, or punctuation)."
+                );
             }
         }
 
         // Sanity check internship acency zip, allows a-z or A-Z if international
         if ((isset($_REQUEST['agency_zip']) && $_REQUEST['agency_zip'] != "") && !is_numeric($_REQUEST['agency_zip'])) {
-            if (!($_REQUEST['location'] == 'international' && preg_match('/[\w]/',
-                            $_REQUEST['agency_zip']))) {
+            if (!($_REQUEST['location'] == 'international' && preg_match(
+                '/[\w]/',
+                $_REQUEST['agency_zip']
+            ))) {
                 $url = 'index.php?module=intern&action=ShowInternship&missing=agency_zip';
-                $this->rerouteWithError($url,
-                        "The agency's zip code is invalid. No changes were saved. Zip codes should be 5 digits only (no letters, spaces, or punctuation).");
+                $this->rerouteWithError(
+                    $url,
+                    "The agency's zip code is invalid. No changes were saved. Zip codes should be 5 digits only (no letters, spaces, or punctuation)."
+                );
             }
         }
 
         // Sanity check internship agency supervisor zip, allows a-z or A-Z if international
         if ((isset($_REQUEST['agency_sup_zip']) && $_REQUEST['agency_sup_zip'] != "") && !is_numeric($_REQUEST['agency_sup_zip'])) {
-            if (!($_REQUEST['location'] == 'international' && preg_match('/[\w]/',
-                            $_REQUEST['agency_sup_zip']))) {
+            if (!($_REQUEST['location'] == 'international' && preg_match(
+                '/[\w]/',
+                $_REQUEST['agency_sup_zip']
+            ))) {
                 $url = 'index.php?module=intern&action=ShowInternship&missing=agency_sup_zip';
-                $this->rerouteWithError($url,
-                        "The agency supervisor's zip code is invalid. No changes were saved. Zip codes should be 5 digits only (no letters, spaces, or punctuation).");
+                $this->rerouteWithError(
+                    $url,
+                    "The agency supervisor's zip code is invalid. No changes were saved. Zip codes should be 5 digits only (no letters, spaces, or punctuation)."
+                );
             }
         }
 
         // Sanity check course number
         if ((isset($_REQUEST['course_no']) && $_REQUEST['course_no'] != '') && (strlen($_REQUEST['course_no']) > 20 || !is_numeric($_REQUEST['course_no']))) {
             $url = 'index.php?module=intern&action=ShowInternship&missing=course_no';
-            $this->rerouteWithError($url,
-                    "The course number provided is invalid. No changes were saved. Course numbers should be less than 20 digits (no letters, spaces, or punctuation).");
+            $this->rerouteWithError(
+                $url,
+                "The course number provided is invalid. No changes were saved. Course numbers should be less than 20 digits (no letters, spaces, or punctuation)."
+            );
         }
 
         \PHPWS_DB::begin();
@@ -172,8 +195,10 @@ class SaveInternship
             $i->form_token = uniqid();
         } else {
             // Form token doesn't match, so show a nice error message
-            $this->rerouteWithError('index.php?module=intern&action=ShowInternship',
-                    'Some else has modified this internship while you were working. In order to not overwrite their changes, your changes were not saved.');
+            $this->rerouteWithError(
+                'index.php?module=intern&action=ShowInternship',
+                'Some else has modified this internship while you were working. In order to not overwrite their changes, your changes were not saved.'
+            );
         }
 
         // Load the student object
@@ -183,10 +208,12 @@ class SaveInternship
             $student = null;
 
             //$this->rerouteWithError('index.php?module=intern&action=ShowInternship', "We couldn't find a matching student in Banner. Your changes were saved, but this student probably needs to contact the Registrar's Office to re-enroll.");
-			\NQ::close();
+            \NQ::close();
         }
 
-        $i->faculty_id = isset($_REQUEST['faculty_id']) ? $_REQUEST['faculty_id'] : null;
+        // Faculty ID must exist and not be empty, otherwise we set it to null to avoid DB foreign key errors
+        // This can happen if the user selects the blank option in the faculty dropdown
+        $i->faculty_id = (isset($_REQUEST['faculty_id']) && $_REQUEST['faculty_id'] !== '') ? $_REQUEST['faculty_id'] : null;
 
         $i->department_id = $_REQUEST['department'];
         $i->start_date = !empty($_REQUEST['start_date']) ? strtotime($_REQUEST['start_date']) : 0;
@@ -217,7 +244,7 @@ class SaveInternship
         }
 
         // Address, city, zip are always set (no matter domestic or international)
-        if(isset($_POST['location_type'])){
+        if (isset($_POST['location_type'])) {
             $i->location_type = $_POST['location_type'];
         } else {
             // For internships created before location_type field existed, there won't
@@ -294,7 +321,7 @@ class SaveInternship
         }
         $i->student_zip = $_REQUEST['student_zip'];
 
-        if(\Current_User::isDeity() && $internSettings->getMultiCampusEnabled()){
+        if (\Current_User::isDeity() && $internSettings->getMultiCampusEnabled()) {
             $i->campus = $_REQUEST['campus'];
         }
 
@@ -333,21 +360,21 @@ class SaveInternship
 
         /************
          * International Certification
-        */
-        if($internSettings->getRequireIntlCertification()){
+         */
+        if ($internSettings->getRequireIntlCertification()) {
             // Check if this has changed from non-certified->certified so we can log it later
-            if($i->oied_certified == 0 && $_POST['oied_certified_hidden'] == 'true'){
+            if ($i->oied_certified == 0 && $_POST['oied_certified_hidden'] == 'true') {
                 // note the change for later
                 $oiedCertified = true;
-            }else{
+            } else {
                 $oiedCertified = false;
             }
 
-            if($_POST['oied_certified_hidden'] == 'true'){
+            if ($_POST['oied_certified_hidden'] == 'true') {
                 $i->oied_certified = 1;
-            }else if($_POST['oied_certified_hidden'] == 'false'){
+            } else if ($_POST['oied_certified_hidden'] == 'false') {
                 $i->oied_certified = 0;
-            }else{
+            } else {
                 $i->oied_certified = 0;
             }
         } else {
@@ -430,7 +457,7 @@ class SaveInternship
         /** *************************
          * State/Workflow Handling *
          * ************************* */
-        if(!$isAjax){
+        if (!$isAjax) {
             $t = \Intern\WorkflowTransitionFactory::getTransitionByName($_POST['workflow_action']);
             $workflow = new \Intern\WorkflowController($i, $t);
             try {
@@ -444,14 +471,23 @@ class SaveInternship
             // Create a ChangeHisotry for the International certification.
             if ($oiedCertified) {
                 $currState = WorkflowStateFactory::getState($i->getStateName());
-                $ch = new ChangeHistory($i, \Current_User::getUserObj(), time(),
-                        $currState, $currState, 'Certified by OIED');
+                $ch = new ChangeHistory(
+                    $i,
+                    \Current_User::getUserObj(),
+                    time(),
+                    $currState,
+                    $currState,
+                    'Certified by OIED'
+                );
                 $ch->save();
 
                 // Notify the faculty member that OIED has certified the internship
                 if ($i->getFaculty() != null) {
-                    $email = new \Intern\Email\OIEDCertifiedEmail(\Intern\InternSettings::getInstance(),
-                            $i, $term);
+                    $email = new \Intern\Email\OIEDCertifiedEmail(
+                        \Intern\InternSettings::getInstance(),
+                        $i,
+                        $term
+                    );
                     $email->send();
                 }
             }
@@ -469,8 +505,11 @@ class SaveInternship
         } else {
             // Otherwise, redirect to the internship edit view
             // Show message if user edited internship
-            \NQ::simple('intern', \Intern\UI\NotifyUI::SUCCESS,
-                    'Saved internship for ' . $i->getFullName());
+            \NQ::simple(
+                'intern',
+                \Intern\UI\NotifyUI::SUCCESS,
+                'Saved internship for ' . $i->getFullName()
+            );
             \NQ::close();
 
             return \PHPWS_Core::reroute('index.php?module=intern&action=ShowInternship&internship_id=' . $i->id);
@@ -510,5 +549,4 @@ class SaveInternship
         $info = preg_replace('!\s+!', ' ', $info);
         return $info;
     }
-
 }
