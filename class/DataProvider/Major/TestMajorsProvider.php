@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of Internship Inventory.
  *
@@ -23,7 +24,8 @@ namespace Intern\DataProvider\Major;
 use Intern\AcademicMajorList;
 use Intern\AcademicMajor;
 
-class TestMajorsProvider extends BannerMajorsProvider {
+class TestMajorsProvider extends BannerMajorsProvider
+{
 
     public function __construct($currentUserName)
     {
@@ -44,7 +46,8 @@ class TestMajorsProvider extends BannerMajorsProvider {
 
         $majors = array();
 
-        foreach ($objs as $obj){
+        foreach ($objs as $obj) {
+            // TODO: This will need to be updated for the new AcademicMajor constructor
             $majors[] = new AcademicMajor($obj->major_code, $obj->major_desc, $obj->levl);
         }
 
@@ -73,5 +76,4 @@ class TestMajorsProvider extends BannerMajorsProvider {
 
         return $major;
     }
-
 }

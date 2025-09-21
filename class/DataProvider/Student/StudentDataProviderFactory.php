@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of Internship Inventory.
  *
@@ -28,7 +29,8 @@ use Intern\InternSettings;
  * @author Jeremy Booker
  * @package Intern
  */
-class StudentDataProviderFactory {
+class StudentDataProviderFactory
+{
 
     /**
      * Returns a concrete instance of a StudenDataProvider object,
@@ -39,13 +41,13 @@ class StudentDataProviderFactory {
     public static function getProvider(): StudentDataProvider
     {
         // First, check if the test flag override is on
-        if(STUDENT_DATA_TEST){
-            return new TestWebServiceDataProvider(\Current_User::getUsername());
-        }
+        // if (STUDENT_DATA_TEST) {
+        //     return new TestWebServiceDataProvider(\Current_User::getUsername());
+        // }
 
         $providerName = InternSettings::getInstance()->getStudentDataSource();
 
-        switch($providerName){
+        switch ($providerName) {
             case 'localDataProvider':
                 return new LocalDbStudentDataProvider();
             case 'webServiceDataProvider':
@@ -54,7 +56,6 @@ class StudentDataProviderFactory {
                 return new TestWebServiceDataProvider(\Current_User::getUsername());
             default:
                 throw new \UnexpectedValueException('No configuration for student data provider.');
-
         }
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of Internship Inventory.
  *
@@ -22,7 +23,8 @@ namespace Intern;
 
 use \Intern\DataProvider\Student\StudentDataProviderFactory;
 
-class StudentFactory {
+class StudentFactory
+{
 
     public static function getStudent($studentId, $term)
     {
