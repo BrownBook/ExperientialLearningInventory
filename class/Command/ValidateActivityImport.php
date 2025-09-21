@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of Internship Inventory.
  *
@@ -35,12 +36,13 @@ use \Intern\Exception\StudentNotFoundException;
 
 
 
-class ValidateActivityImport {
+class ValidateActivityImport
+{
 
     public function execute()
     {
         // Check permissions
-        if(!\Current_User::allow('intern', 'internship_import')){
+        if (!\Current_User::allow('intern', 'internship_import')) {
             \NQ::simple('intern', \Intern\UI\NotifyUI::ERROR, 'You do not have permission to import student data.');
             \NQ::close();
             \PHPWS_Core::home();
@@ -48,7 +50,7 @@ class ValidateActivityImport {
         }
 
         // Check that an import id was supplied
-        if(!isset($_REQUEST['import_id'])){
+        if (!isset($_REQUEST['import_id'])) {
             \NQ::simple('intern', \Intern\UI\NotifyUI::ERROR, 'The import id was missing. Try selecting an import from the import list below.');
             \NQ::close();
             \PHPWS_Core::reroute('index.php?module=intern&action=ShowImportActivitiesStart');
@@ -85,7 +87,7 @@ class ValidateActivityImport {
 
 
         // Check each row in this import
-        foreach($importRows as $row){
+        foreach ($importRows as $row) {
             //var_dump($row);
 
             $validationIssues = array();
@@ -94,43 +96,42 @@ class ValidateActivityImport {
             $student = null;
             try {
                 $student = StudentFactory::getStudent($row['student_id'], $row['term']);
-            }catch(StudentNotFoundException $e){
+            } catch (StudentNotFoundException $e) {
                 $validationIssues[] = "Unknown student ID: {$row['student_id']}";
             }
 
             // Check term code
-            if(!in_array($row['term'], $terms)){
+            if (!in_array($row['term'], $terms)) {
                 $validationIssues[] = "Unknown/invalid term code: {$row['term']}";
             }
 
             // Check level
-            if(!in_array(strtolower($row['level']), Student::LEVELS)){
+            if (!in_array(strtolower($row['level']), Student::LEVELS)) {
                 $validationIssues[] = "Unknown/invalid level: {$row['level']}";
             }
 
             // Check experience type
-            if(!in_array(strtolower($row['experience_type']), $expTypes)){
+            if (!in_array(strtolower($row['experience_type']), $expTypes)) {
                 $validationIssues[] = "Unknown/invalid experience type: {$row['experience_type']}";
-
             }
 
             // Check host name (not empty)
-            if($row['host_name'] === ''){
+            if ($row['host_name'] === '') {
                 $validationIssues[] = 'Missing host name';
             }
 
             // Check host state (is valid state abbreviation)
-            if(!in_array($row['host_state'], $states)){
+            if (!in_array($row['host_state'], $states)) {
                 $validationIssues[] = 'Invalid host state. State is not enabled in State Authorization settings, or the abbreviation is incorrect (should be two upper-case letters, ex. "NC").';
             }
 
             // Department Name (Is a valid department name)
-            if(!in_array($row['department_name'], $departmentNames)){
+            if (!in_array($row['department_name'], $departmentNames)) {
                 $validationIssues[] = 'Unknown department name: ' . $row['department_name'];
             }
 
             // Set the row as validated or list the issues
-            if(sizeof($validationIssues) == 0){
+            if (sizeof($validationIssues) == 0) {
                 // Row is valid
                 // Will clear any previous validation errors, if any
                 $validRowStmt = $db->prepare('UPDATE intern_import_activity SET validated_on = :now, validation_errors = \'\' WHERE id = :id AND import_id = :import_id');

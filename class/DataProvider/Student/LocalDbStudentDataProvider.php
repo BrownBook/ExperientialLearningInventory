@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of Internship Inventory.
  *
@@ -27,8 +28,10 @@ use Intern\AcademicMajor;
 
 use Intern\Exception\StudentNotFoundException;
 
-class LocalDbStudentDataProvider extends StudentDataProvider {
-    public function getStudent($studentId){
+class LocalDbStudentDataProvider extends StudentDataProvider
+{
+    public function getStudent($studentId)
+    {
         $db = PdoFactory::getPdoInstance();
 
         $query = 'SELECT * FROM intern_local_student_data WHERE student_id = :studentId';
@@ -38,7 +41,7 @@ class LocalDbStudentDataProvider extends StudentDataProvider {
 
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
 
-        if($result === false){
+        if ($result === false) {
             throw new StudentNotFoundException('Could not find student in local data with id: ' . $studentId);
         }
 
@@ -48,7 +51,7 @@ class LocalDbStudentDataProvider extends StudentDataProvider {
         return $student;
     }
 
-    protected function plugValues(&$student, Array $data)
+    protected function plugValues(&$student, array $data)
     {
         /**********************
          * Basic Demographics *
@@ -62,7 +65,7 @@ class LocalDbStudentDataProvider extends StudentDataProvider {
         $student->setPreferredName($data['preferred_name']);
         $student->setGender($data['gender']);
 
-        if($data['confidential'] === 'Y'){
+        if ($data['confidential'] === 'Y') {
             $student->setConfidentialFlag(true);
         } else {
             $student->setConfidentialFlag(false);
@@ -77,9 +80,9 @@ class LocalDbStudentDataProvider extends StudentDataProvider {
          * Academic Info *
          *****************/
         // Campus
-        if($data['campus'] === 'main_campus'){
+        if ($data['campus'] === 'main_campus') {
             $student->setCampus(Student::MAIN_CAMPUS);
-        } else if ($data['campus'] != ''){
+        } else if ($data['campus'] != '') {
             $student->setCampus($data['campus']);
         }
 
@@ -91,15 +94,17 @@ class LocalDbStudentDataProvider extends StudentDataProvider {
 
         // Majors - Only one allowed here (this differs from WebServiceDataProvider)
         // code and description fields must both be not null and not empty string to add a major
-        if($data['major_code'] !== null && $data['major_code'] !== ''
-            && $data['major_description'] !== null && $data['major_description'] !== '') {
-            $student->addMajor(new AcademicMajor($data['major_code'], $data['major_description'], $data['level']));
+        if (
+            $data['major_code'] !== null && $data['major_code'] !== ''
+            && $data['major_description'] !== null && $data['major_description'] !== ''
+        ) {
+            $student->addMajor(new AcademicMajor($data['major_code'], $data['major_description'], $data['level'], null, null, 0));
         }
 
         $student->setGpa(round($data['gpa'], 4));
 
         // Grad date, if available
-        if($data['grad_date'] !== null && $data['grad_date'] != '') {
+        if ($data['grad_date'] !== null && $data['grad_date'] != '') {
             $student->setGradDateFromString($data['grad_date']);
         }
 
@@ -125,7 +130,7 @@ class LocalDbStudentDataProvider extends StudentDataProvider {
 
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
 
-        if($result === false){
+        if ($result === false) {
             throw new StudentNotFoundException('Could not find student in local data with id: ' . $studentId);
         }
 
