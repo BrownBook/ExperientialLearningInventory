@@ -29,6 +29,9 @@ class ReportsView
     {
         $tpl = array();
 
+        $tpl['vendor_bundle'] = AssetResolver::resolveJsPath('assets.json', 'vendor');
+        $tpl['entry_bundle'] = AssetResolver::resolveJsPath('assets.json', 'reports');
+
         return \PHPWS_Template::process($tpl, 'intern', 'reports.tpl');
     }
 }
