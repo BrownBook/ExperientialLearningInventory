@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of Internship Inventory.
  *
@@ -22,12 +23,13 @@ namespace Intern\Command;
 
 use \Intern\PdoFactory;
 
-class ImportStudents {
+class ImportStudents
+{
 
     public function execute()
     {
         // Check permissions
-        if(!\Current_User::allow('intern', 'student_import')){
+        if (!\Current_User::allow('intern', 'student_import')) {
             \NQ::simple('intern', \Intern\UI\NotifyUI::ERROR, 'You do not have permission to import student data.');
             \NQ::close();
             \PHPWS_Core::home();
@@ -35,7 +37,7 @@ class ImportStudents {
         }
 
         // Check that a file was selected
-        if(sizeof($_FILES) !== 1){
+        if (sizeof($_FILES) !== 1) {
             \NQ::simple('intern', \Intern\UI\NotifyUI::ERROR, 'Please select a file to upload.');
             \NQ::close();
             \PHPWS_Core::reroute('index.php?module=intern&action=ShowStudentImport');
@@ -44,14 +46,14 @@ class ImportStudents {
         $fileInfo = $_FILES['studentDataFile'];
 
         // Check that there wasn't an upload error
-        if($fileInfo['error'] == 1){
+        if ($fileInfo['error'] == 1) {
             \NQ::simple('intern', \Intern\UI\NotifyUI::ERROR, 'There was an error while sending the file to the server. No data was imported.');
             \NQ::close();
             \PHPWS_Core::reroute('index.php?module=intern&action=ShowStudentImport');
         }
 
         // Check that the type is correct
-        if($fileInfo['type'] !== 'text/csv'){
+        if ($fileInfo['type'] !== 'text/csv') {
 
             \NQ::simple('intern', \Intern\UI\NotifyUI::ERROR, "The file we uploaded appears to be the wrong type ({$fileInfo['type']}). Please select a Comma Separated Values (.csv) file.");
             \NQ::close();
@@ -67,7 +69,7 @@ class ImportStudents {
         //var_dump($destinationFilePath);
 
         // Create the studentDataImport directory, if it doesn't exist
-        if(!file_exists($destinationFilePath)){
+        if (!file_exists($destinationFilePath)) {
             mkdir($destinationFilePath, 0700);
         }
 
@@ -80,7 +82,7 @@ class ImportStudents {
         // Read the first line
         $firstLine = fgetcsv($fileHandle);
 
-        if(!self::checkColumnOrder($firstLine)){
+        if (!self::checkColumnOrder($firstLine)) {
             \NQ::simple('intern', \Intern\UI\NotifyUI::ERROR, 'The file we uploaded appears to have the wrong column order. Please check the columns and try again.');
             \NQ::close();
             \PHPWS_Core::reroute('index.php?module=intern&action=ShowStudentImport');
@@ -167,7 +169,7 @@ class ImportStudents {
         $insertStmt = $db->prepare($insertQuery);
         $updateStmt = $db->prepare($updateQuery);
 
-        while(($row = fgetcsv($fileHandle)) !== false) {
+        while (($row = fgetcsv($fileHandle)) !== false) {
             $params = array();
 
             $params['studentId']    = $row[0];
@@ -178,7 +180,7 @@ class ImportStudents {
             $params['gender']       = $row[5];
             //$params['statusDesc']   = $row[6];
 
-            if(trim($row[6]) === ''){
+            if (trim($row[6]) === '') {
                 $creditHours = 0;
             } else {
                 $creditHours = $row[6];
@@ -204,7 +206,7 @@ class ImportStudents {
             $params['class']        = $row[18];
 
             $params['gpa']          = $row[19];
-            if($params['gpa'] == '') {
+            if ($params['gpa'] == '') {
                 $params['gpa'] = 0;
             }
 
@@ -214,12 +216,11 @@ class ImportStudents {
 
             try {
                 $insertStmt->execute($params);
-            } catch(\Exception $e){
+            } catch (\Exception $e) {
                 // quietly ignore exceptions, we expect duplicate key violations
             }
 
             $updateStmt->execute($params);
-
         }
 
         \NQ::simple('intern', \Intern\UI\NotifyUI::SUCCESS, 'Student data imported successfully!');
@@ -228,15 +229,15 @@ class ImportStudents {
     }
 
 
-    private function checkColumnOrder($row){
+    private function checkColumnOrder($row)
+    {
         $expectedRow = array(
-            'ID',
+            'Student ID',
             'First Name',
             'Preferred First Name',
             'Middle Name',
             'Last Name',
             'Gender',
-            //'Status Desc',
             'Registered Credits',
             'Street Line 1',
             'Street Line 2',
@@ -254,8 +255,8 @@ class ImportStudents {
             'GPA'
         );
 
-        for($i = 0; $i < sizeof($expectedRow); $i++){
-            if($expectedRow[$i] !== trim($row[$i])){
+        for ($i = 0; $i < sizeof($expectedRow); $i++) {
+            if (strtolower(trim($expectedRow[$i])) !== strtolower(trim($row[$i]))) {
                 return false;
             }
         }
