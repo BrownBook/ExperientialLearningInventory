@@ -37,10 +37,11 @@ alter table intern_major add constraint intern_major_description_level_key UNIQU
 -- Below table is loaded with departments after CREATE TABLE statements.
 CREATE TABLE intern_department (
        id INT NOT NULL,
-       name character varying NOT NULL UNIQUE,
-       college_name character varying,
+       name character varying NOT NULL,
+       college_name character varying NOT NULL,
        hidden SMALLINT NULL DEFAULT 0,
        corequisite SMALLINT NOT NULL DEFAULT 0,
+       CONSTRAINT intern_department_name_college_name_key UNIQUE (name, college_name),
        PRIMARY KEY(id)
 );
 
