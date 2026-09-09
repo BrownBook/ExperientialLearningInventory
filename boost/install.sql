@@ -24,7 +24,7 @@ CREATE TABLE intern_student_level(
 -- TODO: 'level' should be a foreign key
 CREATE TABLE intern_major (
        id INT NOT NULL,
-       code character varying NOT NULL UNIQUE,
+       code character varying NOT NULL,
        description character varying NOT NULL,
        level character varying NOT NULL,
        hidden SMALLINT NOT NULL DEFAULT 0,
@@ -32,7 +32,8 @@ CREATE TABLE intern_major (
        PRIMARY KEY(id)
 );
 
-alter table intern_major add constraint intern_major_description_level_key UNIQUE (description, level);
+alter table intern_major add constraint intern_major_unique_key UNIQUE (code, description, level, cip_code);
+
 
 -- Below table is loaded with departments after CREATE TABLE statements.
 CREATE TABLE intern_department (
@@ -400,6 +401,9 @@ CREATE TABLE intern_subject (
     active smallint not null default 1,
     PRIMARY KEY(id)
 );
+
+ALTER TABLE intern_subject ADD CONSTRAINT intern_subject_abbreviation_key UNIQUE (abbreviation);
+ALTER TABLE intern_subject ADD CONSTRAINT intern_subject_abbr_desc_key UNIQUE (abbreviation, description);
 
 CREATE SEQUENCE intern_subject_seq;
 
