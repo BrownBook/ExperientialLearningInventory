@@ -57,7 +57,7 @@ jobs:
         run: vendor/bin/phpunit --coverage-text
 
       - name: Create Artifact
-        run: rm -rf node_modules && tar -czf ExperientialLearningInventory-${{ github.ref_name }}.tar.gz boost class contrib img inc javascript/dist templates vendor assets.json cli.php entryPoints.js index.php LICENSE
+        run: rm -rf node_modules && tar -czf ExperientialLearningInventory-${{ github.ref_name }}.tar.gz boost class contrib img inc javascript/dist javascript/formGoodies javascript/resetSearch templates vendor assets.json cli.php entryPoints.js index.php LICENSE
         # run: rm -rf node_modules && tar -czf ExperientialLearningInventory-${{ github.ref_name }}.tar.gz boost class contrib img inc javascript/dist templates assets.json cli.php entryPoints.js index.php LICENSE
 
       - name: Create Release
