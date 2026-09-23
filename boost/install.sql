@@ -760,13 +760,13 @@ CREATE TABLE intern_courses(
 CREATE SEQUENCE intern_courses_seq;
 
 -- Add Departments
-INSERT INTO intern_department VALUES  (1, 'Accounting', 'College of Business', 'University College');
-INSERT INTO intern_department VALUES  (2, 'Anthropology', 'Arts and Sciences', 'University College');
-INSERT INTO intern_department VALUES  (3, 'Art', 'Fine and Applied Arts', 'University College');
-INSERT INTO intern_department VALUES  (4, 'Biology', 'Arts and Sciences', 'University College');
-INSERT INTO intern_department VALUES  (5, 'Chemistry', 'Arts and Sciences', 'University College');
-INSERT INTO intern_department VALUES  (6, 'Communication Sciences & Disorder', 'University College');
-INSERT INTO intern_department VALUES  (7, 'Communication', 'Fine & Applied Arts', 'University College');
+INSERT INTO intern_department VALUES  (1, 'Accounting', 'College of Business');
+INSERT INTO intern_department VALUES  (2, 'Anthropology', 'Arts and Sciences');
+INSERT INTO intern_department VALUES  (3, 'Art', 'Fine and Applied Arts');
+INSERT INTO intern_department VALUES  (4, 'Biology', 'Arts and Sciences');
+INSERT INTO intern_department VALUES  (5, 'Chemistry', 'Arts and Sciences');
+INSERT INTO intern_department VALUES  (6, 'Communication Sciences & Disorder', 'College of Health Sciences');
+INSERT INTO intern_department VALUES  (7, 'Communication', 'Fine & Applied Arts');
 INSERT INTO intern_department VALUES  (8, 'Computer Information Systems', 'College of Business');
 INSERT INTO intern_department VALUES  (9, 'Computer Science', 'Arts and Sciences');
 INSERT INTO intern_department VALUES (10, 'Curriculum & Instruction', 'College of Education');
