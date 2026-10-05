@@ -56,6 +56,10 @@
           <li>
             <hr class="dropdown-divider">
           </li>
+          <li>{REPORTS_LINK}</li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
           <!-- BEGIN student_import -->
           <li>{STUDENT_IMPORT}</li>
           <!-- END student_import -->

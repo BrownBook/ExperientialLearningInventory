@@ -20,6 +20,7 @@ module.exports = {
     majorSelector: JS_DIR + '/majorSelector/MajorSelector.jsx',
     adminSettings: JS_DIR + '/settings/settings.jsx',
     editTerms: JS_DIR + '/editTerms/TermEditor.jsx',
+    reports: JS_DIR + '/pages/ReportsPage.jsx',
     vendor: ['jquery', 'react', 'react-dom', 'react-bootstrap']
   }
 };

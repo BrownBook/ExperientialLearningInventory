@@ -359,6 +359,11 @@ class InternshipInventory
                 $ctrl = new Command\CipCodeRest();
                 $ctrl->execute();
                 break;
+            case 'reports':
+                $ctrl = new Command\ShowReports();
+                $view = $ctrl->execute();
+                $this->content = $view->render();
+                break;
             default:
                 $menu = new UI\InternMenu();
                 $this->content = $menu->display();
