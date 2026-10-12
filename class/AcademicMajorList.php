@@ -55,20 +55,22 @@ class AcademicMajorList
         return $this->majors;
     }
 
-    public function getMajorsByLevel(string $level): array
-    {
-        $filteredMajors = array();
+    // Deprecated: Use MajorsProvider->getMajorsByDegreeLevel() instead.
+    // public function getMajorsByDegreeLevel(string $level): array
+    // {
+    //     var_dump($this->majors);
+    //     $filteredMajors = array();
 
-        foreach ($this->majors as $m) {
-            if ($m->getLevel() === $level) {
-                $filteredMajors[] = $m;
-            }
-        }
+    //     foreach ($this->majors as $m) {
+    //         if ($m->getLevel() === $level) {
+    //             $filteredMajors[] = $m;
+    //         }
+    //     }
 
-        $this->sortList($filteredMajors);
+    //     $this->sortList($filteredMajors);
 
-        return $filteredMajors;
-    }
+    //     return $filteredMajors;
+    // }
 
     /**
      * Adds the array represnting a major to the set of majors if it is not already in the list.

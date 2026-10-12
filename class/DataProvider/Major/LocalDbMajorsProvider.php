@@ -30,7 +30,7 @@ class LocalDbMajorsProvider extends MajorsProvider
 {
 
     /**
-     * Returns an array of AcademicMajor objects for the given term.
+     * Returns an array of AcademicMajorList object of all majors in the database, including both undergraduate and graduate majors.
      *
      * @return AcademicMajorList
      */
@@ -38,7 +38,7 @@ class LocalDbMajorsProvider extends MajorsProvider
     {
         $db = PdoFactory::getPdoInstance();
 
-        $stmt = $db->prepare('SELECT * FROM intern_major LEFT OUTER JOIN intern_cip_codes ON intern_major.cip_code = intern_cip_codes.cip_code ORDER BY description ASC');
+        $stmt = $db->prepare('SELECT *, intern_major.description, intern_major.level as level, intern_student_level.level as degree_level FROM intern_major LEFT OUTER JOIN intern_cip_codes ON intern_major.cip_code = intern_cip_codes.cip_code JOIN intern_student_level ON intern_major.level = intern_student_level.code ORDER BY intern_major.description ASC');
         $stmt->execute();
         $stmt->setFetchMode(\PDO::FETCH_ASSOC);
 
@@ -47,7 +47,32 @@ class LocalDbMajorsProvider extends MajorsProvider
         $majorsList = new AcademicMajorList();
 
         foreach ($results as $row) {
-            $majorsList->addMajor(new AcademicMajor($row['code'], $row['description'], $row['level'], $row['cip_code'], $row['cip_title'], $row['hidden']));
+            $majorsList->addMajor(new AcademicMajor($row['code'], $row['description'], $row['level'], $row['cip_code'], $row['cip_title'], $row['hidden'], $row['degree_level']));
+        }
+
+        return $majorsList;
+    }
+
+    /**
+     * Returns an array of AcademicMajor objects for the degree level.
+     * 
+     * @param string $level The degree level to filter by, defined in AcademicDegreeLevel (e.g., 'ugrad', 'grad', 'doctoral').
+     * @return AcademicMajorList
+     */
+    public function getMajorsByDegreeLevel(string $level): AcademicMajorList
+    {
+        $db = PdoFactory::getPdoInstance();
+
+        $stmt = $db->prepare('SELECT id, intern_major.code, intern_major.description, intern_major.level, intern_major.hidden, intern_major.cip_code, intern_cip_codes.cip_title, intern_student_level.level AS degree_level FROM intern_major LEFT OUTER JOIN intern_cip_codes ON intern_major.cip_code = intern_cip_codes.cip_code JOIN intern_student_level ON intern_major.level = intern_student_level.code WHERE intern_student_level.level = :level ORDER BY description ASC');
+        $stmt->execute(['level' => $level]);
+        $stmt->setFetchMode(\PDO::FETCH_ASSOC);
+
+        $results = $stmt->fetchAll();
+
+        $majorsList = new AcademicMajorList();
+
+        foreach ($results as $row) {
+            $majorsList->addMajor(new AcademicMajor($row['code'], $row['description'], $row['level'], $row['cip_code'], $row['cip_title'], $row['hidden'], $row['degree_level']));
         }
 
         return $majorsList;
@@ -61,14 +86,14 @@ class LocalDbMajorsProvider extends MajorsProvider
     {
         $db = PdoFactory::getPdoInstance();
 
-        $stmt = $db->prepare('SELECT * FROM intern_major LEFT OUTER JOIN intern_cip_codes ON intern_major.cip_code = intern_cip_codes.cip_code WHERE code = :code');
+        $stmt = $db->prepare('SELECT *, intern_major.description, intern_major.level as level, intern_student_level.level as degree_level FROM intern_major LEFT OUTER JOIN intern_cip_codes ON intern_major.cip_code = intern_cip_codes.cip_code JOIN intern_student_level ON intern_major.level = intern_student_level.code WHERE code = :code');
         $stmt->execute(['code' => $code]);
         $stmt->setFetchMode(\PDO::FETCH_ASSOC);
 
         $row = $stmt->fetch();
 
         if ($row) {
-            return new AcademicMajor($row['code'], $row['description'], $row['level'], $row['cip_code'], $row['cip_title'], $row['hidden']);
+            return new AcademicMajor($row['code'], $row['description'], $row['level'], $row['cip_code'], $row['cip_title'], $row['hidden'], $row['degree_level']);
         } else {
             return null;
         }

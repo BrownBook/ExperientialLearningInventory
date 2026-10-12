@@ -69,7 +69,7 @@ class MajorsProgramsRest
 
         $majorsProvider = MajorsProviderFactory::getProvider();
 
-        $major = new AcademicMajor($inputJSON['code'], $inputJSON['name'], $inputJSON['level'], $inputJSON['cipCode'], null, 0);
+        $major = new AcademicMajor($inputJSON['code'], $inputJSON['name'], $inputJSON['level'], $inputJSON['cipCode'], null, 0, null);
 
         try {
             $majorsProvider->createMajor($major);
