@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of Internship Inventory.
  *
@@ -20,13 +21,14 @@
 
 namespace Intern;
 
-class WorkflowStateFactory {
+class WorkflowStateFactory
+{
 
     private static $dir = 'WorkflowState';
 
     public static function getState($className)
     {
-        if(!isset($className) || empty($className)){
+        if (!isset($className) || empty($className)) {
             throw new \InvalidArgumentException('Missing state name.');
         }
 
@@ -42,9 +44,9 @@ class WorkflowStateFactory {
         // Get the directory listing and filter out anything that doesn't look right
         $files = scandir("{$dir}/");
         $states = array();
-        foreach($files as $f){
+        foreach ($files as $f) {
             // Look for directories that don't start with '.'
-            if(!is_dir($dir . '/' . $f) && substr($f, 0, 1) != '.'){
+            if (!is_dir($dir . '/' . $f) && substr($f, 0, 1) != '.') {
                 // Include each one
                 \PHPWS_Core::initModClass('intern', self::$dir . '/' . $f);
                 $className = preg_replace('/\.php/', '', $f);
@@ -64,11 +66,13 @@ class WorkflowStateFactory {
         $states = self::getAllStates();
 
         // Sort the states into a reasonable order
-        uasort($states, array('self', 'sortStates'));
+        //$sortCallable = ['\Intern\WorkflowStateFactory', 'sortStates'];
+        $sortCallable = \Intern\WorkflowStateFactory::sortStates(...);
+        uasort($states, $sortCallable);
 
         $assoc = array();
 
-        foreach($states as $s){
+        foreach ($states as $s) {
             $assoc[$s->getName()] = $s->getFriendlyname();
         }
 
@@ -82,7 +86,7 @@ class WorkflowStateFactory {
      */
     private static function sortStates(WorkflowState $a, WorkflowState $b)
     {
-        if($a->getSortIndex() == $b->getSortIndex()){
+        if ($a->getSortIndex() == $b->getSortIndex()) {
             return 0;
         }
         return ($a->getSortIndex() < $b->getSortIndex()) ? -1 : 1;
