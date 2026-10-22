@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of Internship Inventory.
  *
@@ -22,11 +23,12 @@ namespace Intern;
 
 use \phpws2\Database;
 
-class LevelFactory {
+class LevelFactory
+{
 
     public static function getLevelObjectById($code)
     {
-        if(!isset($code)) {
+        if (!isset($code)) {
             throw new \InvalidArgumentException('Missing student code.');
         }
         $db = Database::newDB();
@@ -40,10 +42,10 @@ class LevelFactory {
         return $result;
     }
 
-    public static function getLevelObjectByLevel($level)
+    public static function getLevelObjectsByDegreeLevel($level)
     {
-        if(!isset($level)) {
-            throw new \InvalidArgumentException('Missing student level.');
+        if (!isset($level)) {
+            throw new \InvalidArgumentException('Missing degree level.');
         }
         $db = Database::newDB();
         $pdo = $db->getPDO();
@@ -56,14 +58,15 @@ class LevelFactory {
 
     public static function saveNewCode($code)
     {
-        if(!isset($code) || is_null($code)){
+        if (!isset($code) || is_null($code)) {
             throw new \InvalidArgumentException('Missing new code.');
         }
         $db = PdoFactory::getPdoInstance();
         $values = array(
             'cod' => $code,
             'descr' => 'Unknown Level',
-            'lev' => 'Unknown');
+            'lev' => 'Unknown'
+        );
 
         $query = "INSERT INTO intern_student_level (code, description, level)
             VALUES (:cod, :descr, :lev)";
