@@ -25,7 +25,7 @@ namespace Intern\Command;
 use Intern\DataProvider\Major\MajorsProviderFactory;
 use Intern\TermFactory;
 use Intern\AcademicMajor;
-use Intern\DegreeLevel;
+use Intern\Level;
 
 /**
  * GetGraduateMajors
@@ -42,7 +42,7 @@ class GetGraduateMajors
     {
         $terms = TermFactory::getAvailableTerms();
 
-        $majorsList = MajorsProviderFactory::getProvider()->getMajorsByDegreeLevel(DegreeLevel::GRADUATE);
+        $majorsList = MajorsProviderFactory::getProvider()->getMajorsByDegreeLevel(Level::GRADUATE);
 
         $majorsArray = $majorsList->getAllMajors();
 

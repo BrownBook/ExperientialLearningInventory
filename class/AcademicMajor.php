@@ -31,6 +31,7 @@ class AcademicMajor
 {
 
     // Fields must be public for json_encode()
+    public $id;
     public $code;
     public $description;
     public $level;

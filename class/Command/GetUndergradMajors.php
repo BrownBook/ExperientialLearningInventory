@@ -24,7 +24,7 @@ namespace Intern\Command;
 
 use Intern\DataProvider\Major\MajorsProviderFactory;
 use Intern\TermFactory;
-use Intern\DegreeLevel;
+use Intern\Level;
 
 /**
  * GetUndergradMajors
@@ -47,7 +47,7 @@ class GetUndergradMajors
             exit;
         }
 
-        $majorsList = MajorsProviderFactory::getProvider()->getMajorsByDegreeLevel(DegreeLevel::UNDERGRAD);
+        $majorsList = MajorsProviderFactory::getProvider()->getMajorsByDegreeLevel(Level::UNDERGRAD);
 
         $majorsArray = $majorsList->getAllMajors();
 
