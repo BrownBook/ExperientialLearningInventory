@@ -21,7 +21,7 @@
     "react-error-boundary": "^4.1.2",
     "react-select": "^5.10.2",
     "react-transition-group": "^4.4.5",
-    "zod": "^3.24.4"
+    "zod": "^4.6.6"
   },
   "devDependencies": {
     "@axe-core/react": "^4.5.2",
