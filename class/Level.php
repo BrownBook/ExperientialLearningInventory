@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of Internship Inventory.
  *
@@ -16,70 +17,76 @@
  * along with Internship Inventory.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Copyright 2011-2018 Appalachian State University
+ * Copyright 2026 Brown Book Software
  */
- 
+
 namespace Intern;
 
 /**
-* Level
-*
-* Represents a level for student.
-*
-* @author Cydney Caldwell
-*/
+ * Level
+ *
+ * Represents a level for student.
+ *
+ * @author Cydney Caldwell
+ */
 
-class Level {
+class Level
+{
     public $code;
     public $description;
     public $level;
 
+    // TODO: Use an enum for this instead of a class with constants, once PHP 8.1 is available on the server.
     const UNDERGRAD = 'ugrad';
     const GRADUATE  = 'grad';
+    const DOCTORAL  = 'doctoral';
+
+    const LEVELS = array(self::UNDERGRAD, self::GRADUATE, self::DOCTORAL);
 
     /**
-    * Returns this objects database code
-    * @return varchar
-    */
+     * Returns this objects database code
+     * @return varchar
+     */
     public function getCode()
     {
         return $this->code;
     }
     /**
-    * Sets this objects database code.
-    * @param varchar $code
-    */
+     * Sets this objects database code.
+     * @param varchar $code
+     */
     public function setCode($code)
     {
         $this->code = $code;
     }
     /**
-    * Returns this objects database description
-    * @return varchar
-    */
+     * Returns this objects database description
+     * @return varchar
+     */
     public function getDesc()
     {
         return $this->description;
     }
     /**
-    * Sets this objects database description.
-    * @param varchar $description
-    */
+     * Sets this objects database description.
+     * @param varchar $description
+     */
     public function setDesc($description)
     {
         $this->description = $description;
     }
     /**
-    * Returns this objects database level
-    * @return varchar
-    */
+     * Returns this objects database level
+     * @return varchar
+     */
     public function getLevel()
     {
         return $this->level;
     }
     /**
-    * Sets this objects database level.
-    * @param varchar $level
-    */
+     * Sets this objects database level.
+     * @param varchar $level
+     */
     public function setLevel($level)
     {
         $this->level = $level;

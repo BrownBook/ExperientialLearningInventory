@@ -109,14 +109,33 @@ class ResultsUI implements UI
         if (isset($_REQUEST['end_date'])) {
             $endDate = $_REQUEST['end_date'];
         }
+
         /* Get Pager */
-        $pager = self::getPager($name, $dept, $term, $ugradMajor, $gradProg,
-                        $level, $type, $campus, $loc, $state, $country,
-                        $workflowState, $courseSubject, $courseNum, $courseSect,
-                        $oied, $faculty, $startDate, $endDate);
+        $pager = self::getPager(
+            $name,
+            $dept,
+            $term,
+            $ugradMajor,
+            $gradProg,
+            $level,
+            $type,
+            $campus,
+            $loc,
+            $state,
+            $country,
+            $workflowState,
+            $courseSubject,
+            $courseNum,
+            $courseSect,
+            $oied,
+            $faculty,
+            $startDate,
+            $endDate
+        );
+
+        var_dump($level, $ugradMajor, $gradProg);
 
         $pagerContent = $pager->get();
-
 
         // If there were no results, send the user back to the search interface
         if ($pager->display_rows === null) {
@@ -141,15 +160,31 @@ class ResultsUI implements UI
      * Search strings can be passed in too.
      */
 
-    private static function getPager($name = null, $deptId = null, $term = null,
-            $ugradMajor = null, $gradProg = null, $level = null, $type = null,
-            $campus = null, $loc = null, $state = null, $country = null,
-            $workflowState = null, $courseSubject = null, $courseNum = null,
-            $courseSect = null, $oied = null, $faculty = null,
-            $startDate = null, $endDate = null)
-    {
-        $pager = new SubselectPager('intern_internship',
-                '\Intern\InternshipRestored');
+    private static function getPager(
+        $name = null,
+        $deptId = null,
+        $term = null,
+        $ugradMajor = null,
+        $gradProg = null,
+        $level = null,
+        $type = null,
+        $campus = null,
+        $loc = null,
+        $state = null,
+        $country = null,
+        $workflowState = null,
+        $courseSubject = null,
+        $courseNum = null,
+        $courseSect = null,
+        $oied = null,
+        $faculty = null,
+        $startDate = null,
+        $endDate = null
+    ) {
+        $pager = new SubselectPager(
+            'intern_internship',
+            '\Intern\InternshipRestored'
+        );
 
         // Pager Settings
         $pager->setModule('intern');
@@ -163,12 +198,21 @@ class ResultsUI implements UI
 
         // If the current user is not a deity and doesn't have the 'all_departments' permission,
         // then add a join to limit the results to just the allowed departments
-        if (!\Current_User::isDeity() && !\Current_User::allow('intern',
-                        'all_departments')) {
-            $pager->db->addJoin('', 'fuzzy', 'intern_admin', 'department_id',
-                    'department_id');
-            $pager->addWhere('intern_admin.username',
-                    \Current_User::getUsername());
+        if (!\Current_User::isDeity() && !\Current_User::allow(
+            'intern',
+            'all_departments'
+        )) {
+            $pager->db->addJoin(
+                '',
+                'fuzzy',
+                'intern_admin',
+                'department_id',
+                'department_id'
+            );
+            $pager->addWhere(
+                'intern_admin.username',
+                \Current_User::getUsername()
+            );
         }
 
         // Limit to requested department
@@ -230,10 +274,20 @@ class ResultsUI implements UI
                 $fuzzyDb->addColumnRaw("LEAST(levenshtein('{$tokens[$i]}', lower(last_name)),levenshtein('{$tokens[$i]}', lower(first_name))) as t{$i}_lev");
                 $fuzzyDb->addColumnRaw("LEAST(levenshtein(metaphone('{$tokens[$i]}', 10), last_name_meta),levenshtein(metaphone('{$tokens[$i]}', 10), first_name_meta)) as t{$i}_metalev");
 
-                $pager->db->addWhere("fuzzy.t{$i}_lev", 3, '<', 'OR',
-                        'lev_where');
-                $pager->db->addWhere("fuzzy.t{$i}_metalev", $fuzzyTolerance,
-                        '<', 'OR', 'metaphone_where');
+                $pager->db->addWhere(
+                    "fuzzy.t{$i}_lev",
+                    3,
+                    '<',
+                    'OR',
+                    'lev_where'
+                );
+                $pager->db->addWhere(
+                    "fuzzy.t{$i}_metalev",
+                    $fuzzyTolerance,
+                    '<',
+                    'OR',
+                    'metaphone_where'
+                );
 
                 // Add order for this token's *_metalev fields
                 $orderByList[] = "fuzzy.t{$i}_lev";
@@ -247,23 +301,43 @@ class ResultsUI implements UI
             $pager->db->addSubSelect($fuzzyDb, 'fuzzy');
         }
 
-        $pager->db->addJoin('LEFT OUTER', 'fuzzy', 'intern_faculty',
-                'faculty_id', 'id');
-        $pager->db->addJOIN('LEFT OUTER', 'fuzzy', 'intern_department',
-                'department_id', 'id');
+        $pager->db->addJoin(
+            'LEFT OUTER',
+            'fuzzy',
+            'intern_faculty',
+            'faculty_id',
+            'id'
+        );
+        $pager->db->addJOIN(
+            'LEFT OUTER',
+            'fuzzy',
+            'intern_department',
+            'department_id',
+            'id'
+        );
 
         // Student level
         if (isset($level)) {
-            $sLevel = LevelFactory::getLevelObjectByLevel($level);
+            $sLevel = LevelFactory::getLevelObjectsByDegreeLevel($level);
             if ($level == Level::UNDERGRAD) {
                 for ($i = 0; $i < count($sLevel); $i++) {
-                    $pager->addWhere('level', $sLevel[$i]->code, null, 'OR',
-                            'grad_level');
+                    $pager->addWhere(
+                        'level',
+                        $sLevel[$i]->level,
+                        null,
+                        'OR',
+                        'grad_level'
+                    );
                 }
             } else if ($level == Level::GRADUATE) {
                 for ($i = 0; $i < count($sLevel); $i++) {
-                    $pager->addWhere('level', $sLevel[$i]->code, null, 'OR',
-                            'grad_level');
+                    $pager->addWhere(
+                        'level',
+                        $sLevel[$i]->level,
+                        null,
+                        'OR',
+                        'grad_level'
+                    );
                 }
             }
         }
@@ -323,8 +397,13 @@ class ResultsUI implements UI
         if (isset($workflowState)) {
             foreach ($workflowState as $s) {
                 $path = explode('\\', $s);
-                $pager->db->addWhere('state', $path[2], '=', 'OR',
-                        'workflow_group');
+                $pager->db->addWhere(
+                    'state',
+                    $path[2],
+                    '=',
+                    'OR',
+                    'workflow_group'
+                );
             }
         }
 
@@ -338,13 +417,23 @@ class ResultsUI implements UI
         }
 
         if (!empty($startDate)) {
-            $pager->addWhere('start_date', strtotime($startDate), '>=', 'AND',
-                    'date_group');
+            $pager->addWhere(
+                'start_date',
+                strtotime($startDate),
+                '>=',
+                'AND',
+                'date_group'
+            );
         }
 
         if (!empty($endDate)) {
-            $pager->addWhere('end_date', strtotime($endDate), '<=', 'AND',
-                    'date_group');
+            $pager->addWhere(
+                'end_date',
+                strtotime($endDate),
+                '<=',
+                'AND',
+                'date_group'
+            );
         }
 
         /**
@@ -371,13 +460,14 @@ class ResultsUI implements UI
          * *** Other Page Tags *****
          */
         $pageTags = array();
-        $pageTags['BACK_LINK_URI'] = \PHPWS_Text::linkAddress('intern',
-                        array('action' => 'search'));
+        $pageTags['BACK_LINK_URI'] = \PHPWS_Text::linkAddress(
+            'intern',
+            array('action' => 'search')
+        );
 
 
         $pager->addPageTags($pageTags);
 
         return $pager;
     }
-
 }

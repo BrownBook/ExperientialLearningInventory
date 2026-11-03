@@ -34,6 +34,8 @@ abstract class MajorsProvider
      */
     public abstract function getMajors(): AcademicMajorList;
 
+    public abstract function getMajorsByDegreeLevel(string $level): AcademicMajorList;
+
     public abstract function getMajorByCode(string $code): ?AcademicMajor;
 
     public abstract function createMajor(AcademicMajor $major);

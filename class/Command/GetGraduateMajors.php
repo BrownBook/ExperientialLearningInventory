@@ -17,7 +17,7 @@
  * along with Internship Inventory.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Copyright 2011-2018 Appalachian State University
- * Copyright 2025 Brown Book Software
+ * Copyright 2025-2026 Brown Book Software
  */
 
 namespace Intern\Command;
@@ -25,15 +25,15 @@ namespace Intern\Command;
 use Intern\DataProvider\Major\MajorsProviderFactory;
 use Intern\TermFactory;
 use Intern\AcademicMajor;
+use Intern\Level;
 
 /**
- * GetGraduateMajors - DEPRECATED
+ * GetGraduateMajors
  *
  * This class is responsible for fetching the list of graduate majors from the database.
  * It uses the MajorsProviderFactory to get the available majors and returns them in JSON format.
  *
  * @package Intern\Command
- * @deprecated This class is deprecated and should not be used in new code.
  */
 class GetGraduateMajors
 {
@@ -42,16 +42,15 @@ class GetGraduateMajors
     {
         $terms = TermFactory::getAvailableTerms();
 
-        // A bit of a hack regarding the term. There isn't always a single "current" term, so we'll take whatever
-        // the first active term is.
-        $majorsList = MajorsProviderFactory::getProvider()->getMajors($terms[0]);
-        $majorsList = $majorsList->getMajorsByLevel(AcademicMajor::LEVEL_GRADUATE);
+        $majorsList = MajorsProviderFactory::getProvider()->getMajorsByDegreeLevel(Level::GRADUATE);
+
+        $majorsArray = $majorsList->getAllMajors();
 
         $defaultValue = new \StdClass();
         $defaultValue->code = '-1';
         $defaultValue->description = 'Select Graduate Major';
 
-        $majorsList = array_merge(array($defaultValue), $majorsList);
+        $majorsList = array_merge(array($defaultValue), $majorsArray);
 
         echo json_encode($majorsList);
         exit;

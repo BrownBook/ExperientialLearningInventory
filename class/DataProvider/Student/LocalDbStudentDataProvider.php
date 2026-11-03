@@ -94,11 +94,12 @@ class LocalDbStudentDataProvider extends StudentDataProvider
 
         // Majors - Only one allowed here (this differs from WebServiceDataProvider)
         // code and description fields must both be not null and not empty string to add a major
+        // TODO: Lookup major by code and get it's ID
         if (
             $data['major_code'] !== null && $data['major_code'] !== ''
             && $data['major_description'] !== null && $data['major_description'] !== ''
         ) {
-            $student->addMajor(new AcademicMajor($data['major_code'], $data['major_description'], $data['level'], null, null, 0));
+            $student->addMajor(new AcademicMajor($data['major_code'], $data['major_description'], $data['level'], null, null, 0, null));
         }
 
         $student->setGpa(round($data['gpa'], 4));

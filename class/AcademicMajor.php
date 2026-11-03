@@ -31,19 +31,16 @@ class AcademicMajor
 {
 
     // Fields must be public for json_encode()
+    public $id;
     public $code;
     public $description;
     public $level;
     public $hidden;
     public $cip_code;
     public $cip_title;
+    public $degree_level;
 
-    // TODO: Deprecate these. They're stored in the separate DB table
-    // Still used in the MajorSelector react component on the search UI
-    const LEVEL_UNDERGRAD   = 'U';
-    const LEVEL_GRADUATE    = 'G';
-
-    public function __construct(string $code, string $description, string $level, string|null $cip_code, string|null $cip_title, int $hidden)
+    public function __construct(string $code, string $description, string $level, string|null $cip_code, string|null $cip_title, int $hidden, string|null $degree_level)
     {
         $this->code = $code;
         $this->description = $description;
@@ -51,6 +48,7 @@ class AcademicMajor
         $this->hidden = $hidden;
         $this->cip_code = $cip_code;
         $this->cip_title = $cip_title;
+        $this->degree_level = $degree_level;
     }
 
     public function getCode(): string
@@ -80,5 +78,10 @@ class AcademicMajor
     public function getCipCode(): string
     {
         return $this->cip_code;
+    }
+
+    public function getDegreeLevel(): string
+    {
+        return $this->degree_level;
     }
 }
