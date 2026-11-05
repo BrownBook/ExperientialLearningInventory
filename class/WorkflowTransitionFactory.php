@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of Internship Inventory.
  *
@@ -22,7 +23,8 @@ namespace Intern;
 
 use \PHPWS_Core;
 
-class WorkflowTransitionFactory {
+class WorkflowTransitionFactory
+{
 
     private static $dir = 'WorkflowTransition';
 
@@ -47,25 +49,27 @@ class WorkflowTransitionFactory {
 
         // Filter the list of all transitions by finding the transitions which have this state
         // in their list of potential source states
-        foreach($transitions as $t){
+        foreach ($transitions as $t) {
             // Set the actual source state
             $t->setSourceState($state);
 
-            if(is_array($t->getSourceState()) && in_array($stateName, $t->getSourceState()) && $t->isApplicable($i)){
+            if (is_array($t->getSourceState()) && in_array($stateName, $t->getSourceState()) && $t->isApplicable($i)) {
                 $outgoingTrans[] = $t;
-            }else if(($t->getSourceState() == $stateName || $t->getSourceState() == '*') && $t->isApplicable($i)){
+            } else if (($t->getSourceState() == $stateName || $t->getSourceState() == '*') && $t->isApplicable($i)) {
                 $outgoingTrans[] = $t;
             }
         }
 
-        uasort($outgoingTrans, array('self', 'sortTransitions'));
+        // Sort the transitions by their sort index
+        $sortCallable = \Intern\WorkflowTransitionFactory::sortTransitions(...);
+        uasort($outgoingTrans, $sortCallable);
 
         return $outgoingTrans;
     }
 
     public static function getTransitionByName($name)
     {
-        if(!isset($name)){
+        if (!isset($name)) {
             throw new \InvalidArgumentException('Missing transition name.');
         }
 
@@ -79,9 +83,9 @@ class WorkflowTransitionFactory {
         // Get the directory listing and filter out anything that doesn't look right
         $files = scandir("{$dir}/");
         $transitions = array();
-        foreach($files as $f){
+        foreach ($files as $f) {
             // Look for directories that don't start with '.'
-            if(!is_dir($dir . '/' . $f) && substr($f, 0, 1) != '.'){
+            if (!is_dir($dir . '/' . $f) && substr($f, 0, 1) != '.') {
                 // Include each one
                 PHPWS_Core::initModClass('intern', self::$dir . '/' . $f);
                 $className = preg_replace('/\.php/', '', $f);
@@ -103,7 +107,7 @@ class WorkflowTransitionFactory {
      */
     private static function sortTransitions(WorkflowTransition $a, WorkflowTransition $b)
     {
-        if($a->getSortIndex() == $b->getSortIndex()){
+        if ($a->getSortIndex() == $b->getSortIndex()) {
             return 0;
         }
         return ($a->getSortIndex() < $b->getSortIndex()) ? -1 : 1;

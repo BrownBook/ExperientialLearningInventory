@@ -654,10 +654,6 @@ CREATE TABLE intern_internship (
        start_date INT default 0,
        end_date INT default 0,
 
-       internship SMALLINT NOT NULL,
-       student_teaching SMALLINT NOT NULL,
-       clinical_practica SMALLINT NOT NULL,
-
        state character varying NOT NULL,
        oied_certified smallint not null default 0,
 
